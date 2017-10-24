@@ -1,0 +1,17 @@
+<div id="remark">
+  <h4 style="font-size: 30px;text-align: center;">Recomendaciones</h4>
+  <div >
+    <div id="remarks" *ngFor="let item of this.remarks">
+      <h5 style="font-size: 15px">Usuario: <span style="font-size: 15px">{{item.usuario}}</span></h5>
+      <h5>{{item.observacion}}</h5>
+    </div>
+  </div>
+
+
+  <div *ngIf="this.tipo_usuario != 'sup'" id="form-remark">
+    <p>Agregar nuevo comentario</p>
+    <textarea [(ngModel)]="cad" #ctrl="ngModel" placeholder="Agrega aqui tu comentario..." required="required" style="width:100%;max-width:100%;min-height:100px"></textarea>
+    <br>
+    <button class="btn btn-success center-block" (click)="regMark()"> Guardar </button>
+  </div>
+</div>

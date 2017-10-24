@@ -1,0 +1,10 @@
+<div *ngIf="!this.serviciog.actividad.nombre_cat" style="padding: 1px" class="form-inline form">
+  <label class="form-control" for="etapa" class="lab form-inline">Estado:</label>
+  <div style="display: block; height: 500px; width: 700px; margin-top: 5px;margin-left: 70px">
+    <div class="center-block">
+      <canvas class="center-block" baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types"
+        [colors]="this.serviciog.colors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+      </canvas>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,99 @@
+<div class="container" style="background-color: #DEDCDD;">
+	<h2>LISTA DE PROYECTOS</h2>
+	<div class="row">
+		<div class="col-md-3"></div>
+		<div class="col-md-6"> 
+			<div class="input-group">
+				<input #prj type="text" class="form-control" placeholder="Buscar..." (keyup)="btnSearchPrj(prj.value)">
+				<span class="input-group-btn">
+					<button type="button" class="btn btn-primary" aria-label="Left Align" (click)="btnSearchPrj(prj.value)">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+		<div class="col-md-3"></div>
+	</div>
+
+	<div  style="overflow-y: auto; height: 75vh" class="scroll">
+		<table  class="table table-striped">
+			<thead>
+				<tr>
+					<th style="width: 50%" style="text-align: left;">Proyecto</th>
+					<!-- <th style="width: 30%">Lider de Proyecto</th> -->
+					<th style="width: 25%" style="text-align: center;">Dueño</th>
+					<th style="width: 25%" style="text-align: center;">Porcentaje Ejecutado</th>
+				</tr>
+			</thead>
+			<tbody >
+
+				<tr *ngFor="let proyect of this.projectList" style="height: 30px;">
+					<td>
+						<p>{{proyect.nom_pro}}</p>
+						<span>
+							<p *ngIf="proyect.descripcion.indexOf('C.C') !== -1">{{proyect.descripcion}}</p>
+						</span>
+					</td>
+					<td><p class="txt">{{proyect.nombre}} {{proyect.apellido}}</p></td>
+					<td><p class="txt">{{proyect.porcentaje_cumplido}} % </p></td>
+					<td>
+						<button  class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">
+							Entrar
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+
+	<button class="btn btn-primary" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"	data-toggle="modal" data-target="#mod-reg-pro">
+		NUEVO PROYECTO
+	</button>
+
+
+
+	<div class="scrollbar row" style="display: none;">
+		<div class=" col-md-6" *ngFor="let proyect of this.serviciog.proyecto">
+			<div class="row projectCard" style="margin: 10px">
+				<div class="col-md-3">
+					<div style="background-color: white; margin-top: 30px">
+						<img style="height: 100px;" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">
+					</div>
+				</div>
+				<div class="col-md-9">
+					<h4 style="text-transform: uppercase; height: 30px">{{proyect.nombre}}</h4>
+					<div>
+						<div class="row">
+							<div class="lab1 col-md-3">Lider de Proyecto:</div>
+							<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
+						</div>
+						<div>
+							<div class="lab1">Descripción:</div>
+							<div class="lab2">{{proyect.descripcion}}</div>
+						</div>
+						<div class="row">
+							<div class="lab1 col-md-6">
+								<div>Estado:</div>
+								<div class="lab2">{{proyect.estado}}</div>
+							</div>
+							<div class="lab1 col-md-6">
+								<div>Progreso:</div>
+								<div class="lab2">{{proyect.porcentaje}}%</div>
+							</div>
+						</div>
+					</div>
+
+
+				</div>
+			</div>
+		</div>
+		<button class="btn btn-primary"
+	style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;"
+	data-toggle="modal"
+	data-target="#mod-reg-pro">
+	NUEVO PROYECTO
+</button>
+	</div>
+
+</div>
+<registro-proyecto></registro-proyecto>

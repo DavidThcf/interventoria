@@ -1,0 +1,55 @@
+<div id="mod-reg-pro" style="margin-top: 50px" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="vertical-align: middle;">
+		<!-- Modal content-->
+		<div class="modal-content" >
+			<div class="modal-body" style="height:auto">
+
+				<div style="margin-top:10px;margin-right:20px">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div> 
+				
+				<form #projectForm="ngForm" (ngSubmit)="onSubmitPro(projectForm)" style="margin-right: 5%; margin-left: 5%; margin-top:3%;" enctype="multipart/form-data">
+
+					<div class="form-group">
+						<label for="nombre" class="lab">Nombre</label>
+						<input name="nombre" type="text" id="nombre" class="form-control" name="nombres" required [(ngModel)]="this.proyecto.nombre">
+						<div *ngIf="formErrors.nombre" class="alert alert-danger">
+							{{ formErrors.nombre }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="descripción" class="lab">Descripción</label>
+						<input name="descripcion" type="text" id="descripcion" class="form-control" name="descripcion"  required [(ngModel)]="this.proyecto.descripcion"  >
+						<div *ngIf="formErrors.descripcion" class="alert alert-danger">
+							{{ formErrors.descripcion }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="fecha_inicial" class="lab">Fecha Inicio</label>
+						<input name="fecha_ini" type="date" id="fecha_ini" class="form-control" name="fecha_ini"  required [(ngModel)]="this.proyecto.fecha_inicio">
+						<div *ngIf="formErrors.fecha_inicio" class="alert alert-danger">
+							{{ formErrors.fecha_inicio }}
+						</div>
+
+					</div>
+					<div class="form-group">
+						<label for="fecha_fin" class="lab">Fecha Final</label>
+						<input name="fecha_fin" type="date" id="fecha_fin" class="form-control" name="fecha_fin" [(ngModel)]="this.proyecto.fecha_fin">	
+						<div *ngIf="formErrors.fecha_fin" class="alert alert-danger">
+							{{ formErrors.fecha_fin }}
+						</div>		
+					</div>			
+
+					<div class="form-group">          
+						<label class="uploader2" for="upload2">
+							{{this.imagenName}}          
+						</label>
+						<input  type="file" id="upload2" accept=".jpg" (change)="imageChange($event)" />         
+					</div>
+
+					<button type="submit" class="btn btn-success" name="btnLogin" [disabled]="!projectForm.form.valid">Guardar</button>
+				</form>	
+			</div>       
+		</div>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+.badge{
+    color: #fff;
+    background-color: #dc7c01;
+}
+
+.alrt{
+    color: #fff;
+    background-color: #C70000;
+}
+
+.listNovedades:hover{
+	background-color: rgba(0,0,0,0.5);
+}
+
+ /*css para el alert de novedades*/
+ .alert {
+    position: absolute;
+    top:90%;
+    left: 3%;
+    z-index: 4;
+}

@@ -1,0 +1,16 @@
+<div id="pan-observacion" style="width: 70%; " class="center-block">
+  <h4 style="font-size: 30px;text-align: center;">OBSERVACION</h4>
+ 
+ 
+  <div id="observacion" *ngFor="let item of this.observaciones">
+    <h5 style="font-size: 15px">Usuario: <span style="font-size: 15px">{{item.usuario}}</span></h5>
+    <h5>{{item.observacion}}</h5>
+  </div>
+
+  <div id="form-observacion" style="margin-top: 20px">
+    <p>Agregar nueva observacion</p>
+    <textarea #txtArea placeholder="Agrega aqui tu observacion..." required="required" style="width:100%; max-width: 100% ; min-height : 100px ; "></textarea>
+    <br>
+    <button class="btn btn-success center-block" (click)="regObservacion(txtArea.value)"> Guardar </button>
+  </div>
+</div>

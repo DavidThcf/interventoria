@@ -1,0 +1,288 @@
+<!--ng g m nombre-->
+<!--ng g c nombre-->
+<div class="container">
+	<div>
+		<select #sel class="select-mul form-control" name="tipo" [(ngModel)]="this.opcion" (change)="changeOption(sel.value)">
+			<option value="por">Porcentajes</option>
+			<option value="mul">Multimedia</option>
+			<option value="rec">Recomendaciones</option>
+			<option value="obs">Observaciones</option>
+		</select>
+		<br/>
+		<table *ngIf="this.opcion == 'por'" class="tableBodyScroll  table table-striped ">
+			<thead>
+				<tr>
+					<th style="width: 30%">Nombre</th>
+					<th style="width: 15%">Porcentaje Actual</th>
+					<th style="width: 15%">Porcentaje Futuro</th>
+					<th style="width: 15%">Fecha</th>
+					<th style="width: 15%">Usuario</th>
+					<th style="width: 10%">Aprobacion</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr *ngFor="let novedad of this.novedades" class="fila">
+					<td style="width: 30%;color:blue" (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map">{{novedad.tipo | uppercase}} {{novedad.nombre | uppercase}}</td>
+					<td style="width: 15%">{{novedad.porcentaje_actual}}</td>
+					<td style="width: 15%">{{novedad.porcentaje_futuro}}</td>
+					<td style="width: 15%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
+					<td style="width: 15%">{{novedad.usu_nov | uppercase}}</td>
+					<td style="width: 10%">
+						<button type="button" class="btn btn-success" aria-label="Left Align" (click)='approvalPercentage(novedad,true)'>
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-danger" aria-label="Left Align" (click)='approvalPercentage(novedad,false)' data-toggle="modal"
+						 data-target="#mod-remark-map">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- inicio tabla multimedia -->
+		<table *ngIf="this.opcion == 'mul'" class="tableBodyScroll  table table-striped ">
+			<thead>
+				<tr>
+					<th style="width: 30%">Nombre</th>
+					<th style="width: 20%">Nombre Archivo</th>
+					<th style="width: 10%">Fecha de Carga</th>
+					<th style="width: 15%">Usuario</th>
+					<th style="width: 25%"></th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr *ngFor="let novedad of this.novedades" class="fila">
+					<td style="width: 30%">{{novedad.nombre}}</td>
+					<td style="width: 20%">{{novedad.titulo}}</td>
+					<td style="width: 10%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
+					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>
+					<td style="width: 25%">
+						<!-- <a href={{novedad.link}} target="_blank">{{novedad.nombre_archivo}}</a> -->
+						<img alt='img'  class="img-responsive" 
+						style="margin-top:0px;width:100px;height:100px" 
+						data-toggle="modal" data-target="#mod-pic-map"
+						src= {{novedad.link}} (click)='this.pic=novedad.link'>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- fin tabal multimedia -->
+		<table *ngIf="this.opcion == 'obs'" class="tableBodyScroll  table table-striped ">
+			<thead>
+				<tr>
+					<th style="width: 25%">Nombre</th>
+					<th style="width: 35%">Observacion</th>
+					<th style="width: 15%">Fecha</th>
+					<th style="width: 15%">Usuario</th>
+					<th style="width: 10%">Aprobacion</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr *ngFor="let novedad of this.novedades" class="fila">
+					<td style="width: 25%;color:blue" (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map">
+					{{novedad.nom_act | uppercase}}</td>
+					<td style="width: 35%">{{novedad.observacion}}</td>
+					<td style="width: 15%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
+					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>
+					<td style="width: 10%">
+						<button type="button" class="btn btn-success" aria-label="Left Align" (click)='approvalObservation(novedad,true)'>
+							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+						</button>
+						<button type="button" class="btn btn-danger" aria-label="Left Align" (click)='approvalObservation(novedad,false)' data-toggle="modal"
+						 data-target="#mod-remark-map">
+							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
+						</button>
+					</td>
+				</tr>
+			</tbody>
+
+		</table>
+
+		<table *ngIf="this.opcion == 'rec'" class="tableBodyScroll  table table-striped ">
+			<thead>
+				<tr>
+					<th style="width: 25%">Nombre</th>
+					<th style="width: 35%">Recomendacion</th>
+					<th style="width: 15%">Fecha</th>
+					<th style="width: 15%">Usuario</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr *ngFor="let novedad of this.novedades" class="fila">
+					<td style="width: 25%;color:blue" (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map">
+					{{novedad.nom_act | uppercase}}</td>
+					<td style="width: 35%">{{novedad.observacion}}</td>
+					<td style="width: 15%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
+					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>
+				</tr>
+			</tbody>
+
+		</table>
+	</div>
+
+
+	<!-- modal que abre formulario para agregar recomendacion  -->
+	<div id="mod-remark-map" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="vertical-align: middle;">
+			<!-- Modal content-->
+			<div class="modal-content">
+				<div class="modal-body" style="height:auto">
+
+					<div style="margin-top:10px;margin-right:20px">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+
+					<div style="margin-top:10px">
+
+						<div id="form-remark">
+							<p style="font-size: 20px">Agregar nuevo comentario</p>
+							<textarea [(ngModel)]="cad" #ctrl="ngModel" placeholder="Agrega aqui tu comentario..." required="required" style="width:100%;max-width:100%;min-height:100px"></textarea>
+							<br>
+							<button class="btn btn-success center-block" (click)="regMarkNovedad(this.novedad)"> Guardar </button>
+						</div>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal que muestra los archivos multimedia  -->
+	<div id="mod-mul-map" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="vertical-align: middle;width: 95%;margin-top: 50px;">
+			<!-- Modal content-->
+			<div class="modal-content" style="min-height: 87vh;">
+				<div class="modal-body" style="height:auto">
+
+					<div style="margin-top:10px;margin-right:20px">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div style="width:90%" class="center-block">
+						<div style="margin-top:3%">
+							<h1 id="mod-log-tit">Multimedia</h1>
+						</div>
+						<hr/>
+
+						<div class="input-group">
+							<input type="text" class="form-control" placeholder="Buscar...">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary" aria-label="Left Align">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+						</div>
+
+						<select class="select-mul form-control" name="tipo" [(ngModel)]="this.tipo" (change)="cambio($event)">
+							<option value="img">Imagenes</option>
+							<option value="doc">Documentos</option>
+							<option value="sou">Audios</option>
+							<option value="vid">Videos</option>
+							<option value="oth">Otros</option>
+						</select>
+
+						<div class="row" *ngIf="this.tipo === 'img'">
+							<h3>Imagenes</h3>
+							<div class="col-xs-6 col-md-3" *ngFor="let archivo of this.archivos">
+								<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=archivo.isViewMap (change)="checked(archivo)">
+								<a class="thumbnail">
+									<img src={{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}} alt={{archivo.subtitulo}}>
+									<div class="caption">
+										<h3>{{archivo.titulo}}</h3>
+									</div>
+								</a>
+							</div>
+						</div>
+
+						<div class="row" *ngIf="this.tipo === 'doc'">
+							<h3>Documentos</h3>
+							<table class="multHover table table-striped" style="width:90%;margin-left:5%">
+								<thead>
+									<tr style="position:relative;width:100%">
+										<th>#</th>
+										<th style="width:20%">Titulo</th>
+										<th style="width:65%">Descripción</th>
+										<th style="width:10%"></th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr style="cursor:pointer" *ngFor="let archivo of this.archivos">
+										<th scope="row" style="vertical-align:middle">#</th>
+										<td style="vertical-align:middle">{{archivo.titulo}}</td>
+										<td>{{archivo.subtitulo}}</td>
+										<td>
+											<button (click)="show(archivo)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+						<div class="row" *ngIf="this.tipo === 'sou'">
+							<h3>Audio</h3>
+							<table class="multHover table table-striped" style="width:90%;margin-left:5%">
+								<thead>
+									<tr style="position:relative;width:100%">
+										<th>#</th>
+										<th style="width:20%">Nombre</th>
+										<th style="width:75%">Descripción</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr style="cursor:pointer" *ngFor="let archivo of this.archivos">
+										<th scope="row" style="vertical-align:middle">#</th>
+										<td style="vertical-align:middle">{{archivo.titulo}}</td>
+										<td>{{archivo.subtitulo}}</td>
+									</tr>
+
+								</tbody>
+							</table>
+						</div>
+
+						<div class="row" *ngIf="this.tipo === 'vid'">
+							<h3>Videos</h3>
+							<div class="col-xs-12 col-md-4" *ngFor="let archivo of this.archivos">
+								<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=archivo.isViewMap (change)="checked(archivo)">
+								<a class="thumbnail">
+									<video controls class="video-js">
+										<source src="{{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}}" type='video/mp4' />
+									</video>
+									<div class="caption">
+										<h4>{{archivo.titulo}}</h4>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="row" *ngIf="this.tipo === 'oth'">
+							<h3>Otros Archivos</h3>
+						</div>
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Modal que muestra la imagen ampliada  -->
+	<div id="mod-pic-map" class="modal fade" role="dialog">
+		<div class="modal-dialog" style="vertical-align: middle;width: 95%;margin-top: 50px;">
+			<!-- Modal content-->
+			<div class="modal-content" style="min-height: 87vh;">
+				<div class="modal-body" style="height:auto">
+
+					<div style="margin-top:10px;margin-right:20px">
+						<button type="button" class="close" data-dismiss="modal">×</button>
+					</div>
+					<div style="width:90%" class="center-block">
+
+						<img alt={{this.pic}}  class="img-responsive" style="position: relative;margin-top:5%;width:90%;height:90%" src= {{this.pic}}>
+
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>

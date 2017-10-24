@@ -1,0 +1,10 @@
+.btn{
+	width: 150px;
+}
+
+.table_list{
+	overflow-y:auto; 
+	height: 71vh;
+	margin-top: 3px;
+	min-height: 58vh
+}

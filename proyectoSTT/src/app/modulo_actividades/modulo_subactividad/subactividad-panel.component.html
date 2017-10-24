@@ -1,0 +1,38 @@
+<div class="scrollbar row">
+	<div class=" col-md-6" *ngFor="let subActividad of this.subActivity" >
+		<div class="row projectCard" style="margin: 10px;">		
+			<div class="col-md-3">
+				<div style="background-color: white; margin-top: 30px">
+					<img style="height: 100px;" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png">				
+				</div>
+			</div>
+			<div class="col-md-9">
+				<h4 style="text-transform: uppercase;  height: 30px">{{subActividad.nom_act}}</h4>					
+				<div>
+					<div class="row">
+						<div class="lab1 col-md-3">Lider de Proyecto:</div>
+						<div class="lab2 col-md-8">{{subActividad.usr_nom}} {{subActividad.usr_ape}}</div>
+					</div>
+					<div>
+						<div class="lab1">Descripción:</div>
+						<div class="lab2">Subactividad en desarrollo</div>
+					</div>
+					<div class="row">
+						<div class="lab1 col-md-6">
+							<div>Estado:</div>
+							<div class="lab2">Desarrollo</div>
+						</div>
+						<div class="lab1 col-md-6">
+							<div>Progreso:</div>
+							<div class="lab2">10%</div>
+						</div>
+					</div>
+				</div>				
+
+				<button  class="btn btn-primary" (click)="entrarAct(subActividad)" style="float:right; background-color: orange">
+					Entrar
+				</button>
+			</div>	
+		</div>
+	</div>						
+</div>

@@ -1,0 +1,17 @@
+/*.bg-image {
+	background: url(../img/background.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}*/
+.center-block{
+	padding-top: 60px;
+	padding-bottom: 40px;
+	width:80%;
+	margin-left:10;
+}
+
+.fondo{
+	height: 80vh;
+}

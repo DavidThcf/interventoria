@@ -1,0 +1,47 @@
+#mod-log-tit {
+  margin-top: 40px;
+  margin-left: -45px;
+  text-align: center;
+  font-size: 60px;
+  color:cadetblue;
+}
+
+#mod-log-tit2{
+	margin-top: -20px;
+	color: gray;
+	text-align: center;
+	margin-left: 100px;
+	font-size: 25px;
+}
+
+.ng-valid[required], .ng-valid.required  {
+  border-left: 5px solid #42A948; /* green */
+}
+
+.ng-invalid:not(form)  {
+  border-left: 5px solid #a94442; /* red */
+}
+
+.lab {
+  font-family: 'Playfair Display', serif;
+}
+
+
+.uploader input {
+  display: none;
+}
+
+#upload {
+  display: none;
+}
+
+.uploader {
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+}
+
+.modal{
+  margin-top: 26px;
+}

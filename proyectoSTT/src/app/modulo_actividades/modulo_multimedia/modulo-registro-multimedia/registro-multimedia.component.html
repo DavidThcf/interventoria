@@ -1,0 +1,60 @@
+<div id="mod-reg-mult" style="margin-top: 50px" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="vertical-align: middle;">
+		<!-- Modal content-->
+		<div class="modal-content">
+			<div class="modal-body" style="height:auto">
+
+				<div style="margin-top:10px;margin-right:20px">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<form #multimediaForm="ngForm" (ngSubmit)="onSubmitPro(multimediaForm)" style="margin-right: 5%; margin-left: 5%; margin-top:3%;"
+				 enctype="multipart/form-data">
+
+					<div class="form-group">
+						<label for="titulo" class="lab">Titulo</label>
+						<input type="text" id="titulo" class="form-control" name="titulo" required [(ngModel)]="this.archivo.titulo">
+						<div *ngIf="formErrors.titulo" class="alert alert-danger">
+							{{ formErrors.titulo }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="subtitulo" class="lab">Subtitulo</label>
+						<input type="text" id="subtitulo" class="form-control" name="subtitulo" required [(ngModel)]="this.archivo.subtitulo">
+						<div *ngIf="formErrors.subtitulo" class="alert alert-danger">
+							{{ formErrors.subtitulo }}
+						</div>
+					</div>
+
+					<div class="form-group">
+						<label for="Genero" class="lab">Tipo</label>
+						<select id="genero" class="form-control" name="genero" [(ngModel)]="this.archivo.tipo" (change)="cambio()" required>
+						<option  value="img" >Imagen </option>
+						<option  value="vid" >Video</option>
+						<option  value="sou" >Audio</option>
+						<option  value="doc" >Documento</option>
+						<option  value="oth" >Otro</option>
+					</select>
+					</div>
+					<div class="form-group">
+						<label class="uploaderMult" for="uploadMult" [class.inValid]="this.imagenNameValid">
+						{{this.imagenName}}          
+					</label>
+
+						<input type="file" id="uploadMult" name="file[]" [attr.accept]="typesAceptted" (change)="imageChangeMult($event)">
+
+						<input type="text" id="imagen" name="imagen" required [(ngModel)]="this.imagenNameValid" style="display: none">
+
+						<div *ngIf="formErrors.imagen" class="alert alert-danger">
+							{{ formErrors.imagen }}
+						</div>
+
+					</div>
+
+					<button type="submit" class="btn btn-success" name="btnLogin" [disabled]="!multimediaForm.form.valid">Guardar
+			</button>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>

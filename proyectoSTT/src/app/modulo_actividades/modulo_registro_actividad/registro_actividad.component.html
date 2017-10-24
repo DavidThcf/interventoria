@@ -1,0 +1,61 @@
+<div id="mod-reg-act" style="margin-top: 50px" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="vertical-align: middle;">
+		<!-- Modal content-->
+		<div class="modal-content" >
+			<div class="modal-body" style="height:auto">
+
+				<div style="margin-top:10px;margin-right:20px">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div> 
+				
+				<form #activityForm="ngForm" (ngSubmit)="onSubmitPro(activityForm)" style="margin-right: 5%; margin-left: 5%; margin-top:3%;" enctype="multipart/form-data">
+					<div class="form-group">
+						<label for="nombre" class="lab">Nombre</label>
+						<input type="text" id="nombre" class="form-control" name="nombre" required [(ngModel)]="this.actividad.nombre">
+						<div *ngIf="formErrors.nombre" class="alert alert-danger">
+							{{ formErrors.nombre }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="descripción" class="lab">Descripción</label>
+						<input type="text" id="descripcion" class="form-control" name="descripcion"  required [(ngModel)]="this.actividad.descripcion"  >
+						<div *ngIf="formErrors.descripcion" class="alert alert-danger">
+							{{ formErrors.descripcion }}
+						</div>
+					</div>
+					<div class="form-group">
+						<label for="fecha_inicial" class="lab">Fecha Inicio</label>
+						<input type="date" id="fecha_ini" class="form-control" name="fecha_ini"  required [(ngModel)]="this.actividad.fecha_inicio">
+						<div *ngIf="formErrors.fecha_inicio" class="alert alert-danger">
+							{{ formErrors.fecha_inicio }}
+						</div>
+
+					</div>
+					<div class="form-group">
+						<label for="fecha_fin" class="lab">Fecha Final</label>
+						<input  type="date" id="fecha_fin" class="form-control" name="fecha_fin" [(ngModel)]="this.actividad.fecha_fin">	
+						<div *ngIf="formErrors.fecha_fin" class="alert alert-danger">
+							{{ formErrors.fecha_fin }}
+						</div>		
+					</div>
+
+					<div class="form-group">
+						<label for="etapa" class="lab">Etapa</label>
+						<select  id="etapa"  class="form-control" name="etapa" 
+						[(ngModel)]="this.actividad.etapa" required>
+							<option  value="Iniciacion" >Inicio </option>
+							<option  value="Ejecucion" >Entrega de materiales</option>
+							<option  value="Ejecucion" >Ejecucion de obra</option>
+							<option  value="cierre" >Liquidacion</option>
+						</select>	
+					</div>
+
+					<button type="submit" 
+					class="btn btn-success" 
+					name="btnLogin" [disabled]="!activityForm.form.valid">Guardar
+				</button>
+			</form>	
+		</div>       
+	</div>
+</div>
+</div>

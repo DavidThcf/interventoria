@@ -1,0 +1,47 @@
+<div id="{{this.ids}}" style="margin-top: 50px" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="vertical-align: middle;">
+		<!-- Modal content-->
+		<div class="modal-content" style="background-color: rgb(47,47,47);" >
+			<div class="modal-body" style="height:auto">
+
+				<div style="margin-top:10px;margin-right:20px">
+					<button type="button" class="close" data-dismiss="modal" style="opacity: 1; color: white;">×</button>
+				</div>
+				<br/>
+				<div>
+					<div style="display: block; margin: auto;">
+						<div class="input-group" style="margin-left: 5%; margin-right: 5%;">
+							<input type="text" class="form-control" placeholder="Buscar...">
+							<span class="input-group-btn">
+								<button type="button" class="btn btn-primary" aria-label="Left Align">
+									<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+								</button>
+							</span>
+						</div>
+					</div>
+					<br/>
+					<ul>
+						<div *ngFor="let usuario of this.usuarios" (click)="assignUser(usuario)" style="display: block; height: 100px; width: 90%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)" data-dismiss='modal' >
+							<div class="row">
+								<div class="col-md-3">
+									<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
+								</div>
+								<div class="col-md-9">
+									<div style="color: rgb(245,245,245);     text-decoration: underline;   text-transform: uppercase; font-weight: bold;">
+										{{usuario.nombre}} {{usuario.apellido}}
+									</div>
+									<div style="color: rgb(209,209,209);font-style: italic;">
+										{{usuario.e_mail}}
+									</div>
+									<div style="color: rgb(209,209,209);">
+										{{usuario.cargo}}
+									</div>
+								</div>
+							</div>
+						</div>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

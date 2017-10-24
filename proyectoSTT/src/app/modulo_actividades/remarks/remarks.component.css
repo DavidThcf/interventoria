@@ -1,0 +1,28 @@
+ #remark {
+   width: 80%;
+   margin-top: 20px;
+   margin: auto;
+   padding: 10px;
+ }
+
+ #remark h4 {
+   font-size: 20px;
+   text-align: center;
+ }
+
+ #remarks {
+   margin: auto;
+   margin-top: 15px;
+   padding: 10px;
+   width: 80%;
+   background-color: rgba(35, 10, 155, 0.30)
+ }
+
+ #form-remark {
+   margin: auto;
+   margin-top: 15px;
+   padding: 10px;
+   width: 80%;
+   background-color: rgba(5, 106, 116, 0.30)
+ }
+

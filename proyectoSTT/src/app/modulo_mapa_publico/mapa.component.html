@@ -1,0 +1,185 @@
+<div class="bg-image" style="margin-top: 30px;padding: 10px">
+	<h3>MAPA </h3>
+
+	<!-- <select style="display: block; margin: auto" class="form-control" #p [(ngModel)] = "this.proyectoSelect" (change)="cambioProyecto(p.value)"><option *ngFor="let proyecto of this.proyectos" [ngValue]="proyecto">{{proyecto.nombre}}</option>
+	</select> -->
+
+	<h1 style="color: white">
+		{{this.proyectos[0].nombre}}
+	</h1>
+
+	<br/>
+	<div class="row" style="position: relative;width: 100%">
+		
+		<div style="color: white" class="col-md-3">
+			<div style="padding: 10px">
+				<ul style="display: block;"> 
+					<p>BUSCAR</p>
+
+
+					<div  class="input-group">
+						<input #ben class="form-control" placeholder="Buscar..." type="text" 
+						(keyup)="search_ben(ben.value)" >
+						<span class="input-group-btn">
+							
+							<button  aria-label="Left Align" class="btn btn-primary" type="button" 
+							(click)="search_ben(ben.value)"><span  aria-hidden="true" class="glyphicon glyphicon-search">								
+							</span>
+						</button>
+
+
+					</span>
+				</div>
+			</ul>
+		</div>
+	</div>
+
+	<div class="col-md-9">
+		<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom" [mapTypeControl]="true" [fullscreenControl]="true">
+			<agm-marker *ngFor="let marcador of marcadores;" [latitude]="marcador.latitud-0" [longitude]="marcador.longitud-0"  (markerClick)="markerClick()">
+				<agm-info-window>
+					<div class="map-title" data-toggle="modal" data-target="#mod-mul-map" (click)="markerClick(marcador)" >
+						<a id="ids_ben" class="center-block" style="font-size: 17px">
+							Beneficiario: {{marcador.nombre}}
+							<br>
+							Cedula: {{marcador.cedula}}
+						</a>
+					</div>
+				</agm-info-window>
+			</agm-marker>
+		</agm-map>	
+	</div>
+</div>
+</div>
+
+<div id="mod-mul-map" class="modal fade" role="dialog">
+	<div class="modal-dialog" style="vertical-align: middle;">
+		<!-- Modal content-->
+		<div class="modal-content" >
+			<div class="modal-body" style="height:auto">
+
+				<div style="margin-top:10px;margin-right:20px">
+					<button type="button" class="close" data-dismiss="modal">×</button>
+				</div>
+
+				<div style="margin-top:3%">
+					<h1 id="mod-log-tit"  >Multimedia</h1>
+					<p  id="mod-log-tit2" >Proyecto</p>
+				</div>
+				<hr/> 
+
+				<div class="input-group">
+					<input type="text" class="form-control" placeholder="Buscar...">
+					<span class="input-group-btn">
+						<button type="button" class="btn btn-primary" aria-label="Left Align">
+							<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+						</button>
+					</span>
+				</div>
+
+				<select class="select-mul form-control" name="tipo" [(ngModel)]="this.tipo" (change)="cambio($event)">
+					<option value="img">Imagenes</option>
+					<option value="doc">Documentos</option>
+					<option value="sou">Audios</option>
+					<option value="vid">Videos</option>
+					<option value="oth">Otros</option>
+				</select>
+
+				<div class="row" *ngIf="this.tipo === 'img'">
+					<h3>Imagenes</h3>
+					<div class="col-xs-6 col-md-3" *ngFor="let archivo of this.archivos">	
+						<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=archivo.isViewMap (change)="checked(archivo)"  >						
+						<a  class="thumbnail">
+							<img src={{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}} alt={{archivo.subtitulo}}>			
+							<div class="caption">
+								<h3>{{archivo.titulo}}</h3>															
+							</div>
+						</a>
+					</div>	
+				</div>
+
+				<div class="row" *ngIf="this.tipo === 'doc'">
+					<h3>Documentos</h3>
+					<table class="multHover table table-striped" style="width:90%;margin-left:5%">
+						<thead>
+							<tr style="position:relative;width:100%">
+								<th>#</th>
+								<th style="width:20%">Titulo</th>
+								<th style="width:65%">Descripción</th>
+								<th style="width:10%"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr style="cursor:pointer" *ngFor="let archivo of this.archivos" >
+								<th scope="row" style="vertical-align:middle">#</th>
+								<td style="vertical-align:middle">{{archivo.titulo}}</td>
+								<td>{{archivo.subtitulo}}</td>
+								<td>
+									<button (click)="show(archivo)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+
+				<div class="row" *ngIf="this.tipo === 'sou'">
+					<h3>Audio</h3>
+					<table class="multHover table table-striped" style="width:90%;margin-left:5%">
+						<thead>
+							<tr style="position:relative;width:100%">
+								<th>#</th>
+								<th style="width:20%">Nombre</th>
+								<th style="width:75%">Descripción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr style="cursor:pointer" *ngFor="let archivo of this.archivos" >
+								<th scope="row" style="vertical-align:middle">#</th>
+								<td style="vertical-align:middle">{{archivo.titulo}}</td>
+								<td>{{archivo.subtitulo}}</td>				
+							</tr>
+
+						</tbody>
+					</table>		
+				</div>
+
+				<div class="row" *ngIf="this.tipo === 'vid'">
+					<h3>Videos</h3>
+					<div class="col-xs-12 col-md-4" *ngFor="let archivo of this.archivos">	
+						<input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=archivo.isViewMap (change)="checked(archivo)"  >						
+						<a  class="thumbnail">
+							<video controls  class="video-js" >
+								<source src="{{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}}" type='video/mp4'/>
+							</video>
+							<div class="caption">
+								<h4>{{archivo.titulo}}</h4>															
+							</div>
+						</a>
+					</div>
+				</div>
+				<div class="row" *ngIf="this.tipo === 'oth'">
+					<h3>Otros Archivos</h3>		
+				</div>
+
+
+			</div>       
+		</div>  
+	</div>
+</div>
+
+
+<!-- Modal content
+(click)="onSubmite()" data-dismiss="modal"
+-->
+
+<!--
+
+<agm-map [latitude]="lat" [longitude]="lng" [zoom]="zoom"   *ngIf="map1" >
+				<agm-marker *ngFor="let marcador of marcadores; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">
+					<agm-info-window>
+						<h1></h1>
+					</agm-info-window>
+				</agm-marker>
+			</agm-map>
+
+-->

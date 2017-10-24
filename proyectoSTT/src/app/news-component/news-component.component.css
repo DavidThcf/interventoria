@@ -1,0 +1,60 @@
+.container{
+	margin-top: 50px;
+	background-color: #DEDCDD;
+	height: 92vh;
+	width: 92%;
+}
+
+
+input-group{
+	width: 80%;
+	margin: auto;
+}
+.input-group{
+	margin-top: 20px;
+}
+.fila:hover{
+	background-color: rgba(0,0,0,0.5);
+	cursor: pointer;
+}
+
+.tableBodyScroll tbody {
+	display:block;
+	height:71vh;
+	overflow-y:auto;
+}
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th{
+	border-top: 1px solid gray;
+}
+.tableBodyScroll thead, tbody tr {
+	display:table;
+	width:100%;
+	table-layout:fixed;
+	padding: 8px;
+	/*border-top: 1px solid gray;*/
+}
+
+.tableBodyScroll tbody::-webkit-scrollbar-track
+{
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	border-radius: 10px;	
+	background-color: #bcbcbc;	
+}
+
+.tableBodyScroll tbody::-webkit-scrollbar
+{
+	width: 12px;
+	background-color: #F5F5F5;
+	
+}
+
+.tableBodyScroll tbody::-webkit-scrollbar-thumb
+{
+	border-radius: 10px;
+	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+	background-color: #555;
+}
+
+.select-mul{
+	margin-top: 20px;
+}

@@ -1,0 +1,25 @@
+agm-map {
+	height: 500px;
+}
+.map{	
+	padding-top: 100px;
+	margin-left: 10%;
+	margin-right: 10%;
+	
+}
+
+.modal-dialog{
+	width: 90%;
+	max-height: 80vh;
+}
+
+.map-title a{
+	text-transform: uppercase;
+    font-size: 30px;
+    display: block;
+    margin: auto;
+}
+
+#ids_ben:hover{
+	cursor: pointer;
+}

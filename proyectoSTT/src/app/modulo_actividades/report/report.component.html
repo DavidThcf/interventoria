@@ -1,0 +1,189 @@
+<!--
+
+<div style="width: 80%;margin: auto;">
+	<label *ngIf="!this.isTitleSelected"
+	for="porcentaje" 
+	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.titulo}}:  {{this.serviciog.actividad.porcentaje}} %</label>
+	<label *ngIf="this.isTitleSelected"
+	for="porcentaje" 
+	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.tree_name[this.serviciog.tree_name.length - 2]}}:  {{this.serviciog.actividad.porcentaje}} %</label>
+</div>
+ -->
+
+
+
+<div id="err">
+	<table class="tg" width="100%">
+		<tr>
+			<th class="tg-baqh" colspan="4">UNIVERSIDAD DE NARIÑO</th>
+		</tr>
+		<tr>
+			<td class="tg-baqh" colspan="4">INFORME GENERAL {{this.tipo | uppercase}} {{this.nombre | uppercase}} - UDENAR. 006D-2017</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx" colspan="4">DATOS {{this.tipo | uppercase}} {{this.nombre | uppercase}}</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">FECHA INFORME
+			</td>
+			<td class="tg-yw4l" colspan="3">
+				<!-- <label id='fecha'></label> 
+				<now format="'dd - MM - yyyy'"></now>  -->
+
+				<div>
+					<p> {{today | date:'fullDate' | uppercase }}</p>
+				</div>
+
+			</td>
+		</tr>
+		<tr *ngIf="this.tipNum==4" class="ocultablePr ocultableVi ocultableMu ocultableRe ">
+			<td class="tg-2nhx">BENEFICIARIO</td>
+			<td class="tg-yw4l">{{this.beneficiario | uppercase}}</td>
+			<td class="tg-2nhx">No. CEDULA DE
+				<br>CIUDADANIA
+			</td>
+			<td class="tg-yw4l">{{this.cedula}}</td>
+		</tr>
+		<tr *ngIf="this.tipNum>1" class="ocultablePr">
+			<td class="tg-2nhx">PROVINCIA</td>
+			<td class="tg-yw4l" colspan="3">{{this.provincia | uppercase}}</td>
+		</tr>
+		<tr *ngIf="this.tipNum>2" class="ocultablePr ocultableVi ">
+			<td class="tg-2nhx">MUNICIPIO</td>
+			<td class="tg-yw4l" colspan="3">{{this.municipio | uppercase}}</td>
+		</tr>
+		<tr *ngIf="this.tipNum>3" class="ocultablePr ocultableVi ocultableMu">
+			<td class="tg-2nhx">RESGUARDO</td>
+			<td class="tg-yw4l" colspan="3">{{this.resguardo | uppercase}}</td>
+		</tr>
+		<tr>
+			
+		</tr>
+		<tr>
+			<td class="tg-2nhx">FECHA DE INICIO DE OBRA</td>
+			<td class="tg-yw4l" colspan='3'>{{this.feciniobr | uppercase}}</td>
+		</tr>
+	</table>
+	<!--tabla con observaciones y recomendaciones del proyecto-->
+	<table *ngIf="this.observaciones != false"  class="tg1" width="100%" id="tabobse">
+		<tr>
+			<td class="tg-6qw1" colspan="3">OBSERVACIONES</td>
+		</tr>
+		<tr style="position: relative">
+			<td class="tg-baqh" style="width: 10%">No</td>
+			<td class="tg-baqh" style="width: 90%">DESCRIPCIÓN</td>
+		</tr>
+
+		<tr style="position: relative" id="observacion" *ngFor="let item of this.observaciones">
+			<td class="tg-baqh" style="width: 10%;text-align: left">{{item.numero}}</td>
+			<td class="tg-baqh" style="width: 90%;text-align: left">{{item.observacion}}</td>
+		</tr>
+
+		<!-- {{#each observaciones}}
+            <tr>
+                <td class="tg-baqh">{{numero}}</td>
+                <td class="tg-baqh">{{descripcion}}</td>
+                <td class="tg-baqh">{{recomendacion}}</td>
+            </tr>
+        {{/each}}  -->
+	</table>
+	
+	
+	
+	<!--tabla con grafica y porcentaje de cumplimiento-->
+	<table class="tg2" width="100%">
+		<tr>
+			<td class="tg-2nhx">PORCENTAJE DE EJECUCIÓN <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b> : <b>{{this.porcejec}} %</b></td>
+		</tr>
+	</table>
+	<div class="divfot" width="100%" id="grafEjec">
+		<!-- <img id="imgr" alt="grafica" width="80%" height="80%" src='-grafica-' /> -->
+		<div>
+			<div style="display: block; height: 276px; width: 500px" class="center-block">
+				<canvas style="height: 277px; width: 543px;margin-top: 12px" baseChart [colors]="barColor" [data]="this.doughnutChartData" [labels]="this.chartLabels" [chartType]="this.doughnutChartType"
+				 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			</div>
+		</div>
+	</div>
+	
+
+	<!--tabla con grafica y porcentaje de cumplimiento-->
+<div *ngIf="this.tipo.toUpperCase()!='BENEFICIARIO' && this.tipo.toUpperCase()!='CAPITULO' && this.tipo.toUpperCase()!='ACTIVIDAD'">
+	<table class="tg2" width="100%">
+		<tr>
+			<td class="tg-2nhx">Porcentaje del total de los beneficiarios del <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b></td>
+		</tr>
+	</table>
+	<div class="divfot" width="100%" id="grafEjec">
+		<div style="padding: 1px" class="form-inline form">
+			<div style="display: block; height: 310px; width: 600px;margin-top: 5px;" class="center-block">
+			  <canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
+				(chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+			  </canvas>
+			</div>
+		  </div>
+	</div>
+</div>
+
+
+	
+	
+	
+	<!--tabla de registro fotografico-->
+	<div *ngIf="this.tipNum==4">
+		<table class="tg2 ocultablePr ocultableVi ocultableMu ocultableRe " width="100%">
+			<tr>
+				<td class="tg-2nhx">REGISTRO FOTOGRAFICO</td>
+			</tr>
+		</table>
+		<div class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
+			<div *ngFor="let item of this.images">
+				<br>
+				<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}'/>
+				<br>
+				<p><b>{{item.nombre}}</b></p>
+			</div>
+			
+			<!--  {{#each imagenes}}
+				<br>
+				<img id="img" width="80%" height="40%" alt={{nombre}} src='{{url}}'/>
+				<br>
+				<p><b>{{nombre}}</b></p>
+			{{/each}}  -->
+		</div>
+	</div>
+	
+	<!--contine informacion de realizacion-->
+	<p style="margin-top: 10px">Para constancia de lo anterior, se firma el presente documento bajo la responsabilidad expresa de los que intervienen.</p>
+	<table class="tg2" width="100%">
+		<tr>
+			<td class="tg-2nhx" colspan="2">ELABORÓ</td>
+			<td class="tg-2nhx" colspan="2">APROBÓ</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">FIRMA</td>
+			<td class="tg-baqh">{{this.firmaEla}}</td>
+			<td class="tg-2nhx">FIRMA</td>
+			<td class="tg-baqh">{{this.firmaApr}}</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">NOMBRE</td>
+			<td class="tg-baqh">{{this.nombreEla}}</td>
+			<td class="tg-2nhx">NOMBRE</td>
+			<td class="tg-baqh">{{this.nombreApr}}</td>
+		</tr>
+		<tr>
+			<td class="tg-2nhx">CARGO</td>
+			<td class="tg-baqh">{{this.cargoEla}}</td>
+			<td class="tg-2nhx">CARGO</td>
+			<td class="tg-baqh">{{this.cargoApr}}</td>
+		</tr>
+	</table>
+</div>    
+<br>
+<br>
+<button style="position: relative;width: 200px;margin: auto;" class="btn btn-success center-block" (click)="downloadReport()">DESCARGAR</button>
+
+<br>
+<br>
+<br>

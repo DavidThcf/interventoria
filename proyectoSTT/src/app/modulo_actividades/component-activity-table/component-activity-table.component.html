@@ -1,0 +1,110 @@
+<div class="scrollbar row">
+
+	<div style="width: 80%;margin-left: 10%" >
+		
+		<div style="margin: auto;width: 60%">
+			<div class="input-group">
+				<input type="text" class="form-control" placeholder="Buscar...." name="search-table" #searchText (keyup)="filter(searchText.value)">
+				<span class="input-group-btn" >
+					<button type="button" class="btn btn-primary" aria-label="Left Align" (click)="filter(searchText.value)" style="position: relative;width: 100px">
+						<span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+					</button>
+				</span>
+			</div>
+		</div>
+		<br><br>
+		<div class="table_list">
+			<div *ngIf="this.subActivity.length == 0" ><h4>No se encontraron datos.</h4></div>
+			<table *ngIf="this.subActivity.length > 0" class="table table-striped ">
+				<thead>
+					<th *ngIf="this.subActivity[0].tipo == 'Beneficiario'">CEDULA</th>
+
+					<th style="text-transform: uppercase;">{{this.serviGloAct.tipo}}</th>
+
+					<th style="text-align: center;">USUARIO DUEÑO / ASIGNADO</th>
+					<th style="text-align: center;">% EJECUTADO</th>
+					<th style="text-align: center;">ACCIONES</th>
+
+
+				</thead>
+				<tbody >
+					<div *ngIf="this.subActivity[0].tipo != 'Beneficiario' ; then ok2 else bad2"></div>
+					<ng-template #ok2>
+						<tr *ngFor="let subActividad of this.subActivity">
+							<td >
+								{{subActividad.nom_act}}	
+							</td>
+							<td style="text-align: center;">
+								{{subActividad.usr_nom}} {{subActividad.usr_ape}}
+							</td>
+							<td style="text-align: center;">
+								{{subActividad.porcentaje_cumplido}} %
+							</td>
+							<td style="text-align: center;">
+								<div class="form-inline">
+									<button  class="btn btn-primary" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
+
+								</div>
+							</td>
+						</tr> 
+					</ng-template>
+					<ng-template #bad2>
+						<tr *ngFor="let subActividad of this.subActivity">
+							<td>
+								{{subActividad.tipo_identificacion}}	{{subActividad.cedula}}	
+							</td>
+
+							<td>
+								{{subActividad.nombre}} 
+							</td >
+							<td style="text-align: center;">
+								{{subActividad.usr_nom}} {{subActividad.usr_ape}}
+							</td>
+							<td style="text-align: center;">
+								{{subActividad.porcentaje_cumplido}} 
+							</td >
+							
+							<td>
+								<div style="position: relative;width: 100%">
+									<button  class="btn btn-primary col-md-6" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button>
+
+									<div>
+										<div *ngIf="
+										subActividad.usuario_asignado != this.serviciog.usuario.id_usuario && this.serviciog.usuario.tipo_usuario == 'sup' &&
+										subActividad.id_beneficiario != null; 
+										then thenBlock1 "  
+										class="btn btn-succes" ></div>
+
+										<ng-template #thenBlock1>
+											<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
+											<button (click)="asignarUsuario(subActividad)" 
+											class="btn btn-danger  col-md-6"> Asignar </button>
+										</ng-template >
+									</div>
+									<div>
+										<div *ngIf="
+										this.serviciog.usuario.tipo_usuario === null; 
+										then thenBlock2 "  
+										class="btn btn-succes" ></div>
+
+										<ng-template #thenBlock2 >
+											<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
+											<button (click)="getUsers()"  data-toggle="modal" [attr.data-target]="'#' + subActividad.keym+'-'+subActividad.id_caracteristica+'-'+subActividad.id_usuario" class="btn btn-success  col-md-6"
+											>  Asignar. </button>
+											<app-assign-user 
+											[usuarios]="this.axUsers"
+											[act]="subActividad">	</app-assign-user>
+
+										</ng-template >
+
+									</div>
+								</div>
+							</td>
+						</tr>
+					</ng-template>
+				</tbody>		
+			</table>
+		</div>
+	</div>
+</div>
+

@@ -1,0 +1,129 @@
+.thumbnail{
+	text-decoration: none;
+}
+
+.thumbnail img{
+	width: 242px;
+	height: 200px;
+}
+.thumbnail video{
+	width: 312px;
+	height: 174px;
+}
+
+.chk{
+	box-shadow: 1px 1px 10px black;
+	position: absolute;
+	right: 10px;
+	top:-10px;
+	height: 17px;
+	width: 17px;
+	color: blue;
+	background-color: red;
+}
+
+.caption{
+	text-align: center;
+}
+
+.btn-select-map img{
+	width: 35px;
+	height: 35px;
+	align-content: center;
+}
+
+.btn-select-rep img{
+	width: 35px;
+	height: 35px;
+	align-content: center;
+}
+
+.btn-select-rep{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top:85px;
+	z-index: 1000;
+	background-color: #00FFBB;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+}
+
+.btn-select-map{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top:140px;
+	z-index: 1000;
+	background-color: rgb(255,0,128);
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+}
+
+.btn-add-img{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top: 195px;
+	z-index: 1000;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+	color: white;
+}
+
+.btn-ok{
+	width: 50px;
+	height: 50px;
+	position: absolute;
+	right: -38px;
+	top:85px;
+	z-index: 1000;	
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+}
+
+.btn-cancel{
+	width: 60px;
+	height: 50px;
+	position: absolute;
+	right: -25px;
+	top:195px;
+	z-index: 1000;	
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+}
+
+.btn-cancel{
+	width: 70px;
+	height: 50px;
+	position: absolute;
+	right: -37px;
+	top: 140px;
+	z-index: 1000;
+	border: 1px solid transparent;
+	border-radius: 3px;
+	box-shadow: 1px 1px 15px black;
+	color: white;
+}
+.select-mul{
+	display: block;
+	margin: auto; 
+}
+.modal-dialog{
+	width: 90%; 
+	max-height: 90vh;
+}
+.modal-dialog iframe{
+	width: 90%;
+	height: 75vh;
+	display: block;
+	margin: auto;
+}

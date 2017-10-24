@@ -1,0 +1,20 @@
+.projectCard{
+	background-color: rgb(52,122,182);
+	margin: 10px;	
+}
+
+.projectCard h4{
+	color: white;
+}
+
+.lab1{
+	color: white;
+}
+
+.lab2{
+	background-color: rgb(221,221,221);
+	color: black;
+	border-color: gray;	
+	height: 20px;
+	text-align: left;
+}
