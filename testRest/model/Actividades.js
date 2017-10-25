@@ -169,7 +169,43 @@ module.exports.getActivityList = function (data) {
 	});
 }
 
+/* ----------------------get total beneficiary---------------------------- */
+module.exports.getTotalBeneficiary = function(data){
+	var keym = data.keym;
+	var id_usuario = data.id_usuario;
+	var id_caracteristica = data.id_caracteristica;
 
+	return new Promise((resolve, reject) => {
+		var sequelize = sqlCon.configConnection();
+		var query1 = `
+		SELECT gettotalbeneficiary(`+
+			keym+`,`+
+			id_caracteristica+`,`+
+			id_usuario+`
+		);		
+		`;
+
+		//var i = 0;
+		console.log('POLSA ==> '+ query1);
+		sequelize.query(query1, {
+			type: sequelize.QueryTypes.SELECT
+		})
+			.then(x => {
+
+				console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
+				resolve(x);
+
+			}).catch(x => {
+				// console.log('Error al registrar actividad ' + x);
+				reject(false);
+			}).done(x => {
+				sequelize.close();
+				// console.log('Se ha cerrado sesion de la conexion a la base de datos');
+			});
+
+	});
+};
+/* -------------------------------------------------- */
 
 function getRecursiveActivity(keym, car, usu, sequelize, element, i) {
 	var query1 = `

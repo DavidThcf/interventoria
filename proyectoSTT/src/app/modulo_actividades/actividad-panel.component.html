@@ -352,7 +352,47 @@
 						<canvas baseChart [data]="doughnutChartData" [labels]="doughnutChartLabels" [chartType]="doughnutChartType" [colors]="barColor"
 						 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 					</div>
-
+					<!-- aqui -->
+					<div>
+						<table class="tg" width="100%">
+							<tr>
+							  <th class="tg-qn5d">Rango Total Beneficiarios <br>segun porcentaje cumplido <br></th>
+							  <th class="tg-qn5d">Total Numero de <br>Beneficiarios<br></th>
+							  <th class="tg-qn5d">Porcentaje <br></th>
+							</tr>
+							<tr>
+							  <td class="tg-ucxp">0-19</td>
+							  <td class="tg-dzk6">{{this.valres[0]}}</td>
+							  <td class="tg-dzk6">{{this.valresper[0]}}</td>
+							</tr>
+							<tr>
+							  <td class="tg-3a3g">20-39</td>
+							  <td class="tg-baqh">{{this.valres[1]}}</td>
+							  <td class="tg-baqh">{{this.valresper[1]}}</td>
+							</tr>
+							<tr>
+							  <td class="tg-ucxp">40-59<br></td>
+							  <td class="tg-dzk6">{{this.valres[2]}}</td>
+							  <td class="tg-dzk6">{{this.valresper[2]}}</td>
+							</tr>
+							<tr>
+							  <td class="tg-3a3g">60-79<br></td>
+							  <td class="tg-baqh">{{this.valres[3]}}</td>
+							  <td class="tg-baqh">{{this.valresper[3]}}</td>
+							</tr>
+							<tr>
+							  <td class="tg-ucxp">80-99</td>
+							  <td class="tg-dzk6">{{this.valres[4]}}</td>
+							  <td class="tg-dzk6">{{this.valresper[4]}}</td>
+							</tr>
+							<tr>
+							  <td class="tg-3a3g">100</td>
+							  <td class="tg-baqh">{{this.valres[5]}}</td>
+							  <td class="tg-baqh">{{this.valresper[5]}}</td>
+							</tr>
+						  </table>
+					</div>
+					<!-- ................... -->
 				</div>
 
 				<!--  Mapa -->

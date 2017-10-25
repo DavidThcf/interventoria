@@ -294,7 +294,6 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
-
 	//-----------  MESSAGE   -------------//
 
 	getTotalMessage(formData: FormData) {
@@ -303,7 +302,6 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
-
 	/*---------------------------*/
 
 	/* --------------update report en archivo----------------- */
@@ -314,6 +312,14 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
-
 	/* ---------------------------------------- */
+
+	/* ----------------- get total_beneficiary ------------------*/
+	getTotalBeneficiary(formData : FormData){
+		return this.http.post(this.url + "getTotalBeneficiary", formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+	/* --------------------------------------------------------- */
 } 

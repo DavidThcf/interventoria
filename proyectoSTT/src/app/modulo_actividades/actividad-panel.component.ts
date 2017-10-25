@@ -31,6 +31,12 @@ export class ActividadPanel implements OnInit {
   porcentaje_ejecutado: number;
   activityList: any = [];
   listTypes: any[] = [];
+  /* valores resultados estadisticas */
+  valres : any = [];
+  valresper : any = [];
+  /* -------------------------------- */
+
+
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -596,6 +602,33 @@ export class ActividadPanel implements OnInit {
       var numNo = 100 - numSi;
       this.doughnutChartData = [numSi, numNo];
     }
+    /* llamado para tabla de estadisticas */
+    var dat = {
+      keym: this.serviciog.proyecto.keym,
+      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+      id_usuario: this.serviciog.proyecto.id_usuario
+    };
+    var formData = new FormData();
+    formData.append("datos", JSON.stringify(dat));
+    this.servicios.getTotalBeneficiary(formData).then(message => {
+      var res = message[0].gettotalbeneficiary;
+      res = res.replace(/\(/g,"").replace(/\)/g,"");
+      this.valres = res.split(',');
+      var suma = 0;
+      /* recorrido para calcular la suma de datos */
+      this.valres.forEach(element => {
+        suma = suma + parseInt(element);
+      });
+      // alert(suma);
+      /* recorrido par acalcular los porcentajes */
+      this.valres.forEach(element => {
+        var per = (element*100)/suma;
+        this.valresper.push(per);
+      });
+      
+    });
+
+    /* ------------------------------------ */
   }
 
   //mapa

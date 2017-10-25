@@ -957,7 +957,22 @@ router.post('/getDataNewChangeFile', (req, res) => {
 
 /* fin */
 
+/* ----------------------getTotalBeneficiary----------------------- */
+router.post('/getTotalBeneficiary',(req, res) => {
+  var nov = Activity.getTotalBeneficiary(JSON.parse(req.body.datos));
+  nov.then(x => {
+    // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+    // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
 
+  }).catch(x => {
+    // console.log('ERROR al btener novedades  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+/* --------------------------------------------------------------- */
 
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {
