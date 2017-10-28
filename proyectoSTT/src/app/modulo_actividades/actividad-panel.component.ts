@@ -1,6 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { NgModule } from "@angular/core";
 import { AgmCoreModule } from "@agm/core";
+import { CurrencyPipe } from '@angular/common';
 
 import { Router } from "@angular/router";
 import { ServiciosGlobales } from "../services/servicios-globales";
@@ -15,6 +16,9 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 })
 
 export class ActividadPanel implements OnInit {
+
+  dat: any = {};
+
   public slideval: number = 0;
   nom_act_report: string[] = [];
   listDatChart: any[] = [];
@@ -32,10 +36,22 @@ export class ActividadPanel implements OnInit {
   activityList: any = [];
   listTypes: any[] = [];
   /* valores resultados estadisticas */
-  valres : any = [];
-  valresper : any = [];
+  valres: any = [];
+  valresper: any = [];
+  mon: any = [];
+  fin_label: any = ['0-19 %', '20-39 %', '40-59 %', '60-79 %', '80-99 %', '100 %'];
+  fin_data: any = [];
+  fin_col: any = [{
+    backgroundColor: [
+      "rgba(90, 255, 0, 0.8)",
+      "rgba(255, 255, 0, 0.81)",
+      "rgba(50, 25, 100, 25.8)",
+      "rgba(255, 90, 20, 0.81)",
+      "rgba(0, 255, 255, 0.8)",
+      "rgba(0, 90, 20, 0.81)"]
+  }];
   /* -------------------------------- */
-
+  total_beneficiary: number = 0;
 
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
@@ -60,7 +76,7 @@ export class ActividadPanel implements OnInit {
   public barColor: any[] = [
     { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
   ];
-  public doughnutChartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
+  public doughnutChartLabels: string[] = ["EJECUTADO", "POR EJECUTAR "];
   public doughnutChartData: number[] = [10, 20];
   public doughnutChartType: string = "doughnut";
 
@@ -73,7 +89,9 @@ export class ActividadPanel implements OnInit {
 
   ngOnInit(): void {
 
+    //alert(JSON.stringify(this.serviciog.usuario));
     //alert(JSON.stringify(this.serviciog.proyecto));
+
 
     this.serviciog.actividad = null;
     this.serviciog.isSelAct = false;
@@ -158,6 +176,11 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
+    this.serviciog.labels = [];
+    this.serviciog.data = [];
+    this.serviciog.colors = [];
+    this.serviGloAct.actOpt = 1;
+
     activity.porcentaje_cumplido = activity.porcentaje_cumplido * 1;
     this.slideval = activity.porcentaje_cumplido;
 
@@ -173,74 +196,86 @@ export class ActividadPanel implements OnInit {
     var id_usuario = activity.id_usuario;
     var id_caracteristica = activity.id_caracteristica;
 
-    this.serviGloAct.actOpt = 1;
+
     if (this.isTitleSelected && this.serviciog.actividad == null)
-      var dat = {
+      this.dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
-      var dat = {
+      this.dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
         id_usuario: this.serviciog.actividad.id_usuario,
         tipo: this.serviciog.actividad.tipo
       };
     else
-      var dat = {
+      this.dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
 
-    //alert(dat.tipo);
-    this.serviciog.colors = [];
-    this.serviciog.color = [];
-    this.serviciog.labels = [];
-    this.serviciog.data = [];
-    var formData = new FormData();
-    formData.append("caracteristica", JSON.stringify(dat));
-    this.servicios.getDataChart(formData).then(message => {
-      //alert(JSON.stringify(message));
 
-      this.serviciog.listDatChart = [];
-      this.serviciog.listDatChart = message;
-      var ax: any[] = [];
-      this.serviciog.listDatChart.forEach(element => {
-        ax.push(element.gettotalmarkerscategory);
-      });
-      this.serviciog.listDatChart = ax;
-      var val = 0;
-      this.serviciog.listDatChart.forEach(element => {
-        var x = element.split(',');
-        var num = parseInt(x[2]);
-        if (num)
-          val = val + num;
-      });
-      this.serviciog.listDatChart.forEach(element => {
-        element = element.replace('(', '');
-        element = element.replace(')', '');
-        var x = element.split(',');
-        this.serviciog.color.push(x[0]);
 
-        var num = parseInt(x[2]);
-        if (num) {
-          var z = num * 100 / val;
-          this.serviciog.data.push(z);
-          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
-        }
-        else {
-          this.serviciog.data.push(0);
-          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
-        }
-      });
-      this.serviciog.colors = [
-        { backgroundColor: this.serviciog.color }
-      ];
+    var tot_ben = new FormData();
+
+    //total benefuciary
+    tot_ben.append("caracteristica", JSON.stringify(this.dat));
+    this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+      this.total_beneficiary = 0;
+      try { this.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+    }).catch(e => {
+      alert('ERROR   =>  ' + e);
     });
+
+    if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
+      //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
+      this.serviciog.dat = this.dat;
+      var formData = new FormData();
+      formData.append("caracteristica", JSON.stringify(this.dat));
+      this.servicios.getDataChart(formData).then(message => {
+
+        //alert(JSON.stringify(message));
+        this.serviciog.listDatChart = [];
+        this.serviciog.listDatChart = message;
+        var ax: any[] = [];
+        this.serviciog.listDatChart.forEach(element => {
+          ax.push(element.gettotalmarkerscategory);
+        });
+        this.serviciog.listDatChart = ax;
+        var val = 0;
+        this.serviciog.listDatChart.forEach(element => {
+          var x = element.split(',');
+          var num = parseInt(x[2]);
+          if (num) val = val + num;
+        });
+        this.serviciog.listDatChart.forEach(element => {
+          element = element.replace('(', '');
+          element = element.replace(')', '');
+          var x = element.split(',');
+          this.serviciog.color.push(x[0]);
+          var num = parseInt(x[2]);
+          if (num) {
+            var z = num * 100 / val;
+            this.serviciog.data.push(z);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+          }
+          else {
+            this.serviciog.data.push(0);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+          }
+        });
+
+        this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+
+      });
+
+    }
+    
 
     this.servicios
       .getActividad(keym, id_usuario, id_caracteristica)
@@ -274,6 +309,8 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
+
+    //alert(JSON.stringify(this.serviciog.data));
 
     //alert(JSON.stringify(this.serviciog.proyecto));
     this.isTitleSelected = true;
@@ -318,46 +355,18 @@ export class ActividadPanel implements OnInit {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-    this.serviciog.colors = [];
-    this.serviciog.color = [];
-    this.serviciog.labels = [];
-    this.serviciog.data = [];
-    var formData = new FormData();
-    formData.append("caracteristica", JSON.stringify(dat));
-    this.servicios.getDataChart(formData).then(message => {
-      //alert(JSON.stringify(message));
-      this.serviciog.listDatChart = [];
-      this.serviciog.listDatChart = message;
-      var ax: any[] = [];
-      this.serviciog.listDatChart.forEach(element => {
-        ax.push(element.gettotalmarkerscategory);
-      });
-      this.serviciog.listDatChart = ax;
-      var val = 0;
-      this.serviciog.listDatChart.forEach(element => {
-        var x = element.split(',');
-        var num = parseInt(x[2]);
-        if (num) val = val + num;
-      });
-      this.serviciog.listDatChart.forEach(element => {
-        element = element.replace('(', '');
-        element = element.replace(')', '');
-        var x = element.split(',');
-        this.serviciog.color.push(x[0]);
 
-        var num = parseInt(x[2]);
-        if (num) {
-          var z = num * 100 / val;
-          this.serviciog.data.push(z);
-          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
-        }
-        else {
-          this.serviciog.data.push(0);
-          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
-        }
-      });
-      this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+    var tot_ben = new FormData();
+
+    //total benefuciary
+    tot_ben.append("caracteristica", JSON.stringify(dat));
+    this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+      this.total_beneficiary = 0;
+      try { this.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+    }).catch(e => {
+      alert('ERROR   =>  ' + e);
     });
+
 
   }
 
@@ -409,6 +418,8 @@ export class ActividadPanel implements OnInit {
   }
 
   entrarACtividad(actividad) {
+    this.serviGloAct.actOpt = 1;
+
     actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
     this.slideval = actividad.porcentaje_cumplido;
     this.isTitleSelected = true;
@@ -430,10 +441,6 @@ export class ActividadPanel implements OnInit {
     var id_caracteristica = actividad.id_caracteristica;
 
     this.serviciog.titulo = actividad.nom_act;
-    this.serviGloAct.actOpt = 1;
-
-
-
 
     this.servicios
       .getActividad(keym, id_usuario, id_caracteristica)
@@ -487,6 +494,67 @@ export class ActividadPanel implements OnInit {
       this.serviGloAct.tipo2 = this.serviciog.tipos_act[0];
       this.inicio();
     }
+
+
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+      };
+
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
+    this.servicios.getDataChart(formData).then(message => {
+      this.serviciog.labels = [];
+      this.serviciog.data = [];
+      this.serviciog.colors = [];
+      //alert(JSON.stringify(message));
+      this.serviciog.listDatChart = [];
+      this.serviciog.listDatChart = message;
+      var ax: any[] = [];
+      this.serviciog.listDatChart.forEach(element => {
+        ax.push(element.gettotalmarkerscategory);
+      });
+      this.serviciog.listDatChart = ax;
+      var val = 0;
+      this.serviciog.listDatChart.forEach(element => {
+        var x = element.split(',');
+        var num = parseInt(x[2]);
+        if (num) val = val + num;
+      });
+      this.serviciog.listDatChart.forEach(element => {
+        element = element.replace('(', '');
+        element = element.replace(')', '');
+        var x = element.split(',');
+        this.serviciog.color.push(x[0]);
+
+        var num = parseInt(x[2]);
+        if (num) {
+          alert(x[1]);
+          var z = num * 100 / val;
+          this.serviciog.data.push(z);
+          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+        }
+        else {
+          this.serviciog.data.push(0);
+          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+        }
+      });
+      this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+    });
   }
 
   getUsers() {
@@ -522,6 +590,33 @@ export class ActividadPanel implements OnInit {
   c1() {
     this.serviGloAct.actOpt = 1;
 
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+
+    var tot_ben = new FormData();
+    tot_ben.append("caracteristica", JSON.stringify(dat));
+    this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+      this.total_beneficiary = 0;
+      try { this.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+    }).catch(e => {
+      alert('ERROR   =>  ' + e);
+    });
   }
   //LISTA       =   Lista de actividades => cambia nombre segun proyecto municipios resguardos beneficiario etc. 
   c2() {
@@ -593,41 +688,62 @@ export class ActividadPanel implements OnInit {
   c5() {
     this.serviGloAct.actOpt = 5;
     //alert(JSON.stringify(this.serviciog.actividad));
-    if (this.serviciog.isSelAct) {
-      var numSi = this.serviciog.actividad.porcentaje_cumplido;
-      var numNo = 100 - numSi;
-      this.doughnutChartData = [numSi, numNo];
-    } else {
-      var numSi = this.serviciog.proyecto.porcentaje_cumplido;
-      var numNo = 100 - numSi;
-      this.doughnutChartData = [numSi, numNo];
-    }
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario
+      };
+
+
     /* llamado para tabla de estadisticas */
-    var dat = {
-      keym: this.serviciog.proyecto.keym,
-      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-      id_usuario: this.serviciog.proyecto.id_usuario
-    };
+    this.valresper = []; this.valres = [];
     var formData = new FormData();
+
     formData.append("datos", JSON.stringify(dat));
     this.servicios.getTotalBeneficiary(formData).then(message => {
       var res = message[0].gettotalbeneficiary;
-      res = res.replace(/\(/g,"").replace(/\)/g,"");
+      res = res.replace(/\(/g, "").replace(/\)/g, "");
       this.valres = res.split(',');
       var suma = 0;
+      var n = 0;
       /* recorrido para calcular la suma de datos */
       this.valres.forEach(element => {
-        suma = suma + parseInt(element);
+        if (n % 2 == 0)
+          suma = suma + parseInt(element);
+        n++;
       });
-      // alert(suma);
+      //alert(suma);
+      n = 0;
+
       /* recorrido par acalcular los porcentajes */
       this.valres.forEach(element => {
-        var per = (element*100)/suma;
-        this.valresper.push(per);
+        if (n % 2 == 0) {
+          var per = (parseInt(element) * 100) / suma;
+          this.valresper.push(per);
+        }
+        else
+          this.mon.push(parseFloat(element));
+        //alert(per);
+        n++;
       });
-      
-    });
 
+      this.fin_data = this.valresper;
+      //alert(JSON.stringify(this.valresper))
+
+    });
     /* ------------------------------------ */
   }
 
@@ -787,9 +903,9 @@ export class ActividadPanel implements OnInit {
       this.slideval = activity.porcentaje_cumplido;
       this.servicios.updateCompletePercentage(formData).then(message => {
         //Envio de mensaje por socket
-        this.serviciog.socket.emit('sendSocketNovedad',{
-          'userSend':this.serviciog.usuario.usuario_superior,
-          'tipo':'per'
+        this.serviciog.socket.emit('sendSocketNovedad', {
+          'userSend': this.serviciog.usuario.usuario_superior,
+          'tipo': 'per'
         })
       });
     }

@@ -321,5 +321,15 @@ export class Servicios {
 		.then(response => response.json())
 		.catch(err => false)
 	}
+
+	getOnlyTotalBeneficiary(formData: FormData): Promise<any> {
+		return this.http.post(this.url + "getOnlyTotalBeneficiary", formData)
+			.toPromise()
+			.then(response => {
+			return response.json();
+			})
+			.catch(err => false)
+	}
 	/* --------------------------------------------------------- */
+
 } 

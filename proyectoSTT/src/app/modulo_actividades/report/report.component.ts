@@ -54,7 +54,7 @@ export class ReportComponent implements OnInit {
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
 
-
+ 
 
 
 	constructor(

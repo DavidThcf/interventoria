@@ -7,25 +7,15 @@ import { ServiciosGlobales } from "../../services/servicios-globales";
   styleUrls: ['./chart-component.component.css']
 })
 export class ChartComponentComponent implements OnInit {
-
- 
-
-
   constructor(private serviciog: ServiciosGlobales) { }
-  
   ngOnInit() {
-    
-   
   }
- 
   // events
   public chartClicked(e: any): void {
     console.log(e);
   }
-
   public chartHovered(e: any): void {
     //alert("HOver")
     console.log(e);
   }
-
 }

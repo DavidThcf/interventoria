@@ -21,7 +21,7 @@
 				<tr>
 					<th style="width: 50%" style="text-align: left;">Proyecto</th>
 					<!-- <th style="width: 30%">Lider de Proyecto</th> -->
-					<th style="width: 25%" style="text-align: center;">Dueño</th>
+					<!-- <th style="width: 25%" style="text-align: center;">Dueño</th> -->
 					<th style="width: 25%" style="text-align: center;">Porcentaje Ejecutado</th>
 				</tr>
 			</thead>
@@ -34,7 +34,7 @@
 							<p *ngIf="proyect.descripcion.indexOf('C.C') !== -1">{{proyect.descripcion}}</p>
 						</span>
 					</td>
-					<td><p class="txt">{{proyect.nombre}} {{proyect.apellido}}</p></td>
+					<!-- <td><p class="txt">{{proyect.nombre}} {{proyect.apellido}}</p></td> -->
 					<td><p class="txt">{{proyect.porcentaje_cumplido}} % </p></td>
 					<td>
 						<button  class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">

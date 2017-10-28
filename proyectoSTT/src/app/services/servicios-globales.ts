@@ -14,6 +14,8 @@ export class ServiciosGlobales {
 	public data: number[] = [];
 	public types: string = "doughnut";
 	
+
+	dat : any = {};
 	
 	messageList: any[] = [];	//Tiene la lista discriminada de cuales son las novedades
 	totalMessage: number = 0;	//Muestra en la campana el total de novedaeds

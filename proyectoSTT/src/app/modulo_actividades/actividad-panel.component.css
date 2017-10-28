@@ -295,3 +295,15 @@ input[type=range]:focus::-ms-fill-upper {
 }
 
 /* ------------------------------- */
+
+
+#opt_act{
+  
+  overflow-y:auto;
+  height: 82vh;
+  
+}
+
+.menuActividades{
+  margin-top: 5px;
+}

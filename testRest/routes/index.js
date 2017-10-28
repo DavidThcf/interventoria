@@ -14,6 +14,7 @@ var Marker = require("../model/Marcadores");
 var Characteristic = require("../model/Caracteristicas");
 var AuxModel = require("../model/AuxModel");
 var Novedades = require("../model/Novedades");
+var Beneficiaries = require("../model/Beneficiarios");
 //POST Services
 
 //Service for createa new User
@@ -129,7 +130,7 @@ router.post("/getActivityList", (req, res, next) => {
   var act = Activity.getActivityList(req.body);
   act
     .then(x => {
-      console.log(JSON.stringify(x));
+      //console.log(JSON.stringify(x));
       if (x != false) {
         res.header("Access-Control-Allow-Origin", "*");
         res.send(x);
@@ -642,7 +643,6 @@ router.post('/getObservacionesReport', (req, res, next) => {
   });
 });
 
-
 router.post('/regRemarks', (req, res, next) => {
   console.log(' <=====    reg Remarks      ==== >   ' + JSON.stringify(req.body));
 
@@ -914,6 +914,25 @@ router.post('/getTotalMessage', (req, res) => {
   });
 });
 
+
+router.post('/getOnlyTotalBeneficiary', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    Get Only Total Beneficiary      ==== >   ' + JSON.stringify(req.body));
+
+  var nov = Beneficiaries.getOnlyTotalBeneficiary(JSON.parse(req.body.caracteristica));
+  nov.then(x => {
+    console.log('!!!!!!!!!!!!!Se ha retornado exitosamente la cantidad de beneficiarios!!!!!!!!!!!');
+    //console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    console.log('ERROR al btener los beneficiarios  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
 /* inicio updateImageEditView*/
 router.post('/updateImageEditView', (req, res, next) => {
   var data = JSON.parse(JSON.stringify(req.body));
@@ -959,7 +978,7 @@ router.post('/getDataNewChangeFile', (req, res) => {
 
 /* ----------------------getTotalBeneficiary----------------------- */
 router.post('/getTotalBeneficiary',(req, res) => {
-  var nov = Activity.getTotalBeneficiary(JSON.parse(req.body.datos));
+  var nov = Beneficiaries.getTotalBeneficiary(JSON.parse(req.body.datos));
   nov.then(x => {
     // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
     // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
