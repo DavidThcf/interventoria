@@ -13,10 +13,10 @@
 			<thead>
 				<tr>
 					<th style="width: 30%">Nombre</th>
+					<th style="width: 15%">Porcentaje Anterior</th>
 					<th style="width: 15%">Porcentaje Actual</th>
-					<th style="width: 15%">Porcentaje Futuro</th>
 					<th style="width: 15%">Fecha</th>
-					<th style="width: 15%">Usuario</th>
+					<th style="width: 15%">Supervisor</th>
 					<th style="width: 10%">Aprobacion</th>
 				</tr>
 			</thead>
@@ -107,14 +107,14 @@
 					<th style="width: 25%">Nombre</th>
 					<th style="width: 35%">Recomendacion</th>
 					<th style="width: 15%">Fecha</th>
-					<th style="width: 15%">Usuario</th>
+					<th style="width: 15%">Recomendacion realizada por</th>
 				</tr>
 			</thead>
 
 			<tbody>
+				<!-- (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map" -->
 				<tr *ngFor="let novedad of this.novedades" class="fila">
-					<td style="width: 25%;color:blue" (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map">
-					{{novedad.nom_act | uppercase}}</td>
+					<td style="width: 25%;color:blue" >	{{novedad.nom_rec | uppercase}}</td>
 					<td style="width: 35%">{{novedad.observacion}}</td>
 					<td style="width: 15%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
 					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>

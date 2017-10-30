@@ -9,9 +9,11 @@ module.exports.getDataNewChangePercent = function (data) {
     console.log(data);
     var query1 = `
     select 
+    ben_car.tipo||' '||ben_act.nombre||' / '||
+    cap_car.tipo||' '||cap_act.nombre||' / '||
+    c.tipo||' '||a.nombre as nombre,
     c.usuario_asignado asignado,us.nombre usu_nov,ua.nombre usu_car,
     n.keym,n.id_caracteristica,n.id_usuario,
-    c.tipo,a.nombre,
     c.porcentaje_cumplido porcentaje_actual,
     n.porcentaje_cambio,
     (n.porcentaje_cambio) porcentaje_futuro,
@@ -23,6 +25,18 @@ module.exports.getDataNewChangePercent = function (data) {
     join usuarios ua on c.usuario_asignado = ua.id_usuario
     
     join actividades a on a.keym_car = n.keym  and a.id_caracteristica = n.id_caracteristica and a.id_usuario_car = n.id_usuario
+    
+    join caracteristicas cap_car 
+    on cap_car.keym = c.keym_padre 		and cap_car.id_caracteristica = c.id_caracteristica_padre 	and cap_car.id_usuario = c.id_usuario_padre 
+    join actividades cap_act
+    on cap_act.keym_car = cap_car.keym  	and cap_act.id_caracteristica = cap_car.id_caracteristica 	and cap_act.id_usuario_car = cap_car.id_usuario
+    
+    join caracteristicas ben_car 
+    on ben_car.keym = cap_car.keym_padre 	and ben_car.id_caracteristica = cap_car.id_caracteristica_padre and ben_car.id_usuario = cap_car.id_usuario_padre 
+    join actividades ben_act
+    on ben_act.keym_car = ben_car.keym  	and ben_car.id_caracteristica = ben_act.id_caracteristica 	and ben_act.id_usuario_car = ben_car.id_usuario
+    
+
     where usuario_novedad = `+ data.id_usuario + ` and n.tipo = 'POR' and n.estado = 'WAI' order by n.usuario_own;
     `;
 
@@ -158,14 +172,35 @@ module.exports.getDataNewObservations = function (data,reporte) {
     var query1 = `
         select 
         o.id_observacion,o.keym,o.id_caracteristica,o.id_usuario,
-        o.observacion,fecha_creacion,act.nombre nom_act,
-        act.descripcion des_act,u.nombre usu_nom, u.apellido usu_ape,u.cargo usu_cargo
+        o.observacion,fecha_creacion,
+        
+        ben_car.tipo||' '||ben_act.nombre||' / '||
+        cap_car.tipo||' '||cap_act.nombre||' / '||
+        act.nombre||' '||act.descripcion as nom_rec,
+
+        u.nombre usu_nom, u.apellido usu_ape,u.cargo usu_cargo
         from observaciones o left join actividades act
         on o.keym = act.keym_car
         and o.id_caracteristica = act.id_caracteristica
         and o.id_usuario = act.id_usuario_car
         join usuarios u
         on o.usuario_own_observacion = u.id_usuario
+
+        join caracteristicas c
+	on c.keym = o.keym 		and c.id_caracteristica = o.id_caracteristica 	and c.id_usuario = o.id_usuario
+
+
+
+    join caracteristicas cap_car 
+    on cap_car.keym = c.keym_padre 		and cap_car.id_caracteristica = c.id_caracteristica_padre 	and cap_car.id_usuario = c.id_usuario_padre 
+    join actividades cap_act
+    on cap_act.keym_car = cap_car.keym  	and cap_act.id_caracteristica = cap_car.id_caracteristica 	and cap_act.id_usuario_car = cap_car.id_usuario
+    
+    join caracteristicas ben_car 
+    on ben_car.keym = cap_car.keym_padre 	and ben_car.id_caracteristica = cap_car.id_caracteristica_padre and ben_car.id_usuario = cap_car.id_usuario_padre 
+    join actividades ben_act
+    on ben_act.keym_car = ben_car.keym  	and ben_car.id_caracteristica = ben_act.id_caracteristica 	and ben_act.id_usuario_car = ben_car.id_usuario
+    
         where o.visto = false  and o.usu_observacion = `+data.id_usuario+` and o.reporte = `+reporte+`
     ;`;
 

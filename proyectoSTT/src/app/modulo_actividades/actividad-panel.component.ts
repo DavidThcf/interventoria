@@ -176,9 +176,7 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
-    this.serviciog.labels = [];
-    this.serviciog.data = [];
-    this.serviciog.colors = [];
+
     this.serviGloAct.actOpt = 1;
 
     activity.porcentaje_cumplido = activity.porcentaje_cumplido * 1;
@@ -221,19 +219,12 @@ export class ActividadPanel implements OnInit {
 
 
 
-    var tot_ben = new FormData();
-
-    //total benefuciary
-    tot_ben.append("caracteristica", JSON.stringify(this.dat));
-    this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
-      this.total_beneficiary = 0;
-      try { this.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
-    }).catch(e => {
-      alert('ERROR   =>  ' + e);
-    });
 
     if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
       //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
+      this.serviciog.labels = [];
+      this.serviciog.data = [];
+      this.serviciog.colors = [];
       this.serviciog.dat = this.dat;
       var formData = new FormData();
       formData.append("caracteristica", JSON.stringify(this.dat));
@@ -275,7 +266,19 @@ export class ActividadPanel implements OnInit {
       });
 
     }
-    
+
+    var tot_ben = new FormData();
+
+    //total benefuciary
+    tot_ben.append("caracteristica", JSON.stringify(this.dat));
+    this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+      this.total_beneficiary = 0;
+      try { this.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+    }).catch(e => {
+      alert('ERROR   =>  ' + e);
+    });
+
+
 
     this.servicios
       .getActividad(keym, id_usuario, id_caracteristica)
@@ -286,11 +289,13 @@ export class ActividadPanel implements OnInit {
             this.serviGloAct.subActividades[0].tipo
           );
           this.serviGloAct.tipo = this.serviciog.tipos_act[num];
-
+          
           this.calculateValue(actividades);
         }
       });
-  }
+      
+      
+    }
 
   valPor(flag, i) {
     if (flag) {
@@ -309,7 +314,7 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
-
+    //alert(this.serviciog.actividad.id_caracteristica);
     //alert(JSON.stringify(this.serviciog.data));
 
     //alert(JSON.stringify(this.serviciog.proyecto));
@@ -335,31 +340,74 @@ export class ActividadPanel implements OnInit {
     }
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
-      var dat = {
+      this.dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
-      var dat = {
+      this.dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
         id_usuario: this.serviciog.actividad.id_usuario,
         tipo: this.serviciog.actividad.tipo
       };
     else
-      var dat = {
+      this.dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
 
+    if (JSON.stringify(this.serviciog.dat) != JSON.stringify(this.dat)) {
+      this.serviciog.dat = this.dat;
+      this.serviciog.labels = [];
+      this.serviciog.data = [];
+      this.serviciog.colors = [];
+      var formData = new FormData();
+      formData.append("caracteristica", JSON.stringify(this.dat));
+      this.servicios.getDataChart(formData).then(message => {
+        //alert(JSON.stringify(message));
+        this.serviciog.listDatChart = [];
+        this.serviciog.listDatChart = message;
+        var ax: any[] = [];
+        this.serviciog.listDatChart.forEach(element => {
+          ax.push(element.gettotalmarkerscategory);
+        });
+        this.serviciog.listDatChart = ax;
+        var val = 0;
+        this.serviciog.listDatChart.forEach(element => {
+          var x = element.split(',');
+          var num = parseInt(x[2]);
+          if (num) val = val + num;
+        });
+        this.serviciog.listDatChart.forEach(element => {
+          element = element.replace('(', '');
+          element = element.replace(')', '');
+          var x = element.split(',');
+          this.serviciog.color.push(x[0]);
+          var num = parseInt(x[2]);
+          if (num) {
+            var z = num * 100 / val;
+            this.serviciog.data.push(z);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+          }
+          else {
+            this.serviciog.data.push(0);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+          }
+        });
+        this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+      });
+
+    }
+
     var tot_ben = new FormData();
 
     //total benefuciary
-    tot_ben.append("caracteristica", JSON.stringify(dat));
+    tot_ben.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
       this.total_beneficiary = 0;
       try { this.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
@@ -427,6 +475,30 @@ export class ActividadPanel implements OnInit {
     this.serviGloAct.tipo2 = this.serviciog.tipos_act[
       this.serviciog.tipos_act.indexOf(actividad.tipo) + 1
     ];
+
+
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var xdat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    else if (this.serviciog.actividad)
+      var xdat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var xdat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    this.serviciog.dat = xdat;
     //alert(JSON.stringify(this.serviciog.tree_name));
 
     this.serviGloAct.lastActividad.push(this.serviciog.isSubActivity);
@@ -454,6 +526,7 @@ export class ActividadPanel implements OnInit {
           this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
           //alert('1 '+this.serviGloAct.tipo);
         }
+
       });
   }
 
@@ -488,6 +561,80 @@ export class ActividadPanel implements OnInit {
             this.activityList = actividad;
             var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
             this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+
+
+            if (this.isTitleSelected && this.serviciog.actividad == null)
+              var dat = {
+                keym: this.serviciog.proyecto.keym,
+                id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                id_usuario: this.serviciog.proyecto.id_usuario,
+                tipo: this.serviciog.proyecto.tipo
+              };
+            else if (this.serviciog.actividad)
+              var dat = {
+                keym: this.serviciog.actividad.keym,
+                id_caracteristica: this.serviciog.actividad.id_caracteristica,
+                id_usuario: this.serviciog.actividad.id_usuario,
+                tipo: this.serviciog.actividad.tipo
+              };
+            else
+              var dat = {
+                keym: this.serviciog.proyecto.keym,
+                id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                id_usuario: this.serviciog.proyecto.id_usuario,
+                tipo: this.serviciog.proyecto.tipo
+              };
+
+            this.serviciog.labels = [];
+            this.serviciog.data = [];
+            this.serviciog.colors = [];
+            var formData = new FormData();
+            formData.append("caracteristica", JSON.stringify(dat));
+            this.servicios.getDataChart(formData).then(message => {
+
+              //alert(JSON.stringify(message));
+              this.serviciog.listDatChart = [];
+              this.serviciog.listDatChart = message;
+              var ax: any[] = [];
+              this.serviciog.listDatChart.forEach(element => {
+                ax.push(element.gettotalmarkerscategory);
+              });
+              this.serviciog.listDatChart = ax;
+              var val = 0;
+              this.serviciog.listDatChart.forEach(element => {
+                var x = element.split(',');
+                var num = parseInt(x[2]);
+                if (num) val = val + num;
+              });
+              this.serviciog.listDatChart.forEach(element => {
+                element = element.replace('(', '');
+                element = element.replace(')', '');
+                var x = element.split(',');
+                this.serviciog.color.push(x[0]);
+                var num = parseInt(x[2]);
+                if (num) {
+                  var z = num * 100 / val;
+                  this.serviciog.data.push(z);
+                  this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+                }
+                else {
+                  this.serviciog.data.push(0);
+                  this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+                }
+              });
+              this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+            });
+
+            var tot_ben = new FormData();
+            //total benefuciary
+            tot_ben.append("caracteristica", JSON.stringify(dat));
+            this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+              this.total_beneficiary = 0;
+              try { this.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+            }).catch(e => {
+              alert('ERROR   =>  ' + e);
+            });
+
           }
         });
     } else {
@@ -496,65 +643,7 @@ export class ActividadPanel implements OnInit {
     }
 
 
-    if (this.isTitleSelected && this.serviciog.actividad == null)
-      var dat = {
-        keym: this.serviciog.proyecto.keym,
-        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario,
-      };
-    else if (this.serviciog.actividad)
-      var dat = {
-        keym: this.serviciog.actividad.keym,
-        id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario,
-      };
-    else
-      var dat = {
-        keym: this.serviciog.proyecto.keym,
-        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario,
-      };
 
-    var formData = new FormData();
-    formData.append("caracteristica", JSON.stringify(dat));
-    this.servicios.getDataChart(formData).then(message => {
-      this.serviciog.labels = [];
-      this.serviciog.data = [];
-      this.serviciog.colors = [];
-      //alert(JSON.stringify(message));
-      this.serviciog.listDatChart = [];
-      this.serviciog.listDatChart = message;
-      var ax: any[] = [];
-      this.serviciog.listDatChart.forEach(element => {
-        ax.push(element.gettotalmarkerscategory);
-      });
-      this.serviciog.listDatChart = ax;
-      var val = 0;
-      this.serviciog.listDatChart.forEach(element => {
-        var x = element.split(',');
-        var num = parseInt(x[2]);
-        if (num) val = val + num;
-      });
-      this.serviciog.listDatChart.forEach(element => {
-        element = element.replace('(', '');
-        element = element.replace(')', '');
-        var x = element.split(',');
-        this.serviciog.color.push(x[0]);
-
-        var num = parseInt(x[2]);
-        if (num) {
-          alert(x[1]);
-          var z = num * 100 / val;
-          this.serviciog.data.push(z);
-          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
-        }
-        else {
-          this.serviciog.data.push(0);
-          this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
-        }
-      });
-      this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
-    });
   }
 
   getUsers() {
@@ -584,6 +673,76 @@ export class ActividadPanel implements OnInit {
   //Detalles    =   Detalles del proyecto padre
   c0() {
     this.serviGloAct.actOpt = 0;
+
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      this.dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    else if (this.serviciog.actividad)
+      this.dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      this.dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+
+
+
+
+    if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
+      //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
+      this.serviciog.dat = this.dat;
+      var formData = new FormData();
+      formData.append("caracteristica", JSON.stringify(this.dat));
+      this.servicios.getDataChart(formData).then(message => {
+
+        //alert(JSON.stringify(message));
+        this.serviciog.listDatChart = [];
+        this.serviciog.listDatChart = message;
+        var ax: any[] = [];
+        this.serviciog.listDatChart.forEach(element => {
+          ax.push(element.gettotalmarkerscategory);
+        });
+        this.serviciog.listDatChart = ax;
+        var val = 0;
+        this.serviciog.listDatChart.forEach(element => {
+          var x = element.split(',');
+          var num = parseInt(x[2]);
+          if (num) val = val + num;
+        });
+        this.serviciog.listDatChart.forEach(element => {
+          element = element.replace('(', '');
+          element = element.replace(')', '');
+          var x = element.split(',');
+          this.serviciog.color.push(x[0]);
+          var num = parseInt(x[2]);
+          if (num) {
+            var z = num * 100 / val;
+            this.serviciog.data.push(z);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+          }
+          else {
+            this.serviciog.data.push(0);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+          }
+        });
+
+        this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+
+      });
+
+    }
+
   }
 
   //Detalles    =   Muestra informacion detallada del proyecto interno o actividad seleccionada
@@ -594,21 +753,23 @@ export class ActividadPanel implements OnInit {
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
       var dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
       };
     else
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
-
     var tot_ben = new FormData();
     tot_ben.append("caracteristica", JSON.stringify(dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
@@ -625,38 +786,45 @@ export class ActividadPanel implements OnInit {
 
   //Reporte
   c3() {
+
+
+
     this.serviGloAct.actOpt = 3;
     this.listTypes = [];
     this.serviGloAct.observaciones = [];
     //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
-      var dat = {
+      this.dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
-      var dat = {
+      this.dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
       };
     else
-      var dat = {
+      this.dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
-
     var formData = new FormData();
-    formData.append("caracteristica", JSON.stringify(dat));
+    formData.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getObservacionesReport(formData).then(message => {
       //alert(JSON.stringify(message));
       this.serviGloAct.observaciones = message;
     });
 
+    //alert(JSON.stringify(dat));
+
     var frmDat = new FormData();
-    frmDat.append("caracteristica", JSON.stringify(dat));
+    frmDat.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getTypes(frmDat).then(message => {
       //alert(JSON.stringify(message));
       message.forEach(element => {
@@ -665,6 +833,57 @@ export class ActividadPanel implements OnInit {
         console.log(x);
       });
     });
+
+    //alert(JSON.stringify(this.serviciog.dat));
+    //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat)+'      '+this.serviciog.dat.length+'        '+JSON.stringify(this.serviciog.dat));
+    if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat) || JSON.stringify(this.serviciog.dat) == '{}') {
+
+      this.serviciog.labels = [];
+      this.serviciog.data = [];
+      this.serviciog.colors = [];
+
+
+      this.serviciog.dat = this.dat;
+      var formData = new FormData();
+      formData.append("caracteristica", JSON.stringify(this.dat));
+      this.servicios.getDataChart(formData).then(message => {
+
+        //alert(JSON.stringify(message));
+        this.serviciog.listDatChart = [];
+        this.serviciog.listDatChart = message;
+        var ax: any[] = [];
+        this.serviciog.listDatChart.forEach(element => {
+          ax.push(element.gettotalmarkerscategory);
+        });
+        this.serviciog.listDatChart = ax;
+        var val = 0;
+        this.serviciog.listDatChart.forEach(element => {
+          var x = element.split(',');
+          var num = parseInt(x[2]);
+          if (num) val = val + num;
+        });
+        this.serviciog.listDatChart.forEach(element => {
+          element = element.replace('(', '');
+          element = element.replace(')', '');
+          var x = element.split(',');
+          this.serviciog.color.push(x[0]);
+          var num = parseInt(x[2]);
+          if (num) {
+            var z = num * 100 / val;
+            this.serviciog.data.push(z);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+          }
+          else {
+            this.serviciog.data.push(0);
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+          }
+        });
+
+        this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+
+      });
+
+    }
 
 
 
@@ -692,22 +911,23 @@ export class ActividadPanel implements OnInit {
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
       var dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
       };
     else
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
-
-
     /* llamado para tabla de estadisticas */
     this.valresper = []; this.valres = [];
     var formData = new FormData();
@@ -772,21 +992,23 @@ export class ActividadPanel implements OnInit {
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
       var dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
       };
     else
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
-
     var formData = new FormData();
     formData.append("caracteristica", JSON.stringify(dat));
 
@@ -805,19 +1027,22 @@ export class ActividadPanel implements OnInit {
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
       var dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
       };
     else
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
     var formData = new FormData();
     formData.append("caracteristica", JSON.stringify(dat));
@@ -835,19 +1060,22 @@ export class ActividadPanel implements OnInit {
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
     else if (this.serviciog.actividad)
       var dat = {
         keym: this.serviciog.actividad.keym,
         id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
       };
     else
       var dat = {
         keym: this.serviciog.proyecto.keym,
         id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
       };
   }
 

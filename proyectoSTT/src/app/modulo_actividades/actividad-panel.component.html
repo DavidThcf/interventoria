@@ -90,10 +90,11 @@
 						<a>Categorias </a>
 					</li>
 					
-					 -->
+					--> 
 					 <li (click)="c8()" [class.itemSelected]="this.serviGloAct.actOpt===8">
 						<a>Porcentaje de subactividades</a>
 					</li>
+					
 					<li (click)="c9()" [class.itemSelected]="this.serviGloAct.actOpt===9">
 						<a>Recomendaciones</a>
 					</li>
@@ -118,7 +119,7 @@
 						<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 							<div class="form-group">
 
-								<img class="imgPro" src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png" />
+								<img width="450" height="300" class="imgPro" src="http://localhost:81/udenar 1.png" />
 
 								<hr/>
 
@@ -235,7 +236,7 @@
 							<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && 
 								this.serviciog.actividad.tipo !== 'Capitulo' &&
 								this.serviciog.actividad.tipo !== 'Actividad'">
-								<label for="tiempo_fin" class="lab">Beneficiarios del {{this.serviciog.actividad.tipo}}</label>
+								<label for="tiempo_fin" class="lab">Beneficiarios {{this.serviciog.actividad.tipo}}</label>
 								<input name="" type="text" id="tot_ben" class="form-control" name="tot_ben" [readonly]="true" [(ngModel)]="this.total_beneficiary">
 							</div>
 
@@ -288,7 +289,7 @@
 
 							<div>
 								<label for="tiempo_inicial" class="lab">Valor de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}   </label>
-								<label class="form-control" name="costo_real">{{this.serviciog.proyecto.costo_real | currency:'USD':true}}</label>
+								<label class="form-control" name="costo_real">{{this.serviciog.actividad.costo_real | currency:'USD':true}}</label>
 								<!-- <input type="text" class="form-control" name="costo_real" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_real"> -->
 								<br>
 								<label for="tiempo_inicial" class="lab">Valor actual ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}</label>
@@ -322,7 +323,7 @@
 					<!-- this.serviciog.usuario.tipo_usuario != 'sup' ||  -->
 					<!-- Asignar usuario -->
 					<div *ngIf="this.serviciog.actividad.tipo == 'Resguardo' || this.serviciog.actividad.tipo == 'Beneficiario'" style="width: 80%;margin-left: 10%;margin-top: 10px">
-						<label for="Usuario" class="lab">Usuario Dueño / Asignado</label>
+						<label for="Usuario" class="lab">Supervisor</label>
 						<div (click)="getUsers()" [attr.data-toggle]="this.flg  ? 'modal' : null " data-target="#mod-list-usu" style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)">
 							<div class="row">
 								<div class="col-md-3">
@@ -399,18 +400,19 @@
 						<div>
 							<table class="tg" width="100%">
 								<tr>
-									<th class="tg-qn5d">Rango Total Beneficiarios
+									<th class="tg-qn5d">Rango Beneficiarios
 										<br>segun porcentaje cumplido
 										<br>
 									</th>
-									<th class="tg-qn5d">Total Numero de
+									<th class="tg-qn5d">Numero de
 										<br>Beneficiarios
 										<br>
 									</th>
-									<th class="tg-qn5d">Porcentaje
+									<th class="tg-qn5d">Porcentaje con respecto a 
+										<br>{{this.serviciog.actividad.tipo}}
 										<br>
 									</th>
-									<th class="tg-qn5d">Dinero
+									<th class="tg-qn5d">Valor Ejecutado
 										<br>
 									</th>
 								</tr>

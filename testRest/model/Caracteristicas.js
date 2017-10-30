@@ -732,14 +732,14 @@ module.exports.updateEtapa = function (data, etapa) {
 
 module.exports.getDataChart = function (data) {
     console.log('===  Datos para diagrama de la cantidad de beneficiarios segun categoria mapa  === \n\n' + JSON.stringify(data));
-
+    console.log('\n\n\n\n===>>>>>    '+data.id_caracteristica);
     var query1 = `select getTotalMarkersCategory(
         `+ data.keym + `,
         `+ data.id_caracteristica + `,
         `+ data.id_usuario + `,
         '`+ data.tipo.toUpperCase() + `'
     );`;
-
+console.log(JSON.stringify(data));
     return new Promise((resolve, reject) => {
         console.log('getDataChart  ==>    ' + JSON.stringify(data));
         var sequelize = sqlCon.configConnection();
