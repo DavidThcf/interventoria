@@ -63,12 +63,13 @@ export class Multimedia implements OnInit {
 		formData.append('id_caracteristica', id_caracteristica);
 		formData.append('id_usuario', id_usuario);
 		formData.append('tipo', tipo);
+		formData.append('tipoAct', this.serviciog.actividad.tipo);
 		
 
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
-					//alert(JSON.stringify(imagenes))
+					alert(JSON.stringify(imagenes))
 					var cad = JSON.stringify(imagenes);
 					// cad = cad.replace(/=/g,'/');
 

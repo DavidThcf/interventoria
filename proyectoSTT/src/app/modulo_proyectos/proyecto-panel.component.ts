@@ -3,6 +3,7 @@ import { NgModule } 		 from '@angular/core';
 import { Router }            from '@angular/router';
 import { ServiciosGlobales } from '../services/servicios-globales';
 import { Servicios }         from '../services/servicios';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
 	selector: 'proyecto-panel',

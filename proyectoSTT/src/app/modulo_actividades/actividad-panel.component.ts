@@ -1,3 +1,4 @@
+import { any } from 'codelyzer/util/function';
 import { Component, OnInit } from "@angular/core";
 import { NgModule } from "@angular/core";
 import { AgmCoreModule } from "@agm/core";
@@ -51,6 +52,11 @@ export class ActividadPanel implements OnInit {
       "rgba(0, 90, 20, 0.81)"]
   }];
   /* -------------------------------- */
+
+  /* porcentaje real */
+  porcentaje_real: any;
+  /* --------------------- */
+
   total_beneficiary: number = 0;
 
   public barChartOptions: any = {
@@ -176,7 +182,7 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
-
+    this.calcPercentReal();
     this.serviGloAct.actOpt = 1;
 
     activity.porcentaje_cumplido = activity.porcentaje_cumplido * 1;
@@ -297,7 +303,8 @@ export class ActividadPanel implements OnInit {
       
     }
 
-  valPor(flag, i) {
+  
+    valPor(flag, i) {
     if (flag) {
       if (this.serviciog.actividades[i].porcentaje < 0) {
         this.serviciog.actividades[i].porcentaje = 0;
@@ -672,6 +679,7 @@ export class ActividadPanel implements OnInit {
 
   //Detalles    =   Detalles del proyecto padre
   c0() {
+   
     this.serviGloAct.actOpt = 0;
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -747,6 +755,7 @@ export class ActividadPanel implements OnInit {
 
   //Detalles    =   Muestra informacion detallada del proyecto interno o actividad seleccionada
   c1() {
+    this.calcPercentReal();
     this.serviGloAct.actOpt = 1;
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -779,6 +788,35 @@ export class ActividadPanel implements OnInit {
       alert('ERROR   =>  ' + e);
     });
   }
+
+  //calculo pocentaje real
+  calcPercentReal(){
+    var fecha_actual = new Date;
+    
+    var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-'); 
+    var fFecha1 = new Date (fecha_actual.getFullYear(),fecha_actual.getMonth(),fecha_actual.getDay()); 
+    var fFecha2 = new Date (parseInt(aFecha2[0]),parseInt(aFecha2[1])-1,parseInt(aFecha2[2])); 
+    var dif = fFecha1.getTime() - fFecha2.getTime();
+    var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
+    if(this.serviciog.actividad.tipo == "Beneficiario"){
+      if(dias>9 && dias <=30){
+        this.porcentaje_real = (dias*(100/21)).toPrecision(3);
+      }else if(dias > 30){
+        this.porcentaje_real = 100;
+      }
+    }else if (this.serviciog.actividad.tipo == "Proyecto"){
+      this.porcentaje_real = (dias*(100/300)).toPrecision(3);
+    }else{
+      var aFecha = this.serviciog.actividad.fecha_inicio.split('-'); 
+      var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
+      var faFecha = new Date (parseInt(cFecha[0]),parseInt(cFecha[1])-1,parseInt(cFecha[2])); 
+      var fcFecha = new Date (parseInt(aFecha[0]),parseInt(aFecha[1])-1,parseInt(aFecha[2])); 
+      var diff = fcFecha.getTime() - faFecha.getTime();
+      var diasd = Math.floor(diff / (1000 * 60 * 60 * 24)); 
+      this.porcentaje_real = (dias*(100/(300-diasd))).toPrecision(3);
+    }
+  }
+
   //LISTA       =   Lista de actividades => cambia nombre segun proyecto municipios resguardos beneficiario etc. 
   c2() {
     this.serviGloAct.actOpt = 2;

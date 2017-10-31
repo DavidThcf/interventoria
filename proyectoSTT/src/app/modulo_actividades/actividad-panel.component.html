@@ -188,6 +188,7 @@
 										 [readonly]="!this.isEditar">
 									</div>
 								</div>
+								
 								<div>
 									<label for="tiempo_inicial" class="lab">Valor de {{this.tipo2}} {{this.serviciog.proyecto.nom_pro}} {{this.serviciog.proyecto.costo_real | currency}} </label>
 									<label class="form-control" name="costo_real">{{this.serviciog.proyecto.costo_real | currency:'USD':true}}</label>
@@ -286,7 +287,15 @@
 									 [readonly]="true">
 								</div>
 							</div>
-
+							<!-- porcentaje real -->
+							<div>
+								<label style="margin-top: 2px" for="porcentaje_real" class="lab">Porcentaje Real {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}</label>
+								<div>
+									<input type="number" min="0" max="100" id="real" class="form-control" name="porcentaje_real" 
+									[(ngModel)]="this.porcentaje_real" [readonly]="!this.isEditar">
+								</div>
+							</div>
+							<!-- //////////////////// -->
 							<div>
 								<label for="tiempo_inicial" class="lab">Valor de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}   </label>
 								<label class="form-control" name="costo_real">{{this.serviciog.actividad.costo_real | currency:'COP':true}}</label>
