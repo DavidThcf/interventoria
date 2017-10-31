@@ -289,11 +289,11 @@
 
 							<div>
 								<label for="tiempo_inicial" class="lab">Valor de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}   </label>
-								<label class="form-control" name="costo_real">{{this.serviciog.actividad.costo_real | currency:'USD':true}}</label>
+								<label class="form-control" name="costo_real">{{this.serviciog.actividad.costo_real | currency:'COP':true}}</label>
 								<!-- <input type="text" class="form-control" name="costo_real" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_real"> -->
 								<br>
 								<label for="tiempo_inicial" class="lab">Valor actual ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}</label>
-								<label  class="form-control" name="costo_inicial">{{this.serviciog.actividad.costo_actual | currency:'USD':true}}</label>
+								<label  class="form-control" name="costo_inicial">{{this.serviciog.actividad.costo_actual | currency:'COP':true}}</label>
 								<!-- <input type="text" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_actual"> -->
 							</div>
 
@@ -419,42 +419,42 @@
 								<tr>
 									<td class="tg-ucxp">0-19</td>
 									<td class="tg-dzk6">{{this.valres[0]}}</td>
-									<td class="tg-dzk6">{{this.valresper[0]}}</td>
-									<td class="tg-dzk6">{{this.mon[0]}}</td>
+									<td class="tg-dzk6">{{this.valresper[0]}} %</td>
+									<td class="tg-dzk6">{{this.mon[0] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-3a3g">20-39</td>
 									<td class="tg-baqh">{{this.valres[2]}}</td>
-									<td class="tg-baqh">{{this.valresper[1]}}</td>
-									<td class="tg-dzk6">{{this.mon[1]}}</td>
+									<td class="tg-baqh">{{this.valresper[1]}} %</td>
+									<td class="tg-dzk6">{{this.mon[1] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-ucxp">40-59
 										<br>
 									</td>
 									<td class="tg-dzk6">{{this.valres[2]}}</td>
-									<td class="tg-dzk6">{{this.valresper[2]}}</td>
-									<td class="tg-dzk6">{{this.mon[2]}}</td>
+									<td class="tg-dzk6">{{this.valresper[2]}} %</td>
+									<td class="tg-dzk6">{{this.mon[2] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-3a3g">60-79
 										<br>
 									</td>
 									<td class="tg-baqh">{{this.valres[4]}}</td>
-									<td class="tg-baqh">{{this.valresper[3]}}</td>
-									<td class="tg-dzk6">{{this.mon[3]}}</td>
+									<td class="tg-baqh">{{this.valresper[3]}} %</td>
+									<td class="tg-dzk6">{{this.mon[3] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-ucxp">80-99</td>
 									<td class="tg-dzk6">{{this.valres[6]}}</td>
-									<td class="tg-dzk6">{{this.valresper[4]}}</td>
-									<td class="tg-dzk6">{{this.mon[4]}}</td>
+									<td class="tg-dzk6">{{this.valresper[4]}} %</td>
+									<td class="tg-dzk6">{{this.mon[4] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-3a3g">100</td>
 									<td class="tg-baqh">{{this.valres[8]}}</td>
-									<td class="tg-baqh">{{this.valresper[5]}}</td>
-									<td class="tg-dzk6">{{this.mon[5]}}</td>
+									<td class="tg-baqh">{{this.valresper[5]}} %</td>
+									<td class="tg-dzk6">{{this.mon[5] | currency : 'COP':true}}</td>
 								</tr>
 							</table>
 						</div>
