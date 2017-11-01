@@ -72,9 +72,68 @@ export class AppComponent implements OnInit {
 
 
 	}
-	goToActividadesMultimedia() {
-		let link = ['actividades'];
+	gotoNovedades(op) {
+		
+		//alert(op);
+		let link = ['novedades'];
+		this.serviciog.opcion = op;
 		this.router.navigate(link);
+		switch (this.serviciog.opcion) {
+			case 'por':
+				this.serviciog.novedades = [];
+				var formData = new FormData();
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+				this.servicios.getDataNewChangePercent(formData)
+					.then(novedades => {
+						if (novedades) {
+							console.log(novedades);
+							this.serviciog.novedades = novedades;
+						}
+					});
+				break;
+			/* se realiza en caso de que la opcion sea multimedia */
+			case 'mul':
+				this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
+				var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
+				this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
+					.then(files => {
+						if (files) {
+							//alert(JSON.stringify(files));
+							//alert(JSON.stringify(files));
+							 console.log(files);
+							this.serviciog.novedades = files;
+						}
+					});
+				break;
+			/* end multimedia */
+			case 'rec':
+				this.serviciog.novedades = [];
+				var formData = new FormData();
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+				this.servicios.getDataNewRemarks(formData)
+					.then(novedades => {
+						if (novedades) {
+							//alert(JSON.stringify(novedades));
+							console.log(novedades);
+							this.serviciog.novedades = novedades;
+						}
+					});
+
+				break;
+			case 'obs':
+				this.serviciog.novedades = [];
+				var formData = new FormData();
+				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+				this.servicios.getDataNewObservations(formData)
+					.then(novedades => {
+						if (novedades) {
+							console.log(novedades);
+							this.serviciog.novedades = novedades;
+						}
+					});
+				break;
+		}
 	}
 
 	logout() {

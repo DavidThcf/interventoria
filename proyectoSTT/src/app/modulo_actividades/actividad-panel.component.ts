@@ -118,6 +118,7 @@ export class ActividadPanel implements OnInit {
     this.serviciog.actividades = [];
     this.activityList = [];
     if (this.serviciog.proyecto) {
+      
       this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
       this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
       //alert(JSON.stringify(this.serviciog.tree_name));
@@ -125,13 +126,14 @@ export class ActividadPanel implements OnInit {
       var keym = this.serviciog.proyecto.keym;
       var id_usuario = this.serviciog.proyecto.id_usuario;
       var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
-
+      
       this.servicios
         .getActividad(keym, id_usuario, id_caracteristica)
         .then(actividades => {
+          
           if (actividades) {
             this.serviciog.actividades = actividades;
-            //alert(JSON.stringify(actividades));
+            
             this.activityList = actividades;
             this.calculateValue(this.serviciog.actividades);
             var num = this.serviciog.tipos_act.indexOf(actividades[0].tipo);
@@ -182,7 +184,7 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
-    this.calcPercentReal();
+    
     this.serviGloAct.actOpt = 1;
 
     activity.porcentaje_cumplido = activity.porcentaje_cumplido * 1;
@@ -259,7 +261,7 @@ export class ActividadPanel implements OnInit {
           if (num) {
             var z = num * 100 / val;
             this.serviciog.data.push(z);
-            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toPrecision(3) + ' %');
           }
           else {
             this.serviciog.data.push(0);
@@ -299,7 +301,7 @@ export class ActividadPanel implements OnInit {
           this.calculateValue(actividades);
         }
       });
-      
+      this.calcPercentReal();
       
     }
 
@@ -318,6 +320,8 @@ export class ActividadPanel implements OnInit {
     } else {
       this.calculateValue(this.serviGloAct.subActividades);
     }
+   
+   
   }
 
   tituloClick() {
@@ -325,6 +329,9 @@ export class ActividadPanel implements OnInit {
     //alert(JSON.stringify(this.serviciog.data));
 
     //alert(JSON.stringify(this.serviciog.proyecto));
+
+    
+
     this.isTitleSelected = true;
     this.serviciog.actividad = null;
 
@@ -399,7 +406,7 @@ export class ActividadPanel implements OnInit {
           if (num) {
             var z = num * 100 / val;
             this.serviciog.data.push(z);
-            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toPrecision(3) + ' %');
           }
           else {
             this.serviciog.data.push(0);
@@ -622,7 +629,7 @@ export class ActividadPanel implements OnInit {
                 if (num) {
                   var z = num * 100 / val;
                   this.serviciog.data.push(z);
-                  this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+                  this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toPrecision(3) + ' %');
                 }
                 else {
                   this.serviciog.data.push(0);
@@ -737,7 +744,7 @@ export class ActividadPanel implements OnInit {
           if (num) {
             var z = num * 100 / val;
             this.serviciog.data.push(z);
-            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toPrecision(3) + ' %');
           }
           else {
             this.serviciog.data.push(0);
@@ -791,6 +798,9 @@ export class ActividadPanel implements OnInit {
 
   //calculo pocentaje real
   calcPercentReal(){
+
+   
+
     var fecha_actual = new Date;
     
     var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-'); 
@@ -909,7 +919,7 @@ export class ActividadPanel implements OnInit {
           if (num) {
             var z = num * 100 / val;
             this.serviciog.data.push(z);
-            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z + ' %');
+            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toPrecision(3) + ' %');
           }
           else {
             this.serviciog.data.push(0);

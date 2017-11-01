@@ -170,6 +170,193 @@ module.exports.getActivityList = function (data) {
 }
 
 
+module.exports.getBackActivityList = function (data) {
+	jsn = [];
+	//variables del usuario
+	//==> Informacion de la actividad
+	var keym = data.keym;
+	var id_usuario = data.id_usuario;
+	var id_caracteristica = data.id_caracteristica;
+
+	return new Promise((resolve, reject) => {
+		var sequelize = sqlCon.configConnection();
+
+		var query2 = `
+				select
+				a.nombre as nom_act,
+				a.descripcion as desc_act,
+				a.folder,
+				a.pos,
+
+				c.keym,
+				c.id_caracteristica,
+				c.id_usuario,
+
+        		c.usuario_asignado,
+        		c.tipo,
+				c.keym_padre,
+				c.id_caracteristica_padre,
+        		c.id_usuario_padre,
+        		c.tipo,
+
+				c.costo_real,
+				c.costo_actual,
+				c.estado,
+				c.porcentaje_asignado,
+				c.porcentaje_cumplido,
+				c.publicacion_web,
+				c.porcentaje,
+				c.fecha_inicio,
+				c.fecha_fin,
+				c.publicacion_reporte,
+        		b.cedula,
+        		b.nombre,
+        		b.tipo_identificacion,
+
+				u.nombre as usr_nom,
+				u.apellido as usr_ape,
+       			u.e_mail as e_mail,
+        		u.cargo as cargo,
+				u.tipo_usuario,
+				ct.nombre nombre_cat,
+				ct.color color_cat
+
+				from caracteristicas c
+				
+				join actividades a
+ 				on 	a.keym_car = c.keym
+				and 	a.id_usuario_car = c.id_usuario
+				and 	a.id_caracteristica = c.id_caracteristica
+				join usuarios u
+        		on c.usuario_asignado=u.id_usuario
+
+				
+
+				left join beneficiarios b
+				on c.cedula = b.cedula
+
+				left join marcador m
+				on 	m.keym = c.keym
+				and 	m.id_usuario = c.id_usuario
+				and 	m.id_caracteristica = c.id_caracteristica
+		
+				left join categorias_mapa ct
+				on 	ct.id_categoria = m.id_categoria
+
+				where c.id_caracteristica_padre in 
+				( select id_caracteristica_padre from caracteristicas ben 
+					where ben.keym = ` + keym + ` and ben.id_caracteristica = ` + id_caracteristica + ` and ben.id_usuario = ` + id_usuario + ` 
+				)
+
+				order by a.pos, a.nombre ; `;
+
+
+		//console.log('POLSA');
+
+		var dat_json = [];
+
+		getPadre(keym, id_caracteristica, id_usuario, dat_json)
+			.then(x1 => {
+				//Consulta subactividades
+				sequelize.query(query2, {
+					type: sequelize.QueryTypes.SELECT
+				})
+					.then(x => {
+						dat_json.push(x);
+						console.log('\n\n\n\n\n\n\n\n\n\====================================================='+
+					JSON.stringify(dat_json));
+						resolve(dat_json);
+					}).catch(x => {
+						console.log('Error al registrar actividad ' + x);
+						reject(false);
+					}).done(x => {
+						sequelize.close();
+						console.log('Se ha cerrado sesion de la conexion a la base de datos');
+					});
+
+			})
+			.catch(x1 => {
+
+			});
+
+
+
+	});
+}
+
+function getPadre(keym, id_caracteristica, id_usuario, dat_json) {
+	var sequelize = sqlCon.configConnection();
+	var query1 = `
+		select 
+		res.tipo,
+		a.nombre as nom_act,a.descripcion  as desc_act,
+		res.keym,res.id_caracteristica,res.id_usuario,
+		res.keym_padre,res.id_caracteristica_padre,res.id_usuario_padre,
+		res.costo_real,res.costo_actual,res.estado,
+		res.porcentaje_asignado,res.porcentaje,res.porcentaje_cumplido,
+		a.folder,a.pos,
+		res.publicacion_web,
+		res.fecha_inicio,res.fecha_fin,res.publicacion_reporte,
+		b.nombre,b.cedula,b.tipo_identificacion,
+		u.nombre as usr_nom,
+		u.apellido as usr_ape,
+		u.e_mail as e_mail,
+		u.cargo as cargo,
+		u.tipo_usuario,
+		ct.nombre nombre_cat,
+		ct.color color_cat
+		
+		from caracteristicas ben
+		
+		join caracteristicas res
+		on ben.keym_padre = res.keym
+		and ben.id_caracteristica_padre = res.id_caracteristica
+		and ben.id_usuario_padre = res.id_usuario
+			
+		join actividades a 
+		on res.keym =a.keym_car
+		and res.id_caracteristica = a.id_caracteristica
+		and res.id_usuario = a.id_usuario_car
+		
+		left join beneficiarios b
+		on b.cedula = res.cedula
+		
+		left join marcador m
+		on 	m.keym = res.keym
+		and 	m.id_usuario = res.id_usuario
+		and 	m.id_caracteristica = res.id_caracteristica
+		
+		left join categorias_mapa ct
+		on 	ct.id_categoria = m.id_categoria
+		
+		join usuarios u
+		on res.usuario_asignado = u.id_usuario
+	
+		where ben.keym = `+ keym + ` and ben.id_caracteristica = ` + id_caracteristica + ` and ben.id_usuario = ` + id_usuario + `
+	`;
+
+	return new Promise((resolve, reject) => {
+		//Consulta padre
+		sequelize.query(query1, {
+			type: sequelize.QueryTypes.SELECT
+		})
+			.then(x => {
+				dat_json.push(x[0]);
+				console.log('\n\n\n\n\n\n\n\n**************************************'+JSON.stringify(dat_json));
+				resolve(true);
+			}).catch(x => {
+				console.log('Error al registrar actividad ' + x);
+				reject(false);
+			}).done(x => {
+				sequelize.close();
+				console.log('Se ha cerrado sesion de la conexion a la base de datos');
+			});
+
+	});
+
+}
+
+
 function getRecursiveActivity(keym, car, usu, sequelize, element, i) {
 	var query1 = `
 				select

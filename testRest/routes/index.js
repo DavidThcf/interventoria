@@ -145,6 +145,27 @@ router.post("/getActivityList", (req, res, next) => {
       res.json(false);
     });
 });
+//service to get user's activity with theirs Characteristics
+router.post("/getBackActivityList", (req, res, next) => {
+  console.log("GET BACK ACTIVITY LIST");
+  var act = Activity.getBackActivityList(req.body);
+  act
+    .then(x => {
+      //console.log(JSON.stringify(x));
+      if (x != false) {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.send(x);
+      } else {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      }
+    })
+    .catch(x => {
+      console.log("ERROR =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
 
 //Service to register a new category for work with the map
 router.post("/createCategory", (req, res, next) => {
