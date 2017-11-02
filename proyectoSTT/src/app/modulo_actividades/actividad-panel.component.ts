@@ -40,7 +40,9 @@ export class ActividadPanel implements OnInit {
   valres: any = [];
   valresper: any = [];
   mon: any = [];
-  total : any = 0;
+  totalm : any = 0;
+  totalp : any = 0;
+  suma : any = 0; 
   fin_label: any = ['0-19 %', '20-39 %', '40-59 %', '60-79 %', '80-99 %', '100 %'];
   fin_data: any = [];
   fin_col: any = [{
@@ -988,12 +990,12 @@ export class ActividadPanel implements OnInit {
       var res = message[0].gettotalbeneficiary;
       res = res.replace(/\(/g, "").replace(/\)/g, "");
       this.valres = res.split(',');
-      var suma = 0;
+      this.suma = 0;
       var n = 0;
       /* recorrido para calcular la suma de datos */
       this.valres.forEach(element => {
         if (n % 2 == 0)
-          suma = suma + parseInt(element);
+          this.suma = this.suma + parseInt(element);
         n++;
       });
 
@@ -1003,7 +1005,7 @@ export class ActividadPanel implements OnInit {
       /* recorrido par acalcular los porcentajes */
       this.valres.forEach(element => {
         if (n % 2 == 0) {
-          var per = (parseInt(element) * 100) / suma;
+          var per = (parseInt(element) * 100) / this.suma;
           this.valresper.push(per);
         }
         else
@@ -1011,11 +1013,15 @@ export class ActividadPanel implements OnInit {
         //alert(per);
         n++;
       });
-      this.total = 0;
+      this.totalm = 0;
       this.mon.forEach(element => {
-        this.total = this.total+parseFloat(element);
+        this.totalm = this.totalm+parseFloat(element);
       });
 
+      this.totalp = 0;
+      this.valresper.forEach(element => {
+        this.totalp = this.totalp+parseFloat(element);
+      });
       this.fin_data = this.valresper;
       //alert(JSON.stringify(this.valresper))
 

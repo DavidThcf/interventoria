@@ -414,7 +414,7 @@
 					<!-- aqui -->
 					<!-- tabla -->
 					<div style="width: 80%;" class="center-block">
-						<h1>Informe Financiero</h1>
+						<h1 class="center-block" style="text-align: center">INFORME FINANCIERO</h1>
 						<div>
 							<table class="tg" width="100%">
 								<tr>
@@ -444,7 +444,7 @@
 								</tr>
 								<tr>
 									<td class="tg-3a3g">20-39</td>
-									<td class="tg-baqh">{{this.valres[1]}}</td>
+									<td class="tg-baqh">{{this.valres[2]}}</td>
 									<td class="tg-baqh">{{this.valresper[1]}} %</td>
 									<td class="tg-dzk6">{{this.mon[1] | currency : 'COP':true}}</td>
 								</tr>
@@ -454,36 +454,35 @@
 									</td>
 
 									<td class="tg-dzk6">{{this.valres[4]}}</td>
-									<td class="tg-dzk6">{{this.valresper[2]}}</td>
-									<td class="tg-dzk6">{{this.mon[2]}}</td>
+									<td class="tg-dzk6">{{this.valresper[2]}} %</td>
+									<td class="tg-dzk6">{{this.mon[2] | currency : 'COP':true}}</td>
 
 								</tr>
 								<tr>
 									<td class="tg-3a3g">60-79
 										<br>
 									</td>
-
 									<td class="tg-baqh">{{this.valres[6]}}</td>
-									<td class="tg-baqh">{{this.valresper[3]}}</td>
-									<td class="tg-dzk6">{{this.mon[3]}}</td>
+									<td class="tg-baqh">{{this.valresper[3]}} %</td>
+									<td class="tg-dzk6">{{this.mon[3] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-ucxp">80-99</td>
 									<td class="tg-dzk6">{{this.valres[8]}}</td>
-									<td class="tg-dzk6">{{this.valresper[4]}}</td>
-									<td class="tg-dzk6">{{this.mon[4]}}</td>
+									<td class="tg-dzk6">{{this.valresper[4]}} %</td>
+									<td class="tg-dzk6">{{this.mon[4] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-3a3g">100</td>
 									<td class="tg-baqh">{{this.valres[10]}}</td>
-									<td class="tg-baqh">{{this.valresper[5]}}</td>
-									<td class="tg-dzk6">{{this.mon[5]}}</td>
+									<td class="tg-baqh">{{this.valresper[5]}} %</td>
+									<td class="tg-dzk6">{{this.mon[5] | currency : 'COP':true}}</td>
 								</tr>
 								<tr>
 									<td class="tg-3a3g" style="text-align: right" >Total</td>
-									<td class="tg-baqh">{{this.total}}</td>
-									<td class="tg-baqh">{{this.total}}</td>
-									<td class="tg-baqh">{{this.total}}</td>
+									<td class="tg-baqh">{{this.suma}}</td>
+									<td class="tg-baqh">{{this.totalp}} %</td>
+									<td class="tg-baqh">{{this.totalm | currency : 'COP':true}}</td>
 								</tr>
 							</table>
 						</div>
