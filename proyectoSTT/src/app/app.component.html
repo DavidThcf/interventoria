@@ -68,8 +68,8 @@
 
           <ul class="dropdown-menu">
             <!-- Cambio porcentaje -->
-            <li style="margin-top: 2px; padding-top: 9px;">
-              <a href="/novedades" class="listNovedades">
+            <li style="margin-top: 2px; padding-top: 9px;" (click)='gotoNovedades("por")'>
+              <a class="listNovedades">
                 Cambio Porcentaje
                 <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
                   class="badge badge-pill badge-warning alrt">
@@ -81,8 +81,8 @@
             <!-- Multimedia -->
             <li style="border-top: 1px solid #e5e5e5;
             margin-top: 5px;
-            padding-top: 9px;">
-              <a (click)="goToActividadesMultimedia()" class="listNovedades">
+            padding-top: 9px;"  (click)='gotoNovedades("mul")'>
+              <a  class="listNovedades">
                 Multimedia
                 <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
                   class="badge badge-pill badge-warning alrt">
@@ -91,11 +91,11 @@
               </a>
             </li>
 
-            <!-- Recomendaciones -->
+            <!-- Observaciones -->
             <li style="border-top: 1px solid #e5e5e5;
             margin-top: 5px;
-            padding-top: 9px;">
-              <a (click)="goToActividadesMultimedia()" class="listNovedades">
+            padding-top: 9px;"  (click)='gotoNovedades("obs")'>
+              <a class="listNovedades">
                 Observaciones
                 <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
                   class="badge badge-pill badge-warning alrt">
@@ -103,11 +103,11 @@
                 </span>
               </a>
             </li>
-            <!-- Observaciones -->
+            <!-- Recomendaciones -->
             <li style="border-top: 1px solid #e5e5e5;
             margin-top: 5px;
-            padding-top: 9px;margin-bottom: 9px">
-              <a (click)="goToActividadesMultimedia()" class="listNovedades">
+            padding-top: 9px;margin-bottom: 9px" (click)='gotoNovedades("rec")'>
+              <a  class="listNovedades">
                 Recomendaciones
                 <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
                   class="badge badge-pill badge-warning alrt">

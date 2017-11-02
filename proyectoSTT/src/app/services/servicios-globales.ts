@@ -7,6 +7,12 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class ServiciosGlobales {
 
+//news
+	public opcion: string = "por";
+	par_activity:any  = {};
+
+	public novedades: any;
+
 	//datos para grafica total de beneficiarios por categorias mapa
 	public colors: any[] = [];
 	color : string [] = [];

@@ -46,6 +46,20 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false);
 	}
+	getBackActividad(keym: number, id_usuario: number, id_caracteristica: number): Promise<any> {
+		var formData = new FormData();
+
+		formData.append('keym', keym + '');
+		formData.append('id_usuario', id_usuario + '');
+		formData.append('id_caracteristica', id_caracteristica + '');
+
+		//alert(formData);
+
+		return this.http.post(this.url + "getBackActivityList", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false);
+	}
 
 	createUser(formdata: FormData): Promise<any> {
 		return this.http
