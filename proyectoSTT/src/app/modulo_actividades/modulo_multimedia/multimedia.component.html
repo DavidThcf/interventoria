@@ -9,7 +9,10 @@
 </button>
 
 <!-- Agregar un nuevo archivo -->
-<button *ngIf="!isMapSelected && !isRepSelected" class="btn-add-img btn-primary" data-toggle="modal" data-target="#mod-reg-mult">
+<button *ngIf="!isMapSelected && !isRepSelected && 
+                this.serviciog.actividad.tipo === 'Actividad'" 
+        class="btn-add-img btn-primary" 
+        data-toggle="modal" data-target="#mod-reg-mult">
   +
 </button>
 
@@ -28,13 +31,13 @@
 
 <div style="width: 80%;" class="center-block">
 
-  <select class="select-mul form-control" name="tipo" [(ngModel)]="this.serviciog.tipo" (change)="cambio($event)">
+  <!-- <select class="select-mul form-control" name="tipo" [(ngModel)]="this.serviciog.tipo" (change)="cambio($event)">
     <option value="img">Imagenes</option>
     <option value="doc">Documentos</option>
     <option value="sou">Audios</option>
     <option value="vid">Videos</option>
     <option value="oth">Otros</option>
-  </select>
+  </select> -->
 
   <div *ngIf="isMapSelected || isRepSelected" class="center-block" style="margin-top:10px">
     <button class="btn-success center-block" style="display: inline-block" (click)="selAll()">
@@ -44,7 +47,41 @@
       Deseleccionar Todo
     </button>
   </div>
-
+  <!-- boton de filtro -->
+  <div class="row" *ngIf="this.serviciog.actividad.tipo != 'Beneficiario' && 
+              this.serviciog.actividad.tipo != 'Proyecto' && 
+              this.serviciog.actividad.tipo != 'Capitulo' &&
+              this.serviciog.actividad.tipo != 'Actividad'
+              ">
+    <button class="btn btn-warning" (click)="showFilter()" >Filtros</button>
+  </div>
+  <!-- muestra los filtros para archivos  -->
+  <div class="row" *ngIf="this.vshowFilter">
+    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Provincia'">
+      Municipio:
+      <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item" (change)="cambio2()">
+        <option *ngFor="let item of this.subActivity" [ngValue]="item">{{item.nom_act}}</option>
+      </select>
+    </div>
+    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Municipio' || this.flagResg">
+      Resguardo:
+      <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item2" (change)="cambio3()">
+          <option *ngFor="let item of this.subActivity2" [ngValue]="item">{{item.nom_act}}</option>
+      </select>
+    </div>
+    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Resguardo' || this.flagBene">
+      Beneficiario:
+      <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item3">
+          <option *ngFor="let item of this.subActivity3" [ngValue]="item">{{item.cedula}} {{item.nom_act}}</option>          
+      </select>
+    </div>
+    <br>
+    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Resguardo' || this.flagBene">
+      <button class="btn btn-success" (click)="getImagen()">Obtener</button>    
+    </div>
+  </div>
+  <!-- //////////////////////////////////////////////////// -->
+  
   <!-- Muestra los archivos dependiendo su tipo -->
   <div style="margin-top: 10px">
 

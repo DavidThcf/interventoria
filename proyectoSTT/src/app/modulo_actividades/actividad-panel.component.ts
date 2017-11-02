@@ -40,6 +40,7 @@ export class ActividadPanel implements OnInit {
   valres: any = [];
   valresper: any = [];
   mon: any = [];
+  total : any = 0;
   fin_label: any = ['0-19 %', '20-39 %', '40-59 %', '60-79 %', '80-99 %', '100 %'];
   fin_data: any = [];
   fin_col: any = [{
@@ -182,7 +183,7 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
-    this.calcPercentReal();
+    //this.calcPercentReal();
     this.serviGloAct.actOpt = 1;
 
     activity.porcentaje_cumplido = activity.porcentaje_cumplido * 1;
@@ -967,7 +968,7 @@ export class ActividadPanel implements OnInit {
         tipo: this.serviciog.proyecto.tipo
       };
     /* llamado para tabla de estadisticas */
-    this.valresper = []; this.valres = [];
+    this.valresper = []; this.valres = []; this.mon = [];
     var formData = new FormData();
 
     formData.append("datos", JSON.stringify(dat));
@@ -983,6 +984,7 @@ export class ActividadPanel implements OnInit {
           suma = suma + parseInt(element);
         n++;
       });
+
       //alert(suma);
       n = 0;
 
@@ -996,6 +998,10 @@ export class ActividadPanel implements OnInit {
           this.mon.push(parseFloat(element));
         //alert(per);
         n++;
+      });
+      this.total = 0;
+      this.mon.forEach(element => {
+        this.total = this.total+parseFloat(element);
       });
 
       this.fin_data = this.valresper;
