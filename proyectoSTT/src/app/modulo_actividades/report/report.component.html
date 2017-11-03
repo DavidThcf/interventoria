@@ -93,15 +93,16 @@
 	<!--tabla con grafica y porcentaje de cumplimiento-->
 	<table class="tg2" width="100%">
 		<tr>
-			<td class="tg-2nhx">PORCENTAJE DE EJECUCIÓN <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b> : <b>{{this.porcejec}} %</b></td>
+			<td class="tg-2nhx">RESUMEN AVANCE <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b> </td>
 		</tr>
 	</table>
-	<div class="divfot" width="100%" id="grafEjec">
+	<div class="divfot" width="100%" id="grafEjec" style="height: 450px">
 		<!-- <img id="imgr" alt="grafica" width="80%" height="80%" src='-grafica-' /> -->
 		<div>
-			<div style="display: block; height: 276px; width: 500px" class="center-block">
-				<canvas style="height: 277px; width: 543px;margin-top: 12px" baseChart [colors]="barColor" [data]="this.doughnutChartData" [labels]="this.chartLabels" [chartType]="this.doughnutChartType"
-				 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			<div style="display: block; height: 300px; width: 800px;margin-top: 15px" class="center-block">
+				<canvas baseChart [datasets]="doughnutChartData" [labels]="doughnutChartLabels" 
+				[options]="this.barChartOptions" [legend]="this.barChartLegend"
+				[chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 			</div>
 		</div>
 	</div>

@@ -18,6 +18,11 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 
 export class ActividadPanel implements OnInit {
 
+  //grafica de barras resumen Avance
+  public barChartType: string = 'bar';
+
+
+
   dat: any = {};
 
   public slideval: number = 0;
@@ -40,7 +45,7 @@ export class ActividadPanel implements OnInit {
   valres: any = [];
   valresper: any = [];
   mon: any = [];
-  total : any = 0;
+  total: any = 0;
   fin_label: any = ['0-19 %', '20-39 %', '40-59 %', '60-79 %', '80-99 %', '100 %'];
   fin_data: any = [];
   fin_col: any = [{
@@ -60,6 +65,8 @@ export class ActividadPanel implements OnInit {
 
   total_beneficiary: number = 0;
 
+
+
   public barChartOptions: any = {
     scaleShowVerticalLines: false,
     responsive: true
@@ -73,7 +80,6 @@ export class ActividadPanel implements OnInit {
     "2011",
     "2012"
   ];
-  public barChartType: string = "bar";
   public barChartLegend: boolean = true;
   public barChartData: any[] = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: "Categoria 1" },
@@ -83,8 +89,11 @@ export class ActividadPanel implements OnInit {
   public barColor: any[] = [
     { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
   ];
-  public doughnutChartLabels: string[] = ["EJECUTADO", "POR EJECUTAR "];
-  public doughnutChartData: number[] = [10, 20];
+
+
+
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartData: any[] = [];
   public doughnutChartType: string = "doughnut";
 
   constructor(
@@ -119,7 +128,7 @@ export class ActividadPanel implements OnInit {
     this.serviciog.actividades = [];
     this.activityList = [];
     if (this.serviciog.proyecto) {
-      
+
       this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
       this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
       //alert(JSON.stringify(this.serviciog.tree_name));
@@ -127,14 +136,14 @@ export class ActividadPanel implements OnInit {
       var keym = this.serviciog.proyecto.keym;
       var id_usuario = this.serviciog.proyecto.id_usuario;
       var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
-      
+
       this.servicios
         .getActividad(keym, id_usuario, id_caracteristica)
         .then(actividades => {
-          
+
           if (actividades) {
             this.serviciog.actividades = actividades;
-            
+
             this.activityList = actividades;
             this.calculateValue(this.serviciog.actividades);
             var num = this.serviciog.tipos_act.indexOf(actividades[0].tipo);
@@ -241,6 +250,18 @@ export class ActividadPanel implements OnInit {
       formData.append("caracteristica", JSON.stringify(this.dat));
       this.servicios.getDataChart(formData).then(message => {
 
+        //calculo grafica resumen avance
+        this.barChartData = [
+          { data: [this.porcentaje_real], label: this.porcentaje_real + '  %' },
+          { data: [this.serviciog.actividad.porcentaje_cumplido], label: this.serviciog.actividad.porcentaje_cumplido + '  %' },
+          { data: [this.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido], label: this.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido + '  %' }
+        ];
+        this.barChartLabels = [
+          'Porcentaje Programado ',
+          'Porcentaje Real Ejecutado ',
+          'Porcentaje Programado VS Ejecutado'
+        ];
+
         //alert(JSON.stringify(message));
         this.serviciog.listDatChart = [];
         this.serviciog.listDatChart = message;
@@ -300,16 +321,16 @@ export class ActividadPanel implements OnInit {
             this.serviGloAct.subActividades[0].tipo
           );
           this.serviGloAct.tipo = this.serviciog.tipos_act[num];
-          
+
           this.calculateValue(actividades);
         }
       });
-      this.calcPercentReal();
-      
-    }
+    this.calcPercentReal();
 
-  
-    valPor(flag, i) {
+  }
+
+
+  valPor(flag, i) {
     if (flag) {
       if (this.serviciog.actividades[i].porcentaje < 0) {
         this.serviciog.actividades[i].porcentaje = 0;
@@ -323,8 +344,8 @@ export class ActividadPanel implements OnInit {
     } else {
       this.calculateValue(this.serviGloAct.subActividades);
     }
-   
-   
+
+
   }
 
   tituloClick() {
@@ -332,8 +353,10 @@ export class ActividadPanel implements OnInit {
     //alert(JSON.stringify(this.serviciog.data));
 
     //alert(JSON.stringify(this.serviciog.proyecto));
-
+    //calculo grafica resumen avance
+    this.calcPercentReal();
     
+    //alert(JSON.stringify(this.serviciog.isSubActivity));
 
     this.isTitleSelected = true;
     this.serviciog.actividad = null;
@@ -387,6 +410,22 @@ export class ActividadPanel implements OnInit {
       formData.append("caracteristica", JSON.stringify(this.dat));
       this.servicios.getDataChart(formData).then(message => {
         //alert(JSON.stringify(message));
+
+        //alert(JSON.stringify(this.serviciog.isSubActivity));
+    if (this.serviciog.isSubActivity) {
+      this.barChartData = [
+        { data: [this.porcentaje_real], label: this.porcentaje_real + '  %' },
+        { data: [this.serviciog.isSubActivity.porcentaje_cumplido], label: this.serviciog.isSubActivity.porcentaje_cumplido + '  %' },
+        { data: [this.porcentaje_real - this.serviciog.isSubActivity.porcentaje_cumplido], label: this.porcentaje_real - this.serviciog.isSubActivity.porcentaje_cumplido + '  %' }
+      ];
+      this.barChartLabels = [
+        'Porcentaje Programado ',
+        'Porcentaje Real Ejecutado ',
+        'Porcentaje Programado VS Ejecutado'
+      ];
+    }
+
+    
         this.serviciog.listDatChart = [];
         this.serviciog.listDatChart = message;
         var ax: any[] = [];
@@ -431,6 +470,9 @@ export class ActividadPanel implements OnInit {
     }).catch(e => {
       alert('ERROR   =>  ' + e);
     });
+
+    
+
 
 
   }
@@ -574,6 +616,7 @@ export class ActividadPanel implements OnInit {
         .getActividad(keym, id_usuario, id_caracteristica)
         .then(actividad => {
           if (actividad) {
+            
             this.serviciog.actividades = actividad;
             this.activityList = actividad;
             var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
@@ -652,6 +695,8 @@ export class ActividadPanel implements OnInit {
               alert('ERROR   =>  ' + e);
             });
 
+            this.calcPercentReal();
+
           }
         });
     } else {
@@ -689,7 +734,7 @@ export class ActividadPanel implements OnInit {
 
   //Detalles    =   Detalles del proyecto padre
   c0() {
-   
+
     this.serviGloAct.actOpt = 0;
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -765,6 +810,7 @@ export class ActividadPanel implements OnInit {
 
   //Detalles    =   Muestra informacion detallada del proyecto interno o actividad seleccionada
   c1() {
+
     this.calcPercentReal();
     this.serviGloAct.actOpt = 1;
 
@@ -797,36 +843,37 @@ export class ActividadPanel implements OnInit {
     }).catch(e => {
       alert('ERROR   =>  ' + e);
     });
+
   }
 
   //calculo pocentaje real
-  calcPercentReal(){
+  calcPercentReal() {
 
-   
+
 
     var fecha_actual = new Date;
-    
-    var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-'); 
-    var fFecha1 = new Date (fecha_actual.getFullYear(),fecha_actual.getMonth(),fecha_actual.getDay()); 
-    var fFecha2 = new Date (parseInt(aFecha2[0]),parseInt(aFecha2[1])-1,parseInt(aFecha2[2])); 
+
+    var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
+    var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDay());
+    var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
     var dif = fFecha1.getTime() - fFecha2.getTime();
-    var dias = Math.floor(dif / (1000 * 60 * 60 * 24)); 
-    if(this.serviciog.actividad.tipo == "Beneficiario"){
-      if(dias>9 && dias <=30){
-        this.porcentaje_real = (dias*(100/21)).toPrecision(3);
-      }else if(dias > 30){
+    var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    if (this.serviciog.actividad.tipo == "Beneficiario") {
+      if (dias > 9 && dias <= 30) {
+        this.porcentaje_real = (dias * (100 / 21)).toPrecision(3);
+      } else if (dias > 30) {
         this.porcentaje_real = 100;
       }
-    }else if (this.serviciog.actividad.tipo == "Proyecto"){
-      this.porcentaje_real = (dias*(100/300)).toPrecision(3);
-    }else{
-      var aFecha = this.serviciog.actividad.fecha_inicio.split('-'); 
+    } else if (this.serviciog.actividad.tipo == "Proyecto") {
+      this.porcentaje_real = (dias * (100 / 300)).toPrecision(3);
+    } else {
+      var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
       var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
-      var faFecha = new Date (parseInt(cFecha[0]),parseInt(cFecha[1])-1,parseInt(cFecha[2])); 
-      var fcFecha = new Date (parseInt(aFecha[0]),parseInt(aFecha[1])-1,parseInt(aFecha[2])); 
+      var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
+      var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
       var diff = fcFecha.getTime() - faFecha.getTime();
-      var diasd = Math.floor(diff / (1000 * 60 * 60 * 24)); 
-      this.porcentaje_real = (dias*(100/(300-diasd))).toPrecision(3);
+      var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
+      this.porcentaje_real = (dias * (100 / (300 - diasd))).toPrecision(3);
     }
   }
 
@@ -837,7 +884,18 @@ export class ActividadPanel implements OnInit {
 
   //Reporte
   c3() {
-
+    
+    //calculo grafica resumen avance
+    this.barChartData = [
+      { data: [this.porcentaje_real], label: this.porcentaje_real + '  %' },
+      { data: [this.serviciog.actividad.porcentaje_cumplido], label: this.serviciog.actividad.porcentaje_cumplido + '  %' },
+      { data: [this.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido], label: this.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido + '  %' }
+    ];
+    this.barChartLabels = [
+      'Porcentaje Programado ',
+      'Porcentaje Real Ejecutado ',
+      'Porcentaje Programado VS Ejecutado'
+    ];
 
 
     this.serviGloAct.actOpt = 3;
@@ -955,8 +1013,25 @@ export class ActividadPanel implements OnInit {
   }
 
   //Estadisticas  - Diagramas Charts
+
+
   c5() {
     this.serviGloAct.actOpt = 5;
+
+    //calculo grafica resumen avance
+    this.barChartData = [
+      { data: [this.porcentaje_real], label: this.porcentaje_real + '  %' },
+      { data: [this.serviciog.actividad.porcentaje_cumplido], label: this.serviciog.actividad.porcentaje_cumplido + '  %' },
+      { data: [this.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido], label: this.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido + '  %' }
+    ];
+    this.barChartLabels = [
+      'Porcentaje Programado ',
+      'Porcentaje Real Ejecutado ',
+      'Porcentaje Programado VS Ejecutado'
+    ];
+
+
+
     //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
       var dat = {
@@ -1013,7 +1088,7 @@ export class ActividadPanel implements OnInit {
       });
       this.total = 0;
       this.mon.forEach(element => {
-        this.total = this.total+parseFloat(element);
+        this.total = this.total + parseFloat(element);
       });
 
       this.fin_data = this.valresper;
