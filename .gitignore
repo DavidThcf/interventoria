@@ -46,9 +46,9 @@ testem.log
 
 ### Images ###
 # JPEG
-*.jpg
-*.jpeg
-*.jpe
+#*.jpg
+#*.jpeg
+#*.jpe
 *.jif
 *.jfif
 *.jfi
@@ -93,7 +93,7 @@ testem.log
 *.svgz
 
 # Portable Document Format
-*.pdf
+#*.pdf
 
 # X BitMap
 *.xbm
@@ -175,14 +175,14 @@ typings/
 *.3gp
 *.asf
 *.asx
-*.avi
+#*.avi
 *.flv
 *.mov
-*.mp4
+#*.mp4
 *.mpg
 *.rm
 *.swf
 *.vob
-*.wmv
+#*.wmv
 
 # End of https://www.gitignore.io/api/node,video,audio,images,angular
