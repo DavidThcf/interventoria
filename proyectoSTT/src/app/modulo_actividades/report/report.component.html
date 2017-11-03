@@ -57,7 +57,7 @@
 			<td class="tg-yw4l" colspan="3">{{this.resguardo | uppercase}}</td>
 		</tr>
 		<tr>
-			
+
 		</tr>
 		<tr>
 			<td class="tg-2nhx">FECHA DE INICIO DE OBRA</td>
@@ -65,7 +65,7 @@
 		</tr>
 	</table>
 	<!--tabla con observaciones y recomendaciones del proyecto-->
-	<table *ngIf="this.observaciones != false"  class="tg1" width="100%" id="tabobse">
+	<table *ngIf="this.observaciones != false" class="tg1" width="100%" id="tabobse">
 		<tr>
 			<td class="tg-6qw1" colspan="3">OBSERVACIONES</td>
 		</tr>
@@ -87,64 +87,67 @@
             </tr>
         {{/each}}  -->
 	</table>
-	
-	
-	
+
+
+
 	<!--tabla con grafica y porcentaje de cumplimiento-->
 	<table class="tg2" width="100%">
 		<tr>
-			<td class="tg-2nhx">RESUMEN AVANCE <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b> </td>
+			<td class="tg-2nhx">RESUMEN AVANCE
+				<b>{{this.tipo | uppercase}}</b>
+				<b>{{this.nombre | uppercase}}</b>
+			</td>
 		</tr>
 	</table>
 	<div class="divfot" width="100%" id="grafEjec" style="height: 450px">
 		<!-- <img id="imgr" alt="grafica" width="80%" height="80%" src='-grafica-' /> -->
 		<div>
 			<div style="display: block; height: 300px; width: 800px;margin-top: 15px" class="center-block">
-				<canvas baseChart [datasets]="doughnutChartData" [labels]="doughnutChartLabels" 
-				[options]="this.barChartOptions" [legend]="this.barChartLegend"
-				[chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+				<canvas baseChart [datasets]="doughnutChartData" [labels]="doughnutChartLabels" [options]="this.barChartOptions" [legend]="this.barChartLegend"
+				 [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 			</div>
 		</div>
 	</div>
-	
+
 
 	<!--tabla con grafica y porcentaje de cumplimiento-->
-<div *ngIf="this.tipo.toUpperCase()!='BENEFICIARIO' && this.tipo.toUpperCase()!='CAPITULO' && this.tipo.toUpperCase()!='ACTIVIDAD'">
-	<table class="tg2" width="100%">
-		<tr>
-			<td class="tg-2nhx">Porcentaje del total de los beneficiarios del <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b></td>
-		</tr>
-	</table>
-	<div class="divfot" width="100%" id="grafEjec">
-		<div style="padding: 1px" class="form-inline form">
-			<div style="display: block; height: 310px; width: 600px;margin-top: 5px;" class="center-block">
-			  <canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
-				(chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-			  </canvas>
+	<div *ngIf="this.tipo.toUpperCase()!='BENEFICIARIO' && this.tipo.toUpperCase()!='CAPITULO' && this.tipo.toUpperCase()!='ACTIVIDAD'">
+		<table class="tg2" width="100%">
+			<tr>
+				<td class="tg-2nhx">Porcentaje del total de los beneficiarios del
+					<b>{{this.tipo | uppercase}}</b>
+					<b>{{this.nombre | uppercase}}</b>
+				</td>
+			</tr>
+		</table>
+		<div class="divfot" width="100%" id="grafEjec">
+			<div style="padding: 1px" class="form-inline form">
+				<div style="display: block; height: 310px; width: 600px;margin-top: 5px;" class="center-block">
+					<canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
+					 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+					</canvas>
+				</div>
 			</div>
-		  </div>
+		</div>
 	</div>
-</div>
 
-
-	
-	
-	
 	<!--tabla de registro fotografico-->
-	<div *ngIf="this.tipNum==4">
-		<table class="tg2 ocultablePr ocultableVi ocultableMu ocultableRe " width="100%">
+	<div>
+		<table class="tg2" width="100%">
 			<tr>
 				<td class="tg-2nhx">REGISTRO FOTOGRAFICO</td>
 			</tr>
 		</table>
-		<div class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
+		<div class="divfot" width="100%" id="regfot">
 			<div *ngFor="let item of this.images">
 				<br>
-				<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}'/>
+				<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}' />
 				<br>
-				<p><b>{{item.nombre}}</b></p>
+				<p>
+					<b>{{item.nombre}}</b>
+				</p>
 			</div>
-			
+
 			<!--  {{#each imagenes}}
 				<br>
 				<img id="img" width="80%" height="40%" alt={{nombre}} src='{{url}}'/>
@@ -153,7 +156,7 @@
 			{{/each}}  -->
 		</div>
 	</div>
-	
+
 	<!--contine informacion de realizacion-->
 	<p style="margin-top: 10px">Para constancia de lo anterior, se firma el presente documento bajo la responsabilidad expresa de los que intervienen.</p>
 	<table class="tg2" width="100%">
@@ -180,11 +183,11 @@
 			<td class="tg-baqh">{{this.cargoApr}}</td>
 		</tr>
 	</table>
-</div>    
+</div>
 <br>
 <br>
 <button style="position: relative;width: 200px;margin: auto;" class="btn btn-success center-block" (click)="downloadReport()">DESCARGAR</button>
-
+<!-- 
 <br>
 <br>
-<br>
+<br> -->

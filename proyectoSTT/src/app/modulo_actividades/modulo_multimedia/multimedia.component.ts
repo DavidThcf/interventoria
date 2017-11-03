@@ -225,15 +225,14 @@ export class Multimedia implements OnInit {
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
-					alert(JSON.stringify(imagenes))
 					var cad = JSON.stringify(imagenes);
-					// cad = cad.replace(/=/g,'/');
-
 					this.serviciog.imagenes = imagenes;
+					this.vshowFilter = !this.vshowFilter;
 				} else {
 					this.serviciog.imagenes = []
 				}
 			});
+		
 	}
 	/*  */
 	envioCambios() {
