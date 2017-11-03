@@ -431,7 +431,7 @@ module.exports.getRemarks = function (data, observacion, report) {
                 select u.nombre||' '||u.apellido as usuario,o.observacion,row_number() OVER () numero from caracteristicas c natural join observaciones o join usuarios u
                 on o.usuario_own_observacion = u.id_usuario
                 where c.keym = `+ data.keym + ` and c.id_caracteristica = ` + data.id_caracteristica + ` and c.id_usuario = ` + data.id_usuario + `
-                and reporte =  `+ observacion + ` and visto = true and aprobado = true;
+                and reporte =  `+ observacion + ` and aprobado = true;
             `;
         else
             var query1 = `
@@ -551,24 +551,31 @@ module.exports.regObservacion = function (data) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var fec = new Date().toLocaleString();
+        
+        var flag;
+
+        if(data.usu_observacion in [3,4,5,6,7,8,9,10])
+        flag = true;
+        else
+        flag = false;
+
+
         var query1 = `
         insert into observaciones (
             keym,id_caracteristica,id_usuario,
             observacion,
             usu_observacion,usuario_own_observacion,
-            reporte,fecha_creacion
+            reporte,fecha_creacion,aprobado
         ) values (
           `+ data.keym + `,
           `+ data.id_caracteristica + `,
           `+ data.id_usuario + `,
-
           '`+ data.observacion + `',
-
           `+ data.usu_sup + `,
           `+ data.usu_observacion + `,
-                 
           true,
-          '`+ fec + `'
+          '`+ fec + `',
+          `+flag+`
         );
 
       `;

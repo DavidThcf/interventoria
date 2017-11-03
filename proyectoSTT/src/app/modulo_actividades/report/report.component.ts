@@ -18,18 +18,19 @@ export class ReportComponent implements OnInit {
 	public today: number = Date.now();
 	images: any[] = [];
 	msg: any;
-	public chartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
+	//public chartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
 	tipNum: number = 0;
-	public barColor: any[] = [
-		{ backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
-	];
+	// public barColor: any[] = [
+	// 	{ backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
+	// ];
 
-	@Input() doughnutChartData: string[] = [];
-	@Input() doughnutChartLabels: number[] = [];
+	@Input() doughnutChartData: any[] = [];
+	@Input() doughnutChartLabels: any[] = [];
 	@Input() doughnutChartType: any = '';
+	@Input() barColor : any[] =[];
 
 	@Input() isTitleSelected: boolean = false;
-
+ 
 	//Falta Juanito
 	@Input() etapa: string = '';
 	@Input() estado: string = '';
@@ -54,8 +55,11 @@ export class ReportComponent implements OnInit {
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
 
- 
-
+	public barChartLegend: boolean = true; 
+	public barChartOptions: any = {
+		scaleShowVerticalLines: false,
+		responsive: true
+	  };
 
 	constructor(
 		private serviciog: ServiciosGlobales,
@@ -67,7 +71,7 @@ export class ReportComponent implements OnInit {
 	ngOnInit() {
 		this.msg = [];
 		this.tipNum = 0;
-		this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
+		//this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
 
 
 
