@@ -277,15 +277,17 @@
 
 										</div>
 
-										<div style="display: block; height: 700px; width: 900px" class="center-block">
-											<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-											 [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+										<div style="height: 250px; width: 700px" class="center-block">
+											<div style="display: block; " class="center-block">
+												<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+												 [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+											</div>
 										</div>
 										
 									</div>
 									<hr>
 									<!-- VALORES -->
-									<div>
+									<div style="margin-top: 150px">
 										<div>
 											<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 											<label class="form-control" name="costo_real">{{this.serviciog.actividad.costo_real | currency:'COP':true}}</label>
@@ -343,7 +345,9 @@
 								<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'"
 								 style="height: 420px;width: 600px" class="form-inline form">
 									<!--  Grafica del total de beneficiarios por categoria  -->
-									<app-chart-component></app-chart-component>
+									<div style="margin-top: 250px">
+											<app-chart-component></app-chart-component>
+									</div>
 								</div>
 							</div>
 							<br/>

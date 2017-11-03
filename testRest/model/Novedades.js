@@ -229,27 +229,60 @@ module.exports.getDataNewChangeFile = function (data,reporte) {
     console.log(data);
     var query1 = `
     select 
-        act.nombre,
-        ar.id_archivo,
-        ar.nombre_archivo,
-        ar.titulo,
-        ar.descripcion,
-        ar.fecha_creacion,
-        ar."srcServ", 
-        act.nombre nom_act,
-        act.descripcion des_act,
-        u.nombre usu_nom, 
-        u.apellido usu_ape,
-        u.cargo usu_cargo,
-        concat((select val_configuracion from configuracion_inicial where id = 1),ar."srcServ",ar.nombre_archivo) link
-        
+    car_res.tipo||' - '||act_res.nombre||' - ' ||car_cap.tipo||' - '||act_cap.nombre||' - ' ||car_ben.tipo||' - '||act.nombre as nom_file,act.nombre,
+    ar.id_archivo,
+    ar.nombre_archivo,
+    
+    
+    ar.titulo,
+    ar.descripcion,
+    ar.fecha_creacion,
+    ar."srcServ", 
+    act.nombre nom_act,
+    act.descripcion des_act,
+    u.nombre usu_nom, 
+    u.apellido usu_ape,
+    u.cargo usu_cargo,
+    concat((select val_configuracion from configuracion_inicial where id = 1),ar."srcServ",ar.nombre_archivo) link
+    
+    ---------------------------------------
+    
     from archivos ar 
-        left join actividades act
-        on ar.keym_car = act.keym_car
-        and ar.id_caracteristica = act.id_caracteristica
-        and ar.id_usuario_car = act.id_usuario_car
-        join usuarios u
-        on ar.id_usuario_arc= u.id_usuario
+    join actividades act
+    on ar.keym_car = act.keym_car
+    and ar.id_caracteristica = act.id_caracteristica
+    and ar.id_usuario_car = act.id_usuario_car
+    join caracteristicas car_ben
+    on ar.keym_car = car_ben.keym
+    and ar.id_caracteristica = car_ben.id_caracteristica
+    and ar.id_usuario_car = car_ben.id_usuario
+    
+    ----------------------------------------------
+    
+    join caracteristicas car_cap
+    on car_cap.keym = car_ben.keym_padre
+    and car_cap.id_caracteristica = car_ben.id_caracteristica_padre
+    and car_cap.id_usuario = car_ben.id_usuario_padre
+    
+    join actividades act_cap
+    on act_cap.keym_car = car_cap.keym
+    and act_cap.id_caracteristica = car_cap.id_caracteristica
+    and act_cap.id_usuario_car = car_cap.id_usuario
+    
+    --------------------------------------
+    
+    join caracteristicas car_res
+    on car_res.keym = car_cap.keym_padre
+    and car_res.id_caracteristica = car_cap.id_caracteristica_padre
+    and car_res.id_usuario = car_cap.id_usuario_padre
+    
+    join actividades act_res
+    on act_res.keym_car = car_res.keym
+    and act_res.id_caracteristica = car_res.id_caracteristica
+    and act_res.id_usuario_car = car_res.id_usuario
+    
+    join usuarios u
+    on ar.id_usuario_arc= u.id_usuario
         where ar.visto = false  and u.usuario_superior = `+data.id_usuario+ ` and ar.reporte = false 
     ;`;
 
