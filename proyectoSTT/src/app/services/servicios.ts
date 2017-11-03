@@ -299,7 +299,7 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
-	
+
 
 	//trae la multimedia archivos que tiene una actividad la cual se cambia de porcentaje
 	getFilesNovedades(formData: FormData) {
@@ -329,21 +329,30 @@ export class Servicios {
 	/* ---------------------------------------- */
 
 	/* ----------------- get total_beneficiary ------------------*/
-	getTotalBeneficiary(formData : FormData){
+	getTotalBeneficiary(formData: FormData) {
 		return this.http.post(this.url + "getTotalBeneficiary", formData)
-		.toPromise()
-		.then(response => response.json())
-		.catch(err => false)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
 	}
 
 	getOnlyTotalBeneficiary(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "getOnlyTotalBeneficiary", formData)
 			.toPromise()
 			.then(response => {
-			return response.json();
+				return response.json();
 			})
 			.catch(err => false)
 	}
 	/* --------------------------------------------------------- */
+
+	getMultimediaReport(formData: FormData): Promise<any> {
+
+		return this.http
+			.post(this.url + "getMultimediaReport", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false);
+	}
 
 } 

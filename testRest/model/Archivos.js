@@ -100,7 +100,7 @@ module.exports.getFileList = function (data) {
 
         if(data.reporte){
             var query1 = `
-                // select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+                select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
                 where keym_car = `+ keym + ` 
                 and id_caracteristica = `+ id_caracteristica + ` 
                 and id_usuario_car = `+ id_usuario + `
@@ -319,3 +319,65 @@ module.exports.updateImageEditView = function (data) {
     });
 }
 /* -------------------------------------- */
+
+
+//multimedia reporte
+//Service to get files original
+module.exports.getMultimediaReport = function (data) {
+    //console.log('OK ');
+    var sequelize = sqlCon.configConnection();
+    var keym = data.keym;
+    var id_caracteristica = data.id_caracteristica;
+    var id_usuario = data.id_usuario;
+    //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
+    return new Promise((resolve, reject) => {
+
+        if(data.reporte){
+            if(data.tipo_car == 'Proyecto')
+            var query1 = `
+            select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+           where tipo = '`+ data.tipo + `' and reporte =  true  ;
+       `;
+            else
+            var query1 = `
+                 select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+                where keym_car = `+ keym + ` 
+                and id_caracteristica = `+ id_caracteristica + ` 
+                and id_usuario_car = `+ id_usuario + `
+                and tipo = '`+ data.tipo + `' and reporte =  true  ;
+            `;
+        }
+        else{
+            if(data.tipoAct == "Proyecto"){
+                var query1 = `
+                SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
+                WHERE (now()::date- ar.fecha_creacion::date) <= 15
+                ORDER BY
+                ar.fecha_creacion DESC  LIMIT 25; 
+                `;
+            }else{
+                var query1 = `
+                    select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+                    where keym_car = `+ keym + ` 
+                    and id_caracteristica = `+ id_caracteristica + ` 
+                    and id_usuario_car = `+ id_usuario + `
+                    and tipo = '`+ data.tipo + `'  ;
+                `;
+            }
+        }
+        //console.log(query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
+            then(x => {
+
+                var cad = JSON.stringify(x);
+                cad = cad.replace(/\//g, '=');
+                console.log('RESPONDE =======>    ' + JSON.stringify(x))
+                resolve(x);
+            }).catch(x => {
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });;
+    });
+}

@@ -4,9 +4,13 @@
 
 			<div class="center-block row" style="margin-top: 5px">
 				<div style="text-align: center;">
-					<div *ngIf="this.serviGloAct.tipo2 == 'Proyecto'" class="titulo" (click)="tituloClick()" style="display: inline;"> Proyecto {{this.serviciog.titulo}}</div>
-
-					<div *ngIf="this.serviGloAct.tipo2 != 'Proyecto'" class="titulo" (click)="tituloClick()" style="display: inline;">{{this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(this.serviGloAct.tipo2) - 1 ]}} {{this.serviciog.titulo}}</div>
+					<div *ngIf="this.proyecto">
+							<div *ngIf="this.serviGloAct.tipo2 == 'Proyecto'" class="titulo" (click)="tituloClick()" style="display: inline;"> Proyecto {{this.serviciog.titulo}}</div>
+							<div *ngIf="this.serviGloAct.tipo2 != 'Proyecto'" class="titulo" (click)="tituloClick()" style="display: inline;">{{this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(this.serviGloAct.tipo2) - 1 ]}} {{this.serviciog.titulo}}</div>
+					</div>
+					<div *ngIf="!this.proyecto">
+							<div  class="titulo" (click)="tituloClick()" style="display: inline;"> {{this.serviciog.recomendacion.tipo}} {{this.serviciog.titulo}}</div>
+					</div>
 				</div>
 
 				<div class="row" style="position: relative;width: 20%;margin: auto;margin-left: 40%">
@@ -159,8 +163,10 @@
 									<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
 									<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_inicio">
 								</div>
-								<label for="tiempo_fin" class="lab">Fecha Final</label>
-								<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_fin">
+								<div *ngIf="this.serviciog.proyecto.fecha_fin">
+										<label for="tiempo_fin" class="lab">Fecha Final</label>
+										<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_fin">
+								</div>
 								<div class="form-inline" style="margin-top: 3px;margin-left: 0px">
 									<div *ngIf="this.serviciog.proyecto.tipo == 'Beneficiario' || this.serviciog.proyecto.tipo == 'Resguardo' || this.serviciog.proyecto.tipo == 'Capitulo' || this.serviciog.proyecto.tipo == 'Actividad'"
 									 class="form-inline " style="padding: 1px">
@@ -277,11 +283,13 @@
 
 										</div>
 
-										<div style="height: 250px; width: 700px" class="center-block">
-											<div style="display: block; " class="center-block">
-												<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-												 [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
-											</div>
+										<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'">
+												<div style="height: 250px; width: 700px" class="center-block">
+														<div style="display: block; " class="center-block">
+															<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
+															 [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+														</div>
+													</div>
 										</div>
 										
 									</div>

@@ -117,14 +117,18 @@ export class ReportComponent implements OnInit {
 		formData.append('id_caracteristica', dat.id_caracteristica);
 		formData.append('id_usuario', dat.id_usuario);
 		formData.append('tipo', this.serviciog.tipo);
+		formData.append('tipo_car',dat.tipo);
 		formData.append('reporte', true+'');
-
-		this.servicios.getMultimedia(formData)
+		
+		//alert(JSON.stringify(dat.tipo));
+		
+		this.servicios.getMultimediaReport(formData)
 			.then(imagenes => {
+				
 				if (imagenes) {
 					this.serviciog.imagenes = imagenes;
 					imagenes.forEach(element => {
-
+						//alert(JSON.stringify(element.titulo));
 						this.images.push({ 'nombre': element.subtitulo, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
 						//val_configuracion+srcServ+nombre_archivo
 
@@ -132,7 +136,7 @@ export class ReportComponent implements OnInit {
 				} else {
 					this.serviciog.imagenes = []
 				}
-				//alert(JSON.stringify(this.images));
+				alert(JSON.stringify(this.images));
 			});
 	}
 

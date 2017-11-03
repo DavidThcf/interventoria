@@ -156,7 +156,8 @@ export class ActividadPanel implements OnInit {
             //alert('2 '+this.serviGloAct.tipo);
           }
         });
-    } else {
+    } 
+    else {
       let link = ["administrador"];
       this.router.navigate(link);
       this.serviciog.tree_name.pop();
