@@ -345,5 +345,21 @@ export class Servicios {
 			.catch(err => false)
 	}
 	/* --------------------------------------------------------- */
+	/* ----------------- pause proyect ----------------------- */
+	pauseProyect(formData : FormData) {
+		return this.http.post(this.url + "pauseProyect", formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+	/* ----------------------------------------------------------- */
+	/* ----------------- updateImageView ---------------------- */
+	updateImageView(formData){
+		return this.http.post(this.url + "updateImageView", formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
+	/* ---------------------------------------------------------- */
 
 } 

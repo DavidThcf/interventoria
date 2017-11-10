@@ -21,6 +21,11 @@ import { ActividadModule } from './modulo_actividades/actividad-panel.module';
 import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
 import { NewsComponentComponent } from './news-component/news-component.component';
 
+/* switch boostrap */
+
+/* ----------------------- */
+
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -36,7 +41,7 @@ import { NewsComponentComponent } from './news-component/news-component.componen
       //apiKey: 'AIzaSyBstXoO7yz2v1JKRl2dwht0EvS8r8rBpe0 '      
     }),
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   declarations: [
     AppComponent,

@@ -130,7 +130,6 @@ export class Multimedia implements OnInit {
 
 	checked(imagen) {
 		// var img = imagen;
-
 		imagen.reporte = !imagen.reporte;
 		var sss = this.imagenEditView.findIndex(x => x === imagen);
 		//alert(sss);

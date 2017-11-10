@@ -1,3 +1,4 @@
+import { Data } from '@agm/core/services/google-maps-types';
 import { any } from 'codelyzer/util/function';
 import { Component, OnInit } from "@angular/core";
 import { NgModule } from "@angular/core";
@@ -62,6 +63,12 @@ export class ActividadPanel implements OnInit {
   }];
   /* -------------------------------- */
 
+  /* suspesnsion de obra */
+  toggleProyect: boolean = false; 
+  datePause : any ;
+  /* ----------------------- */
+
+
   /* porcentaje real */
   porcentaje_real: any;
   /* --------------------- */
@@ -110,7 +117,7 @@ export class ActividadPanel implements OnInit {
 
     //alert(JSON.stringify(this.serviciog.usuario));
     //alert(JSON.stringify(this.serviciog.proyecto));
-
+    //alert("usuario >>" + this.serviciog.usuario.id_usuario);
 
     this.serviciog.actividad = null;
     this.serviciog.isSelAct = false;
@@ -1318,4 +1325,26 @@ export class ActividadPanel implements OnInit {
     //alert("HOver")
     console.log(e);
   }
+
+  /* stop obra */
+  toggleStop(){
+    this.toggleProyect = !this.toggleProyect;
+  }
+
+  ClickPause(value : any){
+    var formData = new FormData();
+    var dateInicio = new Date;
+    var fecIni = dateInicio.getFullYear()+"-"+(dateInicio.getMonth()+1)+"-"+dateInicio.getDay();
+    formData.append("keym", this.serviciog.proyecto.keym);
+    formData.append("id_caracteristica", this.serviciog.proyecto.id_caracteristica);
+    formData.append("id_usuario", this.serviciog.proyecto.id_usuario);    
+    formData.append("datePauseInicio", fecIni);
+    formData.append("datePauseFin", value);
+    this.servicios.pauseProyect(formData).then(message => {
+      if (message)
+        alert("Actualizado");
+    });
+  }
+  /* ----------- */
+
 }

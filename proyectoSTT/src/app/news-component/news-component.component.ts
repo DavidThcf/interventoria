@@ -19,6 +19,7 @@ export class NewsComponentComponent implements OnInit {
 	archivos: any;
 	cad: string = '';
 	tipo: string = "img";
+	imagenView : any[] = []; //arreglo para imagenes vistas
 	
 	constructor(private serviciog: ServiciosGlobales,
 		private servicios: Servicios,
@@ -295,4 +296,56 @@ export class NewsComponentComponent implements OnInit {
 				}
 			});
 	}
+
+	/* checke view */
+	checked(imagen) {
+		// var img = imagen;
+		imagen.visto = !imagen.visto;
+		var sss = this.imagenView.findIndex(x => x === imagen);
+		//alert(sss);
+		if (sss >= 0) {
+			this.imagenView.splice(sss, 1)
+		} else {
+			this.imagenView.push(imagen);
+		}
+	}
+
+	selAll() {
+		this.serviciog.novedades.forEach(element => {
+			element.visto = !element.visto;
+			this.imagenView.push(element);
+		});
+	}
+
+	sendChangeView(){
+		if (this.imagenView.length > 0) {
+			//alert(JSON.stringify(this.imagenView))
+			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+			formData.append("img_edit", JSON.stringify(this.imagenView));/* se carga formData  */
+			this.servicios.updateImageView(formData) /* llamdo al metodo que se conectara con el server */
+				.then(x => {
+					if (x) {
+						this.serviciog.alert_message = 'Cambios Actualizados';
+						this.serviciog.hidden = true;
+						for (var i = 0; i < this.serviciog.novedades.length; i++) {
+							if (this.serviciog.novedades[i].keym == this.novedad.keym &&
+								this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
+								this.serviciog.novedades[i].id_usuario == this.novedad.id_usuario) {
+								this.serviciog.novedades.splice(i, 1);
+								return this.serviciog.novedades;
+							}
+						}
+					}
+				});
+
+		} else {
+			this.serviciog.alert_message = 'No se puede actualizar';
+			this.serviciog.hidden = true;
+
+		}
+		setTimeout(() => {
+			this.serviciog.hidden = false;
+		}, 5000);
+	}
+	/* -------------- */
 }
