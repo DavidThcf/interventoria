@@ -1358,7 +1358,7 @@ export class ActividadPanel implements OnInit {
     formData.append("caracteristica", JSON.stringify(dat));
 
     this.servicios.getObservaciones(formData).then(message => {
-      alert(JSON.stringify(message));
+      //alert(JSON.stringify(message));
       this.serviGloAct.observaciones = message;
     });
   }

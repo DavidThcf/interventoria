@@ -55,10 +55,24 @@ export class Mapa implements OnInit {
 		this.searchControl = new FormControl();
 		this.buscarLugar();
 
-		this.caracteristica.keym_car = this.serviciog.proyecto.keym;
-		this.caracteristica.id_caracteristica = this.serviciog.proyecto.id_caracteristica;
-		this.caracteristica.id_usuario_car = this.serviciog.proyecto.id_usuario;
-		this.caracteristica.tipo = this.serviciog.proyecto.tipo;
+
+		if (this.serviciog.actividad == null)
+      {
+        this.caracteristica.keym_car = this.serviciog.proyecto.keym;
+        this.caracteristica.id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+        this.caracteristica.id_usuario_car = this.serviciog.proyecto.id_usuario;
+        this.caracteristica.tipo = this.serviciog.proyecto.tipo;
+	  }
+    else if (this.serviciog.actividad)
+      {
+        this.caracteristica.keym_car = this.serviciog.actividad.keym;
+        this.caracteristica.id_caracteristica = this.serviciog.actividad.id_caracteristica;
+        this.caracteristica.id_usuario_car = this.serviciog.actividad.id_usuario;
+        this.caracteristica.tipo = this.serviciog.actividad.tipo;
+	  }
+    
+    
+
 
 		//alert('OK'+JSON.stringify(this.serviciog.actividad));
 
@@ -99,7 +113,7 @@ export class Mapa implements OnInit {
 			this.ax_caracteristica.id_usuario_car = '5';
 
 			var formData = new FormData();
-			formData.append('caracteristica', JSON.stringify(this.ax_caracteristica));
+			formData.append('caracteristica', JSON.stringify(this.caracteristica));
 			this.servicios.getCategoryList(formData)
 				.then(categorias => {
 					//alert(JSON.stringify('Categorias => '+categorias));
@@ -110,7 +124,7 @@ export class Mapa implements OnInit {
 				});
 
 			var formData = new FormData();
-			formData.append('caracteristica', JSON.stringify(this.ax_caracteristica));
+			formData.append('caracteristica', JSON.stringify(this.caracteristica));
 			this.servicios.getPointList(formData)
 				.then(marcador => {
 					//alert("Marcador => "+JSON.stringify(marcador));
