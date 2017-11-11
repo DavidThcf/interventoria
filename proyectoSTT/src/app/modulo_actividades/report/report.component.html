@@ -57,15 +57,22 @@
 			<td class="tg-yw4l" colspan="3">{{this.resguardo | uppercase}}</td>
 		</tr>
 		<tr>
-			
+
 		</tr>
 		<tr>
 			<td class="tg-2nhx">FECHA DE INICIO DE OBRA</td>
 			<td class="tg-yw4l" colspan='3'>{{this.feciniobr | uppercase}}</td>
 		</tr>
+
+		<tr *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && 
+		this.serviciog.actividad.tipo !== 'Capitulo' &&
+		this.serviciog.actividad.tipo !== 'Actividad'" >
+			<td class="tg-2nhx" >BENEFICIARIOS {{this.serviciog.actividad.tipo | uppercase}}</td>
+			<td class="tg-yw4l" colspan='3' >{{this.serviciog.total_beneficiary}}</td>
+		</tr>
 	</table>
 	<!--tabla con observaciones y recomendaciones del proyecto-->
-	<table *ngIf="this.observaciones != false"  class="tg1" width="100%" id="tabobse">
+	<table *ngIf="this.observaciones != false" class="tg1" width="100%" id="tabobse">
 		<tr>
 			<td class="tg-6qw1" colspan="3">OBSERVACIONES</td>
 		</tr>
@@ -79,6 +86,7 @@
 			<td class="tg-baqh" style="width: 90%;text-align: left">{{item.observacion}}</td>
 		</tr>
 
+		
 		<!-- {{#each observaciones}}
             <tr>
                 <td class="tg-baqh">{{numero}}</td>
@@ -87,73 +95,126 @@
             </tr>
         {{/each}}  -->
 	</table>
-	
-	
-	
+
+
+
 	<!--tabla con grafica y porcentaje de cumplimiento-->
 	<table class="tg2" width="100%">
 		<tr>
-			<td class="tg-2nhx">RESUMEN AVANCE <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b> </td>
+			<td class="tg-2nhx">RESUMEN AVANCE
+				<b>{{this.tipo | uppercase}}</b>
+				<b>{{this.nombre | uppercase}}</b>
+			</td>
 		</tr>
+		<!-- Datos de porcentajes -->
+
+		<tr>
+			<td style="margin-top: 2px" for="porcentaje_real" class="lab">Porcentaje Programado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}
+				<label class="form-control" name="porcentaje_real">{{this.serviciog.porcentaje_real}} %</label>
+			</td>
+		</tr>
+
+		<tr *ngIf="this.serviciog.actividad.tipo != 'Actividad'">
+			<td style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}
+				<label class="form-control" name="porcentaje_cumplido">{{this.serviciog.actividad.porcentaje_cumplido}} %</label>
+			</td>
+		</tr>
+
+		<tr *ngIf="this.serviciog.actividad.tipo != 'Actividad'">
+			<td style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado
+				<label class="form-control" name="porcentaje_cumplido"> {{ this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido }} % </label>
+			</td>
+
+		</tr>
+
+
 	</table>
 	<div class="divfot" width="100%" id="grafEjec" style="height: 450px">
 		<!-- <img id="imgr" alt="grafica" width="80%" height="80%" src='-grafica-' /> -->
 		<div>
-			<div style="display: block; height: 300px; width: 800px;margin-top: 15px" class="center-block">
-				<canvas baseChart [datasets]="doughnutChartData" [labels]="doughnutChartLabels" 
-				[options]="this.barChartOptions" [legend]="this.barChartLegend"
-				[chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+			<div style="display: block; height: 450px; width: 800px;margin-top: 15px" class="center-block">
+				<canvas baseChart [colors]='lineChartColors' [datasets]="doughnutChartData" [labels]="doughnutChartLabels" [options]="this.barChartOptions"
+				 [legend]="this.barChartLegend" [chartType]="doughnutChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 			</div>
 		</div>
 	</div>
-	
 
-	<!--tabla con grafica y porcentaje de cumplimiento-->
-<div *ngIf="this.tipo.toUpperCase()!='BENEFICIARIO' && this.tipo.toUpperCase()!='CAPITULO' && this.tipo.toUpperCase()!='ACTIVIDAD'">
+	<!-- Informe Financiero -->
 	<table class="tg2" width="100%">
 		<tr>
-			<td class="tg-2nhx">Porcentaje del total de los beneficiarios del <b>{{this.tipo | uppercase}}</b> <b>{{this.nombre | uppercase}}</b></td>
+			<td class="tg-2nhx">Informe Financiero de
+				<b>{{this.tipo | uppercase}}</b>
+				<b>{{this.nombre | uppercase}}</b>
+			</td>
+		</tr>
+		<tr>
+			<td for="tiempo_inicial" class="lab">
+				Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}
+				<label class="form-control" name="costo_real">{{(this.serviciog.actividad.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
+			</td>
+		</tr>
+		<tr>
+			<td for="tiempo_inicial" class="lab">
+				Valor Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}
+				<label class="form-control" name="costo_inicial">{{(this.serviciog.actividad.costo_actual | currency:'COP':true).replace('COP','$ ')}}</label>
+			</td>
+		</tr>
+		<tr>
+			<td for="tiempo_inicial" class="lab">
+				Diferencia Valor Programado VS Ejecutado
+				<label class="form-control" name="costo_inicial">{{ ((this.serviciog.actividad.costo_real - this.serviciog.actividad.costo_actual) | currency : 'COP' : true).replace('COP','$
+					') }}</label>
+			</td>
 		</tr>
 	</table>
-	<div class="divfot" width="100%" id="grafEjec">
-		<div style="padding: 1px" class="form-inline form">
-			<div style="display: block; height: 310px; width: 600px;margin-top: 5px;" class="center-block">
-			  <canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
-				(chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
-			  </canvas>
-			</div>
-		  </div>
-	</div>
-</div>
 
-
-	
-	
-	
-	<!--tabla de registro fotografico-->
-	<!-- <div *ngIf="this.tipNum==4"> -->
-		<table class="tg2 ocultablePr ocultableVi ocultableMu ocultableRe " width="100%">
+	<!--tabla con grafica y porcentaje de cumplimiento-->
+	<div *ngIf="this.tipo.toUpperCase()!='BENEFICIARIO' && this.tipo.toUpperCase()!='CAPITULO' && this.tipo.toUpperCase()!='ACTIVIDAD'">
+		<table class="tg2" width="100%">
 			<tr>
-				<td class="tg-2nhx">REGISTRO FOTOGRAFICO</td>
+				<td class="tg-2nhx">Porcentaje del total de los beneficiarios del
+					<b>{{this.tipo | uppercase}}</b>
+					<b>{{this.nombre | uppercase}}</b>
+				</td>
 			</tr>
 		</table>
-		<div class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
-			<div *ngFor="let item of this.images">
-				<br>
-				<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}'/>
-				<br>
-				<p><b>{{item.nombre}}</b></p>
+		<div class="divfot" width="100%" id="grafEjec">
+			<div style="padding: 1px" class="form-inline form">
+				<div style="display: block; height: 470px; width: 900px;margin-top: 15px;" class="center-block">
+					<canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
+					 (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+					</canvas>
+				</div>
 			</div>
-			
-			<!--  {{#each imagenes}}
+		</div>
+	</div>
+
+	<!--tabla de registro fotografico-->
+	<!-- <div *ngIf="this.tipNum==4"> -->
+	<table class="tg2 ocultablePr ocultableVi ocultableMu ocultableRe " width="100%">
+		<tr>
+			<td class="tg-2nhx">REGISTRO FOTOGRAFICO</td>
+		</tr>
+	</table>
+	<div class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
+		<div *ngFor="let item of this.images">
+			<br>
+			<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}' />
+			<br>
+			<p>
+				<b>{{item.nombre}}</b>
+			</p>
+		</div>
+
+		<!--  {{#each imagenes}}
 				<br>
 				<img id="img" width="80%" height="40%" alt={{nombre}} src='{{url}}'/>
 				<br>
 				<p><b>{{nombre}}</b></p>
 			{{/each}}  -->
-		</div>
+	</div>
 	<!-- </div> -->
-	
+
 	<!--contine informacion de realizacion-->
 	<p style="margin-top: 10px">Para constancia de lo anterior, se firma el presente documento bajo la responsabilidad expresa de los que intervienen.</p>
 	<table class="tg2" width="100%">
@@ -180,7 +241,7 @@
 			<td class="tg-baqh">{{this.cargoApr}}</td>
 		</tr>
 	</table>
-</div>    
+</div>
 <br>
 <br>
 <button style="position: relative;width: 200px;margin: auto;" class="btn btn-success center-block" (click)="downloadReport()">DESCARGAR</button>

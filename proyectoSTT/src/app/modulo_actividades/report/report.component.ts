@@ -55,10 +55,40 @@ export class ReportComponent implements OnInit {
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
 
+
+	public lineChartColors: Array<any> = [
+		{ // grey
+		  backgroundColor: 'rgba(97, 255, 0, 1)',
+		  //borderColor: 'rgba(148,159,177,1)',
+		  //pointBackgroundColor: 'rgba(148,159,177,1)',
+		  //pointBorderColor: '#fff',
+		  //pointHoverBackgroundColor: '#fff',
+		  //pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+		},
+		{ // grey
+		  backgroundColor: 'rgba(0, 200, 255, 1)',
+		},
+		{ // dark grey
+		  backgroundColor: 'rgba(255, 0, 0, 1)',
+		}
+	  ];
+
 	public barChartLegend: boolean = true; 
 	public barChartOptions: any = {
-		scaleShowVerticalLines: false,
-		responsive: true
+		legend: {
+			position: 'top',
+			fullWidth: true
+		  },
+		  scaleShowVerticalLines: false,
+		  responsive: true,
+		  scales: {
+			xAxes: [{
+			  gridLines: { display: false }
+			}],
+			yAxes: [{
+			  gridLines: { display: false }
+			}]
+		  }
 	  };
 
 	constructor(
@@ -117,12 +147,12 @@ export class ReportComponent implements OnInit {
 		formData.append('id_caracteristica', dat.id_caracteristica);
 		formData.append('id_usuario', dat.id_usuario);
 		formData.append('tipo', this.serviciog.tipo);
-		formData.append('tipo_car',dat.tipo);
+		formData.append('tipoAct',dat.tipo);
 		formData.append('reporte', true+'');
 		
 		//alert(JSON.stringify(dat.tipo));
 		
-		this.servicios.getMultimediaReport(formData)
+		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				
 				if (imagenes) {
@@ -136,7 +166,7 @@ export class ReportComponent implements OnInit {
 				} else {
 					this.serviciog.imagenes = []
 				}
-				alert(JSON.stringify(this.images));
+				//alert(JSON.stringify(this.images));
 			});
 	}
 

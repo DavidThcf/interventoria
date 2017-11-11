@@ -91,39 +91,65 @@ module.exports.getListProjects = function (id_user) {
 
         `;*/
   var query1 = `
-        select b.nombre beneficiario,
-                b.cedula,
-                c.keym,
-                c.id_usuario ,
-                c.id_caracteristica,
-                c.keym_padre ,
-                c.id_usuario_padre ,
-                c.id_caracteristica_padre, 
-                c.estado,  
-                c.porcentaje_cumplido,
-                c.usuario_asignado,
-                c.presupuesto,
-                c.porcentaje_cumplido,
-                p.nombre as nom_pro,
-                p.descripcion,
-                u.nombre,
-                u.apellido,
-                c.tipo_caracteristica,
-                c.tipo,
-                c.fecha_inicio,
-                c.fecha_fin,
-                c.costo_real,
-                c.costo_actual
-
-
-                from proyectos p
-                      join caracteristicas c on p.keym_car = c.keym
-                      and p.id_usuario_car = c.id_usuario
-                      and p.id_caracteristica = c.id_caracteristica
-                      join usuarios u on  c.usuario_asignado = u.id_usuario
-                      left join beneficiarios b
-                      on c.cedula = b.cedula
-                      where p.id_usuario in(` + id_user + `)`;
+      select 	
+      b.nombre beneficiario,
+      b.cedula,
+      b.tipo_identificacion,
+      
+      p.nombre as nom_pro,
+      p.nombre as nom_act,
+      p.descripcion,
+      u.nombre,
+      u.apellido,
+      
+      c.keym,
+      c.id_caracteristica,
+      c.id_usuario,
+      
+      c.usuario_asignado,
+      c.tipo,
+      c.keym_padre,
+      c.id_caracteristica_padre,
+      c.id_usuario_padre,
+      c.tipo,
+      c.tipo_caracteristica,
+      c.costo_real,
+      c.costo_actual,
+      c.estado,
+      c.porcentaje_asignado,
+      c.porcentaje_cumplido,
+      c.publicacion_web,
+      c.porcentaje,
+      c.fecha_inicio,
+      c.fecha_fin,
+      c.publicacion_reporte,
+      u.nombre as usr_nom,
+      u.apellido as usr_ape,
+      u.e_mail as e_mail,
+      u.cargo as cargo,
+      u.tipo_usuario,
+      ct.nombre nombre_cat,
+      ct.color color_cat
+      
+      
+      
+    from proyectos p
+    join caracteristicas c on p.keym_car = c.keym
+    and p.id_usuario_car = c.id_usuario
+    and p.id_caracteristica = c.id_caracteristica
+    join usuarios u on  c.usuario_asignado = u.id_usuario
+    left join beneficiarios b
+    on c.cedula = b.cedula
+      
+    left join marcador m
+    on 	m.keym = c.keym
+    and 	m.id_usuario = c.id_usuario
+    and 	m.id_caracteristica = c.id_caracteristica
+      
+    left join categorias_mapa ct
+    on 	ct.id_categoria = m.id_categoria
+      
+    where p.id_usuario in(` + id_user + `)`;
 
 
   return new Promise((resolve, reject) => {
