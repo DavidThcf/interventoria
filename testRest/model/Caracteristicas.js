@@ -481,13 +481,13 @@ module.exports.regRemarks = function (data) {
     console.log(JSON.stringify(data));
     return new Promise((resolve, reject) => {
         getDifUsuarioAsignado(data.keym, data.id_caracteristica, data.id_usuario).
-        then(dat => {
+            then(dat => {
 
-            console.log('UsuDif ===>   ' + JSON.stringify(dat));
-            var fec = new Date().toLocaleString();
-            //console.log('Fecha actual ==>   ' + fec)
-            var sequelize = sqlCon.configConnection();
-            var query1 = `
+                console.log('UsuDif ===>   ' + JSON.stringify(dat));
+                var fec = new Date().toLocaleString();
+                //console.log('Fecha actual ==>   ' + fec)
+                var sequelize = sqlCon.configConnection();
+                var query1 = `
                 insert into observaciones (
                     keym,id_caracteristica,id_usuario,
                     observacion,
@@ -507,22 +507,22 @@ module.exports.regRemarks = function (data) {
                 '`+ fec + `'
                 
             );`;
-            console.log('\n\n\n' + query1);
+                console.log('\n\n\n' + query1);
 
 
-            sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
-                .then(x => {
-                    console.log('Exito en el registro de recomendacion   =>   ' + JSON.stringify(x));
-                    resolve(dat);
-                }).catch(x => {
-                    console.log('Error al registrar recomendacion' + x);
-                    reject(false);
-                }).done(x => {
-                    sequelize.close();
-                    console.log('Se ha cerrado sesion de la conexion a la base de datos');
-                });
+                sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
+                    .then(x => {
+                        console.log('Exito en el registro de recomendacion   =>   ' + JSON.stringify(x));
+                        resolve(dat);
+                    }).catch(x => {
+                        console.log('Error al registrar recomendacion' + x);
+                        reject(false);
+                    }).done(x => {
+                        sequelize.close();
+                        console.log('Se ha cerrado sesion de la conexion a la base de datos');
+                    });
 
-        }).catch(x => { });
+            }).catch(x => { });
     });
 }
 
@@ -551,13 +551,13 @@ module.exports.regObservacion = function (data) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var fec = new Date().toLocaleString();
-        
+
         var flag;
 
-        if(data.usu_observacion in [3,4,5,6,7,8,9,10])
-        flag = true;
+        if (data.usu_observacion in [3, 4, 5, 6, 7, 8, 9, 10])
+            flag = true;
         else
-        flag = false;
+            flag = false;
 
 
         var query1 = `
@@ -575,7 +575,7 @@ module.exports.regObservacion = function (data) {
           `+ data.usu_observacion + `,
           true,
           '`+ fec + `',
-          `+flag+`
+          `+ flag + `
         );
 
       `;
@@ -739,14 +739,14 @@ module.exports.updateEtapa = function (data, etapa) {
 
 module.exports.getDataChart = function (data) {
     console.log('===  Datos para diagrama de la cantidad de beneficiarios segun categoria mapa  === \n\n' + JSON.stringify(data));
-    console.log('\n\n\n\n===>>>>>    '+data.id_caracteristica);
+    console.log('\n\n\n\n===>>>>>    ' + data.id_caracteristica);
     var query1 = `select getTotalMarkersCategory(
         `+ data.keym + `,
         `+ data.id_caracteristica + `,
         `+ data.id_usuario + `,
         '`+ data.tipo.toUpperCase() + `'
     );`;
-console.log(JSON.stringify(data));
+    console.log(JSON.stringify(data));
     return new Promise((resolve, reject) => {
         console.log('getDataChart  ==>    ' + JSON.stringify(data));
         var sequelize = sqlCon.configConnection();
@@ -764,3 +764,5 @@ console.log(JSON.stringify(data));
             });
     });
 }
+
+

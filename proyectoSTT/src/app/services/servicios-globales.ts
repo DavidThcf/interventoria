@@ -7,28 +7,31 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class ServiciosGlobales {
 
-//news
+	//recomendacion go
+	public recomendacion : any = {}; 
+
+	//news
 	public opcion: string = "por";
-	par_activity:any  = {};
+	par_activity: any = {};
 
 	public novedades: any;
 
 	//datos para grafica total de beneficiarios por categorias mapa
 	public colors: any[] = [];
-	color : string [] = [];
+	color: string[] = [];
 	public labels: string[] = [];
 	public data: number[] = [];
 	public types: string = "doughnut";
-	
 
-	dat : any = [];
-	ax_dat : any = [];
-	
+
+	dat: any = [];
+	ax_dat: any = [];
+
 	messageList: any[] = [];	//Tiene la lista discriminada de cuales son las novedades
 	totalMessage: number = 0;	//Muestra en la campana el total de novedaeds
-	
-	http_str :string ='http://';
-	
+
+	http_str: string = 'http://';
+
 
 	tree_name: string[] = [];
 	listDatChart: any[] = [];
@@ -44,14 +47,14 @@ export class ServiciosGlobales {
 	tipo: string = 'img';
 	axActividades: any;
 	/* vaiables para mensaje de novedades */
-	hidden : boolean = false;
-	alert_message : string;
+	hidden: boolean = false;
+	alert_message: string;
 	/* ------------- */
 
 	/* variables del soket */
 	socket = io.connect(this.servidor);
 	/* ---------------------------- */
- 
+
 	tipos_act = ['Proyecto', 'Proyecto', 'Provincia', 'Municipio', 'Resguardo', 'Beneficiario', 'Capitulo', 'Actividad'];
 
 	constructor(private persistenceService: PersistenceService) { }

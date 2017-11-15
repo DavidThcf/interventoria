@@ -972,6 +972,28 @@ router.post('/updateImageEditView', (req, res, next) => {
 });
 /* fin */
 
+router.post("/getMultimediaReport", (req, res, next) => {
+  console.log("\n\n\n\n\n\n\n\n============ get file list   ==== >   " + JSON.stringify(req.body));
+  res.header("Access-Control-Allow-Origin", "*");
+
+  try {
+    var fls = File.getMultimediaReport(req.body);
+    fls.then(x => {
+
+      console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
+
+      res.send(x);
+
+    })
+      .catch(x => {
+        //console.log("ERROR =>  " + x);
+        //res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+  } catch (e) {
+    console.log("Revisar   " + e);
+  }
+});
 
 
 /* inicio  getDataNewChangeFile*/

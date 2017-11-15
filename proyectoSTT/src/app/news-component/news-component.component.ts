@@ -264,9 +264,10 @@ export class NewsComponentComponent implements OnInit {
 
 	goActivity(subActividad) {
 		
-		 alert(JSON.stringify(subActividad));
-
-
+		alert(JSON.stringify(subActividad));
+		this.serviciog.proyecto = subActividad;
+		//this.serviciog.recomendacion = subActividad;
+		//alert(JSON.stringify(this.serviciog.recomendacion));
 		let link = ['actividades'];
 		this.router.navigate(link);
 
