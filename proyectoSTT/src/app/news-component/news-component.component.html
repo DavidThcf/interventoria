@@ -89,9 +89,10 @@
 			</thead>
 
 			<tbody>
+					<!-- (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map" -->
 				<tr *ngFor="let novedad of this.serviciog.novedades" class="fila">
-					<td style="width: 25%;color:blue" (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map">
-					{{novedad.nom_act | uppercase}}</td>
+					<td style="width: 25%;color:blue" >
+					{{novedad.nom_rec | uppercase}}</td>
 					<td style="width: 35%">{{novedad.observacion}}</td>
 					<td style="width: 15%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
 					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>

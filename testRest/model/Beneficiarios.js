@@ -38,6 +38,7 @@ module.exports.getOnlyTotalBeneficiary = function (data) {
 
 /* ----------------------get total beneficiary---------------------------- */
 module.exports.getTotalBeneficiary = function(data){
+	console.log('\n\n\n =========     getTotalBeneficiary   =========  \n'+JSON.stringify(data));
 	var keym = data.keym;
 	var id_usuario = data.id_usuario;
 	var id_caracteristica = data.id_caracteristica;

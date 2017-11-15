@@ -89,8 +89,9 @@ export class ActivityTableComponent implements OnInit{
 	}
 
 	filter(text : string){
-		//alert(this.serviciog.axActividades[0].id_beneficiario);
+		
 		this.subActivity = [];
+		//alert(JSON.stringify(this.serviciog.axActividades));
 
 		if(text.trim() == ''){
 			this.subActivity = this.serviciog.axActividades; 	
@@ -98,9 +99,9 @@ export class ActivityTableComponent implements OnInit{
 		else if(this.serviciog.axActividades[0].tipo != 'Beneficiario'){
 			//alert('Activity');
 			this.subActivity = this.serviciog.axActividades.filter(item => 
-				item.nom_act.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
-				item.usr_nom.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
-				item.usr_ape.toLowerCase().indexOf(text.toLowerCase()) !== -1  
+				item.nom_act.toLowerCase().indexOf(text.toLowerCase()) !== -1 
+				//item.usr_nom.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
+				//item.usr_ape.toLowerCase().indexOf(text.toLowerCase()) !== -1  
 				);
 		}
 		else{
@@ -114,6 +115,8 @@ export class ActivityTableComponent implements OnInit{
 				);
 			//alert('Beneficiario'+JSON.stringify(this.subActivity));
 		}
+
+		
 
 
 	}

@@ -4,17 +4,24 @@
 </button>
 
 <!-- Modificar para seleccionar archivos para reporte -->
-<button *ngIf="!isMapSelected && !isRepSelected" class="btn-select-rep" (click)="btnAddImgRep()">
-  R
+<button  style="font-size: 12px;right: -36px" *ngIf="!isMapSelected && !isRepSelected" class="btn-select-rep" (click)="btnAddImgRep()">
+  Reporte
 </button>
 
 <!-- Agregar un nuevo archivo -->
-<button *ngIf="!isMapSelected && !isRepSelected && 
+<!-- <button *ngIf="!isMapSelected && !isRepSelected && 
                 this.serviciog.actividad.tipo === 'Actividad'" 
         class="btn-add-img btn-primary" 
         data-toggle="modal" data-target="#mod-reg-mult">
   +
+</button> -->
+
+<button *ngIf="!isMapSelected && !isRepSelected " 
+class="btn-add-img btn-primary" 
+data-toggle="modal" data-target="#mod-reg-mult">
++
 </button>
+
 
 <!-- Acepta las modificaciones ya sea para publicar o de reportes -->
 <button *ngIf="isMapSelected || isRepSelected" class="btn-ok btn-success" (click)="envioCambios()">
@@ -90,7 +97,7 @@
       <h3>Imagenes</h3>
       <div class="col-xs-6 col-md-3" *ngFor="let imagen of this.serviciog.imagenes">
         <input type="checkbox" *ngIf="isMapSelected || isRepSelected" 
-          class="chk" [checked]=imagen.reporte (change)="checked(imagen)">
+          class="chk" [checked]=imagen.ext (change)="checked(imagen)">
         <a class="thumbnail">
           <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}}>
           <div class="caption">

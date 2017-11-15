@@ -9,6 +9,7 @@ import { ServiciosGlobales } from "../../services/servicios-globales";
 export class ChartComponentComponent implements OnInit {
   constructor(private serviciog: ServiciosGlobales) { }
   ngOnInit() {
+    
   }
   // events
   public chartClicked(e: any): void {

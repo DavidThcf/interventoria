@@ -7,6 +7,13 @@ import * as io from 'socket.io-client';
 @Injectable()
 export class ServiciosGlobales {
 
+	/* porcentaje real */
+	porcentaje_real: any;
+	/* --------------------- */
+
+	//Total de beneficiarios por actividad
+	total_beneficiary: number = 0;
+	
 	//recomendacion go
 	public recomendacion : any = {}; 
 
@@ -75,5 +82,12 @@ interface imagen {
 	subtitulo: string;
 	url: string;
 	isViewMap: boolean;
-	reporte: boolean
+	reporte: boolean;
+	ext : boolean;
+	reporte_proyecto: boolean;
+	reporte_provincia: boolean;
+	reporte_municipio: boolean;
+	reporte_resguardo: boolean;
+	reporte_beneficiario: boolean
 }
+

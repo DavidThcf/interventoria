@@ -714,12 +714,36 @@ module.exports.updateEtapa = function (data, etapa) {
     console.log('updateEtapa  ==>    ' + JSON.stringify(data) + '\n' + etapa);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
+        var current_date = new Date();
+        var fecha_inicio = current_date.toLocaleDateString();
+        current_date = current_date.setMonth(current_date.getMonth + 10);
+        var fecha_fin = current_date.toLocaleString();
+        fecha_inicio = fecha_inicio.replace(/\//g,'-');
+        if (etapa === 'Entrega de materiales')
+            var query1 = `
+                
+                update marcador set id_categoria = 3
+                    where keym = `+ data.keym + ` 
+                    and id_caracteristica = `+ data.id_caracteristica + ` 
+                    and id_usuario = `+ data.id_usuario + ` ; 
 
-        var query1 = `
-        update caracteristicas set estado = '`+ etapa + `'
-        where keym = `+ data.keym + ` 
-        and id_caracteristica = `+ data.id_caracteristica + ` 
-        and id_usuario = `+ data.id_usuario + ` ; `;
+                select updateFieldsCharacteristic(
+                    `+data.keym+`,
+                    `+data.id_caracteristica+`,
+                    `+data.id_usuario+`,
+                    '`+fecha_inicio+`',
+                    '`+etapa+`');
+                    
+                `;
+        else
+            var query1 = `
+                    select updateFieldsCharacteristic(
+                        `+data.keym+`,
+                        `+data.id_caracteristica+`,
+                        `+data.id_usuario+`,
+                        '`+fecha_inicio+`',
+                        '`+etapa+`');
+                `;
 
 
         console.log('\n\n' + query1);

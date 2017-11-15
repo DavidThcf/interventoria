@@ -78,7 +78,6 @@ export class Multimedia implements OnInit {
 		formData.append('tipo', tipo);
 		formData.append('tipoAct', this.serviciog.actividad.tipo);
 
-
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
@@ -130,7 +129,8 @@ export class Multimedia implements OnInit {
 
 	checked(imagen) {
 		// var img = imagen;
-		imagen.reporte = !imagen.reporte;
+
+		imagen.ext = !imagen.ext;
 		var sss = this.imagenEditView.findIndex(x => x === imagen);
 		//alert(sss);
 		if (sss >= 0) {
@@ -172,6 +172,7 @@ export class Multimedia implements OnInit {
 		formData.append('id_caracteristica', id_caracteristica);
 		formData.append('id_usuario', id_usuario);
 		formData.append('tipo', this.serviciog.tipo);
+		formData.append('tipoAct', this.serviciog.actividad.tipo);
 
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
@@ -224,6 +225,7 @@ export class Multimedia implements OnInit {
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
+					//alert(JSON.stringify(imagenes))
 					var cad = JSON.stringify(imagenes);
 					this.serviciog.imagenes = imagenes;
 					this.vshowFilter = !this.vshowFilter;
@@ -237,11 +239,31 @@ export class Multimedia implements OnInit {
 	envioCambios() {
 		this.isMapSelected = false;
 		this.isRepSelected = false;
+		if (this.serviciog.actividad == null) {
+			var keym = this.serviciog.proyecto.keym;
+			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+			var id_usuario = this.serviciog.proyecto.id_usuario;
+		}
+		else if (this.serviciog.actividad) {
+			var keym = this.serviciog.actividad.keym;
+			var id_caracteristica = this.serviciog.actividad.id_caracteristica;
+			var id_usuario = this.serviciog.actividad.id_usuario;
+		}
+		else {
+			var keym = this.serviciog.proyecto.keym;
+			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+			var id_usuario = this.serviciog.proyecto.id_usuario;
+		};
 		// alert('aaaaaaaaaaa >>>>>>'+ this.imagenEditView.length);
 		if (this.imagenEditView.length > 0) {
 			// alert(JSON.stringify(this.imagenEditView))
 			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
 			formData.append("img_edit", JSON.stringify(this.imagenEditView));/* se carga formData  */
+			formData.append("tipo_car", this.serviciog.actividad.tipo);/* se carga el tipo de la caracteristica/actividad  */
+			//info de la caracteristica / actividad actual
+			formData.append('keym', keym);
+			formData.append('id_caracteristica', id_caracteristica);
+			formData.append('id_usuario', id_usuario);
 			this.servicios.updateImageEditView(formData) /* llamdo al metodo que se conectara con el server */
 				.then(x => {
 					if (x) {
@@ -276,14 +298,14 @@ export class Multimedia implements OnInit {
 
 	selAll() {
 		this.serviciog.imagenes.forEach(element => {
-			element.reporte = true;
+			element.ext  = true;
 			this.imagenEditView.push(element);
 		});
 	}
 
 	desSelAll() {
 		this.serviciog.imagenes.forEach(element => {
-			element.reporte = false;
+			element.ext = false;
 			this.imagenEditView.push(element);
 		});
 	}

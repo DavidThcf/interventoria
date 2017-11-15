@@ -94,33 +94,47 @@ module.exports.getFileList = function (data) {
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
+    var tipo = 'reporte_' + data.tipoAct.toLowerCase();
     //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
 
-        if(data.reporte){
-            var query1 = `
-                select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
-                where keym_car = `+ keym + ` 
-                and id_caracteristica = `+ id_caracteristica + ` 
-                and id_usuario_car = `+ id_usuario + `
-                and tipo = '`+ data.tipo + `' and reporte =  true  ;
-            `;
-        }
-        else{
-            if(data.tipoAct == "Proyecto"){
+        if (data.reporte) {
+            if (data.tipoAct == "Proyecto")
                 var query1 = `
-                SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
-                WHERE (now()::date- ar.fecha_creacion::date) <= 15
+                    SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
+                    WHERE (now()::date- ar.fecha_creacion::date) <= 15 
+                    and tipo = '`+ data.tipo + `' and ` + tipo + ` =  `+ id_caracteristica + `  ;
+                `;
+                
+            else
+                var query1 = `
+                    select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+                    where tipo = '`+ data.tipo + `'
+                    and ` + tipo + ` =  `+ id_caracteristica + `  ;
+                `;
+        }
+        else {
+            if (data.tipoAct == "Proyecto") {
+                var query1 = `
+                SELECT *,
+                
+                CASE WHEN  `+id_caracteristica+` = ar.` + tipo + `
+                THEN true
+                ELSE false
+                END as ext
+                FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
+                WHERE (now()::date- ar.fecha_creacion::date) <= 15 
+                and tipo = '`+ data.tipo + `' 
                 ORDER BY
                 ar.fecha_creacion DESC  LIMIT 25; 
                 `;
-            }else{
+            } else {
                 var query1 = `
                     select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
                     where keym_car = `+ keym + ` 
                     and id_caracteristica = `+ id_caracteristica + ` 
                     and id_usuario_car = `+ id_usuario + `
-                    and tipo = '`+ data.tipo + `'  ;
+                    and tipo = '`+ data.tipo + `'
                 `;
             }
         }
@@ -280,20 +294,47 @@ function getIdFreeFile(keym, id_usuario, nombre) {
 
 /* ------------updateImageEditView---------- */
 module.exports.updateImageEditView = function (data) {
+    console.log('\n\n\n\n\n\n\n\n\n\n=============================================================\n'+data.img_edit);
     var sequelize = sqlCon.configConnection();
     var d = JSON.parse(data.img_edit)
+    var tipo = 'reporte_'+data.tipo_car.toLowerCase();
     console.log('\n\n\n\nasasas >>>>> ' + JSON.stringify(d[0]));
     var q = '';
     for (var i = 0; i < d.length; i++) {
+        
+        if(d[i].ext === true){
+            var query1 = `
+                UPDATE archivos SET 
+                `+tipo+` =` + data.id_caracteristica + `
+                WHERE keym_arc = `+ d[i].keym_arc +
+                    ` AND id_archivo =  ` + d[i].id_archivo +
+                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+            `;
+        }else{
+            var query1 = `
+                UPDATE archivos SET 
+                `+tipo+` = null
+                WHERE keym_arc = `+ d[i].keym_arc +
+                    ` AND id_archivo =  ` + d[i].id_archivo +
+                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+            `;
+        }
+        
+        q = q + query1;
+    }
+
+    /*
+for (var i = 0; i < d.length; i++) {
         var query1 = `
         UPDATE archivos SET 
-        reporte =` + d[i].reporte + `
+        `+tipo+` =` + d[i].reporte + `
         WHERE keym_arc = `+ d[i].keym_arc +
             ` AND id_archivo =  ` + d[i].id_archivo +
             ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
         `;
         q = q + query1;
     }
+    */
 
 
     console.log('query >>>>>>>>>>>> ' + q)
@@ -363,30 +404,32 @@ module.exports.getMultimediaReport = function (data) {
     //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
 
-        if(data.reporte){
-            if(data.tipo_car == 'Proyecto')
-            var query1 = `
-            select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
-           where tipo = '`+ data.tipo + `' and reporte =  true  ;
-       `;
+        if (data.reporte) {
+            if (data.tipo_car == 'Proyecto')
+                var query1 = `
+                SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
+                WHERE (now()::date- ar.fecha_creacion::date) <= 15 and tipo = '`+ data.tipo + `' and reporte =  true  ;
+                ORDER BY
+                ar.fecha_creacion DESC  LIMIT 25; 
+            `;
             else
-            var query1 = `
-                 select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+                var query1 = `
+                select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
                 where keym_car = `+ keym + ` 
                 and id_caracteristica = `+ id_caracteristica + ` 
                 and id_usuario_car = `+ id_usuario + `
                 and tipo = '`+ data.tipo + `' and reporte =  true  ;
             `;
         }
-        else{
-            if(data.tipoAct == "Proyecto"){
+        else {
+            if (data.tipoAct == "Proyecto") {
                 var query1 = `
                 SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
                 WHERE (now()::date- ar.fecha_creacion::date) <= 15
                 ORDER BY
                 ar.fecha_creacion DESC  LIMIT 25; 
                 `;
-            }else{
+            } else {
                 var query1 = `
                     select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
                     where keym_car = `+ keym + ` 
