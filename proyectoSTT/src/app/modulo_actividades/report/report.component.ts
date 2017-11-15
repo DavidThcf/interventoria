@@ -205,7 +205,7 @@ export class ReportComponent implements OnInit {
 
 		var url;
 		var xml = new XMLHttpRequest();
-		url = 'http://localhost:81/downloadReport' + '?val1=' + JSON.stringify(this.msg);
+		url = this.serviciog.servidor+'downloadReport' + '?val1=' + JSON.stringify(this.msg);
 		window.open(url, '_blank');
 
 	}
