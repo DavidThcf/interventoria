@@ -103,14 +103,19 @@ module.exports.getFileList = function (data) {
                 var query1 = `
                     SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
                     WHERE (now()::date- ar.fecha_creacion::date) <= 15 
-                    and tipo = '`+ data.tipo + `' and ` + tipo + ` =  `+ id_caracteristica + `  ;
+                    and tipo = '`+ data.tipo + `' and ` + tipo + ` =  ` + id_caracteristica + `  ;
                 `;
-                
+
             else
                 var query1 = `
-                    select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+                    select *,
+                    CASE WHEN  `+ id_caracteristica + ` = a.` + tipo + `
+                    THEN true
+                    ELSE false
+                    END as ext
+                    from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
                     where tipo = '`+ data.tipo + `'
-                    and ` + tipo + ` =  `+ id_caracteristica + `  ;
+                    and ` + tipo + ` =  ` + id_caracteristica + `  ;
                 `;
         }
         else {
@@ -118,7 +123,7 @@ module.exports.getFileList = function (data) {
                 var query1 = `
                 SELECT *,
                 
-                CASE WHEN  `+id_caracteristica+` = ar.` + tipo + `
+                CASE WHEN  `+ id_caracteristica + ` = ar.` + tipo + `
                 THEN true
                 ELSE false
                 END as ext
@@ -128,13 +133,30 @@ module.exports.getFileList = function (data) {
                 ORDER BY
                 ar.fecha_creacion DESC  LIMIT 25; 
                 `;
-            } else {
+            } 
+            
+            else if(data.tipoAct == "Beneficiario" || data.tipoAct == "Capitulo" || data.tipoAct == "Actividad") {
                 var query1 = `
-                    select * from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
-                    where keym_car = `+ keym + ` 
-                    and id_caracteristica = `+ id_caracteristica + ` 
-                    and id_usuario_car = `+ id_usuario + `
-                    and tipo = '`+ data.tipo + `'
+                    select getarchivos(
+                        `+ keym + `,
+                        `+ id_caracteristica + ` ,
+                        `+ id_usuario + `,
+                        '`+ data.tipo + `'
+                    );
+                  
+                `;
+            }
+            
+            else{
+                var query1 = `
+                select *,
+                CASE WHEN  `+ id_caracteristica + ` = a.` + tipo + `
+                THEN true
+                ELSE false
+                END as ext
+                from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
+                where tipo = '`+ data.tipo + `'
+                and ` + tipo + ` =  ` + id_caracteristica + `  ;
                 `;
             }
         }
@@ -155,6 +177,42 @@ module.exports.getFileList = function (data) {
     });
 }
 
+<<<<<<< HEAD
+
+//get all files from characteristica
+module.exports.getFileListChild = function (data) {
+    //console.log('OK ');
+    var sequelize = sqlCon.configConnection();
+    var keym = data.keym;
+    var id_caracteristica = data.id_caracteristica;
+    var id_usuario = data.id_usuario;
+    var tipo = 'reporte_' + data.tipoAct.toLowerCase();
+    //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
+    return new Promise((resolve, reject) => {
+
+
+        var query1 = `
+            select getarchivos(0,315,5,'img');
+        
+            
+        `;
+        // --and tipo = '`+ data.tipo + `' and ` + tipo + ` =  ` + id_caracteristica + `  ;
+        //console.log(query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
+            then(x => {
+                console.log('\n\n\n\n\n\n\n\nRESPONDE =======>    ' + JSON.stringify(x['getarchivos']))
+                resolve(x);
+            }).catch(x => {
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });;
+    });
+}
+
+=======
+>>>>>>> 5a86bcd56c7e2de04d58a0fc294af79cf150c1f1
 //service to get files for show novedades/news
 module.exports.getFilesNovedades = function (data) {
     //console.log('data  >  '+JSON.stringify(data));
@@ -294,32 +352,32 @@ function getIdFreeFile(keym, id_usuario, nombre) {
 
 /* ------------updateImageEditView---------- */
 module.exports.updateImageEditView = function (data) {
-    console.log('\n\n\n\n\n\n\n\n\n\n=============================================================\n'+data.img_edit);
+    console.log('\n\n\n\n\n\n\n\n\n\n=============================================================\n' + data.img_edit);
     var sequelize = sqlCon.configConnection();
     var d = JSON.parse(data.img_edit)
-    var tipo = 'reporte_'+data.tipo_car.toLowerCase();
+    var tipo = 'reporte_' + data.tipo_car.toLowerCase();
     console.log('\n\n\n\nasasas >>>>> ' + JSON.stringify(d[0]));
     var q = '';
     for (var i = 0; i < d.length; i++) {
-        
-        if(d[i].ext === true){
+
+        if (d[i].ext === true) {
             var query1 = `
                 UPDATE archivos SET 
-                `+tipo+` =` + data.id_caracteristica + `
+                `+ tipo + ` =` + data.id_caracteristica + `
                 WHERE keym_arc = `+ d[i].keym_arc +
-                    ` AND id_archivo =  ` + d[i].id_archivo +
-                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+                ` AND id_archivo =  ` + d[i].id_archivo +
+                ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
             `;
-        }else{
+        } else {
             var query1 = `
                 UPDATE archivos SET 
-                `+tipo+` = null
+                `+ tipo + ` = null
                 WHERE keym_arc = `+ d[i].keym_arc +
-                    ` AND id_archivo =  ` + d[i].id_archivo +
-                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+                ` AND id_archivo =  ` + d[i].id_archivo +
+                ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
             `;
         }
-        
+
         q = q + query1;
     }
 

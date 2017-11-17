@@ -84,8 +84,16 @@ export class Multimedia implements OnInit {
 					//alert(JSON.stringify(imagenes))
 					var cad = JSON.stringify(imagenes);
 					// cad = cad.replace(/=/g,'/');
-
-					this.serviciog.imagenes = imagenes;
+					alert(JSON.stringify(imagenes));
+					if(this.serviciog.actividad.tipo == 'Proyecto'){
+						this.serviciog.imagenes = imagenes;
+					}
+					
+					else if (this.serviciog.actividad.tipo == 'Beneficiario' || this.serviciog.actividad.tipo == 'Capitulo' || this.serviciog.actividad.tipo == 'Actividad') {
+						this.serviciog.imagenes = imagenes[0].getarchivos;
+					}
+					alert(JSON.stringify(this.serviciog.imagenes));
+					//this.serviciog.imagenes = imagenes;
 				} else {
 					this.serviciog.imagenes = []
 				}
@@ -219,16 +227,31 @@ export class Multimedia implements OnInit {
 		formData.append('id_caracteristica', id_caracteristica);
 		formData.append('id_usuario', id_usuario);
 		formData.append('tipo', tipo);
-		formData.append('tipoAct', this.serviciog.actividad.tipo);
+		//this.serviciog.actividad.tipo
+		formData.append('tipoAct', 'Beneficiario');
 
 
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
+				//alert(JSON.stringify(imagenes));
 				if (imagenes) {
+<<<<<<< HEAD
+					
+					//var cad = JSON.stringify(imagenes);
+					// cad = cad.replace(/=/g,'/');
+
+					if(this.serviciog.actividad.tipo == 'Proyecto')
+						this.serviciog.imagenes = imagenes;
+					else{
+						this.serviciog.imagenes = imagenes[0].getarchivos;
+						alert(JSON.stringify(this.serviciog.imagenes));
+					}
+=======
 					//alert(JSON.stringify(imagenes))
 					var cad = JSON.stringify(imagenes);
 					this.serviciog.imagenes = imagenes;
 					this.vshowFilter = !this.vshowFilter;
+>>>>>>> 5a86bcd56c7e2de04d58a0fc294af79cf150c1f1
 				} else {
 					this.serviciog.imagenes = []
 				}

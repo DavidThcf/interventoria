@@ -101,6 +101,14 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false);
 	}
+	getMultimediaChild(formData: FormData): Promise<any> {
+
+		return this.http
+			.post(this.url + "getFileListChild", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false);
+	}
 
 	createCategoria(formdata: FormData): Promise<any> {
 		return this.http
