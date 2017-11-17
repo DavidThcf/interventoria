@@ -201,8 +201,11 @@
 			<br>
 			<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}' />
 			<br>
-			<p>
-				<b>{{item.nombre}}</b>
+			<p style="font-size: 20px">
+				{{item.nombre}}
+			</p>
+			<p style="font-weight: normal">
+				{{item.fecha_creacion | date:'fullDate' | uppercase}}
 			</p>
 		</div>
 
