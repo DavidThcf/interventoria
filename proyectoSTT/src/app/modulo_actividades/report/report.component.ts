@@ -159,9 +159,9 @@ export class ReportComponent implements OnInit {
 					this.serviciog.imagenes = imagenes;
 					imagenes.forEach(element => {
 						//alert(JSON.stringify(element.titulo));
-						this.images.push({ 'nombre': element.subtitulo, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
+						this.images.push({ 'nombre': element.titulo, 'fecha_creacion': element.fecha_creacion , 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
 						//val_configuracion+srcServ+nombre_archivo
-
+						//alert(JSON.stringify(this.images));
 					});
 				} else {
 					this.serviciog.imagenes = []

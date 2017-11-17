@@ -177,7 +177,6 @@ module.exports.getFileList = function (data) {
     });
 }
 
-<<<<<<< HEAD
 
 //get all files from characteristica
 module.exports.getFileListChild = function (data) {
@@ -211,8 +210,6 @@ module.exports.getFileListChild = function (data) {
     });
 }
 
-=======
->>>>>>> 5a86bcd56c7e2de04d58a0fc294af79cf150c1f1
 //service to get files for show novedades/news
 module.exports.getFilesNovedades = function (data) {
     //console.log('data  >  '+JSON.stringify(data));

@@ -1176,7 +1176,7 @@ export class ActividadPanel implements OnInit {
   //Multimedia
   c4() {
     this.serviGloAct.actOpt = 4;
-    alert(JSON.stringify(this.serviciog.imagenes));
+    //alert(JSON.stringify(this.serviciog.imagenes));
   }
 
   //Estadisticas  - Diagramas Charts
