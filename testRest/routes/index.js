@@ -986,9 +986,8 @@ router.post('/updateImageEditView', (req, res, next) => {
   // res.json(true);
   var fil = File.updateImageEditView((data));
   fil.then(x => {
-    ;
     res.header("Access-Control-Allow-Origin", "*");
-    res.json(x);
+    res.json(true);
 
   }).catch(x => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -1060,6 +1059,40 @@ router.post('/getTotalBeneficiary',(req, res) => {
 });
 /* --------------------------------------------------------------- */
 
+/* -----------------------pause proyect --------------------------- */
+router.post('/pauseProyect',(req, res) => {
+  //console.log(JSON.stringify(req.body));
+  var nov = Project.pauseProyect(req.body);
+  nov.then(x => {
+    // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
+    // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    // console.log('ERROR al btener novedades  =>  ' + x)
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+/* ---------------------------------------------------------------- */
+/* ---------------------- updateImageView ----------------------- */
+router.post('/updateImageView',(req, res) => {
+  var data = JSON.parse(JSON.stringify(req.body));
+  console.log('llama'+JSON.stringify(data));
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.json(true);
+  var fil = File.updateImageView((data));
+  fil.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+/* ---------------------------------------------------------------- */
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {
 

@@ -119,8 +119,10 @@
 			<div id="opt_act">
 
 				<!-- Detalles - Pagina inicial de un proyecto padre -->
+
 				<div *ngIf="this.serviGloAct.actOpt === 0">
 					<div *ngIf="this.serviciog.proyecto.tipo_caracteristica === 'P'">
+							
 						<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
 							<div class="form-group">
 
@@ -128,7 +130,7 @@
 
 								<hr/>
 
-								<label for="nombre" class="lab">Nombre</label>
+								<label for="nombre" class="lab">Nombre 1</label>
 								<input name="" type="text" id="nombre" class="form-control" name="nombres" readonly [(ngModel)]="this.serviciog.proyecto.nom_pro">
 
 								<!-- <label for="descripción" class="lab">Descripción</label>
@@ -143,7 +145,19 @@
 								</div>
 								<!-- <label for="estado" class="lab">Etapa</label>
 								<input name="" type="text" id="estado" class="form-control" name="estado" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.estado"> -->
-
+								<div *ngIf="this.serviciog.usuario.id_usuario == 6">
+									Suspensión de Obra
+									<br>
+									<label class="switch">
+										<input type="checkbox" (change)="toggleStop()">
+										<span class="slider round"></span>
+									</label>
+								</div>
+								<div *ngIf="this.toggleProyect">
+									Fecha Finalización Suspensión de Obra.
+									<input type="date" [(ngModel)]="this.datePause" (ngModelChange)="this.datePause = $event" #datepause/>
+									<button class="btn btn-success" (click)="ClickPause(datepause.value)">Confirmar</button>
+								</div>
 							</div>
 						</form>
 					</div>

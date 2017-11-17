@@ -389,6 +389,33 @@ module.exports.assignActivityToUser = function (data) {
 
 }
 
+/* susoension de obra */
+module.exports.pauseProyect = function (data) {
+  console.log(JSON.stringify(data));
+  var sequelize = sqlCon.configConnection();
+  var query1 = `INSERT INTO suspensiones(keym, id_caracteristica,id_usuario,fecha_inicio,fecha_fin) 
+  VALUES (`+
+  data.keym+`,`+
+  data.id_caracteristica+`,`+
+  data.id_usuario+`,'`+
+  data.datePauseInicio+`','`+
+  data.datePauseFin+`'
+  );`;
+  return new Promise((resolve, reject) => {
+    sequelize.query(query1, { type: sequelize.QueryTypes.INSERT })
+      .then(x => {
+        console.log('OK consulta get projects');
+        resolve(x);
+      }).catch(x => {
+        console.log('Error al obtener los proyectos' + x);
+        reject(false);
+      }).done(x => {
+        sequelize.close();
+        console.log('Se ha cerrado sesion de la conexion a la base de datos');
+      });
+  });
+}
+/* -------------------- */
 
 //Function to get the ID free
 function getIdFreeProject(id_usuario, keym) {

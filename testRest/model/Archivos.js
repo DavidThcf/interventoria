@@ -87,7 +87,6 @@ module.exports.create_file = function (data, files) {
 
 }
 
-
 //Service to get files original
 module.exports.getFileList = function (data) {
     //console.log('OK ');
@@ -178,6 +177,7 @@ module.exports.getFileList = function (data) {
     });
 }
 
+<<<<<<< HEAD
 
 //get all files from characteristica
 module.exports.getFileListChild = function (data) {
@@ -211,6 +211,8 @@ module.exports.getFileListChild = function (data) {
     });
 }
 
+=======
+>>>>>>> 5a86bcd56c7e2de04d58a0fc294af79cf150c1f1
 //service to get files for show novedades/news
 module.exports.getFilesNovedades = function (data) {
     //console.log('data  >  '+JSON.stringify(data));
@@ -298,8 +300,6 @@ module.exports.fileUpload = function (files, path, nom) {
 
     }
 }
-
-
 
 //===========     Auxiliar Funcions     =================//
 
@@ -414,6 +414,41 @@ for (var i = 0; i < d.length; i++) {
     });
 }
 /* -------------------------------------- */
+/* ------------- updateImageView --------------- */
+module.exports.updateImageView = function (data) {
+    var sequelize = sqlCon.configConnection();
+    var d = JSON.parse(data.img_edit)
+    console.log('\n\n\n\nasasas >>>>> ' + JSON.stringify(d[0]));
+    var q = '';
+    for (var i = 0; i < d.length; i++) {
+        var query1 = `
+        UPDATE archivos SET 
+        visto =` + d[i].visto + `
+        WHERE id_archivo = `+ d[i].id_archivo + `;
+        `;
+        q = q + query1;
+    }
+
+
+    console.log('query >>>>>>>>>>>> ' + q)
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(q, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log("\n\n\n\nSe encontro correctamente la lista de observaciones\n\n\n" + JSON.stringify(x));
+                resolve(true);
+            })
+            .catch(x => {
+                console.log("NO se encontro correctamente la lista de observaciones " + x);
+                reject(false);
+            })
+            .done(x => {
+                sequelize.close();
+                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+            });
+    }); 
+}
+/* ----------------------------------------------- */
 
 
 //multimedia reporte

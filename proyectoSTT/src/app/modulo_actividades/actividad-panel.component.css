@@ -1,125 +1,116 @@
-.selected a{
-	background-color: rgba(0,0,0,0.2);
+.selected a {
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.listaActividades{
-	overflow-y:auto; 
-	height: 71vh;
-	margin-top: 3px;
+.listaActividades {
+  overflow-y: auto;
+  height: 71vh;
+  margin-top: 3px;
 }
+
 .listaActividades ul {
-	list-style: none;
-	margin-right: 0px;
+  list-style: none;
+  margin-right: 0px;
 }
 
-.listaActividades a{	
-	display: block;	
-	text-decoration: none;
-	padding: 10px 10px;
-	color: white;
-}
-.listaActividades::-webkit-scrollbar-track
-{
-	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	background-color: #F5F5F5;
+.listaActividades a {
+  display: block;
+  text-decoration: none;
+  padding: 10px 10px;
+  color: white;
 }
 
-.listaActividades::-webkit-scrollbar
-{
-	width: 6px;
-	background-color: #F5F5F5;
+.listaActividades::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: #F5F5F5;
 }
 
-.listaActividades::-webkit-scrollbar-thumb
-{
-	background-color: #000000;
+.listaActividades::-webkit-scrollbar {
+  width: 6px;
+  background-color: #F5F5F5;
 }
 
-.listaActividades a:hover{
-	background-color: rgba(0,0,0,0.3);
-	cursor: pointer;
+.listaActividades::-webkit-scrollbar-thumb {
+  background-color: #000000;
 }
 
-.listaActividades li{
-	display: block;	
-	border-bottom: 1px solid rgba(44,106,34,.5);
+.listaActividades a:hover {
+  background-color: rgba(0, 0, 0, 0.3);
+  cursor: pointer;
 }
 
-.menuActividades ul{
-	list-style: none;
+.listaActividades li {
+  display: block;
+  border-bottom: 1px solid rgba(44, 106, 34, .5);
 }
 
-.menuActividades{
-	background-color: rgb(46,52,55);
-	margin: 0;
-	margin-top: 2px;		
-}
-.menuActividades li{
-	display: inline-block;
+.menuActividades ul {
+  list-style: none;
 }
 
-.menuActividades a{
-	color: rgb(157,159,161);
-	display: block;
-	text-decoration:none;
-	padding: 20px 20px;
+.menuActividades {
+  background-color: rgb(46, 52, 55);
+  margin: 0;
+  margin-top: 2px;
 }
 
-.menuActividades a:hover{
-	background-color: rgba(0,0,0,0.2);
-	cursor: pointer;
+.menuActividades li {
+  display: inline-block;
 }
 
-.itemSelected{
-	border-top: 2px solid #01bcf3;
-	background-color: rgba(0,0,0,0.2);		
+.menuActividades a {
+  color: rgb(157, 159, 161);
+  display: block;
+  text-decoration: none;
+  padding: 20px 20px;
 }
 
-.itemSelected a{
-	color: white;
+.menuActividades a:hover {
+  background-color: rgba(0, 0, 0, 0.2);
+  cursor: pointer;
 }
 
-
-
-.btn-primary{
-	background-color: rgb(77,185,221);
-	border-color: gray;
-}
-.titulo{
-	color: white; 
-	text-transform: uppercase; 
-	font-weight: bold;
-	cursor: pointer;
-	font-size: 18px;
+.itemSelected {
+  border-top: 2px solid #01bcf3;
+  background-color: rgba(0, 0, 0, 0.2);
 }
 
-.titulo:hover{	
-	text-decoration: underline;
-	color: rgb(255,255,255,0.5);
+.itemSelected a {
+  color: white;
 }
 
-.imgPro{
-	display: block;
-	background-color: white;
-	text-align: center;
-	margin: auto;
+.btn-primary {
+  background-color: rgb(77, 185, 221);
+  border-color: gray;
 }
 
-.btn1{
-	padding: 2px 2px 2px 2px;
-	margin: 2px
+.titulo {
+  color: white;
+  text-transform: uppercase;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 18px;
 }
 
+.titulo:hover {
+  text-decoration: underline;
+  color: rgb(255, 255, 255, 0.5);
+}
 
+.imgPro {
+  display: block;
+  background-color: white;
+  text-align: center;
+  margin: auto;
+}
 
-
-
-
+.btn1 {
+  padding: 2px 2px 2px 2px;
+  margin: 2px
+}
 
 
 /*SLIDER STYLE*/
-
-
 
 input[type=range] {
   height: 23px;
@@ -127,9 +118,11 @@ input[type=range] {
   margin: 10px 0;
   width: 100%;
 }
+
 input[type=range]:focus {
   outline: none;
 }
+
 input[type=range]::-webkit-slider-runnable-track {
   width: 100%;
   height: 8px;
@@ -140,6 +133,7 @@ input[type=range]::-webkit-slider-runnable-track {
   border-radius: 7px;
   border: 0px solid #010101;
 }
+
 input[type=range]::-webkit-slider-thumb {
   box-shadow: 1px 1px 2px #000000;
   border: 1px solid #00001E;
@@ -151,9 +145,11 @@ input[type=range]::-webkit-slider-thumb {
   -webkit-appearance: none;
   margin-top: -4px;
 }
+
 input[type=range]:focus::-webkit-slider-runnable-track {
   background: #32D8A6;
 }
+
 input[type=range]::-moz-range-track {
   width: 100%;
   height: 8px;
@@ -164,6 +160,7 @@ input[type=range]::-moz-range-track {
   border-radius: 7px;
   border: 0px solid #010101;
 }
+
 input[type=range]::-moz-range-thumb {
   box-shadow: 1px 1px 2px #000000;
   border: 1px solid #00001E;
@@ -173,6 +170,7 @@ input[type=range]::-moz-range-thumb {
   background: #FFFFFF;
   cursor: pointer;
 }
+
 input[type=range]::-ms-track {
   width: 100%;
   height: 8px;
@@ -182,18 +180,21 @@ input[type=range]::-ms-track {
   border-color: transparent;
   color: transparent;
 }
+
 input[type=range]::-ms-fill-lower {
   background: #32D8A6;
   border: 0px solid #010101;
   border-radius: 14px;
   box-shadow: 1px 1px 6px #000000;
 }
+
 input[type=range]::-ms-fill-upper {
   background: #32D8A6;
   border: 0px solid #010101;
   border-radius: 14px;
   box-shadow: 1px 1px 6px #000000;
 }
+
 input[type=range]::-ms-thumb {
   margin-top: 1px;
   box-shadow: 1px 1px 2px #000000;
@@ -204,22 +205,26 @@ input[type=range]::-ms-thumb {
   background: #FFFFFF;
   cursor: pointer;
 }
+
 input[type=range]:focus::-ms-fill-lower {
   background: #32D8A6;
 }
+
 input[type=range]:focus::-ms-fill-upper {
   background: #32D8A6;
 }
-#slider2{
-    background-color: transparent;
+
+#slider2 {
+  background-color: transparent;
 }
 
-#porcentaje:after{
+#porcentaje:after {
   content: ' %';
-
 }
+
 
 /* table css actividaes estadisticas*/
+
 .tg {
   border-collapse: collapse;
   border-spacing: 0;
@@ -294,16 +299,90 @@ input[type=range]:focus::-ms-fill-upper {
   vertical-align: top
 }
 
+
 /* ------------------------------- */
 
-
-#opt_act{
-  
-  overflow-y:auto;
+#opt_act {
+  overflow-y: auto;
   height: 82vh;
-  
 }
 
-.menuActividades{
+.menuActividades {
   margin-top: 5px;
 }
+
+
+/* switch control */
+
+
+/* The switch - the box around the slider */
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+}
+
+
+/* Hide default HTML checkbox */
+
+.switch input {
+  display: none;
+}
+
+
+/* The slider */
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked+.slider {
+  background-color: #2196F3;
+}
+
+input:focus+.slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked+.slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+
+/* Rounded sliders */
+
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+
+
+/* ------------------------- */
+
