@@ -59,20 +59,20 @@
 
 			<tbody>
 				<tr *ngFor="let novedad of this.serviciog.novedades" class="fila">
-					<div *ngIf="!novedad.visto && ">
-						<td style="width: 5%">
-							<input type="checkbox" class="chk" [checked]=novedad.visto (change)="checked(novedad)">
-						</td>
-						<td style="width: 30%">{{novedad.nom_file | uppercase}}</td>
-						<td style="width: 20%">{{novedad.titulo}}</td>
-						<td style="width: 10%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
-						<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>
-						<td style="width: 20%">
-							<!-- <a href={{novedad.link}} target="_blank">{{novedad.nombre_archivo}}</a> -->
-							<img alt='img' class="img-responsive" style="margin-top:0px;width:100px;height:100px" data-toggle="modal" data-target="#mod-pic-map"
-							 src={ {novedad.link}} (click)='this.pic=novedad.link'>
-						</td>
-					</div>
+					
+					<td style="width: 5%">
+						<input type="checkbox" class="chk" [checked]=novedad.visto (change)="checked(novedad)">
+					</td>
+					<td style="width: 30%">{{novedad.nom_file | uppercase}}</td>
+					<td style="width: 20%">{{novedad.titulo}}</td>
+					<td style="width: 10%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
+					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>
+					<td style="width: 20%">
+						<!-- <a href={{novedad.link}} target="_blank">{{novedad.nombre_archivo}}</a> -->
+						<img alt='img' class="img-responsive" style="margin-top:0px;width:100px;height:100px" data-toggle="modal" data-target="#mod-pic-map"
+							src={{novedad.link}} (click)='this.pic=novedad.link'>
+					</td>
+					
 				</tr>
 			</tbody>
 		</table>

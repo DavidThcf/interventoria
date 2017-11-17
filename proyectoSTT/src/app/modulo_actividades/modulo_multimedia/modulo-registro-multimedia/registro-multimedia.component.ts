@@ -65,18 +65,33 @@ export class RegistroMultimedia{
 				'tipo':'mul'
 			})
 			if(message){
+				this.serviciog.isModalImg = false;
+				this.serviciog.alert_message = "Multimedia Guardada !!"
+				this.serviciog.hidden = true;
+				setTimeout(() => {
+					this.serviciog.hidden = false;
+				}, 5000);
 				var formData = new FormData();
+				var tipo = 'img';
 				//alert(JSON.stringify(this.serviciog.actividad));
-				formData.append('keym',keym);
-				formData.append('id_caracteristica',id_caracteristica);
-				formData.append('id_usuario',id_usuario);
-				formData.append('tipo',this.serviciog.tipo);
-
+				formData.append('keym', keym);
+				formData.append('id_caracteristica', id_caracteristica);
+				formData.append('id_usuario', id_usuario);
+				formData.append('tipo', tipo);
+				formData.append('tipoAct', this.serviciog.actividad.tipo);
+		
+		
 				this.servicios.getMultimedia(formData)
-				.then(imagenes => {
-					this.serviciog.imagenes = imagenes;
-					//alert(JSON.stringify(imagenes));
-				});	
+					.then(imagenes => {
+						if (imagenes) {
+							//alert(JSON.stringify(imagenes))
+							var cad = JSON.stringify(imagenes);
+							this.serviciog.imagenes = imagenes;
+							// this.vshowFilter = !this.vshowFilter;
+						} else {
+							this.serviciog.imagenes = []
+						}
+					});
 			}
 		} );
 	}
@@ -161,7 +176,13 @@ export class RegistroMultimedia{
 			'required': 'Debe descargar un Imagen'		
 		}
 	};	
+
+	closeModal(){
+		this.serviciog.isModalImg = false;
+	}
 }
+
+
 
 class Archivo{
 	constructor(

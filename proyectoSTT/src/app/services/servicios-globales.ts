@@ -49,13 +49,15 @@ export class ServiciosGlobales {
 	actividades: any;
 	titulo: string;
 	isSelAct: boolean = false;
-	servidor: string = "http://172.16.133.190:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
+	servidor: string = "http://localhost:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
 	isSubActivity: any;
 	tipo: string = 'img';
 	axActividades: any;
 	/* vaiables para mensaje de novedades */
 	hidden: boolean = false;
 	alert_message: string;
+	isModalImg : boolean = false;
+	isModalLogin : boolean = false;
 	/* ------------- */
 
 	/* variables del soket */

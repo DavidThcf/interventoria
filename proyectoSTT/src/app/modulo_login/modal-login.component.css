@@ -26,6 +26,14 @@
   font-family: 'Playfair Display', serif;
 }
 
-.modal{
-  margin-top: 50px;
+.myModal{
+	position: absolute;
+	width: 100%;
+	height: 100vh;
+	background-color: rgba(0,0,0,0.5);
+	z-index: 5;
+	top: 0px;
+	margin-top: 0px;
+  margin-left: 0px;
+  
 }
