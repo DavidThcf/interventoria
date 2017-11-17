@@ -330,6 +330,10 @@ export class Multimedia implements OnInit {
 		});
 	}
 
+	mostrarModal(){
+		this.serviciog.isModalImg = true;
+	}
+
 }
 
 

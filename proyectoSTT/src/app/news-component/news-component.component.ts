@@ -54,6 +54,7 @@ export class NewsComponentComponent implements OnInit {
 							//alert(JSON.stringify(files));
 							//alert(JSON.stringify(files));
 							 console.log(files);
+							this.imagenView = []; //arreglo para imagenes vistas
 							this.serviciog.novedades = files;
 						}
 					});
@@ -114,7 +115,8 @@ export class NewsComponentComponent implements OnInit {
 						if (files) {
 							//alert(JSON.stringify(files));
 							//alert(JSON.stringify(files));
-							 console.log(files);
+							 //console.log(files);
+							 this.imagenView = [];
 							this.serviciog.novedades = files;
 						}
 					});
@@ -302,6 +304,7 @@ export class NewsComponentComponent implements OnInit {
 	checked(imagen) {
 		// var img = imagen;
 		imagen.visto = !imagen.visto;
+		// alert(imagen.visto)
 		var sss = this.imagenView.findIndex(x => x === imagen);
 		//alert(sss);
 		if (sss >= 0) {
@@ -320,7 +323,7 @@ export class NewsComponentComponent implements OnInit {
 
 	sendChangeView(){
 		if (this.imagenView.length > 0) {
-			//alert(JSON.stringify(this.imagenView))
+			// alert(JSON.stringify(this.imagenView))
 			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
 			formData.append("img_edit", JSON.stringify(this.imagenView));/* se carga formData  */
 			this.servicios.updateImageView(formData) /* llamdo al metodo que se conectara con el server */
@@ -342,7 +345,6 @@ export class NewsComponentComponent implements OnInit {
 		} else {
 			this.serviciog.alert_message = 'No se puede actualizar';
 			this.serviciog.hidden = true;
-
 		}
 		setTimeout(() => {
 			this.serviciog.hidden = false;

@@ -143,4 +143,10 @@ export class AppComponent implements OnInit {
 		this.router.navigate(link);
 		this.serviciog.socket.emit('delUser', this.serviciog.usuario.id_usuario);
 	}
+
+	openModalLogin(){
+		this.serviciog.isModalLogin = true;
+	}
+
+	
 }

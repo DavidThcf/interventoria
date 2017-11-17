@@ -19,7 +19,7 @@
 <button *ngIf="!isMapSelected && !isRepSelected && 
 this.serviciog.actividad.tipo === 'Actividad'" 
 class="btn-add-img btn-primary" 
-data-toggle="modal" data-target="#mod-reg-mult">
+(click)="mostrarModal()">
 +
 </button>
 
@@ -180,7 +180,7 @@ data-toggle="modal" data-target="#mod-reg-mult">
     </div>
   </div>
 
-  <registro-multimedia></registro-multimedia>
+  <!-- <registro-multimedia></registro-multimedia> -->
 
   <div id="mod-sho-mult" style="margin-top: 50px" class="modal fade" role="dialog">
     <div class="modal-dialog" style="vertical-align: middle;">

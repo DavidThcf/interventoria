@@ -39,7 +39,7 @@
 
       <div *ngIf="!this.serviciog.usuario" class="navbar-right" style="margin-top:9px;margin-bottom:5px">
         <div id="btn_account">
-          <button type="button" class="btn btn-success btn-sm btn_log " data-toggle="modal" data-target="#mod-log" style="position:relative">Ingresar</button>
+          <button type="button" class="btn btn-success btn-sm btn_log " (click)="openModalLogin()" style="position:relative">Ingresar</button>
           <!-- <button type="button" class="btn btn-danger btn-sm btn_reg " data-toggle="modal" data-target="#mod-reg" style="position:relative">Registrarse</button> -->
         </div>
       </div>

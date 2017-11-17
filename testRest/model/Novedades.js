@@ -300,6 +300,7 @@ module.exports.getDataNewChangeFile = function (data,reporte) {
     ar.descripcion,
     ar.fecha_creacion,
     ar."srcServ", 
+    ar.visto,
     act.nombre nom_act,
     act.descripcion des_act,
     u.nombre usu_nom, 

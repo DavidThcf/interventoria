@@ -56,6 +56,8 @@ export class ServiciosGlobales {
 	/* vaiables para mensaje de novedades */
 	hidden: boolean = false;
 	alert_message: string;
+	isModalImg : boolean = false;
+	isModalLogin : boolean = false;
 	/* ------------- */
 
 	/* variables del soket */
