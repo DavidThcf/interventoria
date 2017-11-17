@@ -301,6 +301,30 @@ router.post("/getFileList", (req, res, next) => {
   }
 });
 
+//Service to get list of the files
+router.post("/getFileListChild", (req, res, next) => {
+  console.log("\n\n\n\n\n\n\n\n============ get file list   ==== >   " + JSON.stringify(req.body));
+  res.header("Access-Control-Allow-Origin", "*");
+
+  try {
+    var fls = File.getFileListChild(req.body);
+    fls.then(x => {
+
+      console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
+
+      res.send(x);
+
+    })
+      .catch(x => {
+        //console.log("ERROR =>  " + x);
+        //res.header("Access-Control-Allow-Origin", "*");
+        res.json(false);
+      });
+  } catch (e) {
+    console.log("Revisar   " + e);
+  }
+});
+
 //Service to update the file information
 router.post("/updateImageFile", (req, res, next) => {
   var fls = File.getImagesList(req.body.caracteristica);
