@@ -235,7 +235,6 @@ export class Multimedia implements OnInit {
 			.then(imagenes => {
 				//alert(JSON.stringify(imagenes));
 				if (imagenes) {
-<<<<<<< HEAD
 					
 					//var cad = JSON.stringify(imagenes);
 					// cad = cad.replace(/=/g,'/');
@@ -246,12 +245,6 @@ export class Multimedia implements OnInit {
 						this.serviciog.imagenes = imagenes[0].getarchivos;
 						alert(JSON.stringify(this.serviciog.imagenes));
 					}
-=======
-					//alert(JSON.stringify(imagenes))
-					var cad = JSON.stringify(imagenes);
-					this.serviciog.imagenes = imagenes;
-					this.vshowFilter = !this.vshowFilter;
->>>>>>> 5a86bcd56c7e2de04d58a0fc294af79cf150c1f1
 				} else {
 					this.serviciog.imagenes = []
 				}
