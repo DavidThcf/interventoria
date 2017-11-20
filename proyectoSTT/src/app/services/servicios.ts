@@ -46,7 +46,7 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false);
 	}
-	getBackActividad(keym: number, id_usuario: number, id_caracteristica: number): Promise<any> {
+	getBackActividad(keym: number, id_caracteristica: number, id_usuario: number): Promise<any> {
 		var formData = new FormData();
 
 		formData.append('keym', keym + '');
@@ -59,6 +59,14 @@ export class Servicios {
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false);
+	}
+
+	getOneProject(formdata: FormData): Promise<any> {
+		return this.http
+			.post(this.url + "getOneProject", formdata)
+			.toPromise()
+			.then(res => res.json())
+			.catch(err => err.toString());
 	}
 
 	createUser(formdata: FormData): Promise<any> {

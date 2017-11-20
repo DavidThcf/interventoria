@@ -4,11 +4,11 @@
 
 			<div class="center-block row" style="margin-top: 5px">
 				<div style="text-align: center;">
-					<div *ngIf="this.proyecto">
+					<div *ngIf="this.serviciog.proyecto">
 						<div *ngIf="this.serviGloAct.tipo2 == 'Proyecto'" class="titulo" (click)="tituloClick()" style="display: inline;"> Proyecto {{this.serviciog.titulo}}</div>
 						<div *ngIf="this.serviGloAct.tipo2 != 'Proyecto'" class="titulo" (click)="tituloClick()" style="display: inline;">{{this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(this.serviGloAct.tipo2) - 1 ]}} {{this.serviciog.titulo}}</div>
 					</div>
-					<div *ngIf="!this.proyecto">
+					<div *ngIf="!this.serviciog.proyecto">
 						<div class="titulo" (click)="tituloClick()" style="display: inline;"> {{this.serviciog.recomendacion.tipo}} {{this.serviciog.titulo}}</div>
 					</div>
 				</div>
@@ -19,7 +19,7 @@
 						<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 					</button> -->
 
-					<button *ngIf="this.serviciog.isSubActivity" class="btn1 btn btn-primary  col-md-5" style="background-color: darkslategray;"
+					<button *ngIf="(this.serviciog.usuario.tipo_usuario !== 'sup' && this.serviciog.proyecto.id_caracteristica_padre) || (this.serviciog.usuario.tipo_usuario == 'sup' && this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)" class="btn1 btn btn-primary  col-md-5" style="background-color: darkslategray;"
 					 (click)="regresar()">
 						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 					</button>

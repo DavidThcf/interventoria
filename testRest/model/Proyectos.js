@@ -443,3 +443,96 @@ function getIdFreeProject(id_usuario, keym) {
       });
   });
 }
+
+
+// Service to get one project 
+module.exports.getOneProject = function (data) {
+  var sequelize = sqlCon.configConnection();
+  /*var query1 = `
+        select * from proyectos
+        join caracteristicas on proyectos.keym_car = caracteristicas.keym
+        and proyectos.id_usuario_car = caracteristicas.id_usuario
+        and proyectos.id_caracteristica = caracteristicas.id_caracteristica
+        where proyectos.id_usuario in (`+id_user+`)
+
+        `;*/
+  var query1 = `
+      select 	
+      b.nombre beneficiario,
+      b.cedula,
+      b.tipo_identificacion,
+      
+      p.nombre as nom_pro,
+      p.nombre as nom_act,
+      p.descripcion,
+      u.nombre,
+      u.apellido,
+      
+      c.keym,
+      c.id_caracteristica,
+      c.id_usuario,
+      
+      c.usuario_asignado,
+      c.tipo,
+      c.keym_padre,
+      c.id_caracteristica_padre,
+      c.id_usuario_padre,
+      c.tipo,
+      c.tipo_caracteristica,
+      c.costo_real,
+      c.costo_actual,
+      c.estado,
+      c.porcentaje_asignado,
+      c.porcentaje_cumplido,
+      c.publicacion_web,
+      c.porcentaje,
+      c.fecha_inicio,
+      c.fecha_fin,
+      c.publicacion_reporte,
+      u.nombre as usr_nom,
+      u.apellido as usr_ape,
+      u.e_mail as e_mail,
+      u.cargo as cargo,
+      u.tipo_usuario,
+      ct.nombre nombre_cat,
+      ct.color color_cat
+      
+      
+      
+    from proyectos p
+    join caracteristicas c on p.keym_car = c.keym
+    and p.id_usuario_car = c.id_usuario
+    and p.id_caracteristica = c.id_caracteristica
+    join usuarios u on  c.usuario_asignado = u.id_usuario
+    left join beneficiarios b
+    on c.cedula = b.cedula
+      
+    left join marcador m
+    on 	m.keym = c.keym
+    and 	m.id_usuario = c.id_usuario
+    and 	m.id_caracteristica = c.id_caracteristica
+      
+    left join categorias_mapa ct
+    on 	ct.id_categoria = m.id_categoria
+      
+    where c.id_caracteristica = ` + data.id_caracteristica + ` ; `;
+
+  console.log('**************************************************************************'+query1);
+  return new Promise((resolve, reject) => {
+    sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+      .then(x => {
+        console.log('\n\n\n\n\n\n\n\n\============================================================');
+        console.log('\n\n\n\n\n\n\n\n\************************************************************');
+        console.log('\n\n\n\n\n\n\n\n\============================================================');
+        console.log('\n\n\n\n\n\n\n\n\************************************************************'+JSON.stringify(x));
+        resolve(x);
+      }).catch(x => {
+        console.log('Error al Obtener la lista de proyectos  getListProjects ' + x);
+        reject(false);
+      }).done(x => {
+        sequelize.close();
+        console.log('Se ha cerrado sesion de la conexion a la base de datos');
+      });
+  });
+
+}

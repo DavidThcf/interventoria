@@ -124,6 +124,23 @@ router.post("/getUserProjectList", (req, res, next) => {
     });
 });
 
+//service to get one project 
+router.post("/getOneProject", (req, res, next) => {
+  console.log('\n\n\n\n\n\n\n\n\n\nGet One Project  '+ req.body.caracteristica);
+  var prj = Project.getOneProject(JSON.parse(req.body.caracteristica));
+
+  prj
+    .then(x => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    })
+    .catch(x => {
+      console.log("ERROR =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
+});
+
 //service to get user's activity with theirs Characteristics
 router.post("/getActivityList", (req, res, next) => {
   console.log("GET ACTIVITY LIST");
@@ -148,7 +165,7 @@ router.post("/getActivityList", (req, res, next) => {
 //service to get user's activity with theirs Characteristics
 router.post("/getBackActivityList", (req, res, next) => {
   console.log("GET BACK ACTIVITY LIST");
-  var act = Activity.getBackActivityList(req.body);
+  var act = Activity.getpar(req.body);
   act
     .then(x => {
       //console.log(JSON.stringify(x));
