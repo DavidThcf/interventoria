@@ -85,8 +85,8 @@ export class RegistroMultimedia{
 					.then(imagenes => {
 						if (imagenes) {
 							//alert(JSON.stringify(imagenes))
-							var cad = JSON.stringify(imagenes);
-							this.serviciog.imagenes = imagenes;
+							// var cad = JSON.stringify(imagenes);
+							this.serviciog.imagenes = imagenes[0].getarchivos;
 							// this.vshowFilter = !this.vshowFilter;
 						} else {
 							this.serviciog.imagenes = []

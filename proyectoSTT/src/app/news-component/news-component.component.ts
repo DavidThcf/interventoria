@@ -331,18 +331,28 @@ export class NewsComponentComponent implements OnInit {
 					if (x) {
 						this.serviciog.alert_message = 'Cambios Actualizados';
 						this.serviciog.hidden = true;
-						for (var i = 0; i < this.serviciog.novedades.length; i++) {
-							if (this.serviciog.novedades[i].keym == this.novedad.keym &&
-								this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
-								this.serviciog.novedades[i].id_usuario == this.novedad.id_usuario) {
-								this.serviciog.novedades.splice(i, 1);
-								return this.serviciog.novedades;
-							}
-						}
+						// for (var i = 0; i < this.serviciog.novedades.length; i++) {
+						// 	if (this.serviciog.novedades[i].keym == this.novedad.keym &&
+						// 		this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
+						// 		this.serviciog.novedades[i].id_usuario == this.novedad.id_usuario) {
+						// 		this.serviciog.novedades.splice(i, 1);
+						// 		return this.serviciog.novedades;
+						// 	}
+						// }
+
+						this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
+						var formData1 = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+						formData1.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
+						this.servicios.getDataNewChangeFile(formData1) /* llamdo al metodo que se conectara con el server */
+							.then(files => {
+								if (files) {
+									this.imagenView = [];
+									this.serviciog.novedades = files;
+								}
+							});
 					}
 				});
-
-		} else {
+			} else {
 			this.serviciog.alert_message = 'No se puede actualizar';
 			this.serviciog.hidden = true;
 		}
