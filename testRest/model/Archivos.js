@@ -70,7 +70,7 @@ module.exports.create_file = function (data, files) {
                 `;
                 sequelize.query(query1, { type: sequelize.QueryTypes.INSERT }).
                     then(x => {
-                        this.fileUpload(files, repository + '/user' + id_usuario + '/', nombre_archivo);
+                        this.fileUpload(files, repository + 'user' + id_usuario + '/', nombre_archivo);
                         console.log('\n\n\n\n\nUpload Completed');
                         resolve(true);
                     }).catch(x => {
@@ -273,6 +273,17 @@ module.exports.fileUpload = function (files, path, nom) {
     var file;
     var name = nom;
     console.log('\n\n\n\n Name    ' + name);
+    /* comprueba si path exite y lo crea   */
+    if(!fs.existsSync(path)){
+        fs.mkdirSync(path, 0777, function(err){
+            if(err){
+                console.log(err);
+                // echo the result back
+            }else
+             console.log('creado')
+        });
+    }
+    /* ----------------------------------------- */
     if (name.length == 0)
         name = 'project-' + file.name;
 
@@ -510,3 +521,4 @@ module.exports.getMultimediaReport = function (data) {
             });;
     });
 }
+

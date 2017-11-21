@@ -141,6 +141,7 @@ export class AppComponent implements OnInit {
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 		let link = [''];
 		this.router.navigate(link);
+		alert(this.serviciog.usuario.id_usuario/*  */)
 		this.serviciog.socket.emit('delUser', this.serviciog.usuario.id_usuario);
 	}
 

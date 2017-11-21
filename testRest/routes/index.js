@@ -297,20 +297,20 @@ router.post("/createFile", (req, res, next) => {
 //Service to get list of the files
 router.post("/getFileList", (req, res, next) => {
   console.log("\n\n\n\n\n\n\n\n============ get file list   ==== >   " + JSON.stringify(req.body));
-  res.header("Access-Control-Allow-Origin", "*");
+  
 
   try {
     var fls = File.getFileList(req.body);
     fls.then(x => {
 
       console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
-
+      res.header("Access-Control-Allow-Origin", "*");
       res.send(x);
 
     })
       .catch(x => {
         //console.log("ERROR =>  " + x);
-        //res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
       });
   } catch (e) {
@@ -1138,7 +1138,13 @@ function armJSONReport(data) {
       "cargoEla": "Interventor",
       "firmaApr": "kelvin c",
       "nombreApr": "Kelvin Cadena",
-      "cargoApr": "Supervisor"
+      "cargoApr": "Supervisor",
+      "porcentajeProgramado": data.porcentajeProgramado,
+			"porcentajeEjecutado": data.porcentajeEjecutado,
+      "DiferenciaPorcentaje": data.DiferenciaPorcentaje,
+      "valorProgramado": data.valorProgramado,
+			"valorEjecutado": data.valorEjecutado,
+			"DiferenciaValor": data.DiferenciaValor
     }
     resolve(dat);
   });

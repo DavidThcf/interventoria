@@ -102,7 +102,8 @@ class="btn-add-img btn-primary"
         <input type="checkbox" *ngIf="isMapSelected || isRepSelected" 
           class="chk" [checked]=imagen.ext (change)="checked(imagen)">
         <a class="thumbnail">
-          <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}}>
+          <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} 
+                alt={{imagen.subtitulo}}>
           <div class="caption">
             <h3>{{imagen.titulo}}</h3>
             <p>{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>

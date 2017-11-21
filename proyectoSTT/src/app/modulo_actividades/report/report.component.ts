@@ -55,7 +55,6 @@ export class ReportComponent implements OnInit {
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
 
-
 	public lineChartColors: Array<any> = [
 		{ // grey
 		  backgroundColor: 'rgba(97, 255, 0, 1)',
@@ -196,17 +195,22 @@ export class ReportComponent implements OnInit {
 			"cargoApr": this.cargoApr,
 			"nombre": this.nombre,
 			"observaciones": this.observaciones,
+			"porcentajeProgramado": this.serviciog.porcentaje_real,
+			"porcentajeEjecutado": this.serviciog.actividad.porcentaje_cumplido,
+			"DiferenciaPorcentaje": this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido,
 			"grafica": imgReport,
+			"valorProgramado": this.serviciog.actividad.costo_real,
+			"valorEjecutado": this.serviciog.actividad.costo_actual,
+			"DiferenciaValor": this.serviciog.actividad.costo_real - this.serviciog.actividad.costo_actual,
 			"grafica2": imgReport2,
-			"imagenes": this.images
+			"imagenes": this.images,
 		};
 		console.log(this.msg);
 
-
 		var url;
-		var xml = new XMLHttpRequest();
+		// var xml = new XMLHttpRequest();
 		url = this.serviciog.servidor+'downloadReport' + '?val1=' + JSON.stringify(this.msg);
-		window.open(url, '_blank');
+		window.open(url, 'about:blank');
 
 	}
 

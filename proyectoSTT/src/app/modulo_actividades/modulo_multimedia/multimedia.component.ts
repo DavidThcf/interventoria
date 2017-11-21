@@ -185,7 +185,19 @@ export class Multimedia implements OnInit {
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
-					this.serviciog.imagenes = imagenes
+					//alert(JSON.stringify(imagenes))
+					var cad = JSON.stringify(imagenes);
+					// cad = cad.replace(/=/g,'/');
+					//alert(JSON.stringify(imagenes));
+					if(this.serviciog.actividad.tipo == 'Proyecto' || this.serviciog.actividad.tipo == 'Provincia' || this.serviciog.actividad.tipo == 'Municipio' || this.serviciog.actividad.tipo == 'Resguardo' ){
+						this.serviciog.imagenes = imagenes;
+					}
+					
+					else if (this.serviciog.actividad.tipo == 'Beneficiario' || this.serviciog.actividad.tipo == 'Capitulo' || this.serviciog.actividad.tipo == 'Actividad') {
+						this.serviciog.imagenes = imagenes[0].getarchivos;
+					}
+					//alert(JSON.stringify(this.serviciog.imagenes));
+					//this.serviciog.imagenes = imagenes;
 				} else {
 					this.serviciog.imagenes = []
 				}
