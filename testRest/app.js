@@ -25,7 +25,7 @@ app.use(fileUpload({
 }));
 //app.use(express.static(path.join(__dirname, 'public')));
 
-app.use(express.static('files'));
+app.use(express.static(__dirname + '/files'));
 //app.use(express.static('files'));
 //app.use('/static', express.static('public'));
 
