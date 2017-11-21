@@ -19,7 +19,7 @@
 							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						</button> -->
 
-					<button *ngIf="(this.serviciog.usuario.tipo_usuario !== 'sup' && this.serviciog.actividad.id_caracteristica_padre) || (this.serviciog.usuario.tipo_usuario == 'sup' && this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)"
+					<button *ngIf="(this.serviciog.usuario.tipo_usuario !== 'sup' && this.serviciog.actividad.id_caracteristica_padre ||  this.serviciog.actividad.id_caracteristica_padre != 1) || (this.serviciog.usuario.tipo_usuario == 'sup' && this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)"
 					 class="btn1 btn btn-primary  col-md-5" style="background-color: darkslategray;" (click)="regresar()">
 						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 					</button>
