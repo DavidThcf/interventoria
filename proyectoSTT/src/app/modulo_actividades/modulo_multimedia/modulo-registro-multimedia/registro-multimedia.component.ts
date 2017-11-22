@@ -182,8 +182,6 @@ export class RegistroMultimedia{
 	}
 }
 
-
-
 class Archivo{
 	constructor(
 		public titulo:string,

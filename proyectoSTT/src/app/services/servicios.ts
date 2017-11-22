@@ -1,3 +1,4 @@
+import { formatDate } from 'ngx-bootstrap/bs-moment/format';
 import { Injectable } from '@angular/core';
 import { Headers, Http, RequestOptions, Request, RequestMethod } from '@angular/http';
 import { Usuario } from '../model/usuario'
@@ -46,6 +47,7 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false);
 	}
+
 	getBackActividad(keym: number, id_caracteristica: number, id_usuario: number): Promise<any> {
 		var formData = new FormData();
 
@@ -209,12 +211,14 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+
 	getObservaciones(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "getObservaciones", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)
 	}
+
 	getObservacionesReport(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "getObservacionesReport", formData)
 			.toPromise()
@@ -228,6 +232,7 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+
 	regObservacion(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "regObservacion", formData)
 			.toPromise()
@@ -255,12 +260,14 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+
 	getTypes(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "getTypes", formData)
 			.toPromise()
 			.then(response => response.json())
 			.catch(err => false)
 	}
+
 	getDataChart(formData: FormData): Promise<any> {
 		return this.http.post(this.url + "getDataChart", formData)
 			.toPromise()
@@ -370,7 +377,7 @@ export class Servicios {
 	}
 	/* ----------------------------------------------------------- */
 	/* ----------------- updateImageView ---------------------- */
-	updateImageView(formData){
+	updateImageView(formData : FormData){
 		return this.http.post(this.url + "updateImageView", formData)
 		.toPromise()
 		.then(response => response.json())
@@ -379,7 +386,6 @@ export class Servicios {
 	/* ---------------------------------------------------------- */
 
 	getMultimediaReport(formData: FormData): Promise<any> {
-
 		return this.http
 			.post(this.url + "getMultimediaReport", formData)
 			.toPromise()
@@ -387,4 +393,10 @@ export class Servicios {
 			.catch(err => false);
 	}
 
+	getSuspension(formData : FormData){
+		return this.http.post(this.url + "getSuspension", formData)
+		.toPromise()
+		.then(response => response.json())
+		.catch(err => false)
+	}
 } 

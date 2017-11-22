@@ -1162,15 +1162,18 @@ export class ActividadPanel implements OnInit {
 
 
 
-    var fecha_actual = new Date;
+    var fecha_actual = new Date();
 
     var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
-    var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDay());
+    var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
     var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
+    // alert("fecha 1: "+ fFecha1);
+    // alert("fecha 2: "+ fFecha2);
     var dif = fFecha1.getTime() - fFecha2.getTime();
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-    //alert(dias);
+    
     if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
+      alert(dias);
       if (dias > 9 && dias <= 30) {
         this.serviciog.porcentaje_real = (dias * (100 / 21)).toFixed(2);
       } else if (dias > 30) {
@@ -1672,8 +1675,9 @@ export class ActividadPanel implements OnInit {
 
   ClickPause(value: any) {
     var formData = new FormData();
-    var dateInicio = new Date;
-    var fecIni = dateInicio.getFullYear() + "-" + (dateInicio.getMonth() + 1) + "-" + dateInicio.getDay();
+    var dateInicio = new Date();
+    var fecIni = dateInicio.getFullYear() + "-" + (dateInicio.getMonth() + 1) + "-" + dateInicio.getDate();
+    // alert(fecIni);
     formData.append("keym", this.serviciog.proyecto.keym);
     formData.append("id_caracteristica", this.serviciog.proyecto.id_caracteristica);
     formData.append("id_usuario", this.serviciog.proyecto.id_usuario);
