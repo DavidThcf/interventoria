@@ -201,7 +201,8 @@
 										</div>
 										<div *ngIf="this.serviciog.proyecto.fecha_fin != null">
 											<label for="tiempo_fin" class="lab">Fecha Final</label>
-											<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_fin">
+											<!-- <input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_fin"> -->
+											<label id="tiempo_fin" class="form-control" name="tiempo_fin">{{this.serviciog.proyecto.fecha_fin  | date:'fullDate' | uppercase}}</label>
 										</div>
 										<div *ngIf="this.serviciog.proyecto.tipo !== 'Beneficiario' && 
 												this.serviciog.proyecto.tipo !== 'Capitulo' &&
@@ -398,7 +399,8 @@
 									</div>
 									<div *ngIf="this.serviciog.actividad.fecha_fin != null">
 										<label for="tiempo_fin" class="lab">Fecha Final</label>
-										<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_fin">
+										<!-- <input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_fin"> -->
+										<label id="tiempo_fin" class="form-control" name="tiempo_fin">{{this.serviciog.actividad.fecha_fin | date:'fullDate' | uppercase }}</label>
 									</div>
 									<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && 
 											this.serviciog.actividad.tipo !== 'Capitulo' &&
@@ -467,7 +469,7 @@
 							</section>
 
 							<br>
-							<hr>
+							<hr style="margin-top: 100px">
 							<br>
 							<!--<label for="estado" class="lab">Etapa</label><input type="text" id="estado" class="form-control" name="estado"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado" > -->
 
