@@ -326,143 +326,148 @@ export class ActividadPanel implements OnInit {
 
     //this.calcPercentReal();
 
-    this.serviGloAct.actOpt = 1;
-
-    activity.porcentaje_cumplido = activity.porcentaje_cumplido * 1;
-    this.slideval = activity.porcentaje_cumplido;
-
-    this.isTitleSelected = false;
-    this.miPorcentaje = 100;
-    this.porcentajeAsignado = 0;
-    this.serviciog.actividad = activity;
-    this.serviciog.isSelAct = true;
-    this.serviGloAct.actOpt = 1;
-    this.serviGloAct.subActividades = [];
-
-    var keym = activity.keym;
-    var id_usuario = activity.id_usuario;
-    var id_caracteristica = activity.id_caracteristica;
-
-
-    if (this.isTitleSelected && this.serviciog.actividad == null)
-      this.dat = {
-        keym: this.serviciog.proyecto.keym,
-        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario,
-        tipo: this.serviciog.proyecto.tipo
-      };
-    else if (this.serviciog.actividad)
-      this.dat = {
-        keym: this.serviciog.actividad.keym,
-        id_caracteristica: this.serviciog.actividad.id_caracteristica,
-        id_usuario: this.serviciog.actividad.id_usuario,
-        tipo: this.serviciog.actividad.tipo
-      };
-    else
-      this.dat = {
-        keym: this.serviciog.proyecto.keym,
-        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-        id_usuario: this.serviciog.proyecto.id_usuario,
-        tipo: this.serviciog.proyecto.tipo
-      };
-
-
-
-
-    if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
-      //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
-      this.serviciog.labels = [];
-      this.serviciog.data = [];
-      this.serviciog.colors = [];
-      this.serviciog.dat = this.dat;
-      var formData = new FormData();
-      formData.append("caracteristica", JSON.stringify(this.dat));
-      this.servicios.getDataChart(formData).then(message => {
-
-        //calculo grafica resumen avance
-
-
-
-
-        //alert(JSON.stringify(message));
-        this.serviciog.listDatChart = [];
-        this.serviciog.listDatChart = message;
-        var ax: any[] = [];
-        this.serviciog.listDatChart.forEach(element => {
-          ax.push(element.gettotalmarkerscategory);
-        });
-        this.serviciog.listDatChart = ax;
-        var val = 0;
-        this.serviciog.listDatChart.forEach(element => {
-          var x = element.split(',');
-          var num = parseInt(x[2]);
-          if (num) val = val + num;
-        });
-        this.serviciog.listDatChart.forEach(element => {
-          element = element.replace('(', '');
-          element = element.replace(')', '');
-          var x = element.split(',');
-          this.serviciog.color.push(x[0]);
-          var num = parseInt(x[2]);
-          if (num) {
-            var z = num * 100 / val;
-            this.serviciog.data.push(z);
-            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toFixed(2) + ' %');
-          }
-          else {
-            this.serviciog.data.push(0);
-            this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
-          }
-        });
-
-        this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
-
-      });
-
-    }
-
-    var tot_ben = new FormData();
-
-    //total benefuciary
-    tot_ben.append("caracteristica", JSON.stringify(this.dat));
-    this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
-      this.serviciog.total_beneficiary = 0;
-      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
-    }).catch(e => {
-      alert('ERROR   =>  ' + e);
-    });
-
-
-
-    this.servicios
-      .getActividad(keym, id_usuario, id_caracteristica)
-      .then(actividades => {
-        if (actividades) {
-          this.serviGloAct.subActividades = actividades;
-          var num = this.serviciog.tipos_act.indexOf(
-            this.serviGloAct.subActividades[0].tipo
-          );
-          this.serviGloAct.tipo = this.serviciog.tipos_act[num];
-
-          this.calculateValue(actividades);
-        }
-      });
-    this.calcPercentReal();
-
     try {
-      this.barChartData = [
-        { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-        { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-        { data: [this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido], label: parseFloat((this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido) + '').toFixed(2) + '  %' }
-      ];
-      this.barChartLabels = [
-        '% de obra Programado ',
-        '% Real Ejecutado ',
-        '% Programado VS Ejecutado'
-      ];
+      this.serviGloAct.actOpt = 1;
+
+      activity.porcentaje_cumplido = activity.porcentaje_cumplido * 1;
+      this.slideval = activity.porcentaje_cumplido;
+
+      this.isTitleSelected = false;
+      this.miPorcentaje = 100;
+      this.porcentajeAsignado = 0;
+      this.serviciog.actividad = activity;
+      this.serviciog.isSelAct = true;
+      this.serviGloAct.actOpt = 1;
+      this.serviGloAct.subActividades = [];
+
+      var keym = activity.keym;
+      var id_usuario = activity.id_usuario;
+      var id_caracteristica = activity.id_caracteristica;
+
+      if (this.isTitleSelected && this.serviciog.actividad == null)
+        this.dat = {
+          keym: this.serviciog.proyecto.keym,
+          id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+          id_usuario: this.serviciog.proyecto.id_usuario,
+          tipo: this.serviciog.proyecto.tipo
+        };
+      else if (this.serviciog.actividad)
+        this.dat = {
+          keym: this.serviciog.actividad.keym,
+          id_caracteristica: this.serviciog.actividad.id_caracteristica,
+          id_usuario: this.serviciog.actividad.id_usuario,
+          tipo: this.serviciog.actividad.tipo
+        };
+      else
+        this.dat = {
+          keym: this.serviciog.proyecto.keym,
+          id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+          id_usuario: this.serviciog.proyecto.id_usuario,
+          tipo: this.serviciog.proyecto.tipo
+        };
+
+
+
+
+      if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
+        //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
+        this.serviciog.labels = [];
+        this.serviciog.data = [];
+        this.serviciog.colors = [];
+        this.serviciog.dat = this.dat;
+        var formData = new FormData();
+        formData.append("caracteristica", JSON.stringify(this.dat));
+        this.servicios.getDataChart(formData).then(message => {
+
+          //calculo grafica resumen avance
+
+
+
+
+          //alert(JSON.stringify(message));
+          this.serviciog.listDatChart = [];
+          this.serviciog.listDatChart = message;
+          var ax: any[] = [];
+          this.serviciog.listDatChart.forEach(element => {
+            ax.push(element.gettotalmarkerscategory);
+          });
+          this.serviciog.listDatChart = ax;
+          var val = 0;
+          this.serviciog.listDatChart.forEach(element => {
+            var x = element.split(',');
+            var num = parseInt(x[2]);
+            if (num) val = val + num;
+          });
+          this.serviciog.listDatChart.forEach(element => {
+            element = element.replace('(', '');
+            element = element.replace(')', '');
+            var x = element.split(',');
+            this.serviciog.color.push(x[0]);
+            var num = parseInt(x[2]);
+            if (num) {
+              var z = num * 100 / val;
+              this.serviciog.data.push(z);
+              this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toFixed(2) + ' %');
+            }
+            else {
+              this.serviciog.data.push(0);
+              this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+            }
+          });
+
+          this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
+
+        });
+
+      }
+
+      var tot_ben = new FormData();
+
+      //total benefuciary
+      tot_ben.append("caracteristica", JSON.stringify(this.dat));
+      this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+        this.serviciog.total_beneficiary = 0;
+        try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+      }).catch(e => {
+        alert('ERROR   =>  ' + e);
+      });
+
+
+      this.servicios
+        .getActividad(keym, id_usuario, id_caracteristica)
+        .then(actividades => {
+          if (actividades) {
+            this.serviGloAct.subActividades = actividades;
+            var num = this.serviciog.tipos_act.indexOf(
+              this.serviGloAct.subActividades[0].tipo
+            );
+            this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+
+            this.calculateValue(actividades);
+          }
+        });
+
+      this.calcPercentReal();
+
+      try {
+        this.barChartData = [
+          { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+          { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+          { data: [this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido], label: parseFloat((this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido) + '').toFixed(2) + '  %' }
+        ];
+        this.barChartLabels = [
+          '% de obra Programado ',
+          '% Real Ejecutado ',
+          '% Programado VS Ejecutado'
+        ];
+      } catch (e) {
+        alert(e);
+      }
+
     } catch (e) {
-      alert(e);
+      alert('bad' + e);
     }
+
 
   }
 
@@ -485,6 +490,9 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
+
+    alert(JSON.stringify(this.serviciog.actividad));
+
     if (
       this.serviciog.actividad.keym_padre == this.serviciog.proyecto.keym &&
       this.serviciog.actividad.id_caracteristica_padre == this.serviciog.proyecto.id_caracteristica &&
@@ -495,7 +503,7 @@ export class ActividadPanel implements OnInit {
     }
 
     this.isTitleSelected = true;
-    
+
     var num = this.serviciog.tipos_act.indexOf(
       this.serviciog.actividades[0].tipo
     );
@@ -738,10 +746,10 @@ export class ActividadPanel implements OnInit {
   }
 
   regresar() {
-    if(this.serviciog.isSubActivity)
-    this.serviciog.actividad = this.serviciog.isSubActivity;
+    if (this.serviciog.isSubActivity)
+      this.serviciog.actividad = this.serviciog.isSubActivity;
     else
-    this.serviciog.actividad = this.serviciog.proyecto;
+      this.serviciog.actividad = this.serviciog.proyecto;
     // alert(JSON.stringify(this.serviciog.proyecto));
     //alert('UASIG  '+this.serviciog.actividad.usuario_asignado+'   -    UACT   '+this.serviciog.usuario.id_usuario);
     this.serviciog.tree_name.pop();
@@ -753,7 +761,7 @@ export class ActividadPanel implements OnInit {
 
     if (this.isTitleSelected) {
       // alert('ok');
-      
+
     }
     else {
       // alert('bad');
@@ -1160,35 +1168,41 @@ export class ActividadPanel implements OnInit {
   //calculo pocentaje real
   calcPercentReal() {
 
-
+    this.serviciog.porcentaje_real = 0;
 
     var fecha_actual = new Date();
 
-    var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
-    var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
-    var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
-    // alert("fecha 1: "+ fFecha1);
-    // alert("fecha 2: "+ fFecha2);
-    var dif = fFecha1.getTime() - fFecha2.getTime();
-    var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-    
-    if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
-      alert(dias);
-      if (dias > 9 && dias <= 30) {
-        this.serviciog.porcentaje_real = (dias * (100 / 21)).toFixed(2);
-      } else if (dias > 30) {
-        this.serviciog.porcentaje_real = 100;
+    try {
+      //alert(this.serviciog.actividad.fecha_inicio);
+      var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
+      var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDay());
+      var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
+      var dif = fFecha1.getTime() - fFecha2.getTime();
+      var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    } catch (e) {
+      //alert(e);
+    }
+    try{
+      //alert(dias);
+      if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
+        if (dias > 9 && dias <= 30) {
+          this.serviciog.porcentaje_real = (dias * (100 / 21)).toFixed(2);
+        } else if (dias > 30) {
+          this.serviciog.porcentaje_real = 100;
+        }
+      } else if (this.serviciog.actividad.tipo == "Proyecto") {
+        this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
+      } else {
+        var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
+        var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
+        var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
+        var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
+        var diff = fcFecha.getTime() - faFecha.getTime();
+        var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
+        this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
       }
-    } else if (this.serviciog.actividad.tipo == "Proyecto") {
-      this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
-    } else {
-      var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
-      var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
-      var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
-      var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
-      var diff = fcFecha.getTime() - faFecha.getTime();
-      var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
-      this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
+    } catch (e) {
+      //alert(e);
     }
     //alert(this.serviciog.actividad.fecha_inicio)
   }
