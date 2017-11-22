@@ -1170,7 +1170,7 @@ export class ActividadPanel implements OnInit {
 
     this.serviciog.porcentaje_real = 0;
 
-    var fecha_actual = new Date;
+    var fecha_actual = new Date();
 
     try {
       //alert(this.serviciog.actividad.fecha_inicio);
@@ -1689,8 +1689,9 @@ export class ActividadPanel implements OnInit {
 
   ClickPause(value: any) {
     var formData = new FormData();
-    var dateInicio = new Date;
-    var fecIni = dateInicio.getFullYear() + "-" + (dateInicio.getMonth() + 1) + "-" + dateInicio.getDay();
+    var dateInicio = new Date();
+    var fecIni = dateInicio.getFullYear() + "-" + (dateInicio.getMonth() + 1) + "-" + dateInicio.getDate();
+    // alert(fecIni);
     formData.append("keym", this.serviciog.proyecto.keym);
     formData.append("id_caracteristica", this.serviciog.proyecto.id_caracteristica);
     formData.append("id_usuario", this.serviciog.proyecto.id_usuario);
