@@ -1183,10 +1183,14 @@ export class ActividadPanel implements OnInit {
       //alert(e);
     }
     try{
-      //alert(dias);
+      alert(dias);
       if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
         if (dias > 9 && dias <= 30) {
-          this.serviciog.porcentaje_real = (dias * (100 / 21)).toFixed(2);
+          alert(dias )
+          var por = 100/21;
+          alert (por);
+          this.serviciog.porcentaje_real = ((dias-9) *  por);
+          
         } else if (dias > 30) {
           this.serviciog.porcentaje_real = 100;
         }
