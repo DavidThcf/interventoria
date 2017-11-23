@@ -159,7 +159,7 @@ export class ActividadPanel implements OnInit {
 
     this.serviciog.actividades = [];
     this.activityList = [];
-    if (this.serviciog.proyecto) {
+    if (this.serviciog.ax_actividad) {
 
       this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
       this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
@@ -209,7 +209,7 @@ export class ActividadPanel implements OnInit {
         '% Programado VS Ejecutado'
       ];
     } catch (e) {
-      alert(e);
+      //alert(e);
     }
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -315,7 +315,7 @@ export class ActividadPanel implements OnInit {
     formData.append("isUpdatePercentage", JSON.stringify(isUpdatePercentage));
 
     this.servicios.updateCaracteristica(formData).then(message => {
-      alert(JSON.stringify(message));
+      //alert(JSON.stringify(message));
     });
   }
 
