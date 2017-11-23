@@ -304,6 +304,7 @@ export class Mapa implements OnInit {
 		
 		this.serviciog.actividades = [];
 		this.serviciog.actividad = subActividad;
+		this.serviciog.ax_actividad = subActividad;
 		this.serviciog.isSubActivity = subActividad;
 		var keym = subActividad.keym;
 		var id_usuario = subActividad.id_usuario;
