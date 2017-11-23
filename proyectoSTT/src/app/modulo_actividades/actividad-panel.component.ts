@@ -326,7 +326,7 @@ export class ActividadPanel implements OnInit {
 
   onSelectActivity(activity) {
 
-    //this.calcPercentReal();
+    this.calcPercentReal();
 
     try {
       this.serviGloAct.actOpt = 1;
@@ -1192,13 +1192,13 @@ export class ActividadPanel implements OnInit {
       //alert(e);
     }
     try{
-      alert(dias);
+      //alert(dias);
       if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
         if (dias > 9 && dias <= 30) {
           alert(dias )
           var por = 100/21;
           alert (por);
-          this.serviciog.porcentaje_real = ((dias-9) *  por);
+          this.serviciog.porcentaje_real = ((dias-9) *  por).toFixed(2);
           
         } else if (dias > 30) {
           this.serviciog.porcentaje_real = 100;

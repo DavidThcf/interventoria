@@ -8,7 +8,7 @@ import * as io from 'socket.io-client';
 export class ServiciosGlobales {
 
 	/* porcentaje real */
-	porcentaje_real: any;
+	porcentaje_real: any = 0;
 	/* --------------------- */
 
 	// variable auxiliar => necesaria para esconder o no el boton atras 
