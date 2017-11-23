@@ -65,7 +65,7 @@ export class RegistroMultimedia{
 				'tipo':'mul'
 			})
 			if(message){
-				this.serviciog.isModalImg = false;
+				
 				this.serviciog.alert_message = "Multimedia Guardada !!"
 				this.serviciog.hidden = true;
 				setTimeout(() => {
@@ -93,6 +93,7 @@ export class RegistroMultimedia{
 						}
 					});
 			}
+			this.serviciog.isModalImg = false;
 		} );
 	}
 
