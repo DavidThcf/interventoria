@@ -1176,50 +1176,49 @@ export class ActividadPanel implements OnInit {
 
   //calculo pocentaje real
   calcPercentReal() {
-    
-        this.serviciog.porcentaje_real = 0;
-    
-        var fecha_actual = new Date();
-    
-        try {
-          //alert(this.serviciog.actividad.fecha_inicio);
-          var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
-          var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
-          var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
-          var dif = fFecha1.getTime() - fFecha2.getTime();
-          var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-        } catch (e) {
-          //alert(e);
+
+    this.serviciog.porcentaje_real = 0;
+
+    var fecha_actual = new Date();
+
+    try {
+      //alert(this.serviciog.actividad.fecha_inicio);
+      var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
+      var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
+      var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
+      var dif = fFecha1.getTime() - fFecha2.getTime();
+      var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    } catch (e) {
+      //alert(e);
+    }
+    try{
+      //alert(dias);
+      if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
+        if (dias > 9 && dias <= 30) {
+          alert(dias )
+          var por = 100/21;
+          alert (por);
+          this.serviciog.porcentaje_real = ((dias-9) *  por).toFixed(2);
+          
+        } else if (dias > 30) {
+          this.serviciog.porcentaje_real = 100;
         }
-        try{
-          //alert(dias);
-          if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
-            if (dias > 9 && dias <= 30) {
-              alert(dias )
-              var por = 100/21;
-              alert (por);
-              this.serviciog.porcentaje_real = ((dias-9) *  por).toFixed(2);
-              
-            } else if (dias > 30) {
-              this.serviciog.porcentaje_real = 100;
-            }
-          } else if (this.serviciog.actividad.tipo == "Proyecto") {
-            this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
-          } else {
-            var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
-            var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
-            var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
-            var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
-            var diff = fcFecha.getTime() - faFecha.getTime();
-            var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
-            this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
-          }
-        } catch (e) {
-          //alert(e);
-        }
-        //alert(this.serviciog.actividad.fecha_inicio)
+      } else if (this.serviciog.actividad.tipo == "Proyecto") {
+        this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
+      } else {
+        var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
+        var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
+        var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
+        var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
+        var diff = fcFecha.getTime() - faFecha.getTime();
+        var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
+        this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
       }
-    
+    } catch (e) {
+      //alert(e);
+    }
+    //alert(this.serviciog.actividad.fecha_inicio)
+  }
 
   //LISTA       =   Lista de actividades => cambia nombre segun proyecto municipios resguardos beneficiario etc. 
   c2() {
