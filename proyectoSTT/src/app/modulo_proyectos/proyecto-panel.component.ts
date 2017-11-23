@@ -1,3 +1,4 @@
+import { Data } from 'webdriver-js-extender/built/spec/mockdriver';
 import { Component, OnInit}  from '@angular/core';
 import { NgModule } 		 from '@angular/core';
 import { Router }            from '@angular/router';
@@ -24,6 +25,19 @@ export class ProyectoPanel implements OnInit{
 	ngOnInit():void { 
 		
 		var id:number= Number(this.serviciog.usuario.id_usuario);
+		var date = new Date();
+		var fecAct = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
+
+		// var form = new FormData;
+		// form.append('keym', '0' );
+		// form.append('id_caracteristica', '1');
+		// form.append('id_usuario', '5');
+		// form.append('fecAcutal', fecAct);
+		// this.servicios.getSuspension(form)
+		// .then(x => {
+			
+		// });
+		
 		if([3,4,6,7,8,9,10].indexOf(id) !== -1 ){
 			
 			this.servicios.getProyecto( [5 , this.serviciog.usuario.id_usuario ] + '')
@@ -43,7 +57,8 @@ export class ProyectoPanel implements OnInit{
 
 	entrar(proyect:any){
 		//alert(JSON.stringify(proyect));
-		this.serviciog.proyecto = proyect;	
+		this.serviciog.proyecto = proyect;
+		this.serviciog.ax_actividad = proyect;	
 		let link = ['actividades'];
 		this.router.navigate(link);
 	}
