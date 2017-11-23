@@ -11,6 +11,9 @@ export class ServiciosGlobales {
 	porcentaje_real: any;
 	/* --------------------- */
 
+	// variable auxiliar => necesaria para esconder o no el boton atras 
+	public ax_actividad : any = null;
+
 	//Total de beneficiarios por actividad
 	total_beneficiary: number = 0;
 	

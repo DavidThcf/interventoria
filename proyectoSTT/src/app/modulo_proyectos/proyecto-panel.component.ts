@@ -57,7 +57,8 @@ export class ProyectoPanel implements OnInit{
 
 	entrar(proyect:any){
 		//alert(JSON.stringify(proyect));
-		this.serviciog.proyecto = proyect;	
+		this.serviciog.proyecto = proyect;
+		this.serviciog.ax_actividad = proyect;	
 		let link = ['actividades'];
 		this.router.navigate(link);
 	}
