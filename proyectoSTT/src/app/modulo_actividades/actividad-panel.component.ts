@@ -494,8 +494,8 @@ export class ActividadPanel implements OnInit {
   tituloClick() {
 
     //alert(JSON.stringify(this.serviciog.ax_actividad.usuario_asignado)+'   '+this.serviciog.usuario.id_usuario);
-    alert(JSON.stringify(this.serviciog.ax_actividad));
-    alert(JSON.stringify(this.serviciog.proyecto));
+    //alert(JSON.stringify(this.serviciog.ax_actividad));
+    //alert(JSON.stringify(this.serviciog.proyecto));
    
 
     this.isTitleSelected = true;
