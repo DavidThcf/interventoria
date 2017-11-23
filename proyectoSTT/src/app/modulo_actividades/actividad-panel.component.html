@@ -452,7 +452,7 @@
 									</div>
 									
 									<!-- VALORES -->
-									<div style="margin-top: 200px">
+									<div style="position: relative;margin-top: 200px">
 										<div>
 											<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 											<label class="form-control" name="costo_real">{{(this.serviciog.actividad.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
@@ -483,7 +483,7 @@
 										<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividades.length}} </div>
 									</div> -->
 
-							<div class="form-inline" style="margin-top: 3px;margin-left: 0px">
+							<div class="form-inline" style="position: relative;margin-top: 3px;margin-left: 0px">
 								<div *ngIf="this.serviciog.actividad.tipo == 'Beneficiario' " class="form-inline " style="padding: 1px">
 									<label for="etapa" class="lab">Etapa: </label>
 									<select #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
@@ -527,7 +527,7 @@
 					</form>
 					<!--  -->
 					<div *ngIf="this.serviciog.actividad.tipo == 'Actividad' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.usuario.tipo_usuario =='sup'"
-					 style="position: relative;width: 90%;margin: auto;margin-top: 5px">
+					 style="position: relative;width: 90%;margin: auto;margin-top: 15px">
 						<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 						<div style="position: relative;margin: auto">
 							<p style="display: inline-block;">0% </p>
