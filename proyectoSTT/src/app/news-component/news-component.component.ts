@@ -204,6 +204,8 @@ export class NewsComponentComponent implements OnInit {
 	}
 
 	approvalPercentage(novedad: any, state: boolean) {
+		if(!state)
+			this.serviciog.isModalRemark = true;
 		this.novedad = novedad;
 		var formData = new FormData();
 		novedad.stateApproval = state;
@@ -228,7 +230,7 @@ export class NewsComponentComponent implements OnInit {
 	}
 
 	regMarkNovedad() {
-
+		this.serviciog.isModalRemark = false;
 		//alert(this.serviciog.usuario.id_usuario+'-'+this.cad);
 		var dat = {
 			keym: this.novedad.keym,

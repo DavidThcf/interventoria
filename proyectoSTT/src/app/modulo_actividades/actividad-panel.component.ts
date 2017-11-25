@@ -71,9 +71,6 @@ export class ActividadPanel implements OnInit {
   porcentaje_real: any;
   /* --------------------- */
 
-
-
-
   public barChartOptions: any = {
     legend: {
       position: 'top',
@@ -496,7 +493,7 @@ export class ActividadPanel implements OnInit {
     //alert(JSON.stringify(this.serviciog.ax_actividad.usuario_asignado)+'   '+this.serviciog.usuario.id_usuario);
     //alert(JSON.stringify(this.serviciog.ax_actividad));
     //alert(JSON.stringify(this.serviciog.proyecto));
-   
+
 
     this.isTitleSelected = true;
 
@@ -733,7 +730,7 @@ export class ActividadPanel implements OnInit {
     var id_caracteristica = actividad.id_caracteristica;
 
     this.serviciog.titulo = actividad.nom_act;
-    
+
     this.servicios
       .getActividad(keym, id_usuario, id_caracteristica)
       .then(actividad => {
@@ -774,120 +771,120 @@ export class ActividadPanel implements OnInit {
 
     if (this.serviciog.actividad.id_caracteristica_padre != 1 && (this.serviciog.usuario.tipo_usuario != 'sup' || this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)) {
       this.servicios.getBackActividad(axAct.keym_padre, axAct.id_caracteristica_padre, axAct.id_usuario_padre).
-      then(x => {
-        //alert('Back  =>   ' + x + '     -    ' + x.id_caracteristica + '  -   ' + x.id_caracteristica_padre);
-        //var lastActividad = this.serviGloAct.lastActividad.pop();
-        var lastActividad = x;
-        this.serviciog.ax_actividad = x;
+        then(x => {
+          //alert('Back  =>   ' + x + '     -    ' + x.id_caracteristica + '  -   ' + x.id_caracteristica_padre);
+          //var lastActividad = this.serviGloAct.lastActividad.pop();
+          var lastActividad = x;
+          this.serviciog.ax_actividad = x;
 
-        if (lastActividad != this.serviciog.isSubActivity && lastActividad != false) {
-          this.serviGloAct.tipo2 = this.serviciog.tipos_act[
-            this.serviciog.tipos_act.indexOf(lastActividad.tipo) + 1
-          ];
-          this.subActivity = [];
-          this.serviciog.actividades = [];
-          this.activityList = [];
-          this.serviciog.actividad = lastActividad;
-          this.serviciog.isSubActivity = lastActividad;
-          var keym = lastActividad.keym;
-          var id_usuario = lastActividad.id_usuario;
-          var id_caracteristica = lastActividad.id_caracteristica;
+          if (lastActividad != this.serviciog.isSubActivity && lastActividad != false) {
+            this.serviGloAct.tipo2 = this.serviciog.tipos_act[
+              this.serviciog.tipos_act.indexOf(lastActividad.tipo) + 1
+            ];
+            this.subActivity = [];
+            this.serviciog.actividades = [];
+            this.activityList = [];
+            this.serviciog.actividad = lastActividad;
+            this.serviciog.isSubActivity = lastActividad;
+            var keym = lastActividad.keym;
+            var id_usuario = lastActividad.id_usuario;
+            var id_caracteristica = lastActividad.id_caracteristica;
 
-          this.serviciog.titulo = lastActividad.nom_act;
-          this.serviGloAct.actOpt = 1;
+            this.serviciog.titulo = lastActividad.nom_act;
+            this.serviGloAct.actOpt = 1;
 
-          this.servicios
-            .getActividad(keym, id_usuario, id_caracteristica)
-            .then(actividad => {
-              if (actividad) {
+            this.servicios
+              .getActividad(keym, id_usuario, id_caracteristica)
+              .then(actividad => {
+                if (actividad) {
 
-                this.serviciog.actividades = actividad;
-                this.activityList = actividad;
-                var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
-                this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+                  this.serviciog.actividades = actividad;
+                  this.activityList = actividad;
+                  var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
+                  this.serviGloAct.tipo = this.serviciog.tipos_act[num];
 
 
-                if (this.isTitleSelected && this.serviciog.actividad == null)
-                  var dat = {
-                    keym: this.serviciog.proyecto.keym,
-                    id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-                    id_usuario: this.serviciog.proyecto.id_usuario,
-                    tipo: this.serviciog.proyecto.tipo
-                  };
-                else if (this.serviciog.actividad)
-                  var dat = {
-                    keym: this.serviciog.actividad.keym,
-                    id_caracteristica: this.serviciog.actividad.id_caracteristica,
-                    id_usuario: this.serviciog.actividad.id_usuario,
-                    tipo: this.serviciog.actividad.tipo
-                  };
-                else
-                  var dat = {
-                    keym: this.serviciog.proyecto.keym,
-                    id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-                    id_usuario: this.serviciog.proyecto.id_usuario,
-                    tipo: this.serviciog.proyecto.tipo
-                  };
+                  if (this.isTitleSelected && this.serviciog.actividad == null)
+                    var dat = {
+                      keym: this.serviciog.proyecto.keym,
+                      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                      id_usuario: this.serviciog.proyecto.id_usuario,
+                      tipo: this.serviciog.proyecto.tipo
+                    };
+                  else if (this.serviciog.actividad)
+                    var dat = {
+                      keym: this.serviciog.actividad.keym,
+                      id_caracteristica: this.serviciog.actividad.id_caracteristica,
+                      id_usuario: this.serviciog.actividad.id_usuario,
+                      tipo: this.serviciog.actividad.tipo
+                    };
+                  else
+                    var dat = {
+                      keym: this.serviciog.proyecto.keym,
+                      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                      id_usuario: this.serviciog.proyecto.id_usuario,
+                      tipo: this.serviciog.proyecto.tipo
+                    };
 
-                this.serviciog.labels = [];
-                this.serviciog.data = [];
-                this.serviciog.colors = [];
-                var formData = new FormData();
-                formData.append("caracteristica", JSON.stringify(dat));
-                this.servicios.getDataChart(formData).then(message => {
+                  this.serviciog.labels = [];
+                  this.serviciog.data = [];
+                  this.serviciog.colors = [];
+                  var formData = new FormData();
+                  formData.append("caracteristica", JSON.stringify(dat));
+                  this.servicios.getDataChart(formData).then(message => {
 
-                  //alert(JSON.stringify(message));
-                  this.serviciog.listDatChart = [];
-                  this.serviciog.listDatChart = message;
-                  var ax: any[] = [];
-                  this.serviciog.listDatChart.forEach(element => {
-                    ax.push(element.gettotalmarkerscategory);
+                    //alert(JSON.stringify(message));
+                    this.serviciog.listDatChart = [];
+                    this.serviciog.listDatChart = message;
+                    var ax: any[] = [];
+                    this.serviciog.listDatChart.forEach(element => {
+                      ax.push(element.gettotalmarkerscategory);
+                    });
+                    this.serviciog.listDatChart = ax;
+                    var val = 0;
+                    this.serviciog.listDatChart.forEach(element => {
+                      var x = element.split(',');
+                      var num = parseInt(x[2]);
+                      if (num) val = val + num;
+                    });
+                    this.serviciog.listDatChart.forEach(element => {
+                      element = element.replace('(', '');
+                      element = element.replace(')', '');
+                      var x = element.split(',');
+                      this.serviciog.color.push(x[0]);
+                      var num = parseInt(x[2]);
+                      if (num) {
+                        var z = num * 100 / val;
+                        this.serviciog.data.push(z);
+                        this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toFixed(2) + ' %');
+                      }
+                      else {
+                        this.serviciog.data.push(0);
+                        this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
+                      }
+                    });
+                    this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
                   });
-                  this.serviciog.listDatChart = ax;
-                  var val = 0;
-                  this.serviciog.listDatChart.forEach(element => {
-                    var x = element.split(',');
-                    var num = parseInt(x[2]);
-                    if (num) val = val + num;
+
+                  var tot_ben = new FormData();
+                  //total benefuciary
+                  tot_ben.append("caracteristica", JSON.stringify(dat));
+                  this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+                    this.serviciog.total_beneficiary = 0;
+                    try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+                  }).catch(e => {
+                    alert('ERROR   =>  ' + e);
                   });
-                  this.serviciog.listDatChart.forEach(element => {
-                    element = element.replace('(', '');
-                    element = element.replace(')', '');
-                    var x = element.split(',');
-                    this.serviciog.color.push(x[0]);
-                    var num = parseInt(x[2]);
-                    if (num) {
-                      var z = num * 100 / val;
-                      this.serviciog.data.push(z);
-                      this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : ' + z.toFixed(2) + ' %');
-                    }
-                    else {
-                      this.serviciog.data.push(0);
-                      this.serviciog.labels.push(x[1].replace(/"/g, '') + ' : 0 %');
-                    }
-                  });
-                  this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
-                });
 
-                var tot_ben = new FormData();
-                //total benefuciary
-                tot_ben.append("caracteristica", JSON.stringify(dat));
-                this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
-                  this.serviciog.total_beneficiary = 0;
-                  try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
-                }).catch(e => {
-                  alert('ERROR   =>  ' + e);
-                });
+                  this.calcPercentReal();
 
-                this.calcPercentReal();
-
-              }
-            });
-        } else {
-          this.serviGloAct.tipo2 = this.serviciog.tipos_act[0];
-          this.inicio();
-        }
-      }).catch(x => { })
+                }
+              });
+          } else {
+            this.serviGloAct.tipo2 = this.serviciog.tipos_act[0];
+            this.inicio();
+          }
+        }).catch(x => { })
     }
     else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.serviciog.usuario.tipo_usuario != 'sup' || this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)) {
       if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -1191,15 +1188,15 @@ export class ActividadPanel implements OnInit {
     } catch (e) {
       //alert(e);
     }
-    try{
+    try {
       //alert(dias);
       if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
         if (dias > 9 && dias <= 30) {
-          alert(dias )
-          var por = 100/21;
-          alert (por);
-          this.serviciog.porcentaje_real = ((dias-9) *  por).toFixed(2);
-          
+          alert(dias)
+          var por = 100 / 21;
+          alert(por);
+          this.serviciog.porcentaje_real = ((dias - 9) * por).toFixed(2);
+
         } else if (dias > 30) {
           this.serviciog.porcentaje_real = 100;
         }
@@ -1664,6 +1661,23 @@ export class ActividadPanel implements OnInit {
         formData.append("etapa", JSON.stringify(etapa));
         this.servicios.updateEtapa(formData).then(message => {
           this.serviciog.proyecto.estado = etapa;
+          //alert("p >>> "+ message);
+          /* recarga actividades */
+          var keym = this.serviciog.proyecto.keym;
+          var id_usuario = this.serviciog.proyecto.id_usuario;
+          var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+         /*  this.serviciog.isSubActivity = null;
+          this.serviciog.isSelAct = false;
+          this.serviGloAct.actOpt = 0; */
+          this.servicios
+            .getActividad(keym, id_usuario, id_caracteristica)
+            .then(actividad => {
+              this.serviciog.actividades = actividad;
+              this.activityList = actividad;
+              actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
+              this.slideval = actividad.porcentaje_cumplido;
+            });
+          /* ------------------ */
           if (message == 'true')
             alert("Actualizado");
         });
@@ -1676,6 +1690,22 @@ export class ActividadPanel implements OnInit {
         formData.append("etapa", JSON.stringify(etapa));
         this.servicios.updateEtapa(formData).then(message => {
           this.serviciog.actividad.estado = etapa;
+          var keym = this.serviciog.proyecto.keym;
+          var id_usuario = this.serviciog.proyecto.id_usuario;
+          var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+         /*  this.serviciog.isSubActivity = null;
+          this.serviciog.isSelAct = false;
+          this.serviGloAct.actOpt = 0; */
+          this.servicios
+            .getActividad(keym, id_usuario, id_caracteristica)
+            .then(actividad => {
+              this.serviciog.actividades = actividad;
+              this.activityList = actividad;
+              actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
+              this.slideval = actividad.porcentaje_cumplido;
+            });
+          /* ------------------ */
+          //alert("a >>>" + message);
           if (message)
             alert("Actualizado");
         });

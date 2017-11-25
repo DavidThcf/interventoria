@@ -61,6 +61,7 @@ export class ServiciosGlobales {
 	alert_message: string;
 	isModalImg : boolean = false;
 	isModalLogin : boolean = false;
+	isModalRemark : boolean = false;
 	/* ------------- */
 
 	/* variables del soket */
