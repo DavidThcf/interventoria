@@ -5,7 +5,8 @@ function configConnection() {
     var sqlCon = require('./connectionDb.js');
     const sequelize = new Sequelize('interventoria', 'postgres', '123', {  //'NJpost2016'
         //host: 'knower.udenar.edu.co',
-        host: 'localhost',
+        //host: 'localhost',
+        host: '10.20.50.97',
         dialect: 'postgres'
         
     });
