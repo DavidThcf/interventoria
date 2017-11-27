@@ -257,9 +257,15 @@
 										<div style="margin-top: 100px">
 											<br><br>
 											<div>
-												<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
+												<label for="tiempo_inicial" class="lab">Valor Asignado {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
 												<label class="form-control" name="costo_real">{{(this.serviciog.proyecto.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
 											</div>
+											<!-- valor programado -->
+											<div>
+												<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
+												<label class="form-control" name="costo_real">{{(this.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
+											</div>
+											<!-- ........... -->
 											<!-- <input type="text" class="form-control" name="costo_real" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_real"> -->
 											<div>
 												<label for="tiempo_inicial" class="lab">Valor Real Ejecutado {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}}</label>
@@ -301,11 +307,11 @@
 											 [selected]="this.serviciog.proyecto.estado == 'Entrega de materiales'" value="Entrega de materiales">
 												Entrega de materiales
 											</option>
-											<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
+											<option *ngIf="this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
 											 [selected]="this.serviciog.proyecto.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
 												Ejecucion de obra
 											</option>
-											<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Liquidacion'"
+											<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Liquidacion'"
 											 [selected]="this.serviciog.proyecto.estado == 'Liquidacion'" value="Liquidacion">
 												Liquidacion
 											</option>
@@ -459,10 +465,17 @@
 									<!-- VALORES -->
 									<div style="position: relative;margin-top: 200px">
 										<br>
+										<!-- valor real  -->
 										<div>
-											<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
+											<label for="tiempo_inicial" class="lab">Valor Asignado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 											<label class="form-control" name="costo_real">{{(this.serviciog.actividad.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
 										</div>
+										<!-- valor programado -->
+										<div>
+											<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
+											<label class="form-control" name="costo_real">{{(this.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
+										</div>
+										<!-- ................... -->
 										<!-- <input type="text" class="form-control" name="costo_real" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_real"> -->
 										<div>
 											<label for="tiempo_inicial" class="lab">Valor Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}</label>
@@ -489,7 +502,7 @@
 										<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividades.length}} </div>
 									</div> -->
 
-							<div class="form-inline" style="position: relative;margin-left: 0px; margin-top: 300px">
+							<div class="form-inline" style="position: relative;margin-left: 0px; margin-top: 150px">
 								<div *ngIf="this.serviciog.actividad.tipo == 'Beneficiario' " class="form-inline " style="padding: 1px">
 									<label for="etapa" class="lab form-inline">Etapa: </label>
 									<select #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
@@ -553,7 +566,7 @@
 					</div>
 					<!-- this.serviciog.usuario.tipo_usuario != 'sup' ||  -->
 					<!-- Asignar usuario -->
-					<div *ngIf="this.serviciog.actividad.tipo == 'Resguardo' || this.serviciog.actividad.tipo == 'Beneficiario'" style="width: 80%;margin-left: 10%;margin-top: 200px">
+					<div *ngIf="this.serviciog.actividad.tipo == 'Resguardo' || this.serviciog.actividad.tipo == 'Beneficiario'" style="width: 80%;margin-left: 10%;margin-top: 500px">
 						<label for="Usuario" class="lab">{{this.serviciog.actividad.cargo}}</label>
 						<div (click)="getUsers()" [attr.data-toggle]="this.flg  ? 'modal' : null " data-target="#mod-list-usu" style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)">
 							<div class="row">
