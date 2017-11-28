@@ -236,11 +236,11 @@
 
 											<div *ngIf="this.serviciog.proyecto.tipo != 'Actividad'">
 												<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado </label>
-												<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
-													{{ this.porcentajeDifProgramadoEjecutado }} %
+												<label class="form-control" name="porcentaje_cumplido" *ngIf="this.serviciog.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
+													{{ this.serviciog.porcentajeDifProgramadoEjecutado }} %
 												</label>
-												<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado < 0" style="color: rgb(209, 3, 3)">
-													{{ (this.porcentajeDifProgramadoEjecutado) * -1 }} %
+												<label class="form-control" name="porcentaje_cumplido" *ngIf="this.serviciog.porcentajeDifProgramadoEjecutado < 0" style="color: rgb(209, 3, 3)">
+													{{ (this.serviciog.porcentajeDifProgramadoEjecutado) * -1 }} %
 												</label>
 											</div>
 
@@ -444,11 +444,11 @@
 
 										<div *ngIf="this.serviciog.actividad.tipo != 'Actividad' ">
 											<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado </label>
-											<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
-												{{ this.porcentajeDifProgramadoEjecutado }} %
+											<label class="form-control" name="porcentaje_cumplido" *ngIf="this.serviciog.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
+												{{ this.serviciog.porcentajeDifProgramadoEjecutado }} %
 											</label>
-											<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado < 0" style="color: rgb(209, 3, 3)">
-												{{ (this.porcentajeDifProgramadoEjecutado) * -1 }} %
+											<label class="form-control" name="porcentaje_cumplido" *ngIf="this.serviciog.porcentajeDifProgramadoEjecutado < 0" style="color: rgb(209, 3, 3)">
+												{{ (this.serviciog.porcentajeDifProgramadoEjecutado) * -1 }} %
 											</label>
 
 										</div>
