@@ -65,6 +65,8 @@ export class ServiciosGlobales {
 	costo_programado: any = 0;
 	valueDifProgramadoEjecuato : any = 0;
 	porcentajeDifProgramadoEjecutado : any = 0;
+
+	
 	/* ------------- */
 
 	/* variables del soket */
