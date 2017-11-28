@@ -179,6 +179,8 @@ export class NewsComponentComponent implements OnInit {
 	}
 
 	approvalObservation(novedad: any, state: boolean) {
+		if(!state)
+			this.serviciog.isModalRemark = true;
 		this.novedad = novedad;
 		var formData = new FormData();
 		var dat: any = {};
