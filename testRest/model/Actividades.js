@@ -84,6 +84,10 @@ module.exports.getActivityList = function (data) {
 		var sequelize = sqlCon.configConnection();
 		var query1 = `
 				select
+				
+				ap.nombre as nom_padre,
+				cp.tipo tipo_padre,
+				
 				a.nombre as nom_act,
 				a.descripcion as desc_act,
 				a.folder,
@@ -129,7 +133,15 @@ module.exports.getActivityList = function (data) {
 				join usuarios u
         		on c.usuario_asignado=u.id_usuario
 
+				left join caracteristicas cp 
+				on c.keym_padre = cp.keym
+				and c.id_caracteristica_padre = cp.id_caracteristica
+				and c.id_usuario_padre = cp.id_usuario
 				
+				left join actividades ap 
+				on 	ap.keym_car = cp.keym
+				and 	ap.id_usuario_car = cp.id_usuario
+				and 	ap.id_caracteristica = cp.id_caracteristica				
 
 				left join beneficiarios b
 				on c.cedula = b.cedula
@@ -179,6 +191,8 @@ module.exports.getpar = function(data){
 	var sequelize = sqlCon.configConnection();
 	var query1 = `
 		select 
+		ben.tipo tipo_padre,
+		ap.nombre nom_padre,
 		res.tipo,
 		a.nombre as nom_act,a.descripcion  as desc_act,
 		res.keym,res.id_caracteristica,res.id_usuario,
@@ -198,17 +212,15 @@ module.exports.getpar = function(data){
 		ct.nombre nombre_cat,
 		ct.color color_cat
 		
-		from caracteristicas ben
+		from  caracteristicas res
 		
-		join caracteristicas res
-		on ben.keym = res.keym
-		and ben.id_caracteristica = res.id_caracteristica
-		and ben.id_usuario = res.id_usuario
 			
 		join actividades a 
 		on res.keym =a.keym_car
 		and res.id_caracteristica = a.id_caracteristica
 		and res.id_usuario = a.id_usuario_car
+		
+		
 		
 		left join beneficiarios b
 		on b.cedula = res.cedula
@@ -223,8 +235,17 @@ module.exports.getpar = function(data){
 		
 		join usuarios u
 		on res.usuario_asignado = u.id_usuario
-	
-		where ben.keym = `+ keym + ` and ben.id_caracteristica = ` + id_caracteristica + ` and ben.id_usuario = ` + id_usuario + `
+
+		left join caracteristicas ben
+		on ben.keym = res.keym_padre
+		and ben.id_caracteristica = res.id_caracteristica_padre
+		and ben.id_usuario = res.id_usuario_padre
+		
+		left join actividades ap 
+		on ben.keym =ap.keym_car
+		and ben.id_caracteristica = ap.id_caracteristica
+		and ben.id_usuario = ap.id_usuario_car
+		where res.keym = `+ keym + ` and res.id_caracteristica = ` + id_caracteristica + ` and res.id_usuario = ` + id_usuario + `
 	`;
 
 	return new Promise((resolve, reject) => {

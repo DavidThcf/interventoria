@@ -296,7 +296,7 @@ export class Mapa implements OnInit {
 	}
 
 	entrarAct(subActividad) {
-		
+		// alert(JSON.stringify(subActividad));
 		this.serviciog.tree_name.push(subActividad.nom_act);
 		this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(subActividad.tipo) + 1];
 
