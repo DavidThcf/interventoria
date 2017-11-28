@@ -62,11 +62,12 @@ export class ServiciosGlobales {
 	isModalImg : boolean = false;
 	isModalLogin : boolean = false;
 	isModalRemark : boolean = false;
+	/* sasdasdasd */
 	costo_programado: any = 0;
 	valueDifProgramadoEjecuato : any = 0;
 	porcentajeDifProgramadoEjecutado : any = 0;
 
-	
+
 	/* ------------- */
 
 	/* variables del soket */
