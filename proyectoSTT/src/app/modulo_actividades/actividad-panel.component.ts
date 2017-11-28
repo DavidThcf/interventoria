@@ -1210,8 +1210,8 @@ export class ActividadPanel implements OnInit {
       var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
       var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
       
-      // alert(diasAc)
-      // alert(dias)
+       //alert(diasAc)
+       //alert(dias)
     } catch (e) {
       //alert(e);
     }
@@ -1340,7 +1340,7 @@ export class ActividadPanel implements OnInit {
         this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
       }
     }
-    alert(this.serviciog.costo_programado - 1);
+    //alert(this.serviciog.costo_programado - 1);
     
   }
 
