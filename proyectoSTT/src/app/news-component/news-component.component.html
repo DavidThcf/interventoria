@@ -40,7 +40,7 @@
 			</tbody>
 		</table>
 		<!-- inicio tabla multimedia -->
-		<button class="btn btn-default" (click)="sendChangeView()" >Ok</button>
+		<button class="btn btn-default" (click)="sendChangeView()" *ngIf="this.serviciog.opcion == 'mul'">Ok</button>
 		<br>
 		<table *ngIf="this.serviciog.opcion == 'mul'" class="tableBodyScroll  table table-striped ">
 			<thead>
@@ -99,8 +99,7 @@
 						<button type="button" class="btn btn-success" aria-label="Left Align" (click)='approvalObservation(novedad,true)'>
 							<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
 						</button>
-						<button type="button" class="btn btn-danger" aria-label="Left Align" (click)='approvalObservation(novedad,false)' data-toggle="modal"
-						 data-target="#mod-remark-map">
+						<button type="button" class="btn btn-danger" aria-label="Left Align" (click)='approvalObservation(novedad,false)'>
 							<span class="glyphicon glyphicon-remove" aria-hidden="true"></span>
 						</button>
 					</td>
