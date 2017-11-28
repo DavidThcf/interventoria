@@ -1300,7 +1300,7 @@ export class ActividadPanel implements OnInit {
 
     if (dias >= 0 && dias <= diasAc) {
       
-      if(this.serviciog.actividad == 'Beneficiario'){
+      if(this.serviciog.actividad.tipo == 'Beneficiario'){
         if(dias > 9){
           var dinero = {
             '10': '97304',
@@ -1326,7 +1326,7 @@ export class ActividadPanel implements OnInit {
             '30': '1572110,03333333'
         };
         // alert(this.serviciog.costo_programado);
-        this.serviciog.costo_programado = dinero[diasAc];
+        this.serviciog.costo_programado = dinero[dias];
         
         }
       }else{

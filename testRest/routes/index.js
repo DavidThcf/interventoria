@@ -1142,6 +1142,7 @@ function armJSONReport(data) {
       "porcentajeProgramado": data.porcentajeProgramado,
 			"porcentajeEjecutado": data.porcentajeEjecutado,
       "DiferenciaPorcentaje": data.DiferenciaPorcentaje,
+      "valoAsignado": data.valorAsignado,
       "valorProgramado": data.valorProgramado,
 			"valorEjecutado": data.valorEjecutado,
 			"DiferenciaValor": data.DiferenciaValor
