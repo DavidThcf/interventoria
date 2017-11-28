@@ -236,10 +236,12 @@
 
 											<div *ngIf="this.serviciog.proyecto.tipo != 'Actividad'">
 												<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado </label>
-												<label class="form-control" name="porcentaje_cumplido" style="color: rgb(209, 3, 3)">
-													{{ this.serviciog.porcentaje_real - this.serviciog.proyecto.porcentaje_cumplido }} %
+												<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
+													{{ this.porcentajeDifProgramadoEjecutado }} %
 												</label>
-
+												<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado < 0" style="color: rgb(209, 3, 3)">
+													{{ (this.porcentajeDifProgramadoEjecutado) * -1 }} %
+												</label>
 											</div>
 
 											<div *ngIf="this.serviciog.proyecto.tipo !== 'Actividad'">
@@ -273,15 +275,14 @@
 											</div>
 											<div>
 												<label for="tiempo_inicial" class="lab">Diferencia Valor Programado VS Ejecutado</label>
-												<label class="form-control" name="costo_inicial" style="color: rgb(209, 3, 3)">{{ ((this.serviciog.proyecto.costo_real - this.serviciog.proyecto.costo_actual) | currency : 'COP' : true).replace('COP','$
-													') }}</label>
+												<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato != 0" style="color: rgb(240, 32, 32)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
+												<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
 											</div>
 											<!-- <input type="text" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_actual"> -->
 										</div>
 
 									</div>
 								</section>
-
 								<br>
 								<hr>
 								<br>
@@ -443,8 +444,11 @@
 
 										<div *ngIf="this.serviciog.actividad.tipo != 'Actividad' ">
 											<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado </label>
-											<label class="form-control" name="porcentaje_cumplido" style="color: rgb(209, 3, 3)">
-												{{ this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido }} %
+											<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
+												{{ this.porcentajeDifProgramadoEjecutado }} %
+											</label>
+											<label class="form-control" name="porcentaje_cumplido" *ngIf="this.porcentajeDifProgramadoEjecutado < 0" style="color: rgb(209, 3, 3)">
+												{{ (this.porcentajeDifProgramadoEjecutado) * -1 }} %
 											</label>
 
 										</div>
@@ -481,8 +485,8 @@
 										</div>
 										<div>
 											<label for="tiempo_inicial" class="lab">Diferencia Valor Programado VS Ejecutado</label>
-											<label class="form-control" name="costo_inicial" style="color: rgb(209, 3, 3)">{{ ((this.serviciog.actividad.costo_real - this.serviciog.actividad.costo_actual) | currency : 'COP' : true).replace('COP','$
-												') }}</label>
+											<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato != 0" style="color: rgb(240, 32, 32)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
+											<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
 										</div>
 										<!-- <input type="text" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_actual"> -->
 									</div>
