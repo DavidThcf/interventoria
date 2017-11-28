@@ -185,7 +185,7 @@ export class NewsComponentComponent implements OnInit {
 		dat.id_observacion = novedad.id_observacion;
 		dat.stateApproval = state;
 		formData.append('novedad', JSON.stringify(dat));
-		alert(JSON.stringify(dat));
+		// alert(JSON.stringify(dat));
 		this.servicios.approvalObservation(formData)
 			.then(message => {
 				if(this.serviciog.messageList['observations'] > 0){
@@ -270,6 +270,7 @@ export class NewsComponentComponent implements OnInit {
 		
 		//alert(JSON.stringify(subActividad));
 		this.serviciog.proyecto = subActividad;
+		this.serviciog.actividad = subActividad;
 		this.serviciog.ax_actividad = subActividad;
 		//this.serviciog.recomendacion = subActividad;
 		//alert(JSON.stringify(this.serviciog.recomendacion));

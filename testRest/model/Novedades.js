@@ -170,34 +170,40 @@ module.exports.getDataNewObservations = function (data,reporte) {
     var sequelize = sqlCon.configConnection();
     console.log(data);
     var query1 = `
-    select 
-    act.nombre as nom_pro,
-                    act.descripcion as desc_act,
-                    act.folder,
-                    act.pos,
+        select 
+            cap_car.tipo as tipo_padre,
+            cap_act.nombre as nom_padre,
+
+            c.tipo,
+            
+            act.nombre as nom_pro,
+            act.nombre as nom_act,
+            act.descripcion as desc_act,
+            act.folder,
+            act.pos,
             o.id_observacion,o.keym,o.id_caracteristica,o.id_usuario,
             o.observacion,fecha_creacion,
-            
+
             ben_car.tipo||' '||ben_act.nombre||' / '||
             cap_car.tipo||' '||cap_act.nombre||' / '||
             act.nombre||' '||act.descripcion as nom_rec,
-    
+
             act.nombre, 
             act.descripcion,
-            c.tipo,
-    
+            
+
             us.nombre usu_nom, us.apellido usu_ape,us.cargo usu_cargo,
-    b.cedula,
-                    b.nombre,
-                    b.tipo_identificacion,
+            b.cedula,
+            b.nombre,
+            b.tipo_identificacion,
             c.keym_padre,
             c.id_usuario_padre ,
             c.id_caracteristica_padre ,
-    
+
             c.keym,
             c.id_usuario ,
             c.id_caracteristica ,
-            
+
             c.estado ,
             c.porcentaje_asignado ,
             c.porcentaje_cumplido ,
@@ -210,59 +216,47 @@ module.exports.getDataNewObservations = function (data,reporte) {
             c.costo_actual,
             c.costo_real,
             u.nombre as usr_nom,
-                    u.apellido as usr_ape,
-                       u.e_mail as e_mail,
-                    u.cargo as cargo,
-                    u.tipo_usuario,
-                    ct.nombre nombre_cat,
-                    ct.color color_cat
-    
-    
-    
-    
+            u.apellido as usr_ape,
+            u.e_mail as e_mail,
+            u.cargo as cargo,
+            u.tipo_usuario,
+            ct.nombre nombre_cat,
+            ct.color color_cat
             
-        
-            from observaciones o left join actividades act
+        from observaciones o left join actividades act
             on o.keym = act.keym_car
             and o.id_caracteristica = act.id_caracteristica
             and o.id_usuario = act.id_usuario_car
-            join usuarios us
+        join usuarios us
             on o.usuario_own_observacion = us.id_usuario
-    
-            join caracteristicas c
-        on c.keym = o.keym 		and c.id_caracteristica = o.id_caracteristica 	and c.id_usuario = o.id_usuario
-    
-    
-    
+
+        join caracteristicas c
+            on c.keym = o.keym 		and c.id_caracteristica = o.id_caracteristica 	and c.id_usuario = o.id_usuario
+
         join caracteristicas cap_car 
-        on cap_car.keym = c.keym_padre 		and cap_car.id_caracteristica = c.id_caracteristica_padre 	and cap_car.id_usuario = c.id_usuario_padre 
+            on cap_car.keym = c.keym_padre 		and cap_car.id_caracteristica = c.id_caracteristica_padre 	and cap_car.id_usuario = c.id_usuario_padre 
         join actividades cap_act
-        on cap_act.keym_car = cap_car.keym  	and cap_act.id_caracteristica = cap_car.id_caracteristica 	and cap_act.id_usuario_car = cap_car.id_usuario
-        
+            on cap_act.keym_car = cap_car.keym  	and cap_act.id_caracteristica = cap_car.id_caracteristica 	and cap_act.id_usuario_car = cap_car.id_usuario
+
         join caracteristicas ben_car 
-        on ben_car.keym = cap_car.keym_padre 	and ben_car.id_caracteristica = cap_car.id_caracteristica_padre and ben_car.id_usuario = cap_car.id_usuario_padre 
+            on ben_car.keym = cap_car.keym_padre 	and ben_car.id_caracteristica = cap_car.id_caracteristica_padre and ben_car.id_usuario = cap_car.id_usuario_padre 
         join actividades ben_act
-        on ben_act.keym_car = ben_car.keym  	and ben_car.id_caracteristica = ben_act.id_caracteristica 	and ben_act.id_usuario_car = ben_car.id_usuario
-    
-        
-    
-    
-    join usuarios u
-                    on ben_car.usuario_asignado=u.id_usuario
-    
-                    
-    
-                    left join beneficiarios b
-                    on ben_car.cedula = b.cedula
-    
-                    left join marcador m
-                    on 	m.keym = ben_car.keym
-                    and 	m.id_usuario = ben_car.id_usuario
-                    and 	m.id_caracteristica = ben_car.id_caracteristica
-            
-                    left join categorias_mapa ct
-                    on 	ct.id_categoria = m.id_categoria
-    
+            on ben_act.keym_car = ben_car.keym  	and ben_car.id_caracteristica = ben_act.id_caracteristica 	and ben_act.id_usuario_car = ben_car.id_usuario
+
+        join usuarios u
+            on ben_car.usuario_asignado=u.id_usuario
+
+        left join beneficiarios b
+            on ben_car.cedula = b.cedula
+
+        left join marcador m
+            on 	m.keym = ben_car.keym
+            and 	m.id_usuario = ben_car.id_usuario
+            and 	m.id_caracteristica = ben_car.id_caracteristica
+
+        left join categorias_mapa ct
+            on 	ct.id_categoria = m.id_categoria
+
         where o.visto = false  and o.usu_observacion = `+data.id_usuario+` and o.reporte = `+reporte+`
     ;`;
 
