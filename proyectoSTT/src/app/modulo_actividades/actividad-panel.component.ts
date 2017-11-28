@@ -423,7 +423,10 @@ export class ActividadPanel implements OnInit {
       tot_ben.append("caracteristica", JSON.stringify(this.dat));
       this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
         this.serviciog.total_beneficiary = 0;
-        try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+        try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+        catch (e) { 
+          // alert(e)
+        };
       }).catch(e => {
         alert('ERROR   =>  ' + e);
       });
@@ -459,7 +462,7 @@ export class ActividadPanel implements OnInit {
           '% Programado VS Ejecutado'
         ];
       } catch (e) {
-        alert(e);
+        // alert(e);
       }
 
     } catch (e) {
@@ -602,7 +605,10 @@ export class ActividadPanel implements OnInit {
     tot_ben.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
       this.serviciog.total_beneficiary = 0;
-      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+      catch (e) { 
+        // alert(e) 
+      };
     }).catch(e => {
       alert('ERROR   =>  ' + e);
     });
@@ -623,7 +629,7 @@ export class ActividadPanel implements OnInit {
         '% Programado VS Ejecutado'
       ];
     } catch (e) {
-      alert(e);
+      // alert(e);
     }
 
 
@@ -873,7 +879,10 @@ export class ActividadPanel implements OnInit {
                   tot_ben.append("caracteristica", JSON.stringify(dat));
                   this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
                     this.serviciog.total_beneficiary = 0;
-                    try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+                    try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+                    catch (e) { 
+                      // alert(e) 
+                    };
                   }).catch(e => {
                     alert('ERROR   =>  ' + e);
                   });
@@ -1018,7 +1027,10 @@ export class ActividadPanel implements OnInit {
                 tot_ben.append("caracteristica", JSON.stringify(dat));
                 this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
                   this.serviciog.total_beneficiary = 0;
-                  try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+                  try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+                  catch (e) { 
+                    // alert(e) 
+                  };
                 }).catch(e => {
                   alert('ERROR   =>  ' + e);
                 });
@@ -1168,7 +1180,10 @@ export class ActividadPanel implements OnInit {
     tot_ben.append("caracteristica", JSON.stringify(dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
       this.serviciog.total_beneficiary = 0;
-      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+      catch (e) { 
+        // alert(e) 
+      };
     }).catch(e => {
       alert('ERROR   =>  ' + e);
     });

@@ -139,28 +139,139 @@ module.exports.getPointList = function (data) {
         `;
       break;
     case "Resguardo":
-      var query1 = `select * from marcador m natural join caracteristicas c join beneficiarios b on b.cedula = c.cedula
+      var query1 = `
+        select 
+        
+        ap.nombre nom_padre,
+        c1.tipo tipo_padre,
+        c1.id_caracteristica,
+        
+        c.keym,
+        c.id_caracteristica,
+        c.id_usuario,
+        c.keym_padre,
+        c.id_caracteristica_padre,
+        c.id_usuario_padre,
+        m.id_marcador,
+        m.id_categoria,
+        m.latitud,
+        m.longitud,
+        m.altitud,
+        c.estado,
+        c.porcentaje_asignado,
+        c.porcentaje_cumplido,
+        c.tipo_caracteristica,
+        c.usuario_asignado,
+        c.porcentaje,
+        c.fecha_inicio,
+        c.fecha_fin,
+        c.tipo,
+        c.costo_actual,
+        c.costo_real,
+        b.nombre,
+        b.nombre nom_act,
+        b.cedula,
+        b.tipo_identificacion
+
+        from marcador m natural join caracteristicas c join beneficiarios b on b.cedula = c.cedula
+        left join caracteristicas c1 on c.id_caracteristica_padre = c1.id_caracteristica
+        left join actividades ap on c1.id_caracteristica = ap.id_caracteristica 
+        
         where b.cedula is not null
         and c.keym_padre = `+ data.keym + `
         and c.id_caracteristica_padre = `+ data.id_caracteristica + `
         and c.id_usuario_padre = `+ data.id_usuario + ` ; `;
       break;
     case "Municipio":
-      var query1 = `select * from caracteristicas c1 
+      var query1 = `
+        
+        select 
+        
+        ap.nombre nom_padre,
+        c1.tipo tipo_padre,
+        c1.id_caracteristica,
+        
+        c2.keym,
+        c2.id_caracteristica,
+        c2.id_usuario,
+        c2.keym_padre,
+        c2.id_caracteristica_padre,
+        c2.id_usuario_padre,
+        m.id_marcador,
+        m.id_categoria,
+        m.latitud,
+        m.longitud,
+        m.altitud,
+        c2.estado,
+        c2.porcentaje_asignado,
+        c2.porcentaje_cumplido,
+        c2.tipo_caracteristica,
+        c2.usuario_asignado,
+        c2.porcentaje,
+        c2.fecha_inicio,
+        c2.fecha_fin,
+        c2.tipo,
+        c2.costo_actual,
+        c2.costo_real,
+        b.nombre,
+        b.nombre nom_act,
+        b.cedula,
+        b.tipo_identificacion
+        
+        
+        from caracteristicas c1 
         join caracteristicas c2 on c2.keym_padre = c1.keym and c2.id_caracteristica_padre = c1.id_caracteristica and c2.id_usuario_padre = c1.id_usuario
         join marcador m on m.keym = c2.keym and m.id_caracteristica = c2.id_caracteristica and m.id_usuario = c2.id_usuario
         join beneficiarios b on b.cedula = c2.cedula
+        
+        left join actividades ap on c1.id_caracteristica = ap.id_caracteristica 
+      
+        
         where c2.cedula is not null
         and c1.keym_padre = `+ data.keym + `
         and c1.id_caracteristica_padre = `+ data.id_caracteristica + `
         and c1.id_usuario_padre = `+ data.id_usuario + ` ; `;
       break;
     case "Provincia":
-      var query1 = `select * from caracteristicas c1 
+      var query1 = `
+      select 
+      ap.nombre nom_padre,
+      c1.tipo tipo_padre,
+      c1.id_caracteristica,
+      c3.keym,
+      c3.id_caracteristica,
+      c3.id_usuario,
+      c3.keym_padre,
+      c3.id_caracteristica_padre,
+      c3.id_usuario_padre,
+      m.id_marcador,
+      m.id_categoria,
+      m.latitud,
+      m.longitud,
+      m.altitud,
+      c3.estado,
+      c3.porcentaje_asignado,
+      c3.porcentaje_cumplido,
+      c3.tipo_caracteristica,
+      c3.usuario_asignado,
+      c3.porcentaje,
+      c3.fecha_inicio,
+      c3.fecha_fin,
+      c3.tipo,
+      c3.costo_actual,
+      c3.costo_real,
+      b.nombre,
+      b.nombre nom_act,
+      b.cedula,
+      b.tipo_identificacion
+       
+      from caracteristicas c1 
       join caracteristicas c2 on c2.keym_padre = c1.keym and c2.id_caracteristica_padre = c1.id_caracteristica and c2.id_usuario_padre = c1.id_usuario
       join caracteristicas c3 on c3.keym_padre = c2.keym and c3.id_caracteristica_padre = c2.id_caracteristica and c3.id_usuario_padre = c2.id_usuario
       join marcador m on m.keym = c3.keym and m.id_caracteristica = c3.id_caracteristica and m.id_usuario = c3.id_usuario
       join beneficiarios b on b.cedula = c3.cedula
+      left join actividades ap on c2.id_caracteristica = ap.id_caracteristica 
+      
       where c3.cedula is not null
       and c1.keym_padre = `+ data.keym + `
       and c1.id_caracteristica_padre = `+ data.id_caracteristica + `
