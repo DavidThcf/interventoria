@@ -133,7 +133,7 @@ export class ActividadPanel implements OnInit {
 
 
     //this.serviciog.ax_actividad = {};
-    this.serviciog.actividad = null;
+    //this.serviciog.actividad = null;
     this.serviciog.isSelAct = false;
     this.serviciog.isSubActivity = null;
     this.serviciog.isSelAct = false;
@@ -190,8 +190,7 @@ export class ActividadPanel implements OnInit {
     this.serviciog.actividad = this.serviciog.proyecto;
     this.serviciog.porcentaje_real = 0;
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
-    this.calcPercentReal();
-    this.calValueProgra();
+    
     try {
       this.barChartData = [
         { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
@@ -283,7 +282,8 @@ export class ActividadPanel implements OnInit {
       });
 
     }
-
+    this.calcPercentReal();
+    this.calValueProgra();
 
   }
 
@@ -466,7 +466,7 @@ export class ActividadPanel implements OnInit {
       }
 
     } catch (e) {
-      alert('bad' + e);
+      //alert('bad' + e);
     }
 
 
@@ -492,7 +492,7 @@ export class ActividadPanel implements OnInit {
 
   tituloClick() {
 
-    alert(JSON.stringify(this.serviciog.proyecto));
+    //alert(this.serviciog.valueDifProgramadoEjecuato);
     //alert(JSON.stringify(this.serviciog.ax_actividad.usuario_asignado)+'   '+this.serviciog.usuario.id_usuario);
     //alert(JSON.stringify(this.serviciog.ax_actividad));
     //alert(JSON.stringify(this.serviciog.proyecto));
@@ -1300,8 +1300,10 @@ export class ActividadPanel implements OnInit {
 
     if (dias >= 0 && dias <= diasAc) {
       
-      if(this.serviciog.actividad == 'Beneficiario'){
+      if(this.serviciog.actividad.tipo == 'Beneficiario'){
+        this.serviciog.valueDifProgramadoEjecuato = 0;
         if(dias > 9){
+          //alert('22')
           var dinero = {
             '10': '97304',
             '11': '471609,333333333',
@@ -1326,15 +1328,20 @@ export class ActividadPanel implements OnInit {
             '30': '1572110,03333333'
         };
         // alert(this.serviciog.costo_programado);
-        this.serviciog.costo_programado = dinero[diasAc];
-        
+        this.serviciog.costo_programado = dinero[dias];
+        this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
+        //alert(this.serviciog.costo_programado)
         }
+        
       }else{
+        this.serviciog.valueDifProgramadoEjecuato = 0;
         var costo_diario = this.serviciog.actividad.costo_real / diasAc;
         this.serviciog.costo_programado = costo_diario * dias;
+        this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
       }
     }
-    this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
+    alert(this.serviciog.costo_programado - 1);
+    
   }
 
   /* -------------------- */
