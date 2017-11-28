@@ -727,7 +727,7 @@ module.exports.updateEtapa = function (data, etapa) {
                     and id_caracteristica = `+ data.id_caracteristica + ` 
                     and id_usuario = `+ data.id_usuario + ` ; 
 
-                select updateFieldsCharacteristic(
+                select updateFieldsCharacteristicbeneficiary(
                     `+data.keym+`,
                     `+data.id_caracteristica+`,
                     `+data.id_usuario+`,

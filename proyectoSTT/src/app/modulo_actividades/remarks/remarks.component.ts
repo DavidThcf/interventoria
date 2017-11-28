@@ -42,7 +42,8 @@ export class RemarksComponent implements OnInit {
     this.servicios.regRemarks(formData)
       .then(message => {
         //alert(JSON.stringify(message));
-        var mark = { usuario: this.serviciog.usuario.nombre + ' ' + this.serviciog.usuario.apellido, observacion: this.cad };
+        var mark = { usuario: this.serviciog.usuario.nombre + ' ' + 
+        this.serviciog.usuario.apellido, observacion: this.cad };
         this.remarks.push(mark);
         this.serviciog.socket.emit('sendSocketNovedad',{
 					'userSend':message,
