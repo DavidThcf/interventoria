@@ -325,8 +325,10 @@ export class ActividadPanel implements OnInit {
 
   onSelectActivity(activity) {
 
-    this.calcPercentReal();
-    this.calValueProgra();
+    try{
+      this.calcPercentReal();
+      this.calValueProgra();
+    }catch(e){}
 
     try {
       this.serviGloAct.actOpt = 1;
@@ -429,7 +431,10 @@ export class ActividadPanel implements OnInit {
       tot_ben.append("caracteristica", JSON.stringify(this.dat));
       this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
         this.serviciog.total_beneficiary = 0;
-        try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+        try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+        catch (e) { 
+          // alert(e)
+        };
       }).catch(e => {
         alert('ERROR   =>  ' + e);
       });
@@ -463,7 +468,7 @@ export class ActividadPanel implements OnInit {
           '% Programado VS Ejecutado'
         ];
       } catch (e) {
-        alert(e);
+        // alert(e);
       }
 
     } catch (e) {
@@ -606,7 +611,10 @@ export class ActividadPanel implements OnInit {
     tot_ben.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
       this.serviciog.total_beneficiary = 0;
-      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+      catch (e) { 
+        // alert(e) 
+      };
     }).catch(e => {
       alert('ERROR   =>  ' + e);
     });
@@ -626,7 +634,7 @@ export class ActividadPanel implements OnInit {
         '% Programado VS Ejecutado'
       ];
     } catch (e) {
-      alert(e);
+      // alert(e);
     }
 
 
@@ -876,7 +884,10 @@ export class ActividadPanel implements OnInit {
                   tot_ben.append("caracteristica", JSON.stringify(dat));
                   this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
                     this.serviciog.total_beneficiary = 0;
-                    try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+                    try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+                    catch (e) { 
+                      // alert(e) 
+                    };
                   }).catch(e => {
                     alert('ERROR   =>  ' + e);
                   });
@@ -1020,7 +1031,10 @@ export class ActividadPanel implements OnInit {
                 tot_ben.append("caracteristica", JSON.stringify(dat));
                 this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
                   this.serviciog.total_beneficiary = 0;
-                  try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+                  try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+                  catch (e) { 
+                    // alert(e) 
+                  };
                 }).catch(e => {
                   alert('ERROR   =>  ' + e);
                 });
@@ -1170,7 +1184,10 @@ export class ActividadPanel implements OnInit {
     tot_ben.append("caracteristica", JSON.stringify(dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
       this.serviciog.total_beneficiary = 0;
-      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } catch (e) { alert(e) };
+      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
+      catch (e) { 
+        // alert(e) 
+      };
     }).catch(e => {
       alert('ERROR   =>  ' + e);
     });
@@ -1274,7 +1291,7 @@ export class ActividadPanel implements OnInit {
             '29': '1859041,47777778',
             '30': '1572110,03333333'
         };
-        alert(this.costo_programado);
+        //alert(this.costo_programado);
         this.costo_programado = dinero[diasAc];
         
         }
