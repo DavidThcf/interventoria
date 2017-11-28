@@ -1237,9 +1237,9 @@ export class ActividadPanel implements OnInit {
         var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
         this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
       }
-      alert(this.serviciog.porcentaje_real)
+      //alert(this.serviciog.porcentaje_real)
     } catch (e) {
-      alert(e);
+      //alert(e);
     }
     if(this.serviGloAct.actOpt == 1)
       this.serviciog.porcentajeDifProgramadoEjecutado =  this.serviciog.proyecto.porcentaje_cumplido - this.serviciog.porcentaje_real;  
