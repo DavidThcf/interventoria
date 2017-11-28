@@ -73,7 +73,7 @@
 					<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.serviGloAct.actOpt===0">
 						<a>Detalles Proyecto</a>
 					</li>
-					<!--	<li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7"> <a>Categorias</a></li>-->
+					<li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7"> <a>Categorias</a></li>
 					<li (click)="c1()" *ngIf="this.serviciog.isSelAct" [class.itemSelected]="this.serviGloAct.actOpt===1">
 						<a>Detalles {{this.serviciog.actividad.tipo}}</a>
 					</li>
@@ -395,10 +395,8 @@
 									</div>
 									<!--<label for="descripción" class="lab">Descripción Actividad</label><input name="" type="text" id="de" class="form-control" name="descripcion"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.desc_act"  > -->
 									<div *ngIf="this.serviciog.actividad.tipo !== 'Proyecto'">
-										<label *ngIf="!this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(this.serviciog.actividad.tipo)
-											- 1]}} {{this.serviciog.titulo}} </label>
-										<label *ngIf="this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(this.serviciog.actividad.tipo)
-											- 1]}} {{this.serviciog.tree_name[this.serviciog.tree_name.length - 2]}} </label>
+										<label *ngIf="!this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.tipo | uppercase}} {{this.serviciog.actividad.nom_act | uppercase}} frente a {{this.serviciog.actividad.tipo_padre | uppercase}} {{this.serviciog.actividad.nom_padre | uppercase}} </label>
+										<label *ngIf="this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.tipo | uppercase}} {{this.serviciog.actividad.nom_act | uppercase}} frente a {{this.serviciog.actividad.tipo_padre | uppercase}} {{this.serviciog.actividad.nom_padre | uppercase}} </label>
 										<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje">
 									</div>
 									<!--<label for="porcentaje_asignado" class="lab">Porcentaje Asignado A Otras Actividades</label><input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >-->

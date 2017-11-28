@@ -117,7 +117,8 @@ module.exports.getPointList = function (data) {
     case "Beneficiario":
       var query1 =
         `
-          select keym,
+          select 
+          m.keym,
           m.id_caracteristica,
           m.id_usuario,
           m.latitud,
@@ -166,7 +167,44 @@ module.exports.getPointList = function (data) {
       and c1.id_usuario_padre = `+ data.id_usuario + ` ; `;
       break;
     case "Proyecto":
-      var query1 = `select * from marcador natural join caracteristicas natural join beneficiarios b where cedula is not null`;
+      var query1 = `
+      select 
+      ap.nombre nom_padre,
+      cp.tipo tipo_padre,
+      
+      c.keym,
+      c.id_caracteristica,
+      c.id_usuario,
+      c.keym_padre,
+      c.id_caracteristica_padre,
+      c.id_usuario_padre,
+      m.id_marcador,
+      m.id_categoria,
+      m.latitud,
+      m.longitud,
+      m.altitud,
+      c.estado,
+      c.porcentaje_asignado,
+      c.porcentaje_cumplido,
+      c.tipo_caracteristica,
+      c.usuario_asignado,
+      c.porcentaje,
+      c.fecha_inicio,
+      c.fecha_fin,
+      c.tipo,
+      c.costo_actual,
+      c.costo_real,
+      b.nombre,
+      b.nombre nom_act,
+      b.cedula,
+      b.tipo_identificacion
+      
+       
+      from marcador m natural join caracteristicas c natural join beneficiarios b 
+      right join caracteristicas cp on c.id_caracteristica_padre = cp.id_caracteristica
+      right join actividades ap on cp.id_caracteristica = ap.id_caracteristica
+      where b.cedula is not null
+      `;
       break;
   }
 
