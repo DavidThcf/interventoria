@@ -15,3 +15,26 @@
 .fondo{
 	height: 80vh;
 }
+
+#descripcion{
+	color: rgb(255, 255, 255);
+	margin-top: 70px;
+	text-align: center;
+	font-size: 18pt;
+	padding: 5px;
+}
+
+#descripcion > b {
+	color: rgb(255, 255, 255);
+	margin-top: 70px;
+	text-align: center;
+	font-size: 24pt;
+	padding: 5px;
+} 
+
+#imagenes {
+	text-align: center;
+	align-content: center;
+	align-items: center;
+	margin-left: 25%;
+}
