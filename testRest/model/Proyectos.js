@@ -92,6 +92,8 @@ module.exports.getListProjects = function (id_user) {
         `;*/
   var query1 = `
       select 	
+      ap.nombre nom_padre,
+      cp.tipo tipo_padre,
       b.nombre beneficiario,
       b.cedula,
       b.tipo_identificacion,
@@ -148,6 +150,12 @@ module.exports.getListProjects = function (id_user) {
       
     left join categorias_mapa ct
     on 	ct.id_categoria = m.id_categoria
+
+    left join caracteristicas cp 
+    on c.id_caracteristica_padre = cp.id_caracteristica
+
+    left join actividades ap
+    on cp.id_caracteristica = ap.id_caracteristica
       
     where p.id_usuario in(` + id_user + `)`;
 

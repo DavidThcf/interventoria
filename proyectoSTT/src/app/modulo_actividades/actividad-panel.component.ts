@@ -492,7 +492,7 @@ export class ActividadPanel implements OnInit {
 
   tituloClick() {
 
-    // alert(JSON.stringify(this.serviciog.actividad));
+    alert(JSON.stringify(this.serviciog.proyecto));
     //alert(JSON.stringify(this.serviciog.ax_actividad.usuario_asignado)+'   '+this.serviciog.usuario.id_usuario);
     //alert(JSON.stringify(this.serviciog.ax_actividad));
     //alert(JSON.stringify(this.serviciog.proyecto));
@@ -1196,20 +1196,22 @@ export class ActividadPanel implements OnInit {
     this.serviciog.porcentaje_real = 0;
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
     var fecha_actual = new Date();
+    
 
     try {
-      //alert(this.serviciog.actividad.fecha_inicio);
-      var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
-      var aFecha3 = this.serviciog.actividad.fecha_fin.split('-');
+      var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
+      var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
       var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
-      var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
-      var fFecha3 = new Date(parseInt(aFecha3[0]), parseInt(aFecha3[1]) - 1, parseInt(aFecha3[2]));
+      var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
+      var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
+
       var dif = fFecha1.getTime() - fFecha2.getTime();
       var difAc = fFecha3.getTime() - fFecha2.getTime();
       var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
       var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-
+      
       // alert(diasAc)
+      // alert(dias)
     } catch (e) {
       //alert(e);
     }
@@ -1224,6 +1226,7 @@ export class ActividadPanel implements OnInit {
           this.serviciog.porcentaje_real = ((dias - 9) * por).toFixed(2);
 
         } else if (dias > 30) {
+          
           this.serviciog.porcentaje_real = 100;
         }
       } else if (this.serviciog.actividad.tipo == "Proyecto") {
@@ -1284,11 +1287,11 @@ export class ActividadPanel implements OnInit {
     this.serviciog.valueDifProgramadoEjecuato = 0;
     var fecha_actual = new Date();
     // alert(this.serviciog.actividad.fecha_fin)
-    var aFecha2 = this.serviciog.actividad.fecha_inicio.split('-');
-    var aFecha3 = this.serviciog.actividad.fecha_fin.split('-');
+    var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
+    var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
     var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
-    var fFecha2 = new Date(parseInt(aFecha2[0]), parseInt(aFecha2[1]) - 1, parseInt(aFecha2[2]));
-    var fFecha3 = new Date(parseInt(aFecha3[0]), parseInt(aFecha3[1]) - 1, parseInt(aFecha3[2]));
+    var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
+    var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
     var dif = fFecha1.getTime() - fFecha2.getTime();
     var difAc = fFecha3.getTime() - fFecha2.getTime();
     var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
