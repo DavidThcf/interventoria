@@ -265,7 +265,7 @@
 											<!-- valor programado -->
 											<div>
 												<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
-												<label class="form-control" name="costo_real">{{(this.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
+												<label class="form-control" name="costo_real">{{(this.serviciog.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
 											</div>
 											<!-- ........... -->
 											<!-- <input type="text" class="form-control" name="costo_real" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_real"> -->
@@ -275,8 +275,8 @@
 											</div>
 											<div>
 												<label for="tiempo_inicial" class="lab">Diferencia Valor Programado VS Ejecutado</label>
-												<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato != 0" style="color: rgb(240, 32, 32)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
-												<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
+												<label class="form-control" name="costo_inicial" *ngIf="this.serviciog.valueDifProgramadoEjecuato != 0" style="color: rgb(240, 32, 32)">{{ (this.serviciog.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
+												<label class="form-control" name="costo_inicial" *ngIf="this.serviciog.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.serviciog.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
 											</div>
 											<!-- <input type="text" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_actual"> -->
 										</div>
@@ -475,7 +475,7 @@
 										<!-- valor programado -->
 										<div>
 											<label for="tiempo_inicial" class="lab">Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
-											<label class="form-control" name="costo_real">{{(this.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
+											<label class="form-control" name="costo_real">{{(this.serviciog.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
 										</div>
 										<!-- ................... -->
 										<!-- <input type="text" class="form-control" name="costo_real" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_real"> -->
@@ -485,8 +485,8 @@
 										</div>
 										<div>
 											<label for="tiempo_inicial" class="lab">Diferencia Valor Programado VS Ejecutado</label>
-											<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato != 0" style="color: rgb(240, 32, 32)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
-											<label class="form-control" name="costo_inicial" *ngIf="this.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
+											<label class="form-control" name="costo_inicial" *ngIf="this.serviciog.valueDifProgramadoEjecuato != 0" style="color: rgb(240, 32, 32)">{{ (this.serviciog.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
+											<label class="form-control" name="costo_inicial" *ngIf="this.serviciog.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.serviciog.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
 										</div>
 										<!-- <input type="text" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_actual"> -->
 									</div>
