@@ -83,7 +83,13 @@ export class ActividadPanel implements OnInit {
         gridLines: { display: false }
       }],
       yAxes: [{
-        gridLines: { display: false }
+        gridLines: { display: false },
+        display: true,
+        ticks: {
+            // suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+            // OR //
+            beginAtZero: true   // minimum value will be 0.
+        }
       }]
     }
 
@@ -1227,6 +1233,7 @@ export class ActividadPanel implements OnInit {
       //alert(dias);
       if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
         // alert(diasAc)
+        this.serviciog.porcentaje_real = 0;
         if (dias > 9 && dias <= 30) {
           //alert(dias)
           var por = 100 / 21;
@@ -1340,7 +1347,6 @@ export class ActividadPanel implements OnInit {
         }
         
       }else{
-        this.serviciog.valueDifProgramadoEjecuato = 0;
         var costo_diario = this.serviciog.actividad.costo_real / diasAc;
         this.serviciog.costo_programado = costo_diario * dias;
       }
