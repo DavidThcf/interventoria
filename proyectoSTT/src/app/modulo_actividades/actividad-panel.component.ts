@@ -1301,7 +1301,6 @@ export class ActividadPanel implements OnInit {
     if (dias >= 0 && dias <= diasAc) {
       
       if(this.serviciog.actividad.tipo == 'Beneficiario'){
-        this.serviciog.valueDifProgramadoEjecuato = 0;
         if(dias > 9){
           //alert('22')
           var dinero = {
@@ -1329,19 +1328,16 @@ export class ActividadPanel implements OnInit {
         };
         // alert(this.serviciog.costo_programado);
         this.serviciog.costo_programado = dinero[dias];
-        this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
-        //alert(this.serviciog.costo_programado)
+        
         }
         
       }else{
         this.serviciog.valueDifProgramadoEjecuato = 0;
         var costo_diario = this.serviciog.actividad.costo_real / diasAc;
         this.serviciog.costo_programado = costo_diario * dias;
-        this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
       }
     }
-    //alert(this.serviciog.costo_programado - 1);
-    
+    this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);    
   }
 
   /* -------------------- */

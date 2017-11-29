@@ -149,8 +149,14 @@
 		</tr>
 		<tr>
 			<td for="tiempo_inicial" class="lab">
-				Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}
+				Valor Asignado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}
 				<label class="form-control" name="costo_real">{{(this.serviciog.actividad.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
+			</td>
+		</tr>
+		<tr>
+			<td for="tiempo_inicial" class="lab">
+				Valor Programado de {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}
+				<label class="form-control" name="costo_real">{{(this.serviciog.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
 			</td>
 		</tr>
 		<tr>
@@ -162,7 +168,7 @@
 		<tr>
 			<td for="tiempo_inicial" class="lab">
 				Diferencia Valor Programado VS Ejecutado
-				<label class="form-control" name="costo_inicial">{{ ((this.serviciog.actividad.costo_real - this.serviciog.actividad.costo_actual) | currency : 'COP' : true).replace('COP','$
+				<label class="form-control" name="costo_inicial">{{ ((this.serviciog.valueDifProgramadoEjecuato) | currency : 'COP' : true).replace('COP','$
 					') }}</label>
 			</td>
 		</tr>

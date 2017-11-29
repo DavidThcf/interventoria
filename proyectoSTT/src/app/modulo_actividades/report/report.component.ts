@@ -199,9 +199,10 @@ export class ReportComponent implements OnInit {
 			"porcentajeEjecutado": this.serviciog.actividad.porcentaje_cumplido,
 			"DiferenciaPorcentaje": this.serviciog.porcentaje_real - this.serviciog.actividad.porcentaje_cumplido,
 			"grafica": imgReport,
-			"valorProgramado": this.serviciog.actividad.costo_real,
+			"valorAsignado": this.serviciog.actividad.costo_real,
+			"valorProgramado": this.serviciog.costo_programado,
 			"valorEjecutado": this.serviciog.actividad.costo_actual,
-			"DiferenciaValor": this.serviciog.actividad.costo_real - this.serviciog.actividad.costo_actual,
+			"DiferenciaValor": Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado),
 			"grafica2": imgReport2,
 			"imagenes": this.images,
 		};
