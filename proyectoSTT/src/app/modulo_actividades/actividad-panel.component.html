@@ -19,13 +19,12 @@
 							<span class="glyphicon glyphicon-home" aria-hidden="true"></span>
 						</button> -->
 
-						<!-- *ngIf="(this.serviciog.usuario.tipo_usuario !== 'sup' && this.serviciog.actividad.id_caracteristica_padre ||  this.serviciog.actividad.id_caracteristica_padre != 1) || (this.serviciog.usuario.tipo_usuario == 'sup' && this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)" -->
+					<!-- *ngIf="(this.serviciog.usuario.tipo_usuario !== 'sup' && this.serviciog.actividad.id_caracteristica_padre ||  this.serviciog.actividad.id_caracteristica_padre != 1) || (this.serviciog.usuario.tipo_usuario == 'sup' && this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)" -->
 					<button *ngIf=" this.serviciog.ax_actividad &&
 					(
 						(this.serviciog.usuario.tipo_usuario !== 'sup' && this.serviciog.ax_actividad.id_caracteristica_padre !== null) || 
 						(this.serviciog.usuario.tipo_usuario === 'sup' && this.serviciog.ax_actividad.id_caracteristica !== undefined && this.serviciog.ax_actividad.usuario_asignado !== this.serviciog.usuario.id_usuario && this.serviciog.ax_actividad.tipo != 'Beneficiario')
-					)" 
-					 class="btn1 btn btn-primary  col-md-5" style="background-color: darkslategray;" (click)="regresar()">
+					)" class="btn1 btn btn-primary  col-md-5" style="background-color: darkslategray;" (click)="regresar()">
 						<span class="glyphicon glyphicon-arrow-left" aria-hidden="true"></span>
 					</button>
 
@@ -73,7 +72,7 @@
 					<li *ngIf="!this.serviciog.isSelAct" (click)="c0()" [class.itemSelected]="this.serviGloAct.actOpt===0">
 						<a>Detalles Proyecto</a>
 					</li>
-					<li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7"> <a>Categorias</a></li>
+					<!-- <li *ngIf="!this.serviciog.isSelAct" (click)="c7()" [class.itemSelected]="this.serviGloAct.actOpt===7"> <a>Categorias</a></li> -->
 					<li (click)="c1()" *ngIf="this.serviciog.isSelAct" [class.itemSelected]="this.serviGloAct.actOpt===1">
 						<a>Detalles {{this.serviciog.actividad.tipo}}</a>
 					</li>
@@ -84,12 +83,12 @@
 					 (click)="c3()" [class.itemSelected]="this.serviGloAct.actOpt===3">
 						<a>Reporte</a>
 					</li>
-					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'" (click)="c4()"
-					 [class.itemSelected]="this.serviGloAct.actOpt===4">
+					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
+					 (click)="c4()" [class.itemSelected]="this.serviGloAct.actOpt===4">
 						<a>Multimedia</a>
 					</li>
-					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'" (click)="c5()"
-					 [class.itemSelected]="this.serviGloAct.actOpt===5">
+					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
+					 (click)="c5()" [class.itemSelected]="this.serviGloAct.actOpt===5">
 						<a>Estadisticas </a>
 					</li>
 					<!-- *ngIf="this.serviciog.isSelAct" -->
@@ -108,8 +107,8 @@
 							<a>Porcentaje de subactividades</a>
 						</li>
 						-->
-					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'" (click)="c9()"
-					 [class.itemSelected]="this.serviGloAct.actOpt===9">
+					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
+					 (click)="c9()" [class.itemSelected]="this.serviGloAct.actOpt===9">
 						<a>Recomendaciones</a>
 					</li>
 					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.tipo !== 'Actividad' && this.serviciog.actividad.tipo !== 'Capitulo'"
@@ -192,8 +191,10 @@
 										</div>
 										<!--<label for="descripción" class="lab">Descripción Actividad</label><input name="" type="text" id="de" class="form-control" name="descripcion"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.desc_act"  > -->
 										<div *ngIf="this.serviciog.proyecto.tipo !== 'Proyecto'">
-											<label *ngIf="!this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.proyecto.tipo | uppercase}} {{this.serviciog.proyecto.nom_pro | uppercase}} frente a {{this.serviciog.proyecto.tipo_padre | uppercase}} {{this.serviciog.proyecto.nom_padre | uppercase}}</label>
-											<label *ngIf="this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.proyecto.tipo | uppercase}} {{this.serviciog.proyecto.nom_pro | uppercase}} frente a {{this.serviciog.proyecto.tipo_padre | uppercase}} {{this.serviciog.proyecto.nom_padre | uppercase}}</label>
+											<label *ngIf="!this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.proyecto.tipo | uppercase}} {{this.serviciog.proyecto.nom_pro | uppercase}} frente
+												a {{this.serviciog.proyecto.tipo_padre | uppercase}} {{this.serviciog.proyecto.nom_padre | uppercase}}</label>
+											<label *ngIf="this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.proyecto.tipo | uppercase}} {{this.serviciog.proyecto.nom_pro | uppercase}} frente
+												a {{this.serviciog.proyecto.tipo_padre | uppercase}} {{this.serviciog.proyecto.nom_padre | uppercase}}</label>
 											<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.porcentaje">
 										</div>
 										<!--<label for="porcentaje_asignado" class="lab">Porcentaje Asignado A Otras Actividades</label><input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >-->
@@ -205,7 +206,7 @@
 										<div *ngIf="this.serviciog.proyecto.fecha_fin != null">
 											<label for="tiempo_fin" class="lab">Fecha Final</label>
 											<!-- <input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_fin"> -->
-											<label id="tiempo_fin" class="form-control" name="tiempo_fin">{{this.serviciog.proyecto.fecha_fin  | date:'fullDate' | uppercase}}</label>
+											<label id="tiempo_fin" class="form-control" name="tiempo_fin">{{this.serviciog.proyecto.fecha_fin | date:'fullDate' | uppercase}}</label>
 										</div>
 										<div *ngIf="this.serviciog.proyecto.tipo !== 'Beneficiario' && 
 												this.serviciog.proyecto.tipo !== 'Capitulo' &&
@@ -248,14 +249,16 @@
 														<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
 														 [colors]="lineChartColors" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 													</div>
-													<br><br>
+													<br>
+													<br>
 												</div>
 											</div>
 										</div>
-										
+
 										<!-- VALORES -->
 										<div style="margin-top: 100px">
-											<br><br>
+											<br>
+											<br>
 											<div>
 												<label for="tiempo_inicial" class="lab">Valor Asignado {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
 												<label class="form-control" name="costo_real">{{(this.serviciog.proyecto.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
@@ -292,14 +295,22 @@
 										</div> -->
 
 								<div class="form-inline" style="margin-top: 100px;margin-left: 0px">
+									<div *ngIf="this.serviciog.proyecto.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
+									style="padding: 1px" class="form-inline form">
+									   <label class="form-control" for="etapa" class="lab form-inline">Estado: </label>
+									   <div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.proyecto.nombre_cat}} </div>
+									   <div class="form-control" id="cld" [style.background-color]='this.serviciog.proyecto.color_cat' style="height:30px;width:50px"></div>
+								   </div>
+
 									<div *ngIf="this.serviciog.proyecto.tipo == 'Beneficiario'" class="form-inline " style="padding: 1px">
 										<label for="etapa" class="lab">Etapa: </label>
-										<select #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
+										<select  #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
 										 required>
-										 	<option *ngIf="this.serviciog.actividad.estado == 'null'" [selected]="this.serviciog.proyecto.estado == 'null'" value="null">
+											<option *ngIf="this.serviciog.actividad.estado == 'null'" [selected]="this.serviciog.proyecto.estado == 'null'" value="null">
 												Seleccione una Etapa
 											</option>
-											<option *ngIf="this.serviciog.actividad.estado == 'null' || this.serviciog.actividad.estado == 'Inicio' " [selected]="this.serviciog.proyecto.estado == 'Inicio'" value="Inicio">
+											<option *ngIf="this.serviciog.actividad.estado == 'null' || this.serviciog.actividad.estado == 'Inicio' " [selected]="this.serviciog.proyecto.estado == 'Inicio'"
+											 value="Inicio">
 												Habilitado
 											</option>
 											<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales' "
@@ -315,12 +326,9 @@
 												Liquidacion
 											</option>
 										</select>
+										
 									</div>
-									<div *ngIf="this.serviciog.proyecto.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'" style="padding: 1px" class="form-inline form">
-										<label class="form-control" for="etapa" class="lab form-inline">Estado: </label>
-										<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.proyecto.nombre_cat}} </div>
-										<div class="form-control" id="cld" [style.background-color]='this.serviciog.proyecto.color_cat' style="height:30px;width:50px"></div>
-									</div>
+									
 									<br>
 									<div *ngIf="this.serviciog.proyecto.tipo !== 'Beneficiario' && this.serviciog.proyecto.tipo !== 'Capitulo' && this.serviciog.proyecto.tipo !== 'Actividad'"
 									 style="height: 420px;width: 600px;margin-top: 20px" class="form-inline form">
@@ -400,8 +408,10 @@
 									</div>
 									<!--<label for="descripción" class="lab">Descripción Actividad</label><input name="" type="text" id="de" class="form-control" name="descripcion"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.desc_act"  > -->
 									<div *ngIf="this.serviciog.actividad.tipo !== 'Proyecto'">
-										<label *ngIf="!this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.tipo | uppercase}} {{this.serviciog.actividad.nom_act | uppercase}} frente a {{this.serviciog.actividad.tipo_padre | uppercase}} {{this.serviciog.actividad.nom_padre | uppercase}} </label>
-										<label *ngIf="this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.tipo | uppercase}} {{this.serviciog.actividad.nom_act | uppercase}} frente a {{this.serviciog.actividad.tipo_padre | uppercase}} {{this.serviciog.actividad.nom_padre | uppercase}} </label>
+										<label *ngIf="!this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.tipo | uppercase}} {{this.serviciog.actividad.nom_act | uppercase}} frente
+											a {{this.serviciog.actividad.tipo_padre | uppercase}} {{this.serviciog.actividad.nom_padre | uppercase}} </label>
+										<label *ngIf="this.isTitleSelected " for="porcentaje" class="lab">Porcentaje de {{this.serviciog.actividad.tipo | uppercase}} {{this.serviciog.actividad.nom_act | uppercase}} frente
+											a {{this.serviciog.actividad.tipo_padre | uppercase}} {{this.serviciog.actividad.nom_padre | uppercase}} </label>
 										<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje">
 									</div>
 									<!--<label for="porcentaje_asignado" class="lab">Porcentaje Asignado A Otras Actividades</label><input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >-->
@@ -422,10 +432,10 @@
 										<input name="" type="text" id="tot_ben" class="form-control" name="tot_ben" [readonly]="true" [(ngModel)]="this.serviciog.total_beneficiary">
 									</div>
 								</div>
-								
+
 								<div>
 									<!-- PORCENTAJES   *ngIf="this.serviciog.actividad.estado !== 'Inicio'"  -->
-									<div >
+									<div>
 										<div>
 											<label style="margin-top: 2px" for="porcentaje_real" class="lab">Porcentaje Programado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}}</label>
 											<div>
@@ -461,7 +471,7 @@
 										</div>
 
 									</div>
-									
+
 									<!-- VALORES -->
 									<div style="position: relative;margin-top: 200px">
 										<br>
@@ -502,10 +512,18 @@
 										<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividades.length}} </div>
 									</div> -->
 
-							<div class="form-inline" style="position: relative;margin-left: 0px; margin-top: 150px">
-								<div *ngIf="this.serviciog.actividad.tipo == 'Beneficiario' " class="form-inline " style="padding: 1px;margin-top: -90px">
-									<label for="etapa" class="lab form-inline">Etapa: </label>
-									<select #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
+							<div *ngIf="this.serviciog.actividad.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
+							 style="padding: 1px;margin-top: 85px;" class="form-inline form">
+								<label class="form-control" class="lab form-inline">Estado: </label>
+								<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>
+								<div class="form-control" id="cld" [style.background-color]='this.serviciog.actividad.color_cat' style="height:30px;width:50px"></div>
+								<br>
+								<br>
+							</div>
+							<div class="form-inline" style="position: relative;margin-left: 0px;">
+								<div *ngIf="this.serviciog.actividad.tipo == 'Beneficiario' " class="form-inline " >
+									<label *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" for="etapa" class="lab form-inline">Etapa: </label>
+									<select *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'"  #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
 									 required>
 										<option *ngIf="this.serviciog.actividad.estado == 'Inicio'" [selected]="this.serviciog.actividad.estado == 'Inicio'" value="Inicio">
 											Habilitado
@@ -523,14 +541,12 @@
 											Liquidacion
 										</option>
 									</select>
+									<div  *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'" >
+											<label for="etapa" class="lab form-inline">Etapa: </label>
+										<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Desabilitado</label>
+										<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label>
+									</div>
 								</div>
-								<div *ngIf="this.serviciog.actividad.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'" style="padding: 1px; margin-top: -74px;" class="form-inline form">
-									<label class="form-control" class="lab form-inline">Estado: </label>
-									<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>
-									<div class="form-control" id="cld" [style.background-color]='this.serviciog.actividad.color_cat' style="height:30px;width:50px"></div>
-									<br><br>
-								</div>
-								
 								<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'"
 								 style="height: 420px;width: 600px" class="form-inline form">
 									<!--  Grafica del total de beneficiarios por categoria  -->
@@ -566,7 +582,8 @@
 					</div>
 					<!-- this.serviciog.usuario.tipo_usuario != 'sup' ||  -->
 					<!-- Asignar usuario -->
-					<div *ngIf="this.serviciog.usuario.tipo_usuario != 'sup' && (this.serviciog.actividad.tipo == 'Resguardo' || this.serviciog.actividad.tipo == 'Beneficiario')" style="width: 80%;margin-left: 10%;margin-top: 500px">
+					<div *ngIf="this.serviciog.usuario.tipo_usuario != 'sup' && (this.serviciog.actividad.tipo == 'Resguardo' || this.serviciog.actividad.tipo == 'Beneficiario')"
+					 style="width: 80%;margin-left: 10%;margin-top: 500px">
 						<label for="Usuario" class="lab">{{this.serviciog.actividad.cargo}}</label>
 						<div (click)="getUsers()" [attr.data-toggle]="this.flg  ? 'modal' : null " data-target="#mod-list-usu" style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)">
 							<div class="row">
@@ -851,4 +868,3 @@
 		</div>
 	</div>
 </div>
-
