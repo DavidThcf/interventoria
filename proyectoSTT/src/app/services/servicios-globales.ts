@@ -63,7 +63,7 @@ export class ServiciosGlobales {
 	isModalLogin : boolean = false;
 	isModalRemark : boolean = false;
 	/* sasdasdasd */
-	costo_programado: any = 0;
+	public costo_programado: any = 0;
 	valueDifProgramadoEjecuato : any = 0;
 	porcentajeDifProgramadoEjecutado : any = 0;
 
