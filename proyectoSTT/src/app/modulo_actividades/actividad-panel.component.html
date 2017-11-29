@@ -415,7 +415,7 @@
 										<input name="" type="text" id="porcentaje" class="form-control" name="porcentaje" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje">
 									</div>
 									<!--<label for="porcentaje_asignado" class="lab">Porcentaje Asignado A Otras Actividades</label><input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >-->
-									<div *ngIf="this.serviciog.proyecto.fecha_inicio !== null">
+									<div *ngIf="this.serviciog.actividad.fecha_inicio !== null">
 										<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
 										<!-- <input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_inicio"> -->
 										<label id="tiempo_ini" class="form-control">{{this.serviciog.actividad.fecha_inicio | date:'fullDate' | uppercase}}</label>

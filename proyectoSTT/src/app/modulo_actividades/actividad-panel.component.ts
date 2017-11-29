@@ -86,7 +86,7 @@ export class ActividadPanel implements OnInit {
         gridLines: { display: false },
         display: true,
         ticks: {
-            // suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
             // OR //
             beginAtZero: true   // minimum value will be 0.
         }
@@ -1211,58 +1211,60 @@ export class ActividadPanel implements OnInit {
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
     var fecha_actual = new Date();
     
-
-    try {
-      var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
-      var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
-      var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
-      var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
-      var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
-
-      var dif = fFecha1.getTime() - fFecha2.getTime();
-      var difAc = fFecha3.getTime() - fFecha2.getTime();
-      var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
-      var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-      
-       //alert(diasAc)
-       //alert(dias)
-    } catch (e) {
-      //alert(e);
-    }
-    try {
-      //alert(dias);
-      if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
-        // alert(diasAc)
-        this.serviciog.porcentaje_real = 0;
-        if (dias > 9 && dias <= 30) {
-          //alert(dias)
-          var por = 100 / 21;
-          //alert(por);
-          this.serviciog.porcentaje_real = ((dias - 9) * por).toFixed(2);
-
-        } else if (dias > 30) {
-          
-          this.serviciog.porcentaje_real = 100;
-        }
-      } else if (this.serviciog.actividad.tipo == "Proyecto") {
-        this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
-      } else {
-        var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
-        var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
-        var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
-        var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
-        var diff = fcFecha.getTime() - faFecha.getTime();
-        var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
-        this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
+    if(this.serviciog.actividad.estado!='null' && this.serviciog.actividad.estado!='Inicio'){
+      try {
+        var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
+        var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
+        var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
+        var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
+        var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
+  
+        var dif = fFecha1.getTime() - fFecha2.getTime();
+        var difAc = fFecha3.getTime() - fFecha2.getTime();
+        var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
+        var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+        
+         //alert(diasAc)
+         //alert(dias)
+      } catch (e) {
+        //alert(e);
       }
-      //alert(this.serviciog.porcentaje_real)
-    } catch (e) {
-      //alert(e);
+      try {
+        //alert(dias);
+        if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
+          // alert(diasAc)
+          this.serviciog.porcentaje_real = 0;
+          if (dias > 9 && dias <= 30) {
+            //alert(dias)
+            var por = 100 / 21;
+            //alert(por);
+            this.serviciog.porcentaje_real = ((dias - 9) * por).toFixed(2);
+  
+          } else if (dias > 30) {
+            
+            this.serviciog.porcentaje_real = 100;
+          }
+        } else if (this.serviciog.actividad.tipo == "Proyecto") {
+          this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
+        } else {
+          var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
+          var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
+          var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
+          var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
+          var diff = fcFecha.getTime() - faFecha.getTime();
+          var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
+          this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
+        }
+        //alert(this.serviciog.porcentaje_real)
+      } catch (e) {
+        //alert(e);
+      }
+      if(this.serviGloAct.actOpt == 1)
+        this.serviciog.porcentajeDifProgramadoEjecutado =  this.serviciog.proyecto.porcentaje_cumplido - this.serviciog.porcentaje_real;  
+      this.serviciog.porcentajeDifProgramadoEjecutado =  this.serviciog.actividad.porcentaje_cumplido - this.serviciog.porcentaje_real;
+      // console.log(this.serviciog.porcentajeDifProgramadoEjecutado);
     }
-    if(this.serviGloAct.actOpt == 1)
-      this.serviciog.porcentajeDifProgramadoEjecutado =  this.serviciog.proyecto.porcentaje_cumplido - this.serviciog.porcentaje_real;  
-    this.serviciog.porcentajeDifProgramadoEjecutado =  this.serviciog.actividad.porcentaje_cumplido - this.serviciog.porcentaje_real;
-    // console.log(this.serviciog.porcentajeDifProgramadoEjecutado);
+ 
     if(this.serviciog.porcentajeDifProgramadoEjecutado >= 0){
       this.lineChartColors = [
         { // grey
