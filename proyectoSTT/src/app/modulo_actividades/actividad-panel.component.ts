@@ -249,9 +249,6 @@ export class ActividadPanel implements OnInit {
 
         //calculo grafica resumen avance
 
-
-
-
         //alert(JSON.stringify(message));
         this.serviciog.listDatChart = [];
         this.serviciog.listDatChart = message;
@@ -288,9 +285,18 @@ export class ActividadPanel implements OnInit {
       });
 
     }
-    this.calcPercentReal();
-    this.calValueProgra();
-
+   
+    try{
+      this.calcPercentReal();
+    }catch(e){
+      alert(e);
+    }
+    try{
+      this.calValueProgra();
+    }catch(e){
+      alert(e);
+    }
+   
   }
 
   actualizarActividad(actividad) {
@@ -1157,8 +1163,7 @@ export class ActividadPanel implements OnInit {
   //Detalles    =   Muestra informacion detallada del proyecto interno o actividad seleccionada
   c1() {
 
-    this.calcPercentReal();
-    this.calValueProgra();
+   
     this.serviGloAct.actOpt = 1;
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -1194,6 +1199,9 @@ export class ActividadPanel implements OnInit {
       alert('ERROR   =>  ' + e);
     });
 
+    this.calcPercentReal();
+    this.calValueProgra();
+
   }
 
   //calculo pocentaje real
@@ -1216,8 +1224,8 @@ export class ActividadPanel implements OnInit {
       var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
       var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
       
-      // alert(diasAc)
-      // alert(dias)
+       //alert(diasAc)
+       //alert(dias)
     } catch (e) {
       //alert(e);
     }
