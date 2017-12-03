@@ -86,9 +86,9 @@ export class ActividadPanel implements OnInit {
         gridLines: { display: false },
         display: true,
         ticks: {
-            suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
-            // OR //
-            beginAtZero: true   // minimum value will be 0.
+          suggestedMin: 0,    // minimum will be 0, unless there is a lower value.
+          // OR //
+          beginAtZero: true   // minimum value will be 0.
         }
       }]
     }
@@ -196,7 +196,7 @@ export class ActividadPanel implements OnInit {
     this.serviciog.actividad = this.serviciog.proyecto;
     this.serviciog.porcentaje_real = 0;
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
-    
+
     try {
       this.barChartData = [
         { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
@@ -285,18 +285,18 @@ export class ActividadPanel implements OnInit {
       });
 
     }
-   
-    try{
+
+    try {
       this.calcPercentReal();
-    }catch(e){
+    } catch (e) {
       alert(e);
     }
-    try{
+    try {
       this.calValueProgra();
-    }catch(e){
+    } catch (e) {
       alert(e);
     }
-   
+
   }
 
   actualizarActividad(actividad) {
@@ -332,7 +332,7 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
-    
+
 
     try {
       this.serviGloAct.actOpt = 1;
@@ -435,8 +435,8 @@ export class ActividadPanel implements OnInit {
       tot_ben.append("caracteristica", JSON.stringify(this.dat));
       this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
         this.serviciog.total_beneficiary = 0;
-        try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
-        catch (e) { 
+        try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; }
+        catch (e) {
           // alert(e)
         };
       }).catch(e => {
@@ -617,8 +617,8 @@ export class ActividadPanel implements OnInit {
     tot_ben.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
       this.serviciog.total_beneficiary = 0;
-      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
-      catch (e) { 
+      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; }
+      catch (e) {
         // alert(e) 
       };
     }).catch(e => {
@@ -891,8 +891,8 @@ export class ActividadPanel implements OnInit {
                   tot_ben.append("caracteristica", JSON.stringify(dat));
                   this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
                     this.serviciog.total_beneficiary = 0;
-                    try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
-                    catch (e) { 
+                    try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; }
+                    catch (e) {
                       // alert(e) 
                     };
                   }).catch(e => {
@@ -1039,8 +1039,8 @@ export class ActividadPanel implements OnInit {
                 tot_ben.append("caracteristica", JSON.stringify(dat));
                 this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
                   this.serviciog.total_beneficiary = 0;
-                  try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
-                  catch (e) { 
+                  try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; }
+                  catch (e) {
                     // alert(e) 
                   };
                 }).catch(e => {
@@ -1163,7 +1163,7 @@ export class ActividadPanel implements OnInit {
   //Detalles    =   Muestra informacion detallada del proyecto interno o actividad seleccionada
   c1() {
 
-   
+
     this.serviGloAct.actOpt = 1;
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -1191,8 +1191,8 @@ export class ActividadPanel implements OnInit {
     tot_ben.append("caracteristica", JSON.stringify(dat));
     this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
       this.serviciog.total_beneficiary = 0;
-      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; } 
-      catch (e) { 
+      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; }
+      catch (e) {
         // alert(e) 
       };
     }).catch(e => {
@@ -1206,66 +1206,77 @@ export class ActividadPanel implements OnInit {
 
   //calculo pocentaje real
   calcPercentReal() {
-    
+
     this.serviciog.porcentaje_real = 0;
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
     var fecha_actual = new Date();
-    
-    if(this.serviciog.actividad.estado!='null' && this.serviciog.actividad.estado!='Inicio'){
+
+    if (this.serviciog.actividad.estado != 'null' && this.serviciog.actividad.estado != 'Inicio') {
       try {
         var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
         var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
         var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
         var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
         var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
-  
+
         var dif = fFecha1.getTime() - fFecha2.getTime();
         var difAc = fFecha3.getTime() - fFecha2.getTime();
         var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
         var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-        
-         //alert(diasAc)
-         //alert(dias)
+
+        //alert(diasAc)
+        //alert(dias)
       } catch (e) {
         //alert(e);
       }
       try {
         //alert(dias);
-        if (this.serviciog.actividad.tipo == "Beneficiario" || this.serviciog.actividad.tipo == "Capitulo" || this.serviciog.actividad.tipo == "Actividad") {
-          // alert(diasAc)
-          this.serviciog.porcentaje_real = 0;
-          if (dias > 9 && dias <= 30) {
-            //alert(dias)
-            var por = 100 / 21;
-            //alert(por);
-            this.serviciog.porcentaje_real = ((dias - 9) * por).toFixed(2);
-  
-          } else if (dias > 30) {
-            
+        if ((dias + 1) > 0) {
+          if (this.serviciog.actividad.tipo == "Beneficiario") {
+            //alert(diasAc)
+            this.serviciog.porcentaje_real = 0;
+            if (dias > 9 && dias <= 30) {
+              //alert(dias)
+              var por = 100 / 21;
+              //alert(por);
+              this.serviciog.porcentaje_real = ((dias - 9) * por).toFixed(2);
+
+            } else if (dias > 30) {
+
+              this.serviciog.porcentaje_real = 100;
+            }
+          } else if (this.serviciog.actividad.tipo == "Proyecto") {
+            this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
+          } else {
+            //  alert(dias)
+            this.serviciog.porcentaje_real = (dias * (100 / (diasAc + 1))).toFixed(2);
+            // alert('TOT   '+this.serviciog.porcentaje_real);
+          }
+          if (this.serviciog.porcentaje_real > 100) {
             this.serviciog.porcentaje_real = 100;
           }
-        } else if (this.serviciog.actividad.tipo == "Proyecto") {
-          this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
-        } else {
-          var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
-          var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
-          var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
-          var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
-          var diff = fcFecha.getTime() - faFecha.getTime();
-          var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
-          this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
+          // else {
+          //   var aFecha = this.serviciog.actividad.fecha_inicio.split('-');
+          //   var cFecha = this.serviciog.proyecto.fecha_inicio.split('-');
+          //   var faFecha = new Date(parseInt(cFecha[0]), parseInt(cFecha[1]) - 1, parseInt(cFecha[2]));
+          //   var fcFecha = new Date(parseInt(aFecha[0]), parseInt(aFecha[1]) - 1, parseInt(aFecha[2]));
+          //   var diff = fcFecha.getTime() - faFecha.getTime();
+          //   var diasd = Math.floor(diff / (1000 * 60 * 60 * 24));
+          //   this.serviciog.porcentaje_real = (dias * (100 / (300 - diasd))).toFixed(2);
+          // }
+          //alert(this.serviciog.porcentaje_real)
         }
-        //alert(this.serviciog.porcentaje_real)
+
       } catch (e) {
         //alert(e);
       }
-      if(this.serviGloAct.actOpt == 1)
-        this.serviciog.porcentajeDifProgramadoEjecutado =  this.serviciog.proyecto.porcentaje_cumplido - this.serviciog.porcentaje_real;  
-      this.serviciog.porcentajeDifProgramadoEjecutado =  this.serviciog.actividad.porcentaje_cumplido - this.serviciog.porcentaje_real;
+      if (this.serviGloAct.actOpt == 1)
+        this.serviciog.porcentajeDifProgramadoEjecutado = this.serviciog.proyecto.porcentaje_cumplido - this.serviciog.porcentaje_real;
+      this.serviciog.porcentajeDifProgramadoEjecutado = this.serviciog.actividad.porcentaje_cumplido - this.serviciog.porcentaje_real;
       // console.log(this.serviciog.porcentajeDifProgramadoEjecutado);
     }
- 
-    if(this.serviciog.porcentajeDifProgramadoEjecutado >= 0){
+
+    if (this.serviciog.porcentajeDifProgramadoEjecutado >= 0) {
       this.lineChartColors = [
         { // grey
           backgroundColor: 'rgba(97, 255, 0, 1)',
@@ -1281,7 +1292,7 @@ export class ActividadPanel implements OnInit {
       // this.barColor = [
       //   { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(2, 58, 5, 0.993)"] }
       // ];
-    }else{
+    } else {
       this.lineChartColors = [
         { // grey
           backgroundColor: 'rgba(97, 255, 0, 1)',
@@ -1315,45 +1326,59 @@ export class ActividadPanel implements OnInit {
     //alert(diasAc);
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 
-    if (dias >= 0 && dias <= diasAc) {
-      
-      if(this.serviciog.actividad.tipo == 'Beneficiario'){
-        if(dias > 9){
-          //alert('22')
+    if (dias >= 0 && dias ) {
+
+      if (this.serviciog.actividad.tipo == 'Beneficiario') {
+        if (dias > 9) {
+          // alert('DIAS ' + dias);
           var dinero = {
-            '10': '97304',
-            '11': '471609,333333333',
-            '12': '374305,333333333',
-            '13': '699772,958333333',
-            '14': '325467,625',
-            '15': '325467,625',
-            '16': '325467,625',
-            '17': '325467,625',
-            '18': '325467,625',
-            '19': '1516692,625',
-            '20': '2145737,625',
-            '21': '2107201,44444444',
-            '22': '1478156,44444444',
-            '23': '1790141,44444444',
-            '24': '2003908,84444444',
-            '25': '1141481,67777778',
-            '26': '2384793,87777778',
-            '27': '2384793,87777778',
-            '28': '2384793,87777778',
-            '29': '1859041,47777778',
-            '30': '1572110,03333333'
-        };
-        // alert(this.serviciog.costo_programado);
-        this.serviciog.costo_programado = dinero[dias];
-        
+            '10': 97304,
+            '11': 471609.333333333,
+            '12': 374305.333333333,
+            '13': 699772.958333333,
+            '14': 325467.625,
+            '15': 325467.625,
+            '16': 325467.625,
+            '17': 325467.625,
+            '18': 325467.625,
+            '19': 1516692.625,
+            '20': 2145737.625,
+            '21': 2107201.44444444,
+            '22': 1478156.44444444,
+            '23': 1790141.44444444,
+            '24': 2003908.84444444,
+            '25': 1141481.67777778,
+            '26': 2384793.87777778,
+            '27': 2384793.87777778,
+            '28': 2384793.87777778,
+            '29': 1859041.47777778,
+            '30': 1572110.03333333
+          };
+          if(dias > 30)
+          dias = 30;
+          this.serviciog.costo_programado = dinero[dias];
+          //alert(this.serviciog.costo_programado);
+          
         }
+        else
+        this.serviciog.costo_programado = 0;
+
+      } else {
         
-      }else{
-        var costo_diario = this.serviciog.actividad.costo_real / diasAc;
-        this.serviciog.costo_programado = costo_diario * dias;
+        if(dias > diasAc){
+          var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
+          this.serviciog.costo_programado = costo_diario * (diasAc + 1 ) ;
+        }
+        else{
+          var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
+          this.serviciog.costo_programado = costo_diario * dias;
+        }
+          
       }
+      this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
+      // alert(this.serviciog.valueDifProgramadoEjecuato);
     }
-    this.serviciog.valueDifProgramadoEjecuato  = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);    
+    
   }
 
   /* -------------------- */

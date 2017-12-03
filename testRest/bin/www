@@ -43,7 +43,7 @@ const io = socketIO(server); // inicia el socket en el server
 //para persibir los cambios
 
 io.on('connection', (socket) => {
-  console.log('usuario conectado');
+  
   //envia los cambios
   socket.emit('Hello', {
     gratt: 'kelvin'
@@ -51,7 +51,7 @@ io.on('connection', (socket) => {
   //nuevo usuario
   socket.on('newUser', (idUser) => {
     userList[idUser] = socket; //guarda usuarios
-    console.log(userList);
+    console.log('usuario conectado =>   '+userList);
     // ----------------------------------- /// 
   });
   

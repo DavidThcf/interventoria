@@ -33,7 +33,7 @@
 			</div>
 			<div style="background-color: rgb(153,191,78); margin: 10px 10px;margin-top: 8px; min-height: 82vh">
 
-				<div style="margin: auto;">
+				<!-- <div style="margin: auto;">
 					<div class="input-group">
 						<input #act type="text" class="form-control" placeholder="Buscar...." (keyup)="btnSearchAct(act.value)">
 						<span class="input-group-btn">
@@ -42,7 +42,7 @@
 							</button>
 						</span>
 					</div>
-				</div>
+				</div> -->
 
 
 				<div class="listaActividades">
@@ -92,7 +92,7 @@
 						<a>Estadisticas </a>
 					</li>
 					<!-- *ngIf="this.serviciog.isSelAct" -->
-					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.tipo !== 'Actividad' && this.serviciog.actividad.tipo !== 'Capitulo'"
+					<li *ngIf="this.serviciog.actividad.tipo !== 'Actividad' && this.serviciog.actividad.tipo !== 'Capitulo'"
 					 (click)="c6()" [class.itemSelected]="this.serviGloAct.actOpt===6">
 						<a>Mapa</a>
 					</li>
@@ -321,10 +321,14 @@
 											 [selected]="this.serviciog.proyecto.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
 												Ejecucion de obra
 											</option>
-											<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Liquidacion'"
-											 [selected]="this.serviciog.proyecto.estado == 'Liquidacion'" value="Liquidacion">
-												Liquidacion
-											</option>
+											<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
+											[selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
+											   Ejecutado
+										   </option>
+										   <option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'"
+										   [selected]="this.serviciog.proyecto.estado == 'Liquidacion'" value="Liquidacion">
+											  Liquidacion
+										  </option>
 										</select>
 										
 									</div>
@@ -536,10 +540,14 @@
 										 [selected]="this.serviciog.actividad.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
 											Ejecucion de obra
 										</option>
-										<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Liquidacion'"
-										 [selected]="this.serviciog.actividad.estado == 'Liquidacion'" value="Liquidacion">
-											Liquidacion
-										</option>
+										<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
+										[selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
+										   Ejecutado
+									   </option>
+									   <option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'"
+									   [selected]="this.serviciog.proyecto.estado == 'Liquidacion'" value="Liquidacion">
+										  Liquidacion
+									  </option>
 									</select>
 									<div  *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'" >
 											<label for="etapa" class="lab form-inline">Etapa: </label>

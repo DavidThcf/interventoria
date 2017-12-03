@@ -132,31 +132,7 @@
 	</div>
 
 
-	<!-- modal que abre formulario para agregar recomendacion  -->
-	<div id="mod-remark-map" class="myModal" *ngIf="this.serviciog.isModalRemark">
-		<div class="modal-dialog" style="vertical-align: middle;">
-			<!-- Modal content-->
-			<div class="modal-content">
-				<div class="modal-body" style="height:auto">
 
-					<div style="margin-top:10px;margin-right:20px">
-						<button type="button" class="close" data-dismiss="modal">×</button>
-					</div>
-
-					<div style="margin-top:10px">
-
-						<div id="form-remark">
-							<p style="font-size: 20px">Agregar nuevo comentario</p>
-							<textarea [(ngModel)]="cad" #ctrl="ngModel" placeholder="Agrega aqui tu comentario..." required="required" style="width:100%;max-width:100%;min-height:100px"></textarea>
-							<br>
-							<button class="btn btn-success center-block" (click)="regMarkNovedad(this.novedad)"> Guardar </button>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
 
 	<!-- Modal que muestra los archivos multimedia  -->
 	<div id="mod-mul-map" class="modal fade" role="dialog">
@@ -291,3 +267,30 @@
 			</div>
 		</div>
 	</div>
+
+
+		<!-- modal que abre formulario para agregar recomendacion  -->
+		<div id="mod-remark-map" class="myModal" *ngIf="this.serviciog.isModalRemark">
+			<div class="modal-dialog" style="vertical-align: middle; margin-top: 200px;">
+				<!-- Modal content-->
+				<div class="modal-content">
+					<div class="modal-body" style="height:auto">
+	
+						<!-- <div style="margin-top:10px;margin-right:20px">
+							<button type="button" class="close" (click)='closeModal()'>×</button>
+						</div> -->
+	
+						<div style="margin-top:10px">
+	
+							<div id="form-remark">
+								<p style="font-size: 20px">Agregar nuevo comentario</p>
+								<textarea [(ngModel)]="cad" #ctrl="ngModel" placeholder="Agrega aqui tu comentario..." required="required" style="width:100%;max-width:100%;min-height:100px"></textarea>
+								<br>
+								<button class="btn btn-success center-block" (click)="regMarkNovedad(this.novedad)"> Guardar </button>
+							</div>
+	
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>

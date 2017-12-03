@@ -16,18 +16,19 @@ export class AppComponent implements OnInit {
 	constructor(private servicios: Servicios, private serviciog: ServiciosGlobales, private persistenceService: PersistenceService, private router: Router) { }
 
 	ngOnInit() {
+		// alert('APP');
 		/* --------------------- */
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 		//get Number Total Messages 
 		var formData = new FormData();
 		formData.append('id_usuario', this.serviciog.usuario.id_usuario + '');
-		//alert(this.serviciog.usuario.id_usuario);
+		// alert(this.serviciog.usuario.id_usuario);
 		this.servicios.getTotalMessage(formData)
 			.then(messages => { 
 				this.serviciog.messageList = messages;
 
 				for (var prop in messages) {
-					//alert(parseInt(messages[prop]));
+					// alert(parseInt(messages[prop]));
 					this.serviciog.totalMessage = this.serviciog.totalMessage + parseInt(messages[prop]);
 				}
 			})

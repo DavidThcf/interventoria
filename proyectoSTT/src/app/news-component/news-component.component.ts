@@ -366,5 +366,9 @@ export class NewsComponentComponent implements OnInit {
 			this.serviciog.hidden = false;
 		}, 5000);
 	}
+
+	closeModal(){
+		this.serviciog.isModalRemark = false;
+	}
 	/* -------------- */
 }

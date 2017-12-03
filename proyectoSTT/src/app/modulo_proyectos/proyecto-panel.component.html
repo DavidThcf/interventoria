@@ -1,6 +1,6 @@
 <div class="container" style="background-color: #DEDCDD;">
-	<h2>LISTA DE PROYECTOS</h2>
-	<div class="row">
+	<!-- <h2>LISTA DE PROYECTOS</h2> -->
+	<div class="row" style="margin-top: 30px">
 		<div class="col-md-3"></div>
 		<div class="col-md-6"> 
 			<div class="input-group">
@@ -19,9 +19,11 @@
 		<table class="table table-striped">
 			<thead>
 				<tr>
-					<th style="width: 50%">Proyecto</th>
+					<th style="width: 50%" *ngIf="this.serviciog.usuario.tipo_usuario == 'sup'">Beneficiarios</th>
+					<th style="width: 50%" *ngIf="this.serviciog.usuario.tipo_usuario != 'sup'">Proyecto</th>
 					<!-- <th style="width: 30%">Lider de Proyecto</th> -->
 					<!-- <th style="width: 25%" style="text-align: center;">Dueño</th> -->
+					<th style="width: 25%"  *ngIf="this.serviciog.usuario.tipo_usuario == 'sup'">Resguardo</th>
 					<th style="width: 25%">Porcentaje Ejecutado</th>
 				</tr>
 			</thead>
@@ -36,6 +38,7 @@
 					</td>
 					<!-- <td><p class="txt">{{proyect.nombre}} {{proyect.apellido}}</p></td> -->
 					<!-- <td><p class="txt">{{proyect.porcentaje_cumplido | number:'.3'}} % </p></td> -->
+					<td *ngIf="this.serviciog.usuario.tipo_usuario == 'sup'"><p>{{proyect.nom_padre}}</p></td>
 					<td><p class="txt">{{proyect.porcentaje_cumplido}} % </p></td>
 					<td>
 						<button class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">
