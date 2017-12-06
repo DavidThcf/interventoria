@@ -18,6 +18,18 @@ export class Servicios {
 
 	constructor(private http: Http, private serviciog: ServiciosGlobales) { }
 
+
+
+	// events
+	public chartClicked(e: any): void {
+		console.log(e);
+	}
+
+	public chartHovered(e: any): void {
+		//alert("HOver")
+		console.log(e);
+	}
+
 	getUsuario(formdata: FormData): Promise<Usuario> {
 		return this.http
 			.post(this.url + "getUser", formdata)
@@ -369,19 +381,19 @@ export class Servicios {
 	}
 	/* --------------------------------------------------------- */
 	/* ----------------- pause proyect ----------------------- */
-	pauseProyect(formData : FormData) {
+	pauseProyect(formData: FormData) {
 		return this.http.post(this.url + "pauseProyect", formData)
-		.toPromise()
-		.then(response => response.json())
-		.catch(err => false)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
 	}
 	/* ----------------------------------------------------------- */
 	/* ----------------- updateImageView ---------------------- */
-	updateImageView(formData : FormData){
+	updateImageView(formData: FormData) {
 		return this.http.post(this.url + "updateImageView", formData)
-		.toPromise()
-		.then(response => response.json())
-		.catch(err => false)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
 	}
 	/* ---------------------------------------------------------- */
 
@@ -393,10 +405,12 @@ export class Servicios {
 			.catch(err => false);
 	}
 
-	getSuspension(formData : FormData){
+	getSuspension(formData: FormData) {
 		return this.http.post(this.url + "getSuspension", formData)
-		.toPromise()
-		.then(response => response.json())
-		.catch(err => false)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
 	}
+
+
 } 

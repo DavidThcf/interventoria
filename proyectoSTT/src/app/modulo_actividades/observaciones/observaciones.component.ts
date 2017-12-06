@@ -24,7 +24,9 @@ export class ObservacionesComponent implements OnInit {
     private servicios: Servicios
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.observaciones = [];
+  }
   regObservacion(cad) {
 
     //alert(cad);
@@ -58,12 +60,12 @@ export class ObservacionesComponent implements OnInit {
       };
     var formData = new FormData();
     formData.append("observacion", JSON.stringify(dat));
-
+    var mark = { usuario: this.serviciog.usuario.nombre + ' ' + this.serviciog.usuario.apellido, observacion: cad };
+    this.observaciones.push(mark);
     this.servicios.regObservacion(formData)
       .then(message => {
         //alert(JSON.stringify(message));
-        var mark = { usuario: this.serviciog.usuario.nombre + ' ' + this.serviciog.usuario.apellido, observacion: cad };
-        this.observaciones.push(mark);
+        
         this.serviciog.socket.emit('sendSocketNovedad', {
           'userSend': this.serviciog.usuario.usuario_superior,
           'tipo': 'obs'

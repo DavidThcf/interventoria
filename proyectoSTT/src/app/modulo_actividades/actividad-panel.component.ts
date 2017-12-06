@@ -1823,6 +1823,10 @@ export class ActividadPanel implements OnInit {
       this.slideval = activity.porcentaje_cumplido;
       this.servicios.updateCompletePercentage(formData).then(message => {
         //Envio de mensaje por socket
+        // alert(''+ JSON.stringify({
+        //   'userSend': this.serviciog.usuario.usuario_superior,
+        //   'tipo': 'per'
+        // }))
         this.serviciog.socket.emit('sendSocketNovedad', {
           'userSend': this.serviciog.usuario.usuario_superior,
           'tipo': 'per'
@@ -1909,15 +1913,7 @@ export class ActividadPanel implements OnInit {
 
   }
 
-  // events
-  public chartClicked(e: any): void {
-    console.log(e);
-  }
 
-  public chartHovered(e: any): void {
-    //alert("HOver")
-    console.log(e);
-  }
 
   /* stop obra */
   toggleStop() {

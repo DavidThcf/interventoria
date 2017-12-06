@@ -144,7 +144,45 @@
   <router-outlet></router-outlet>
 </div>
 <!-- alerta mensaje -->
-<div class="alert alert-success alert-dismissible" *ngIf="this.serviciog.hidden">
+<div class="alertmess alert-success alert-dismissible" *ngIf="this.serviciog.hidden">
   {{this.serviciog.alert_message}}
 </div>
 <!--  -->
+
+<!-- modal para  recuperacion  contraseña -->
+<div class="myModal" *ngIf="this.serviciog.isModalRestart">
+  <div class="modal-dialog" style="vertical-align: middle;">
+    <!-- Modal content-->
+    <div class="modal-content" >
+      <div class="modal-body" style="height:auto">
+
+        <div style="margin-top:10px;margin-right:20px">
+          <button type="button" class="close" (click)="closeModalRestart()">×</button>
+        </div>
+
+        <div style="margin-top:3%">
+          <h1 id="mod-log-tit"  >Recuperar</h1>
+          <p  id="mod-log-tit2" >Contraseña</p>
+        </div>
+        <hr/> 
+
+        <form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;">
+          <div class="form-group">
+            <label for="email" class="lab">Email</label>
+            <input type="email" id="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required [(ngModel)]="this.email">
+            <div *ngIf="formErrors.email"  class="alert alert-danger">
+              {{ formErrors.email }}
+            </div>
+          </div>
+
+          <div class="row" >            
+            <div class="col-xs-12 col-md-4">
+              <button type="button" class="btn btn-success" name="btnRestart" (click)='sendEmailRestart()'>Send</button>
+            </div>
+          </div> 
+        </form>       
+      </div>       
+    </div>
+  </div>
+
+<!-- .................................... -->

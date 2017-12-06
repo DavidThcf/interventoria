@@ -10,7 +10,9 @@ var http = require('http');
 const socketIO = require('socket.io');
 
 // variable de usuarios
-var userList = {};
+sockets = [];
+userList = {};
+// var userList = {};
 /**
  * Get port from environment and store in Express.
  */
@@ -43,37 +45,56 @@ const io = socketIO(server); // inicia el socket en el server
 //para persibir los cambios
 
 io.on('connection', (socket) => {
-  
+  // sockets.push(socket);
+  console.log('usuario conectado =>');
   //envia los cambios
-  socket.emit('Hello', {
-    gratt: 'kelvin'
+  io.emit('Hello', {
+    greeting : 'kelvin'
   });
   //nuevo usuario
   socket.on('newUser', (idUser) => {
-    userList[idUser] = socket; //guarda usuarios
-    console.log('usuario conectado =>   '+userList);
+     // console.log("jkajdfklajsdfkljasdf "+ idUser);
+    //if(userList.idUser != undefined)
+      if (idUser in userList){
+        console.log('user ya');
+      }else{
+        socket.nickname = idUser;
+        userList[socket.nickname] = socket.id;
+      }
+      //guarda usuarios
+      console.log("Lista usuario  >>> >> "+ userList);
+    //else
+      //console.log('user exists !!');
     // ----------------------------------- /// 
   });
   
   //enviar novedad
   socket.on('sendSocketNovedad', (data) => {
+    // console.log(JSON.stringify(userList));
+    // console.log(userList);
+    
     userSend = data.userSend;
     tipo = data.tipo;
     socket1 = userList[userSend];
-    if (socket1)
-      socket1.emit('alert', tipo);
+    
+    if (socket1){
+      console.log("usuario recepcion:   >>>> " +socket1);
+      io.to(socket1).emit('alert', tipo);
+    }
   });
 
   //delete users
   socket.on('delUser', (idUser) => {
-    userList[idUser] = null; //guarda usuarios
-    console.log(userList);
+   
 
   });
   
   //desconectar
   socket.on('disconnect', () => {
     console.log('usuario desconectado');
+    delete userList[socket.nickname];
+    // userList[idUser] = null; //guarda usuarios
+    console.log(userList);
   });
 });
 

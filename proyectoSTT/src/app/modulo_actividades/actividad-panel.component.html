@@ -247,7 +247,7 @@
 												<div style="height: 400px; width: 700px" class="center-block">
 													<div style="display: block; " class="center-block">
 														<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-														 [colors]="lineChartColors" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+														 [colors]="lineChartColors" [chartType]="barChartType" (chartHover)="this.servicios.chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 													</div>
 													<br>
 													<br>
@@ -469,7 +469,7 @@
 											<div style="height: 300px; width: 700px" class="center-block">
 												<div style="display: block; " class="center-block">
 													<canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions" [legend]="barChartLegend"
-													 [colors]="lineChartColors" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+													 [colors]="lineChartColors" [chartType]="barChartType" (chartHover)="this.servicios.chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 												</div>
 											</div>
 										</div>
@@ -655,7 +655,7 @@
 
 					<div style="display: block; height: 552px; width: 900px" class="center-block">
 						<canvas baseChart [datasets]="barChartData" [colors]="lineChartColors" [labels]="barChartLabels" [options]="barChartOptions"
-						 [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						 [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="this.servicios.chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 					</div>
 					<!-- aqui -->
 					<!-- tabla -->
@@ -742,7 +742,7 @@
 						<br>
 						<div style="display: block; height: 500px; width: 500px" class="center-block">
 							<canvas style="display: block; height: 500px; width: 500px" baseChart [data]="this.fin_data" [labels]="this.fin_label" [chartType]="doughnutChartType"
-							 [colors]="this.fin_col" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+							 [colors]="this.fin_col" (chartHover)="this.servicios.chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
 						</div>
 						<!-- ................... -->
 

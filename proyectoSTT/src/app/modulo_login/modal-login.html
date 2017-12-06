@@ -17,7 +17,7 @@
         <form #loginForm="ngForm" (ngSubmit)="onSubmit()" style="margin-right: 5%; margin-left: 5%;">
           <div class="form-group">
             <label for="Password" class="lab">Email</label>
-            <input type="text" id="email" class="form-control" name="email" required [(ngModel)]="usuario.e_mail">
+            <input type="email" id="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required [(ngModel)]="usuario.e_mail">
             <div *ngIf="formErrors.email" class="alert alert-danger">
               {{ formErrors.email }}
             </div>
@@ -38,16 +38,16 @@
 
           <div class="row" >            
             <div class="col-xs-12 col-md-8" style="font-size:12px">          
-              <p>¿No estas registrado? <a  class="btn_reg">Registrate!!</a></p>
-              <p style="margin-top:-10px">¿Olvidaste tu <a  class="btn_forget">Contraseña?</a></p>
+              <p style="margin-top:-10px" (click)='openModalRestart()'>¿Olvidaste tu <a  class="btn_forget" >Contraseña?</a></p>
             </div>
             <div class="col-xs-12 col-md-4">
               <button type="submit" class="btn btn-success" name="btnLogin" style="float: right;" [disabled]="!loginForm.form.valid">Login</button>
             </div>
           </div> 
-
-
         </form>       
       </div>       
     </div>
   </div>
+
+
+

@@ -5,8 +5,8 @@ import { InicioView }   from '../modulo_inicio/inicio.component';
 import { ProyectoPanel }   from '../modulo_proyectos/proyecto-panel.component';
 import { ActividadPanel }   from '../modulo_actividades/actividad-panel.component';
 import { Mapa }   from '../modulo_mapa_publico/mapa.component';
-import { NewsComponentComponent } from '../news-component/news-component.component'
-
+import { NewsComponentComponent } from '../news-component/news-component.component';
+import {ModuloRecuperacionComponent} from '../modulo-recuperacion/modulo-recuperacion.component';
 
 
 const routes: Routes = [
@@ -16,6 +16,7 @@ const routes: Routes = [
   { path: 'actividades',  component: ActividadPanel},
   { path: 'proyectos',  component: ActividadPanel},
   { path: 'novedades',  component: NewsComponentComponent},
+  { path: 'recuperacion',  component: ModuloRecuperacionComponent},
 ];
  
 @NgModule({

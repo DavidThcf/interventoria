@@ -4,7 +4,7 @@
   <div style="display: block; height: 500px; width: 700px; margin-top: 5px;margin-left: 70px">
     <div class="center-block">
       <canvas class="center-block" baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types"
-        [colors]="this.serviciog.colors" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)">
+        [colors]="this.serviciog.colors" (chartHover)="this.servicios.chartHovered($event)" (chartClick)="chartClicked($event)">
       </canvas>
     </div>
   </div>
