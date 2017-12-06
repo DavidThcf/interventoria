@@ -20,6 +20,7 @@ export class AppComponent implements OnInit {
 
 	/* variables del modal recuperacion */
 	email: any ;
+	sendConfirmation : any ;
 	/* ---------------------------- */
 
 	ngOnInit() {
@@ -220,7 +221,17 @@ export class AppComponent implements OnInit {
 	/* ------------------------------- */
 	/* enviar email para el usuario a recuperar contraseña */
 	sendEmailRestart(){
-		alert(this.email);
+		//alert(this.email);
+		this.sendConfirmation = ''
+		var formdata  = new FormData();
+		formdata.append('email', this.email);
+		this.servicios.restartPassword(formdata).then(x => {
+			if(x == true ) {
+				this.sendConfirmation = 'Por favor reviza tu correo.'
+			}else {
+				this.sendConfirmation = 'Correo no registrado.'
+			}
+		})
 	}
 	/* ------------------------------------------------ */
 

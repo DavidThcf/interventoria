@@ -1,7 +1,11 @@
+// import { Usuario } from '../../proyectoSTT/src/app/model/usuario';
 var express = require("express");
 var router = express.Router();
 var fs = require("fs");
 var http = require("http");
+'use strict';
+var configmail = require("../config/emailconfig.js");
+
 //Model's Variables
 var User = require("../model/Usuarios");
 var Activity = require("../model/Actividades");
@@ -1110,6 +1114,43 @@ router.post('/updateImageView',(req, res) => {
   });
 });
 /* ---------------------------------------------------------------- */
+router.post('/restartPassword',(req, res) => {
+  var data = JSON.parse(JSON.stringify(req.body));
+  // console.log("datos recupracion" + data.email);
+  var passTemp = generar();
+  // console.log("datos" +  passTemp);
+  var user = User.restartPassword(data.email , passTemp);
+  user.then(x => {
+    console.log('calor d ex '+ x);
+    if(x === true){
+      console.log('entrar si correo good');
+      /* enviarmensaje */
+    let transporter = configmail.configmail();
+    // setup email data with unicode symbols
+    let mailOptions = {
+        from: '"Juan Bastidas" <juanbasdel@udenar.edu.co>', // sender address
+        to: ''+data.email, // list of receivers
+        subject: 'Recuperar contraseña ✔', // Subject line
+        text: 'Contraseña: '+ passTemp,
+    };
+
+    // send mail with defined transport object
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            return console.log(error);
+        }
+        console.log('Message %s sent: %s', info.messageId, info.response);
+    });
+    
+    }
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  })
+});
+/* funcion para preparar datos del reporte pdf */
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {
 
@@ -1150,6 +1191,16 @@ function armJSONReport(data) {
     resolve(dat);
   });
 }
+/* --------------------------------------------------- */
+/* funcion para genrar contraseñas aleatoriasy temporales */
+function generar()
+{
+  var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ2346789";
+  var contraseña = "";
+  for (i=0; i<8; i++) contraseña += caracteres.charAt(Math.floor(Math.random()*caracteres.length));
+  return contraseña;
+}
+/* ---------------------------------- */
 
 
 module.exports = router;

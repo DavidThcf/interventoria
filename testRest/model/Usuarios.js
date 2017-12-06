@@ -1,3 +1,4 @@
+// import { Xi18nOptions } from '@angular/cli/commands/xi18n';
 var express = require('express');
 var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
@@ -176,6 +177,35 @@ module.exports.getUserList = function (data) {
       });
   });
 }
+
+
+
+/* servicio restart password user */
+module.exports.restartPassword = function (data, passTemp) {
+  var sequelize = sqlCon.configConnection();
+  console.log("data usuario"+ data);
+  var query1 = "UPDATE usuarios set pass = '" +passTemp+
+  "' WHERE e_mail LIKE '"+data+"'" ;
+
+  return new Promise((resolve, reject) => {
+    sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE })
+      .then(x => {
+        console.log(x[1]);
+        if(x[1]>0)
+          resolve(true);
+        else
+          resolve(false);
+      }).catch(x => {
+        // console.log('Error al consular los usuario Usuario: ' + x);
+        reject(false);
+      }).done(x => {
+        sequelize.close();
+        // console.log('Se ha cerrado sesion de la conexion a la base de datos');
+      });
+  });
+}
+/* --------------------------------- */
+
 
 
 

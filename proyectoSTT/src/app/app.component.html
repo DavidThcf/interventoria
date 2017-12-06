@@ -69,7 +69,7 @@
 
           <ul class="dropdown-menu">
             <!-- Cambio porcentaje -->
-            <li style="margin-top: 2px; padding-top: 9px;" (click)='gotoNovedades("por")'>
+            <li *ngIf="this.serviciog.usuario.tipo_usuario !='sup'" style="margin-top: 2px; padding-top: 9px;" (click)='gotoNovedades("por")'>
               <a class="listNovedades">
                 Cambio Porcentaje
                 <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
@@ -80,7 +80,7 @@
             </li>
 
             <!-- Multimedia -->
-            <li style="border-top: 1px solid #e5e5e5;
+            <li *ngIf="this.serviciog.usuario.tipo_usuario !='sup'" style="border-top: 1px solid #e5e5e5;
             margin-top: 5px;
             padding-top: 9px;"  (click)='gotoNovedades("mul")'>
               <a  class="listNovedades">
@@ -93,7 +93,7 @@
             </li>
 
             <!-- Observaciones -->
-            <li style="border-top: 1px solid #e5e5e5;
+            <li *ngIf="this.serviciog.usuario.tipo_usuario !='sup'" style="border-top: 1px solid #e5e5e5;
             margin-top: 5px;
             padding-top: 9px;"  (click)='gotoNovedades("obs")'>
               <a class="listNovedades">
@@ -168,6 +168,9 @@
 
         <form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;">
           <div class="form-group">
+            <div *ngIf="this.sendConfirmation"  class="alert alert-success">
+                {{this.sendConfirmation}}
+            </div>
             <label for="email" class="lab">Email</label>
             <input type="email" id="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required [(ngModel)]="this.email">
             <div *ngIf="formErrors.email"  class="alert alert-danger">
