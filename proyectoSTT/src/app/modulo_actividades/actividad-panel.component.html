@@ -571,7 +571,7 @@
 						</div>
 					</form>
 					<!--  -->
-					<div *ngIf="this.serviciog.actividad.tipo == 'Actividad' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.usuario.tipo_usuario =='sup'"
+					<div *ngIf="this.state_act == true &&  this.serviciog.actividad.tipo == 'Actividad' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.usuario.tipo_usuario =='sup'"
 					 style="position: relative;width: 90%;margin: auto;margin-top: 15px">
 						<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 						<div style="position: relative;margin: auto">

@@ -12,6 +12,11 @@
 	margin-left:10;
 }
 
+.row{
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
 .fondo{
 	height: 80vh;
 }
