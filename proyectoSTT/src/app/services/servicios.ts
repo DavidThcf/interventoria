@@ -412,5 +412,14 @@ export class Servicios {
 			.catch(err => false)
 	}
 
+	/* servicio recuperacion contraseña  */
+	restartPassword(formData: FormData) {
+		return this.http.post(this.url + "restartPassword", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	/* ------------------------------------ */
+
 
 } 
