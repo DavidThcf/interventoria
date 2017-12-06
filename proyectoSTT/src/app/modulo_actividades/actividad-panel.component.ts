@@ -19,9 +19,12 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 
 export class ActividadPanel implements OnInit {
 
+  //variable para permitir modificar o no las actividades
+  public state_act : boolean = false;
+
   //grafica de barras resumen Avance
   public barChartType: string = 'bar';
-
+  
   dat: any = {};
   public slideval: number = 0;
   nom_act_report: string[] = [];
@@ -332,7 +335,7 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
-
+    
 
     try {
       this.serviGloAct.actOpt = 1;
@@ -480,7 +483,7 @@ export class ActividadPanel implements OnInit {
     } catch (e) {
       //alert('bad' + e);
     }
-
+    this.activityEnabled();
 
   }
 
@@ -503,7 +506,6 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
-
     //alert(this.serviciog.valueDifProgramadoEjecuato);
     //alert(JSON.stringify(this.serviciog.ax_actividad.usuario_asignado)+'   '+this.serviciog.usuario.id_usuario);
     //alert(JSON.stringify(this.serviciog.ax_actividad));
@@ -1202,6 +1204,24 @@ export class ActividadPanel implements OnInit {
     this.calcPercentReal();
     this.calValueProgra();
 
+  }
+
+  private activityEnabled(){
+    var fecha_actual = new Date();
+    var ax_fec_ini = new Date(this.serviciog.actividad.fecha_inicio);
+    
+    var fec_act = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
+    var fec_ini = new Date(this.serviciog.actividad.fecha_inicio);
+    
+    var fact = new Date(fec_act.getFullYear(), fec_act.getMonth(), fec_act.getDate());
+    var fini = new Date(fec_ini.getFullYear(), fec_ini.getMonth(), fec_ini.getDate());
+    
+    var dif = fact.getTime() - fini.getTime();
+    var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
+    if(dias>0)
+      this.state_act = true;
+    else
+      this.state_act = false;
   }
 
   //calculo pocentaje real
