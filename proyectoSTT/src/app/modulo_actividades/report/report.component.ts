@@ -101,7 +101,35 @@ export class ReportComponent implements OnInit {
 		this.msg = [];
 		this.tipNum = 0;
 		//this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
-
+		if (this.serviciog.porcentajeDifProgramadoEjecutado >= 0) {
+			this.serviciog.colors = [
+			  { // grey
+				backgroundColor: 'rgba(97, 255, 0, 1)',
+			  },
+			  { // grey
+				backgroundColor: 'rgba(0, 200, 255, 1)',
+			  },
+			  { // dark grey
+				backgroundColor: 'rgba(2, 58, 5, 0.993)'
+			  }
+			];
+			// alert("positivo")
+			// this.barColor = [
+			//   { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(2, 58, 5, 0.993)"] }
+			// ];
+		  } else {
+			this.serviciog.colors = [
+			  { // grey
+				backgroundColor: 'rgba(97, 255, 0, 1)',
+			  },
+			  { // grey
+				backgroundColor: 'rgba(0, 200, 255, 1)',
+			  },
+			  { // dark grey
+				backgroundColor: 'rgba(255, 0, 0, 1)',
+			  }
+			]
+		  }
 
 
 		switch (this.tipo.toUpperCase()) {
@@ -170,7 +198,7 @@ export class ReportComponent implements OnInit {
 	}
 
 	downloadReport() {
-		var anchor = event.target;
+		// var anchor = event.target;
 		//anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
 
 		var imgReport : string = document.getElementsByTagName('canvas')[0].toDataURL('image/png');
@@ -211,8 +239,9 @@ export class ReportComponent implements OnInit {
 		var url;
 		// var xml = new XMLHttpRequest();
 		url = this.serviciog.servidor+'downloadReport' + '?val1=' + JSON.stringify(this.msg);
-		window.open(url, 'about:blank');
-
+		var re = window.open(url, 'about:blank');
+		re.focus();
+		// window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	}
 
 }

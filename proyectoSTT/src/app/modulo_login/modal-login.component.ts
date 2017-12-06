@@ -29,6 +29,7 @@ export class Modallogin {
 	hideModal: boolean = false;
 	mAlert:boolean= false;	
 	submitted = false;	
+	email : any = '';
 
 	onSubmit() {
 
@@ -92,10 +93,11 @@ export class Modallogin {
 		'email': '',
 		'password': ''
 	};
-
+	// pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
 	validationMessages = {
 		'email': {
-			'required': 'Email Obligatorio'		
+			'required': 'Email Obligatorio'	,
+			'pattern' : 'Email Incorrecto'
 		},
 		'password': {
 			'required': 'Password Obligatorio'
@@ -104,4 +106,10 @@ export class Modallogin {
 	closeModalLogin(){
 		this.serviciog.isModalLogin = false;
 	}
+	openModalRestart(){
+		// this.serviciog.isModalLogin = !this.serviciog.isModalLogin;
+		this.serviciog.isModalRestart = !this.serviciog.isModalRestart;	
+		this.serviciog.isModalLogin = !this.serviciog.isModalLogin;	
+	}
+
 }

@@ -20,6 +20,7 @@ import { AppRoutingModule } from './routing/app-routing.module';
 import { ActividadModule } from './modulo_actividades/actividad-panel.module';
 import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
 import { NewsComponentComponent } from './news-component/news-component.component';
+import { ModuloRecuperacionComponent } from './modulo-recuperacion/modulo-recuperacion.component';
 
 /* switch boostrap */
 
@@ -49,7 +50,8 @@ import { NewsComponentComponent } from './news-component/news-component.componen
     ModalRegister,
     InicioView,
     Mapa,
-    NewsComponentComponent
+    NewsComponentComponent,
+    ModuloRecuperacionComponent
   ],
   providers: [
     Servicios,
