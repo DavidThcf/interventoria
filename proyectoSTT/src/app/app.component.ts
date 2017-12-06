@@ -150,7 +150,7 @@ export class AppComponent implements OnInit {
 	logout() {
 		// alert(this.serviciog.usuario.id_usuario/*  */)
 		// this.serviciog.socket.emit('delUser', this.serviciog.usuario.id_usuario);
-		// this.serviciog.socket.disconnect();
+		this.serviciog.socket.disconnect();
 		this.persistenceService.remove('user', StorageType.SESSION);
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 		let link = [''];

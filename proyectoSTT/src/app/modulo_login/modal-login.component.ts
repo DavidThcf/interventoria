@@ -42,6 +42,7 @@ export class Modallogin {
 			{
 				if(usuario){
 					this.serviciog.isModalLogin = false;
+					this.serviciog.socket.connect();
 					this.serviciog.socket.emit('newUser',usuario.id_usuario);
 					this.serviciog.getUserSession(usuario);
 					let link = [''];
