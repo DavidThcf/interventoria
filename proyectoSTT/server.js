@@ -14,7 +14,7 @@ app.get('*',(req,res)=>{
 
 const server = http.createServer(app);
 
-server.listen(port,()=>{
+server.listen(5000,()=>{
     console.log("server runing");
 });
 
