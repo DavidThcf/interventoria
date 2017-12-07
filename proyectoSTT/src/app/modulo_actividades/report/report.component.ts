@@ -90,7 +90,11 @@ export class ReportComponent implements OnInit {
 		  }
 	  };
 
-	constructor(
+	
+	
+	
+	
+		constructor(
 		private serviciog: ServiciosGlobales,
 		private serviGloAct: ServiciosGlobalesActividades,
 		private router: Router,
@@ -102,7 +106,7 @@ export class ReportComponent implements OnInit {
 		this.tipNum = 0;
 		//this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
 		if (this.serviciog.porcentajeDifProgramadoEjecutado >= 0) {
-			this.serviciog.colors = [
+			this.lineChartColors = [
 			  { // grey
 				backgroundColor: 'rgba(97, 255, 0, 1)',
 			  },
@@ -118,7 +122,7 @@ export class ReportComponent implements OnInit {
 			//   { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(2, 58, 5, 0.993)"] }
 			// ];
 		  } else {
-			this.serviciog.colors = [
+			this.lineChartColors = [
 			  { // grey
 				backgroundColor: 'rgba(97, 255, 0, 1)',
 			  },

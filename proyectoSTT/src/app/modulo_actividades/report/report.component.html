@@ -187,7 +187,8 @@
 		<div class="divfot" width="100%" id="grafEjec">
 			<div style="padding: 1px" class="form-inline form">
 				<div style="display: block; height: 470px; width: 900px;margin-top: 15px;" class="center-block">
-					<canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
+					<canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" 
+					[chartType]="this.serviciog.types" [colors]="this.lineChartColors"
 					 (chartHover)="this.servicios.chartHovered($event)" (chartClick)="this.servicios.chartClicked($event)">
 					</canvas>
 				</div>
