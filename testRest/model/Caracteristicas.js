@@ -715,10 +715,10 @@ module.exports.updateEtapa = function (data, etapa) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var current_date = new Date();
-        var fecha_inicio = current_date.toLocaleDateString();
+        var fecha_inicio = current_date.getFullYear()+'-' + (current_date.getMonth()+1) + '-'+current_date.getDate();
         current_date = current_date.setMonth(current_date.getMonth + 10);
         var fecha_fin = current_date.toLocaleString();
-        fecha_inicio = fecha_inicio.replace(/\//g,'-');
+        //fecha_inicio = fecha_inicio.replace(/\//g,'-');
         if (etapa === 'Entrega de materiales')
             var query1 = `
                 

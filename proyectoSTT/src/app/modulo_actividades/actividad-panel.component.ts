@@ -20,11 +20,11 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 export class ActividadPanel implements OnInit {
 
   //variable para permitir modificar o no las actividades
-  public state_act : boolean = false;
+  public state_act: boolean = false;
 
   //grafica de barras resumen Avance
   public barChartType: string = 'bar';
-  
+
   dat: any = {};
   public slideval: number = 0;
   nom_act_report: string[] = [];
@@ -335,7 +335,7 @@ export class ActividadPanel implements OnInit {
   }
 
   onSelectActivity(activity) {
-    
+
 
     try {
       this.serviGloAct.actOpt = 1;
@@ -506,12 +506,6 @@ export class ActividadPanel implements OnInit {
   }
 
   tituloClick() {
-    //alert(this.serviciog.valueDifProgramadoEjecuato);
-    //alert(JSON.stringify(this.serviciog.ax_actividad.usuario_asignado)+'   '+this.serviciog.usuario.id_usuario);
-    //alert(JSON.stringify(this.serviciog.ax_actividad));
-    //alert(JSON.stringify(this.serviciog.proyecto));
-
-    // alert(JSON.stringify(this.serviciog.ax_actividad));
     this.isTitleSelected = true;
 
     var num = this.serviciog.tipos_act.indexOf(
@@ -655,6 +649,7 @@ export class ActividadPanel implements OnInit {
       this.serviGloAct.actOpt = 0;
       //this.ngOnInit();
     }
+
   }
 
   //actualiza los porcentajes de las  actividades hijas
@@ -1206,19 +1201,19 @@ export class ActividadPanel implements OnInit {
 
   }
 
-  private activityEnabled(){
+  private activityEnabled() {
     var fecha_actual = new Date();
     var ax_fec_ini = new Date(this.serviciog.actividad.fecha_inicio);
-    
+
     var fec_act = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
     var fec_ini = new Date(this.serviciog.actividad.fecha_inicio);
-    
+
     var fact = new Date(fec_act.getFullYear(), fec_act.getMonth(), fec_act.getDate());
     var fini = new Date(fec_ini.getFullYear(), fec_ini.getMonth(), fec_ini.getDate());
-    
+
     var dif = fact.getTime() - fini.getTime();
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
-    if(dias>0)
+    if (dias > 0)
       this.state_act = true;
     else
       this.state_act = false;
@@ -1346,7 +1341,7 @@ export class ActividadPanel implements OnInit {
     //alert(diasAc);
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 
-    if (dias >= 0 && dias ) {
+    if (dias >= 0 && dias) {
 
       if (this.serviciog.actividad.tipo == 'Beneficiario') {
         if (dias > 9) {
@@ -1374,31 +1369,46 @@ export class ActividadPanel implements OnInit {
             '29': 1859041.47777778,
             '30': 1572110.03333333
           };
-          if(dias > 30)
-          dias = 30;
+          if (dias > 30)
+            dias = 30;
           this.serviciog.costo_programado = dinero[dias];
           //alert(this.serviciog.costo_programado);
-          
+
         }
         else
-        this.serviciog.costo_programado = 0;
+          this.serviciog.costo_programado = 0;
 
       } else {
-        
-        if(dias > diasAc){
+
+        if (dias > diasAc) {
           var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
-          this.serviciog.costo_programado = costo_diario * (diasAc + 1 ) ;
+          this.serviciog.costo_programado = costo_diario * (diasAc + 1);
         }
-        else{
+        else {
           var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
           this.serviciog.costo_programado = costo_diario * dias;
         }
-          
+
       }
       this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
       // alert(this.serviciog.valueDifProgramadoEjecuato);
     }
-    
+
+    try {
+
+      this.barChartData = [
+        { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+        { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+        { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+      ];
+      this.barChartLabels = [
+        '% de obra Programado ',
+        '% Real Ejecutado ',
+        '% Programado VS Ejecutado'
+      ];
+    } catch (e) {
+      // alert(e);
+    }
   }
 
   /* -------------------- */
