@@ -1,0 +1,33 @@
+<div class="centrado-porcentual center-block">
+    <h1 id="mod-log-tit">Cambiar</h1>
+    <p id="mod-log-tit2">Contraseña</p>
+    <form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;">
+        <div style="position: relative; width: 80%; margin-left: 10%; margin-right: 10%">
+            <label class="lab" for="email">Contraseña Actual:</label>                
+            <input class="form-control" id="passNow"  name="passNow"  type="password" required [(ngModel)]="passNow">
+            <div *ngIf="formErrors.passNow"  class="alert alert-danger">
+                {{ formErrors.passNow }}
+            </div>
+        </div>
+        <div style="position: relative; width: 80%; margin-left: 10%; margin-right: 10%">
+            <label class="lab" for="email">Nueva Contraseña:</label>
+            <input class="form-control" id="passNew" name="passNew" type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$" required [(ngModel)]="passNew">                
+            <div *ngIf="formErrors.passNew"  class="alert alert-danger">
+                {{ formErrors.passNew }}
+            </div>
+        </div>
+        <div style="position: relative; width: 80%; margin-left: 10%; margin-right: 10%">
+            <label class="lab" for="email">Confirmar Contraseña:</label>
+            <input class="form-control" id="passConf" name="passConfNew" type="password" pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"  required [(ngModel)]="passConfNew">
+            <div *ngIf="formErrors.passConfNow"  class="alert alert-danger">
+                {{ formErrors.passConfNow }}
+            </div>
+            <div *ngIf="this.passNew != this.passConfNew && !formErrors.passConfNow && !formErrors.passNew && this.passConfNew != ''"  class="alert alert-danger">
+                {{ equalPassword }}
+            </div>
+        </div>
+        <div style="position: relative; width: 80%; margin-left: 10%; margin-right: 10%; margin-top: 2%">
+            <button type="button" class="btn btn-success" name="btnRestart" (click)='changePasssword()'>Cambiar</button>
+        </div> 
+    </form>
+</div>

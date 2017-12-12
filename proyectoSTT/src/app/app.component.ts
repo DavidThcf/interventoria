@@ -158,7 +158,7 @@ export class AppComponent implements OnInit {
 		this.router.navigate(link);
 	}
 
-	/* para validadr modal restart */
+	/* para validar modal restart */
 	loginForm: NgForm;
 	
 		@ViewChild('loginForm') currentForm: NgForm;
@@ -234,5 +234,10 @@ export class AppComponent implements OnInit {
 		})
 	}
 	/* ------------------------------------------------ */
+	/* cambiar contraseña */
+	changePassword(){
+		
+	}
+	/* -------------------------------- */
 
 }
