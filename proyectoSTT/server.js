@@ -4,7 +4,7 @@ const http = require('http');
 
 
 const app = express();
-const port = process.env.PORT || 83;
+const port = process.env.PORT || 80;
 
 app.use(express.static(path.join(__dirname,'dist')));
 
@@ -14,7 +14,7 @@ app.get('*',(req,res)=>{
 
 const server = http.createServer(app);
 
-server.listen(5000,()=>{
+server.listen(port,()=>{
     console.log("server runing");
 });
 
