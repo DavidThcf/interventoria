@@ -123,9 +123,9 @@
           <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{this.serviciog.usuario.nombre + " " +this.serviciog.usuario.apellido }}
             <span class="caret"></span>
           </a>
-          <ul class="dropdown-menu">
-            <li>
-              <span class="glyphicon glyphicon-user" aria-hidden="true"></span> Perfil
+          <ul class="dropdown-menu" >
+            <li routerLink="recuperacion">
+              <span class="glyphicon glyphicon-lock" aria-hidden="true" ></span> Cambiar Contraseña
             </li>
             <li (click)="logout()">
               <div>
