@@ -420,6 +420,14 @@ export class Servicios {
 			.catch(err => false)
 	}
 	/* ------------------------------------ */
-
+	/* servicio recuperacion contraseña  */
+	changePassword(formData: FormData) {
+		alert('si entra a cambiar')
+		return this.http.post(this.url + "changePassword", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	/* ------------------------------------ */
 
 } 
