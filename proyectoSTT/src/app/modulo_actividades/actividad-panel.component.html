@@ -129,7 +129,7 @@
 
 				<!-- Detalles - Pagina inicial de un proyecto padre -->
 
-				<div *ngIf="this.serviGloAct.actOpt === 0">
+				<div *ngIf="this.serviGloAct.actOpt === 0" style="margin-bottom: 15px;">
 					<div *ngIf="this.serviciog.proyecto.tipo_caracteristica === 'P'">
 
 						<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
@@ -256,45 +256,6 @@
 										</div>
 
 										<div class="form-inline" style="margin-top: 10px;margin-left: 0px">
-											<div *ngIf="this.serviciog.proyecto.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
-											 style="padding: 1px" class="form-inline form">
-												<label class="form-control" for="etapa" class="lab form-inline">Estado: </label>
-												<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.proyecto.nombre_cat}} </div>
-												<div class="form-control" id="cld" [style.background-color]='this.serviciog.proyecto.color_cat' style="height:30px;width:50px"></div>
-											</div>
-		
-											<div *ngIf="this.serviciog.proyecto.tipo == 'Beneficiario'" class="form-inline " style="padding: 1px">
-												<label for="etapa" class="lab">Etapa: </label>
-												<select #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
-												 required>
-													<option *ngIf="this.serviciog.actividad.estado == 'null'" [selected]="this.serviciog.proyecto.estado == 'null'" value="null">
-														Seleccione una Etapa
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'null' || this.serviciog.actividad.estado == 'Inicio' " [selected]="this.serviciog.proyecto.estado == 'Inicio'"
-													 value="Inicio">
-														Habilitado
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales' "
-													 [selected]="this.serviciog.proyecto.estado == 'Entrega de materiales'" value="Entrega de materiales">
-														Entrega de materiales
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
-													 [selected]="this.serviciog.proyecto.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
-														Ejecucion de obra
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
-													 [selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
-														Ejecutado
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'" [selected]="this.serviciog.proyecto.estado == 'Liquidacion'"
-													 value="Liquidacion">
-														Liquidacion
-													</option>
-												</select>
-		
-											</div>
-		
-											<br>
 											<div *ngIf="this.serviciog.proyecto.tipo !== 'Beneficiario' && this.serviciog.proyecto.tipo !== 'Capitulo' && this.serviciog.proyecto.tipo !== 'Actividad'"
 											 style="height: 420px;width: 600px;margin-top: 20px" class="form-inline form">
 												<!--  Grafica del total de beneficiarios por categoria  -->
@@ -305,7 +266,7 @@
 										</div>
 
 										<!-- VALORES -->
-										<div style="margin-top: 10px">
+										<div style="margin-top: -70px">
 											<br>
 											<br>
 											<div>
@@ -329,11 +290,52 @@
 												<label class="form-control" name="costo_inicial" *ngIf="this.serviciog.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.serviciog.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
 											</div>
 											<!-- <input type="text" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_actual"> -->
+
+											<!-- Etapa y estado -->
+											<div>
+												<div *ngIf="this.serviciog.proyecto.tipo == 'Beneficiario'" class="form-inline " style="padding: 1px;margin-top: 10px">
+													<label for="etapa" class="lab col-md-2">Etapa: </label>
+													<select #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;" (mouseup)='changeEtapa(selEtapa.value,"A")'
+													 required>
+														<option *ngIf="this.serviciog.actividad.estado == 'null'" [selected]="this.serviciog.proyecto.estado == 'null'" value="null">
+															Seleccione una Etapa
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'null' || this.serviciog.actividad.estado == 'Inicio' " [selected]="this.serviciog.proyecto.estado == 'Inicio'"
+														 value="Inicio">
+															Habilitado
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales' "
+														 [selected]="this.serviciog.proyecto.estado == 'Entrega de materiales'" value="Entrega de materiales">
+															Entrega de materiales
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
+														 [selected]="this.serviciog.proyecto.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
+															Ejecucion de obra
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
+														 [selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
+															Ejecutado
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'" [selected]="this.serviciog.proyecto.estado == 'Liquidacion'"
+														 value="Liquidacion">
+															Liquidacion
+														</option>
+													</select>
+
+												</div>
+												<div *ngIf="this.serviciog.proyecto.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
+												 style="padding: 1px;margin-bottom: 25px" class="form-inline form">
+													<label class="form-control" for="etapa" class="lab form-inline col-md-2">Estado: </label>
+													<div class="form-control" style="width: 300px">{{this.serviciog.proyecto.nombre_cat}} </div>
+													<div class="form-control" id="cld" [style.background-color]='this.serviciog.proyecto.color_cat' style="height:30px;width:50px"></div>
+												</div>
+
+											</div>
 										</div>
 
 									</div>
 								</section>
-								
+
 								<!--<label for="estado" class="lab">Etapa</label><input type="text" id="estado" class="form-control" name="estado"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado" > -->
 
 								<!-- <div *ngIf="this.serviciog.actividad.tipo == 'Resguardo'" style="padding: 1px" class="form-inline form">
@@ -341,7 +343,7 @@
 											<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividades.length}} </div>
 										</div> -->
 
-								
+
 								<br/>
 								<!-- <div>
 										<button class="btn btn-success" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>
@@ -390,6 +392,7 @@
 								</div>
 							</div> -->
 					</div>
+					<br>
 				</div>
 
 				<!-- Detalles - Muestra informacion detallada del proyecto interno o actividad seleccionada -->
@@ -436,7 +439,7 @@
 										<input name="" type="text" id="tot_ben" class="form-control" name="tot_ben" [readonly]="true" [(ngModel)]="this.serviciog.total_beneficiary">
 									</div>
 								</div>
-
+								<hr>
 								<div>
 									<!-- PORCENTAJES   *ngIf="this.serviciog.actividad.estado !== 'Inicio'"  -->
 									<div>
@@ -477,7 +480,7 @@
 									</div>
 
 									<!-- VALORES -->
-									<div style="position: relative;margin-top: 200px">
+									<div style="position: relative;margin-top: 50px">
 										<br>
 										<!-- valor real  -->
 										<div>
@@ -500,13 +503,90 @@
 											<label class="form-control" name="costo_inicial" *ngIf="this.serviciog.valueDifProgramadoEjecuato != 0" style="color: rgb(240, 32, 32)">{{ (this.serviciog.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
 											<label class="form-control" name="costo_inicial" *ngIf="this.serviciog.valueDifProgramadoEjecuato == 0" style="color: rgb(2, 61, 20)">{{ (this.serviciog.valueDifProgramadoEjecuato | currency : 'COP' : true).replace('COP','$')}}</label>
 										</div>
+
+
+										<!-- Etapa y estado -->
+										<div class="form-inline" style="position: relative;margin-left: 0px;margin-top: 10px">
+											<div *ngIf="this.serviciog.actividad.tipo == 'Beneficiario' " class="form-inline ">
+												<label *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" for="etapa" class="lab form-inline col-md-2">Etapa: </label>
+												<select *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 0px;"
+												 (mouseup)='changeEtapa(selEtapa.value,"A")' required>
+													<option *ngIf="this.serviciog.actividad.estado == 'Inicio'" [selected]="this.serviciog.actividad.estado == 'Inicio'" value="Inicio">
+														Habilitado
+													</option>
+													<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'"
+													 [selected]="this.serviciog.actividad.estado == 'Entrega de materiales'" value="Entrega de materiales">
+														Entrega de materiales
+													</option>
+													<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
+													 [selected]="this.serviciog.actividad.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
+														Ejecucion de obra
+													</option>
+													<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
+													 [selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
+														Ejecutado
+													</option>
+													<option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'" [selected]="this.serviciog.proyecto.estado == 'Liquidacion'"
+													 value="Liquidacion">
+														Liquidacion
+													</option>
+												</select>
+												<div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
+													<label for="etapa" class="lab form-inline  col-md-2">Etapa: </label>
+													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Desabilitado</label>
+													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label>
+												</div>
+											</div>
+											<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'">
+												<div style="height: 420px;width: 600px" class="form-inline form">
+													<!--  Grafica del total de beneficiarios por categoria  -->
+													<div style="margin-top: 20px">
+														<app-chart-component></app-chart-component>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div *ngIf="this.serviciog.actividad.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'">
+											<div class="form-inline form">
+												<label class="form-control" class="lab form-inline  col-md-2">Estado: </label>
+												<div class="form-control" style="width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>
+												<div class="form-control" id="cld" [style.background-color]='this.serviciog.actividad.color_cat' style="height:30px;width:50px"></div>
+
+											</div>
+										</div>
+
+										<!-- Asignar usuario -->
+										<div *ngIf="this.serviciog.usuario.tipo_usuario != 'sup' && (this.serviciog.actividad.tipo == 'Resguardo' || this.serviciog.actividad.tipo == 'Beneficiario')"
+										 style="width: 80%;margin-left: 10%;margin-top: 20px">
+											<label for="Usuario" class="lab">{{this.serviciog.actividad.cargo}}</label>
+											<div (click)="getUsers()" [attr.data-toggle]="this.flg  ? 'modal' : null " data-target="#mod-list-usu" style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)">
+												<div class="row">
+													<div class="col-md-3">
+														<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
+													</div>
+													<div class="col-md-9">
+														<div style="color: rgb(245,245,245);     text-decoration: underline;   text-transform: uppercase; font-weight: bold;">
+															{{this.serviciog.actividad.usr_nom}} {{this.serviciog.actividad.usr_ape}}
+														</div>
+														<div style="color: rgb(209,209,209);font-style: italic;">
+															{{this.serviciog.actividad.e_mail}}
+														</div>
+														<div style="color: rgb(209,209,209);">
+															{{this.serviciog.actividad.cargo}}
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+										<br>
+
 										<!-- <input type="text" [readonly]="true" [(ngModel)]="this.serviciog.actividad.costo_actual"> -->
 									</div>
 
 								</div>
 							</section>
 
-						
+
 							<br>
 							<!--<label for="estado" class="lab">Etapa</label><input type="text" id="estado" class="form-control" name="estado"  [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.estado" > -->
 
@@ -515,53 +595,8 @@
 										<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividades.length}} </div>
 									</div> -->
 
-							<div *ngIf="this.serviciog.actividad.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
-							 style="padding: 1px;margin-top: 85px;" class="form-inline form">
-								<label class="form-control" class="lab form-inline">Estado: </label>
-								<div class="form-control" style="margin-left: 4px;width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>
-								<div class="form-control" id="cld" [style.background-color]='this.serviciog.actividad.color_cat' style="height:30px;width:50px"></div>
-								<br>
-								<br>
-							</div>
-							<div class="form-inline" style="position: relative;margin-left: 0px;">
-								<div *ngIf="this.serviciog.actividad.tipo == 'Beneficiario' " class="form-inline ">
-									<label *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" for="etapa" class="lab form-inline">Etapa: </label>
-									<select *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 13px;"
-									 (mouseup)='changeEtapa(selEtapa.value,"A")' required>
-										<option *ngIf="this.serviciog.actividad.estado == 'Inicio'" [selected]="this.serviciog.actividad.estado == 'Inicio'" value="Inicio">
-											Habilitado
-										</option>
-										<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'"
-										 [selected]="this.serviciog.actividad.estado == 'Entrega de materiales'" value="Entrega de materiales">
-											Entrega de materiales
-										</option>
-										<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
-										 [selected]="this.serviciog.actividad.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
-											Ejecucion de obra
-										</option>
-										<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
-										 [selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
-											Ejecutado
-										</option>
-										<option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'" [selected]="this.serviciog.proyecto.estado == 'Liquidacion'"
-										 value="Liquidacion">
-											Liquidacion
-										</option>
-									</select>
-									<div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
-										<label for="etapa" class="lab form-inline">Etapa: </label>
-										<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Desabilitado</label>
-										<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label>
-									</div>
-								</div>
-								<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'"
-								 style="height: 420px;width: 600px" class="form-inline form">
-									<!--  Grafica del total de beneficiarios por categoria  -->
-									<div style="margin-top: 350px">
-										<app-chart-component></app-chart-component>
-									</div>
-								</div>
-							</div>
+
+
 							<br/>
 							<!-- <div>
 									<button class="btn btn-success" *ngIf="this.isEditar" (click)="actualizarActividad(this.serviciog.actividad)">Guardar</button>
@@ -594,29 +629,7 @@
 
 					</div>
 					<!-- this.serviciog.usuario.tipo_usuario != 'sup' ||  -->
-					<!-- Asignar usuario -->
-					<div *ngIf="this.serviciog.usuario.tipo_usuario != 'sup' && (this.serviciog.actividad.tipo == 'Resguardo' || this.serviciog.actividad.tipo == 'Beneficiario')"
-					 style="width: 80%;margin-left: 10%;margin-top: 500px">
-						<label for="Usuario" class="lab">{{this.serviciog.actividad.cargo}}</label>
-						<div (click)="getUsers()" [attr.data-toggle]="this.flg  ? 'modal' : null " data-target="#mod-list-usu" style="display: block; height: 100px; width: 100%; margin: auto; background-color: rgb(36,36,36); border:1px solid rgb(87,87,87)">
-							<div class="row">
-								<div class="col-md-3">
-									<img src=" assets/img/manprofile.png" style="width: 85px;height: 85px; margin-left: 7px; margin-top: 7px;">
-								</div>
-								<div class="col-md-9">
-									<div style="color: rgb(245,245,245);     text-decoration: underline;   text-transform: uppercase; font-weight: bold;">
-										{{this.serviciog.actividad.usr_nom}} {{this.serviciog.actividad.usr_ape}}
-									</div>
-									<div style="color: rgb(209,209,209);font-style: italic;">
-										{{this.serviciog.actividad.e_mail}}
-									</div>
-									<div style="color: rgb(209,209,209);">
-										{{this.serviciog.actividad.cargo}}
-									</div>
-								</div>
-							</div>
-						</div>
-					</div>
+
 					<br>
 				</div>
 
