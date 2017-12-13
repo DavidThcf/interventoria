@@ -1114,6 +1114,7 @@ router.post('/updateImageView',(req, res) => {
   });
 });
 /* ---------------------------------------------------------------- */
+/*para cambiar contraseña si se olvido */
 router.post('/restartPassword',(req, res) => {
   var data = JSON.parse(JSON.stringify(req.body));
   // console.log("datos recupracion" + data.email);
@@ -1132,6 +1133,8 @@ router.post('/restartPassword',(req, res) => {
         to: ''+data.email, // list of receivers
         subject: 'Recuperar contraseña ✔', // Subject line
         text: 'Contraseña: '+ passTemp,
+        html: '<h3>Contraseña: </h3> <p>'+ passTemp + 
+                '</p><hr><p style="color: orange">Recuerde cambiar su contraseña por su seguridad</p>'
     };
 
     // send mail with defined transport object
@@ -1150,6 +1153,25 @@ router.post('/restartPassword',(req, res) => {
     res.json(false);
   })
 });
+/*-------------------------------------------------*/
+/*funcion para cambiar la contraseña */
+router.post('/changePassword',(req, res) => {
+  // console.log(JSON.stringify(req.body))
+  var data = JSON.parse(JSON.stringify(req.body));
+  console.log('llama'+JSON.stringify(data));
+  // res.header("Access-Control-Allow-Origin", "*");
+  // res.json(true);
+  var user = User.changePassword((data));
+  user.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+/*------------------------------------*/
 /* funcion para preparar datos del reporte pdf */
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {

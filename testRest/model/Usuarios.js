@@ -206,6 +206,30 @@ module.exports.restartPassword = function (data, passTemp) {
 }
 /* --------------------------------- */
 
+/*servicio cambiar contraseña*/
+module.exports.changePassword = function (data) {
+  var sequelize = sqlCon.configConnection();
+  console.log("data usuario"+ data);
+  var query1 = "UPDATE usuarios set pass = '" +data.passNew+
+  "' WHERE id_usuario ="+data.user+" AND pass LIKE '"+data.passNow + "'" ;
+
+  return new Promise((resolve, reject) => {
+    sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE })
+      .then(x => {
+        console.log(x[1]);
+        if(x[1]>0)
+          resolve(true);
+        else
+          resolve(false);
+      }).catch(x => {
+        reject(false);
+      }).done(x => {
+        sequelize.close();
+      });
+  });
+}
+/*-----------------------------*/
+
 
 
 
