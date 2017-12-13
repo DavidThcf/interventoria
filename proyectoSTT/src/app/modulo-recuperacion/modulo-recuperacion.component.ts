@@ -90,10 +90,22 @@ export class ModuloRecuperacionComponent implements OnInit {
 			// formData.append('passConfNow', this.passConfNew);
 			this.servicios.changePassword(formData)
 			.then(x => {
-				if(x == true)
-					alert('cambio exitoso')
-				else
-					alert('no se puede actualizar la contraseña')
+				if(x == true){
+					this.serviciog.alert_message = 'Cambio de contraseña exitoso';
+					this.serviciog.hidden = true;
+					setTimeout(() => {
+						this.serviciog.hidden = false;
+					},5000);
+					let link = [''];
+					this.router.navigate(link);
+				}
+				else{
+					this.serviciog.alert_message = 'No se puede cambiar la contraseña';
+					this.serviciog.hidden = true;
+					setTimeout(() => {
+						this.serviciog.hidden = false;
+					},5000);
+				}
 			}) ;
 		}
 	}
