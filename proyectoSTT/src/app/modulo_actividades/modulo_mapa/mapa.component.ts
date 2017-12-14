@@ -12,6 +12,8 @@ import { Servicios } from '../../services/servicios';
 import { } from 'googlemaps';
 import { ServiciosGlobalesActividades } from 'app/modulo_actividades/servicios-globales-actividades';
 
+import { ActividadPanel } from '../actividad-panel.component'
+
 @Component({
 	selector: 'mapa',
 	templateUrl: './mapa.component.html',
@@ -48,7 +50,8 @@ export class Mapa implements OnInit {
 		private servicios: Servicios,
 		private mapsAPILoader: MapsAPILoader,
 		private ngZone: NgZone,
-		private serviGloAct:ServiciosGlobalesActividades
+		private serviGloAct:ServiciosGlobalesActividades,
+		private actPanel : ActividadPanel
 	) { };
 
 	ngOnInit(): void {
@@ -313,13 +316,16 @@ export class Mapa implements OnInit {
 		this.serviciog.titulo = subActividad.nombre;
 		this.serviGloAct.actOpt = 1;
 
+		
 		this.servicios.getActividad(keym, id_usuario, id_caracteristica)
 			.then(actividad => {
 				if (actividad) {
 					this.serviciog.actividades = actividad;
 					this.serviciog.axActividades = actividad;
-					
 				}
+				this.actPanel.calcPercentReal();
+				this.actPanel.calValueProgra();
+		
 			});
 	}
 

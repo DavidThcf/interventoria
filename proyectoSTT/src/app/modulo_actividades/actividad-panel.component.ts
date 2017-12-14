@@ -132,15 +132,6 @@ export class ActividadPanel implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //alert(JSON.stringify(this.serviciog.actividad));
-    //alert(JSON.stringify(this.serviciog.data)+'    '+JSON.stringify(this.serviciog.labels));
-    //alert(JSON.stringify(this.serviciog.usuario));
-    //alert(JSON.stringify(this.serviciog.proyecto));
-    //alert("usuario >>" + this.serviciog.usuario.id_usuario);
-
-    //alert(JSON.stringify(this.serviciog.actividad));
-
-
     //this.serviciog.ax_actividad = {};
     //this.serviciog.actividad = null;
     this.serviciog.isSelAct = false;
@@ -1083,7 +1074,6 @@ export class ActividadPanel implements OnInit {
 
   //Detalles    =   Detalles del proyecto padre
   c0() {
-
     this.serviGloAct.actOpt = 0;
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -1220,7 +1210,7 @@ export class ActividadPanel implements OnInit {
   }
 
   //calculo pocentaje real
-  calcPercentReal() {
+  public calcPercentReal() {
 
     this.serviciog.porcentaje_real = 0;
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
@@ -1325,7 +1315,7 @@ export class ActividadPanel implements OnInit {
 
 
   /* calcostoProgramdo */
-  calValueProgra() {
+  public calValueProgra() {
     this.serviciog.costo_programado = 0;
     this.serviciog.valueDifProgramadoEjecuato = 0;
     var fecha_actual = new Date();

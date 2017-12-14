@@ -174,7 +174,7 @@
 
 						<!-- ============================================== Actividad  ====================================== -->
 						<form #loginForm="ngForm" style="margin-right: 5%; margin-left: 5%;" enctype="multipart/form-data">
-							<div class="form-group">
+							<div>
 								<section style="height: 50vh">
 									<div style="margin-top: 1px">
 										<div *ngIf="this.serviciog.proyecto.tipo">
@@ -269,7 +269,10 @@
 										<div style="margin-top: -70px">
 											<br>
 											<br>
+											<!-- Valor Asignado -->
 											<div>
+													<br>
+													<br>
 												<label for="tiempo_inicial" class="lab">Valor Asignado {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
 												<label class="form-control" name="costo_real">{{(this.serviciog.proyecto.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
 											</div>
@@ -323,14 +326,33 @@
 													</select>
 
 												</div>
-												<div *ngIf="this.serviciog.proyecto.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
+												<div *ngIf="this.serviciog.actividad.tipo === 'Beneficiario' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
 												 style="padding: 1px;margin-bottom: 25px" class="form-inline form">
 													<label class="form-control" for="etapa" class="lab form-inline col-md-2">Estado: </label>
-													<div class="form-control" style="width: 300px">{{this.serviciog.proyecto.nombre_cat}} </div>
-													<div class="form-control" id="cld" [style.background-color]='this.serviciog.proyecto.color_cat' style="height:30px;width:50px"></div>
+													<div class="form-control" style="width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>
+													<div class="form-control" id="cld" [style.background-color]='this.serviciog.actividad.color_cat' style="height:30px;width:50px"></div>
 												</div>
 
 											</div>
+
+											<!-- Slider cambiar porcentaje de ejecucion -->
+											<div *ngIf="this.serviciog.proyecto.tipo == 'Actividad' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.usuario.tipo_usuario =='sup'"
+											style="position: relative;width: 90%;margin: auto;margin-top: 5px">
+											   <label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
+											   <div style="position: relative;margin: auto">
+												   <p style="display: inline-block;">0% </p>
+				   
+												   <input #slide style="width: 450px;display: inline-block;" id="slider2" type="range" min="0" max="100" step="1" value="{{this.serviciog.proyecto.porcentaje_cumplido}}"
+													[(ngModel)]="this.serviciog.proyecto.porcentaje_cumplido" (mouseup)="slideValue(this.serviciog.proyecto,slide.value)"
+												   />
+				   
+												   <p style="display: inline-block;">100% </p>
+				   
+												   <input style="display: inline-block;margin-left: 40px;text-align: center;" type="number" name="slider" value="{{this.serviciog.proyecto.porcentaje_cumplido}}"
+													[(ngModel)]="this.serviciog.proyecto.porcentaje_cumplido" max="100" min="0" (keyup)="slideValue(this.serviciog.proyecto,slide.value)"
+													(mouseup)="slideValue(this.serviciog.proyecto,slide.value)"> % Ejecutado
+											   </div>
+										   </div>
 										</div>
 
 									</div>
@@ -351,23 +373,7 @@
 									</div> -->
 							</div>
 						</form>
-						<div *ngIf="this.serviciog.proyecto.tipo == 'Actividad' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.usuario.tipo_usuario =='sup'"
-						 style="position: relative;width: 90%;margin: auto;margin-top: 5px">
-							<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_act}} </label>
-							<div style="position: relative;margin: auto">
-								<p style="display: inline-block;">0% </p>
-
-								<input #slide style="width: 450px;display: inline-block;" id="slider2" type="range" min="0" max="100" step="1" value="{{this.serviciog.proyecto.porcentaje_cumplido}}"
-								 [(ngModel)]="this.serviciog.proyecto.porcentaje_cumplido" (mouseup)="slideValue(this.serviciog.proyecto,slide.value)"
-								/>
-
-								<p style="display: inline-block;">100% </p>
-
-								<input style="display: inline-block;margin-left: 40px;text-align: center;" type="number" name="slider" value="{{this.serviciog.proyecto.porcentaje_cumplido}}"
-								 [(ngModel)]="this.serviciog.proyecto.porcentaje_cumplido" max="100" min="0" (keyup)="slideValue(this.serviciog.proyecto,slide.value)"
-								 (mouseup)="slideValue(this.serviciog.proyecto,slide.value)"> % Ejecutado
-							</div>
-						</div>
+						
 						<!-- this.serviciog.usuario.tipo_usuario != 'sup' ||  -->
 						<!-- Asignar usuario -->
 						<!-- <div *ngIf="this.serviciog.proyecto.tipo == 'Resguardo' || this.serviciog.proyecto.tipo == 'Beneficiario'" style="width: 80%;margin-left: 10%;margin-top: 10px">

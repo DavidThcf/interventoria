@@ -250,9 +250,9 @@ module.exports.getDataNewObservations = function (data,reporte) {
             on ben_car.cedula = b.cedula
 
         left join marcador m
-            on 	m.keym = ben_car.keym
-            and 	m.id_usuario = ben_car.id_usuario
-            and 	m.id_caracteristica = ben_car.id_caracteristica
+            on 	m.keym = c.keym
+            and 	m.id_usuario = c.id_usuario
+            and 	m.id_caracteristica = c.id_caracteristica
 
         left join categorias_mapa ct
             on 	ct.id_categoria = m.id_categoria
