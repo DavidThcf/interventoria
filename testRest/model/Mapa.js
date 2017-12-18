@@ -125,8 +125,23 @@ module.exports.getPointList = function (data) {
           m.longitud,
           m.id_categoria,
           b.nombre,
-          b.cedula 
+          b.cedula,
+          u.nombre as usr_nom,
+          u.apellido as usr_ape,
+          u.e_mail as e_mail,
+          u.cargo as cargo,
+          u.tipo_usuario,
+	        ct.nombre nombre_cat,
+          ct.color color_cat
+    
           from marcador m  natural join caracteristicas c natural join beneficiarios b
+
+          left join categorias_mapa ct
+          on m.id_categoria = ct.id_categoria
+
+          left join usuarios u
+          on c.usuario_asignado = u.id_usuario
+
           where m.keym = ` +
         data.keym +
         `
@@ -171,12 +186,25 @@ module.exports.getPointList = function (data) {
         b.nombre,
         b.nombre nom_act,
         b.cedula,
-        b.tipo_identificacion
+        b.tipo_identificacion,
+        u.nombre as usr_nom,
+        u.apellido as usr_ape,
+        u.e_mail as e_mail,
+        u.cargo as cargo,
+        u.tipo_usuario,
+        ct.nombre nombre_cat,
+        ct.color color_cat
 
         from marcador m natural join caracteristicas c join beneficiarios b on b.cedula = c.cedula
         left join caracteristicas c1 on c.id_caracteristica_padre = c1.id_caracteristica
         left join actividades ap on c1.id_caracteristica = ap.id_caracteristica 
         
+        left join categorias_mapa ct
+        on m.id_categoria = ct.id_categoria
+
+        left join usuarios u
+        on c.usuario_asignado = u.id_usuario
+
         where b.cedula is not null
         and c.keym_padre = `+ data.keym + `
         and c.id_caracteristica_padre = `+ data.id_caracteristica + `
@@ -216,7 +244,14 @@ module.exports.getPointList = function (data) {
         b.nombre,
         b.nombre nom_act,
         b.cedula,
-        b.tipo_identificacion
+        b.tipo_identificacion,
+        u.nombre as usr_nom,
+        u.apellido as usr_ape,
+        u.e_mail as e_mail,
+        u.cargo as cargo,
+        u.tipo_usuario,
+        ct.nombre nombre_cat,
+        ct.color color_cat
         
         
         from caracteristicas c1 
@@ -225,7 +260,12 @@ module.exports.getPointList = function (data) {
         join beneficiarios b on b.cedula = c2.cedula
         
         left join actividades ap on c1.id_caracteristica = ap.id_caracteristica 
-      
+
+        left join categorias_mapa ct
+        on m.id_categoria = ct.id_categoria
+
+        left join usuarios u
+        on c2.usuario_asignado = u.id_usuario
         
         where c2.cedula is not null
         and c1.keym_padre = `+ data.keym + `
@@ -263,7 +303,14 @@ module.exports.getPointList = function (data) {
       b.nombre,
       b.nombre nom_act,
       b.cedula,
-      b.tipo_identificacion
+      b.tipo_identificacion,
+      u.nombre as usr_nom,
+      u.apellido as usr_ape,
+      u.e_mail as e_mail,
+      u.cargo as cargo,
+      u.tipo_usuario,
+      ct.nombre nombre_cat,
+      ct.color color_cat
        
       from caracteristicas c1 
       join caracteristicas c2 on c2.keym_padre = c1.keym and c2.id_caracteristica_padre = c1.id_caracteristica and c2.id_usuario_padre = c1.id_usuario
@@ -272,6 +319,12 @@ module.exports.getPointList = function (data) {
       join beneficiarios b on b.cedula = c3.cedula
       left join actividades ap on c2.id_caracteristica = ap.id_caracteristica 
       
+      left join categorias_mapa ct
+      on m.id_categoria = ct.id_categoria
+
+      left join usuarios u
+      on c3.usuario_asignado = u.id_usuario
+
       where c3.cedula is not null
       and c1.keym_padre = `+ data.keym + `
       and c1.id_caracteristica_padre = `+ data.id_caracteristica + `
@@ -308,12 +361,26 @@ module.exports.getPointList = function (data) {
       b.nombre,
       b.nombre nom_act,
       b.cedula,
-      b.tipo_identificacion
+      b.tipo_identificacion,
+      u.nombre as usr_nom,
+      u.apellido as usr_ape,
+      u.e_mail as e_mail,
+      u.cargo as cargo,
+      u.tipo_usuario,
+      ct.nombre nombre_cat,
+      ct.color color_cat
       
        
       from marcador m natural join caracteristicas c natural join beneficiarios b 
       right join caracteristicas cp on c.id_caracteristica_padre = cp.id_caracteristica
       right join actividades ap on cp.id_caracteristica = ap.id_caracteristica
+
+      left join categorias_mapa ct
+      on m.id_categoria = ct.id_categoria
+
+      left join usuarios u
+      on c.usuario_asignado = u.id_usuario
+
       where b.cedula is not null
       `;
       break;
