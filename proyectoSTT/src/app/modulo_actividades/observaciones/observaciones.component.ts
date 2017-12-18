@@ -24,12 +24,12 @@ export class ObservacionesComponent implements OnInit {
     private servicios: Servicios
   ) { }
 
-  ngOnInit() {
-    this.observaciones = [];
-  }
+  ngOnInit() {}
+
   regObservacion(cad) {
 
-    //alert(cad);
+    if(!this.observaciones)
+      this.observaciones = [];
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
       var dat = {
@@ -58,20 +58,21 @@ export class ObservacionesComponent implements OnInit {
         observacion: cad,
         usu_sup: this.serviciog.usuario.usuario_superior
       };
+    
     var formData = new FormData();
     formData.append("observacion", JSON.stringify(dat));
-    var mark = { usuario: this.serviciog.usuario.nombre + ' ' + this.serviciog.usuario.apellido, observacion: cad };
-    this.observaciones.push(mark);
+    
     this.servicios.regObservacion(formData)
       .then(message => {
-        //alert(JSON.stringify(message));
-        
+
+        var mark = { usuario: this.serviciog.usuario.nombre + ' ' +
+        this.serviciog.usuario.apellido, observacion: cad };
+        this.observaciones.push(mark);
         this.serviciog.socket.emit('sendSocketNovedad', {
           'userSend': this.serviciog.usuario.usuario_superior,
           'tipo': 'obs'
         });
-        //alert(JSON.stringify(message));
-        //this.serviGloAct.remarks = message;
+
       })
   }
 

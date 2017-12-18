@@ -50,8 +50,7 @@ export class Modallogin {
 				}else{
 					this.mAlert = true;
 				}		
-			}
-			);
+			});
 	}
 	
 	
@@ -108,7 +107,6 @@ export class Modallogin {
 		this.serviciog.isModalLogin = false;
 	}
 	openModalRestart(){
-		// this.serviciog.isModalLogin = !this.serviciog.isModalLogin;
 		this.serviciog.isModalRestart = !this.serviciog.isModalRestart;	
 		this.serviciog.isModalLogin = !this.serviciog.isModalLogin;	
 	}
