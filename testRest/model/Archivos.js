@@ -4,7 +4,7 @@ var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
 var router = express.Router();
 var fs = require('fs');
-var repository = 'files/';
+var repository = '../files/';
 
 //Service to create files
 module.exports.create_file = function (data, files) {
@@ -337,6 +337,7 @@ function getIdFreeFile(keym, id_usuario, nombre) {
         `;
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
+                console.log('\n\n\n\nXXX=>\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n');
                 console.log('\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n');
                 if (x[0].id_act != null) {
                     console.log('NOT NULL ===>   ' + JSON.stringify(x));

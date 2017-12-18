@@ -271,6 +271,8 @@ export class NewsComponentComponent implements OnInit {
 	goActivity(subActividad) {
 		
 		//alert(JSON.stringify(subActividad));
+		console.log('ACTIVIDAD GO');
+		console.log(subActividad);
 		this.serviciog.proyecto = subActividad;
 		this.serviciog.actividad = subActividad;
 		this.serviciog.ax_actividad = subActividad;
