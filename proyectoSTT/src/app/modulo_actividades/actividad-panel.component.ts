@@ -52,12 +52,12 @@ export class ActividadPanel implements OnInit {
   fin_data: any = [];
   fin_col: any = [{
     backgroundColor: [
-    "rgba(90, 255, 0, 0.8)",
-    "rgba(255, 255, 0, 0.81)",
-    "rgba(50, 25, 100, 25.8)",
-    "rgba(255, 90, 20, 0.81)",
-    "rgba(0, 255, 255, 0.8)",
-    "rgba(0, 90, 20, 0.81)"]
+      "rgba(90, 255, 0, 0.8)",
+      "rgba(255, 255, 0, 0.81)",
+      "rgba(50, 25, 100, 25.8)",
+      "rgba(255, 90, 20, 0.81)",
+      "rgba(0, 255, 255, 0.8)",
+      "rgba(0, 90, 20, 0.81)"]
   }];
   /* -------------------------------- */
 
@@ -93,17 +93,17 @@ export class ActividadPanel implements OnInit {
 
   };
   public barChartLabels: string[] = [
-  '% de obra Programado ',
-  '% Real Ejecutado ',
-  '% Programado VS Ejecutado'
+    '% de obra Programado ',
+    '% Real Ejecutado ',
+    '% Programado VS Ejecutado'
   ];
   public barChartLegend: boolean = true;
   public barChartData: any[] = [];
   public barColor: any[] = [
     // { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(255, 9, 100, 0.81)"] }
-    ];
+  ];
 
-    public lineChartColors: Array<any> = [
+  public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(97, 255, 0, 1)',
     },
@@ -113,43 +113,43 @@ export class ActividadPanel implements OnInit {
     { // dark grey
       backgroundColor: 'rgba(255, 0, 0, 1)',
     }
-    ];
+  ];
 
-    public doughnutChartLabels: string[] = [];
-    public doughnutChartData: any[] = [];
-    public doughnutChartType: string = "doughnut";
+  public doughnutChartLabels: string[] = [];
+  public doughnutChartData: any[] = [];
+  public doughnutChartType: string = "doughnut";
 
-    constructor(
-      private serviciog: ServiciosGlobales,
-      private serviGloAct: ServiciosGlobalesActividades,
-      private router: Router,
-      private servicios: Servicios
-      ) { }
+  constructor(
+    private serviciog: ServiciosGlobales,
+    private serviGloAct: ServiciosGlobalesActividades,
+    private router: Router,
+    private servicios: Servicios
+  ) { }
 
-    ngOnInit(): void {
-      this.serviciog.isSelAct = false;
-      this.serviciog.isSubActivity = null;
-      this.serviciog.isSelAct = false;
-      this.serviGloAct.actOpt = 0;
-      this.serviciog.tree_name = [];
+  ngOnInit(): void {
+    this.serviciog.isSelAct = false;
+    this.serviciog.isSubActivity = null;
+    this.serviciog.isSelAct = false;
+    this.serviGloAct.actOpt = 0;
+    this.serviciog.tree_name = [];
 
-      this.listTypes = [];
-      this.serviGloAct.observaciones = [];
+    this.listTypes = [];
+    this.serviGloAct.observaciones = [];
 
-      if (this.serviciog.usuario.tipo_usuario === "sup") this.flg = false;
+    if (this.serviciog.usuario.tipo_usuario === "sup") this.flg = false;
 
-      this.serviciog.actividades = [];
-      this.activityList = [];
-      if (this.serviciog.ax_actividad) {
+    this.serviciog.actividades = [];
+    this.activityList = [];
+    if (this.serviciog.ax_actividad) {
 
-        this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
-        this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
-        this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
-        var keym = this.serviciog.proyecto.keym;
-        var id_usuario = this.serviciog.proyecto.id_usuario;
-        var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+      this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
+      this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
+      this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
+      var keym = this.serviciog.proyecto.keym;
+      var id_usuario = this.serviciog.proyecto.id_usuario;
+      var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 
-        this.servicios
+      this.servicios
         .getActividad(keym, id_usuario, id_caracteristica)
         .then(actividades => {
 
@@ -163,64 +163,63 @@ export class ActividadPanel implements OnInit {
             this.serviGloAct.tipo2 = this.serviciog.tipos_act[num];
           }
         });
-      }
-      else {
-        let link = ["administrador"];
-        this.router.navigate(link);
-        this.serviciog.tree_name.pop();
-      }
+    }
+    else {
+      let link = ["administrador"];
+      this.router.navigate(link);
+      this.serviciog.tree_name.pop();
+    }
 
-      this.serviciog.actividad = this.serviciog.proyecto;
-      this.serviciog.porcentaje_real = 0;
-      this.serviciog.porcentajeDifProgramadoEjecutado = 0;
+    this.serviciog.actividad = this.serviciog.proyecto;
+    this.serviciog.porcentaje_real = 0;
+    this.serviciog.porcentajeDifProgramadoEjecutado = 0;
 
-      try {
-        this.barChartData = [
+    try {
+      this.barChartData = [
         { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
         { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
         { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
-        ];
-        this.barChartLabels = [
+      ];
+      this.barChartLabels = [
         '% de obra Programado ',
         '% Real Ejecutado ',
         '% Programado VS Ejecutado'
-        ];
-      } catch (e) {
-      }
+      ];
+    } catch (e) {
+    }
 
-      if (this.isTitleSelected && this.serviciog.actividad == null)
-        this.dat = {
-          keym: this.serviciog.proyecto.keym,
-          id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-          id_usuario: this.serviciog.proyecto.id_usuario,
-          tipo: this.serviciog.proyecto.tipo
-        };
-        else if (this.serviciog.actividad)
-          this.dat = {
-            keym: this.serviciog.actividad.keym,
-            id_caracteristica: this.serviciog.actividad.id_caracteristica,
-            id_usuario: this.serviciog.actividad.id_usuario,
-            tipo: this.serviciog.actividad.tipo
-          };
-          else
-            this.dat = {
-              keym: this.serviciog.proyecto.keym,
-              id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-              id_usuario: this.serviciog.proyecto.id_usuario,
-              tipo: this.serviciog.proyecto.tipo
-            };
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      this.dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    else if (this.serviciog.actividad)
+      this.dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      this.dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
 
-            if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
-              this.serviciog.labels = [];
-              this.serviciog.data = [];
-              this.serviciog.colors = [];
-              this.serviciog.dat = this.dat;
-              var formData = new FormData();
-              formData.append("caracteristica", JSON.stringify(this.dat));
-              this.servicios.getDataChart(formData).then(message => {
+    if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
+      this.serviciog.labels = [];
+      this.serviciog.data = [];
+      this.serviciog.colors = [];
+      this.serviciog.dat = this.dat;
+      var formData = new FormData();
+      formData.append("caracteristica", JSON.stringify(this.dat));
+      this.servicios.getDataChart(formData).then(message => {
 
         //calculo grafica resumen avance
-
         this.serviciog.listDatChart = [];
         this.serviciog.listDatChart = message;
         var ax: any[] = [];
@@ -255,41 +254,39 @@ export class ActividadPanel implements OnInit {
 
       });
 
-            }
+    }
 
-            try {
-              this.calcPercentReal();
-            } catch (e) {
-              alert(e);
-            }
-            try {
-              this.calValueProgra();
-            } catch (e) {
-              alert(e);
-            }
+    try {
+      this.calcPercentReal();
+    } catch (e) {
+      alert(e);
+    }
+    try {
+      this.calValueProgra();
+    } catch (e) {
+      alert(e);
+    }
 
-          }
+  }
 
-          actualizarActividad(actividad) {
-            var isUpdatePercentage = false;
-            this.isEditar = !this.isEditar;
+  actualizarActividad(actividad) {
+    var isUpdatePercentage = false;
+    this.isEditar = !this.isEditar;
     ////se comprueba si ubieron cambios en el porcentaje ejecutado
     if (this.porcentaje_ejecutado != actividad.porcentaje_cumplido) {
       this.porcentaje_ejecutado = actividad.porcentaje_cumplido - this.porcentaje_ejecutado;
       //this.porcentaje_ejecutado = this.porcentaje_ejecutado * (actividad.porcentaje/100);
-
       isUpdatePercentage = true;
       //alert(this.porcentaje_ejecutado);
     }
 
     //alert(isUpdatePercentage);
-
     var formData = new FormData();
     formData.append("actividad", JSON.stringify(actividad));
     formData.append(
       "porcentaje_cumplido",
       JSON.stringify(this.porcentaje_ejecutado)
-      );
+    );
     formData.append("isUpdatePercentage", JSON.stringify(isUpdatePercentage));
 
     this.servicios.updateCaracteristica(formData).then(message => {
@@ -330,25 +327,25 @@ export class ActividadPanel implements OnInit {
           id_usuario: this.serviciog.proyecto.id_usuario,
           tipo: this.serviciog.proyecto.tipo
         };
-        else if (this.serviciog.actividad)
-          this.dat = {
-            keym: this.serviciog.actividad.keym,
-            id_caracteristica: this.serviciog.actividad.id_caracteristica,
-            id_usuario: this.serviciog.actividad.id_usuario,
-            tipo: this.serviciog.actividad.tipo
-          };
-          else
-            this.dat = {
-              keym: this.serviciog.proyecto.keym,
-              id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-              id_usuario: this.serviciog.proyecto.id_usuario,
-              tipo: this.serviciog.proyecto.tipo
-            };
+      else if (this.serviciog.actividad)
+        this.dat = {
+          keym: this.serviciog.actividad.keym,
+          id_caracteristica: this.serviciog.actividad.id_caracteristica,
+          id_usuario: this.serviciog.actividad.id_usuario,
+          tipo: this.serviciog.actividad.tipo
+        };
+      else
+        this.dat = {
+          keym: this.serviciog.proyecto.keym,
+          id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+          id_usuario: this.serviciog.proyecto.id_usuario,
+          tipo: this.serviciog.proyecto.tipo
+        };
 
 
 
 
-            if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
+      if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
         //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
         this.serviciog.labels = [];
         this.serviciog.data = [];
@@ -359,7 +356,6 @@ export class ActividadPanel implements OnInit {
         this.servicios.getDataChart(formData).then(message => {
 
           //calculo grafica resumen avance
-
 
 
 
@@ -416,18 +412,18 @@ export class ActividadPanel implements OnInit {
 
 
       this.servicios
-      .getActividad(keym, id_usuario, id_caracteristica)
-      .then(actividades => {
-        if (actividades) {
-          this.serviGloAct.subActividades = actividades;
-          var num = this.serviciog.tipos_act.indexOf(
-            this.serviGloAct.subActividades[0].tipo
+        .getActividad(keym, id_usuario, id_caracteristica)
+        .then(actividades => {
+          if (actividades) {
+            this.serviGloAct.subActividades = actividades;
+            var num = this.serviciog.tipos_act.indexOf(
+              this.serviGloAct.subActividades[0].tipo
             );
-          this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+            this.serviGloAct.tipo = this.serviciog.tipos_act[num];
 
-          this.calculateValue(actividades);
-        }
-      });
+            this.calculateValue(actividades);
+          }
+        });
       this.serviciog.porcentaje_real = 0;
       this.serviciog.porcentajeDifProgramadoEjecutado = 0;
       this.calcPercentReal();
@@ -435,14 +431,14 @@ export class ActividadPanel implements OnInit {
       try {
 
         this.barChartData = [
-        { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-        { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-        { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+          { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+          { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+          { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
         ];
         this.barChartLabels = [
-        '% de obra Programado ',
-        '% Real Ejecutado ',
-        '% Programado VS Ejecutado'
+          '% de obra Programado ',
+          '% Real Ejecutado ',
+          '% Programado VS Ejecutado'
         ];
       } catch (e) {
         // alert(e);
@@ -478,7 +474,7 @@ export class ActividadPanel implements OnInit {
 
     var num = this.serviciog.tipos_act.indexOf(
       this.serviciog.actividades[0].tipo
-      );
+    );
     this.serviGloAct.tipo2 = this.serviciog.tipos_act[num];
 
     if (!this.serviciog.isSubActivity) {
@@ -501,42 +497,41 @@ export class ActividadPanel implements OnInit {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        this.dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          this.dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
+    else if (this.serviciog.actividad)
+      this.dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      this.dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
 
-          if (JSON.stringify(this.serviciog.dat) != JSON.stringify(this.dat)) {
-            this.serviciog.dat = this.dat;
-            this.serviciog.labels = [];
-            this.serviciog.data = [];
-            this.serviciog.colors = [];
-            var formData = new FormData();
-            formData.append("caracteristica", JSON.stringify(this.dat));
-            this.servicios.getDataChart(formData).then(message => {
+    if (JSON.stringify(this.serviciog.dat) != JSON.stringify(this.dat)) {
+      this.serviciog.dat = this.dat;
+      this.serviciog.labels = [];
+      this.serviciog.data = [];
+      this.serviciog.colors = [];
+      var formData = new FormData();
+      formData.append("caracteristica", JSON.stringify(this.dat));
+      this.servicios.getDataChart(formData).then(message => {
         //alert(JSON.stringify(message));
-
         //alert(JSON.stringify(this.serviciog.isSubActivity));
         if (this.serviciog.isSubActivity) {
           this.barChartData = [
-          { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-          { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-          { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+            { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+            { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+            { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
           ];
           this.barChartLabels = [
-          '% de obra Programado ',
-          '% Real Ejecutado ',
-          '% Programado VS Ejecutado'
+            '% de obra Programado ',
+            '% Real Ejecutado ',
+            '% Programado VS Ejecutado'
           ];
         }
 
@@ -573,9 +568,9 @@ export class ActividadPanel implements OnInit {
         this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
       });
 
-          }
+    }
 
-          var tot_ben = new FormData();
+    var tot_ben = new FormData();
 
     //total benefuciary
     tot_ben.append("caracteristica", JSON.stringify(this.dat));
@@ -595,14 +590,14 @@ export class ActividadPanel implements OnInit {
 
     try {
       this.barChartData = [
-      { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-      { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-      { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+        { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+        { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+        { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
       ];
       this.barChartLabels = [
-      '% de obra Programado ',
-      '% Real Ejecutado ',
-      '% Programado VS Ejecutado'
+        '% de obra Programado ',
+        '% Real Ejecutado ',
+        '% Programado VS Ejecutado'
       ];
     } catch (e) {
       // alert(e);
@@ -613,7 +608,7 @@ export class ActividadPanel implements OnInit {
       this.serviciog.actividad.keym == this.serviciog.proyecto.keym &&
       this.serviciog.actividad.id_caracteristica == this.serviciog.proyecto.id_caracteristica &&
       this.serviciog.actividad.id_usuario == this.serviciog.proyecto.id_usuario
-      ) {
+    ) {
       this.serviGloAct.actOpt = 0;
       //this.ngOnInit();
     }
@@ -627,12 +622,12 @@ export class ActividadPanel implements OnInit {
       formData.append(
         "actividades",
         JSON.stringify(this.serviciog.actividades)
-        );
+      );
     } else {
       formData.append(
         "actividades",
         JSON.stringify(this.serviGloAct.subActividades)
-        );
+      );
     }
 
     this.servicios.updatePercentage(formData).then(message => {
@@ -646,7 +641,7 @@ export class ActividadPanel implements OnInit {
       this.serviciog.tree_name.pop();
     }
     this.serviGloAct.tipo2 = this.serviciog.tipos_act[
-    this.serviciog.tipos_act.indexOf(this.serviciog.proyecto.tipo) + 1
+      this.serviciog.tipos_act.indexOf(this.serviciog.proyecto.tipo) + 1
     ];
 
     this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
@@ -658,13 +653,13 @@ export class ActividadPanel implements OnInit {
     this.serviciog.isSelAct = false;
     this.serviGloAct.actOpt = 0;
     this.servicios
-    .getActividad(keym, id_usuario, id_caracteristica)
-    .then(actividad => {
-      this.serviciog.actividades = actividad;
-      this.activityList = actividad;
-      actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
-      this.slideval = actividad.porcentaje_cumplido;
-    });
+      .getActividad(keym, id_usuario, id_caracteristica)
+      .then(actividad => {
+        this.serviciog.actividades = actividad;
+        this.activityList = actividad;
+        actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
+        this.slideval = actividad.porcentaje_cumplido;
+      });
   }
 
   entrarACtividad(actividad) {
@@ -675,7 +670,7 @@ export class ActividadPanel implements OnInit {
     this.isTitleSelected = true;
     this.serviciog.tree_name.push(actividad.nom_act);
     this.serviGloAct.tipo2 = this.serviciog.tipos_act[
-    this.serviciog.tipos_act.indexOf(actividad.tipo) + 1
+      this.serviciog.tipos_act.indexOf(actividad.tipo) + 1
     ];
 
 
@@ -686,23 +681,22 @@ export class ActividadPanel implements OnInit {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        var xdat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          var xdat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
-          this.serviciog.dat = xdat;
+    else if (this.serviciog.actividad)
+      var xdat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var xdat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    this.serviciog.dat = xdat;
     //alert(JSON.stringify(this.serviciog.tree_name));
-
     this.serviGloAct.lastActividad.push(this.serviciog.isSubActivity);
 
     this.subActivity = [];
@@ -717,15 +711,15 @@ export class ActividadPanel implements OnInit {
     this.serviciog.titulo = actividad.nom_act;
 
     this.servicios
-    .getActividad(keym, id_usuario, id_caracteristica)
-    .then(actividad => {
-      if (actividad) {
-        this.serviciog.actividades = actividad;
-        this.activityList = actividad;
-        var num = this.serviciog.tipos_act.indexOf(
-          this.serviciog.actividades[0].tipo
+      .getActividad(keym, id_usuario, id_caracteristica)
+      .then(actividad => {
+        if (actividad) {
+          this.serviciog.actividades = actividad;
+          this.activityList = actividad;
+          var num = this.serviciog.tipos_act.indexOf(
+            this.serviciog.actividades[0].tipo
           );
-        this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
+          this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
           //alert('1 '+this.serviGloAct.tipo);
         }
 
@@ -744,7 +738,7 @@ export class ActividadPanel implements OnInit {
     if (this.serviciog.actividad.id_caracteristica_padre != 1 && (this.serviciog.usuario.tipo_usuario != 'sup' || this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)) {
 
       this.servicios.getBackActividad(axAct.keym_padre, axAct.id_caracteristica_padre, axAct.id_usuario_padre).
-      then(x => {
+        then(x => {
           //alert('Back  =>   ' + x + '     -    ' + x.id_caracteristica + '  -   ' + x.id_caracteristica_padre);
           //var lastActividad = this.serviGloAct.lastActividad.pop();
           var lastActividad = x;
@@ -752,7 +746,7 @@ export class ActividadPanel implements OnInit {
 
           if (lastActividad != this.serviciog.isSubActivity && lastActividad != false) {
             this.serviGloAct.tipo2 = this.serviciog.tipos_act[
-            this.serviciog.tipos_act.indexOf(lastActividad.tipo) + 1
+              this.serviciog.tipos_act.indexOf(lastActividad.tipo) + 1
             ];
             this.subActivity = [];
             this.serviciog.actividades = [];
@@ -777,23 +771,23 @@ export class ActividadPanel implements OnInit {
 
 
             this.servicios
-            .getActividad(keym, id_usuario, id_caracteristica)
-            .then(actividad => {
-              if (actividad) {
+              .getActividad(keym, id_usuario, id_caracteristica)
+              .then(actividad => {
+                if (actividad) {
 
-                this.serviciog.actividades = actividad;
-                this.activityList = actividad;
-                var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
-                this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+                  this.serviciog.actividades = actividad;
+                  this.activityList = actividad;
+                  var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
+                  this.serviGloAct.tipo = this.serviciog.tipos_act[num];
 
 
-                if (this.isTitleSelected && this.serviciog.actividad == null)
-                  var dat = {
-                    keym: this.serviciog.proyecto.keym,
-                    id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-                    id_usuario: this.serviciog.proyecto.id_usuario,
-                    tipo: this.serviciog.proyecto.tipo
-                  };
+                  if (this.isTitleSelected && this.serviciog.actividad == null)
+                    var dat = {
+                      keym: this.serviciog.proyecto.keym,
+                      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                      id_usuario: this.serviciog.proyecto.id_usuario,
+                      tipo: this.serviciog.proyecto.tipo
+                    };
                   else if (this.serviciog.actividad)
                     var dat = {
                       keym: this.serviciog.actividad.keym,
@@ -801,20 +795,20 @@ export class ActividadPanel implements OnInit {
                       id_usuario: this.serviciog.actividad.id_usuario,
                       tipo: this.serviciog.actividad.tipo
                     };
-                    else
-                      var dat = {
-                        keym: this.serviciog.proyecto.keym,
-                        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-                        id_usuario: this.serviciog.proyecto.id_usuario,
-                        tipo: this.serviciog.proyecto.tipo
-                      };
+                  else
+                    var dat = {
+                      keym: this.serviciog.proyecto.keym,
+                      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                      id_usuario: this.serviciog.proyecto.id_usuario,
+                      tipo: this.serviciog.proyecto.tipo
+                    };
 
-                      this.serviciog.labels = [];
-                      this.serviciog.data = [];
-                      this.serviciog.colors = [];
-                      var formData = new FormData();
-                      formData.append("caracteristica", JSON.stringify(dat));
-                      this.servicios.getDataChart(formData).then(message => {
+                  this.serviciog.labels = [];
+                  this.serviciog.data = [];
+                  this.serviciog.colors = [];
+                  var formData = new FormData();
+                  formData.append("caracteristica", JSON.stringify(dat));
+                  this.servicios.getDataChart(formData).then(message => {
 
                     //alert(JSON.stringify(message));
                     this.serviciog.listDatChart = [];
@@ -849,7 +843,7 @@ export class ActividadPanel implements OnInit {
                     this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
                   });
 
-                      var tot_ben = new FormData();
+                  var tot_ben = new FormData();
                   //total benefuciary
                   tot_ben.append("caracteristica", JSON.stringify(dat));
                   this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
@@ -867,25 +861,25 @@ export class ActividadPanel implements OnInit {
                   this.calValueProgra();
                 }
               });
-} else {
-  this.serviGloAct.tipo2 = this.serviciog.tipos_act[0];
-  this.inicio();
-}
-}).catch(x => { })
-}
-else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.serviciog.usuario.tipo_usuario != 'sup' || this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)) {
-  if (this.isTitleSelected && this.serviciog.actividad == null)
-    var xdat = {
-      keym: this.serviciog.proyecto.keym_padre,
-      id_caracteristica: this.serviciog.proyecto.id_caracteristica_padre,
-      id_usuario: this.serviciog.proyecto.id_usuario_padre
-    };
-    else if (this.serviciog.actividad)
-      var xdat = {
-        keym: this.serviciog.actividad.keym_padre,
-        id_caracteristica: this.serviciog.actividad.id_caracteristica_padre,
-        id_usuario: this.serviciog.actividad.id_usuario_padre
-      };
+          } else {
+            this.serviGloAct.tipo2 = this.serviciog.tipos_act[0];
+            this.inicio();
+          }
+        }).catch(x => { })
+    }
+    else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.serviciog.usuario.tipo_usuario != 'sup' || this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)) {
+      if (this.isTitleSelected && this.serviciog.actividad == null)
+        var xdat = {
+          keym: this.serviciog.proyecto.keym_padre,
+          id_caracteristica: this.serviciog.proyecto.id_caracteristica_padre,
+          id_usuario: this.serviciog.proyecto.id_usuario_padre
+        };
+      else if (this.serviciog.actividad)
+        var xdat = {
+          keym: this.serviciog.actividad.keym_padre,
+          id_caracteristica: this.serviciog.actividad.id_caracteristica_padre,
+          id_usuario: this.serviciog.actividad.id_usuario_padre
+        };
       else
         var xdat = {
           keym: this.serviciog.proyecto.keym_padre,
@@ -893,10 +887,10 @@ else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.servicio
           id_usuario: this.serviciog.proyecto.id_usuario_padre
         };
 
-        var formData = new FormData();
+      var formData = new FormData();
 
-        formData.append('caracteristica', JSON.stringify(xdat));
-        this.servicios.getOneProject(formData).then(x => {
+      formData.append('caracteristica', JSON.stringify(xdat));
+      this.servicios.getOneProject(formData).then(x => {
         //alert('Back  =>   ' + JSON.stringify(x) + '     -    ' + x.id_caracteristica + '  -   ' + x.id_caracteristica_padre);
         //var lastActividad = this.serviGloAct.lastActividad.pop();
         var lastActividad = x[0];
@@ -905,10 +899,9 @@ else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.servicio
         this.serviGloAct.actOpt = 0;
 
         //alert(this.serviciog.proyecto.tipo_caracteristica);
-
         if (lastActividad != this.serviciog.isSubActivity && lastActividad != false) {
           this.serviGloAct.tipo2 = this.serviciog.tipos_act[
-          this.serviciog.tipos_act.indexOf(lastActividad.tipo) + 1
+            this.serviciog.tipos_act.indexOf(lastActividad.tipo) + 1
           ];
           this.subActivity = [];
           this.serviciog.actividades = [];
@@ -923,25 +916,24 @@ else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.servicio
           this.serviGloAct.actOpt = 0;
 
           // alert(JSON.stringify(lastActividad));
-
           this.servicios
-          .getActividad(keym, id_usuario, id_caracteristica)
-          .then(actividad => {
-            if (actividad) {
+            .getActividad(keym, id_usuario, id_caracteristica)
+            .then(actividad => {
+              if (actividad) {
 
-              this.serviciog.actividades = actividad;
-              this.activityList = actividad;
-              var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
-              this.serviGloAct.tipo = this.serviciog.tipos_act[num];
+                this.serviciog.actividades = actividad;
+                this.activityList = actividad;
+                var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
+                this.serviGloAct.tipo = this.serviciog.tipos_act[num];
 
 
-              if (this.isTitleSelected && this.serviciog.actividad == null)
-                var dat = {
-                  keym: this.serviciog.proyecto.keym,
-                  id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-                  id_usuario: this.serviciog.proyecto.id_usuario,
-                  tipo: this.serviciog.proyecto.tipo
-                };
+                if (this.isTitleSelected && this.serviciog.actividad == null)
+                  var dat = {
+                    keym: this.serviciog.proyecto.keym,
+                    id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                    id_usuario: this.serviciog.proyecto.id_usuario,
+                    tipo: this.serviciog.proyecto.tipo
+                  };
                 else if (this.serviciog.actividad)
                   var dat = {
                     keym: this.serviciog.actividad.keym,
@@ -949,20 +941,20 @@ else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.servicio
                     id_usuario: this.serviciog.actividad.id_usuario,
                     tipo: this.serviciog.actividad.tipo
                   };
-                  else
-                    var dat = {
-                      keym: this.serviciog.proyecto.keym,
-                      id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-                      id_usuario: this.serviciog.proyecto.id_usuario,
-                      tipo: this.serviciog.proyecto.tipo
-                    };
+                else
+                  var dat = {
+                    keym: this.serviciog.proyecto.keym,
+                    id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+                    id_usuario: this.serviciog.proyecto.id_usuario,
+                    tipo: this.serviciog.proyecto.tipo
+                  };
 
-                    this.serviciog.labels = [];
-                    this.serviciog.data = [];
-                    this.serviciog.colors = [];
-                    var formData = new FormData();
-                    formData.append("caracteristica", JSON.stringify(dat));
-                    this.servicios.getDataChart(formData).then(message => {
+                this.serviciog.labels = [];
+                this.serviciog.data = [];
+                this.serviciog.colors = [];
+                var formData = new FormData();
+                formData.append("caracteristica", JSON.stringify(dat));
+                this.servicios.getDataChart(formData).then(message => {
 
                   //alert(JSON.stringify(message));
                   this.serviciog.listDatChart = [];
@@ -997,7 +989,7 @@ else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.servicio
                   this.serviciog.colors = [{ backgroundColor: this.serviciog.color }];
                 });
 
-                    var tot_ben = new FormData();
+                var tot_ben = new FormData();
                 //total benefuciary
                 tot_ben.append("caracteristica", JSON.stringify(dat));
                 this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
@@ -1019,25 +1011,25 @@ else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.servicio
           this.inicio();
         }
       }).catch(x => { });
-}
+    }
 
 
 
-}
+  }
 
-getUsers() {
-  if (this.serviciog.usuario.tipo_usuario !== "sup")
-    this.servicios.getUserList(null).then(usuarios => {
-      if (usuarios) {
-        this.usuarios = usuarios;
-      }
-    });
-}
+  getUsers() {
+    if (this.serviciog.usuario.tipo_usuario !== "sup")
+      this.servicios.getUserList(null).then(usuarios => {
+        if (usuarios) {
+          this.usuarios = usuarios;
+        }
+      });
+  }
 
-asignarUsuario(usuario) {
-  this.serviciog.actividad.usr_nom = usuario.nombre;
-  this.serviciog.actividad.usr_ape = usuario.apellido;
-  this.serviciog.actividad.e_mail = usuario.e_mail;
+  asignarUsuario(usuario) {
+    this.serviciog.actividad.usr_nom = usuario.nombre;
+    this.serviciog.actividad.usr_ape = usuario.apellido;
+    this.serviciog.actividad.e_mail = usuario.e_mail;
     //alert(JSON.stringify(usuario))
     var formData = new FormData();
     formData.append("keym", "0");
@@ -1060,25 +1052,25 @@ asignarUsuario(usuario) {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        this.dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          this.dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
+    else if (this.serviciog.actividad)
+      this.dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      this.dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
 
 
 
 
-          if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
+    if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
       //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
       this.serviciog.dat = this.dat;
       var formData = new FormData();
@@ -1137,26 +1129,26 @@ asignarUsuario(usuario) {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        var dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          var dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
-          var tot_ben = new FormData();
-          tot_ben.append("caracteristica", JSON.stringify(dat));
-          this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
-            this.serviciog.total_beneficiary = 0;
-            try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; }
-            catch (e) {
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    var tot_ben = new FormData();
+    tot_ben.append("caracteristica", JSON.stringify(dat));
+    this.servicios.getOnlyTotalBeneficiary(tot_ben).then(message => {
+      this.serviciog.total_beneficiary = 0;
+      try { this.serviciog.total_beneficiary = message[0].getonlytotalbeneficiary; }
+      catch (e) {
         // alert(e) 
       };
     }).catch(e => {
@@ -1271,7 +1263,7 @@ asignarUsuario(usuario) {
         { // dark grey
           backgroundColor: 'rgba(2, 58, 5, 0.993)'
         }
-        ];
+      ];
       // alert("positivo")
       // this.barColor = [
       //   { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(2, 58, 5, 0.993)"] }
@@ -1287,8 +1279,8 @@ asignarUsuario(usuario) {
         { // dark grey
           backgroundColor: 'rgba(255, 0, 0, 1)',
         }
-        ]
-      }
+      ]
+    }
     //alert(this.serviciog.actividad.fecha_inicio)
   }
 
@@ -1344,7 +1336,6 @@ asignarUsuario(usuario) {
               dias = 30;
             this.serviciog.costo_programado = dinero[dias];
             //alert(this.serviciog.costo_programado);
-
           }
           else
             this.serviciog.costo_programado = 0;
@@ -1352,36 +1343,36 @@ asignarUsuario(usuario) {
         } else {
 
           if (dias > diasAc) {
-          // var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
-          this.serviciog.costo_programado = this.serviciog.actividad.costo_real;
-        }
-        else {
-          var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
-          // this.serviciog.costo_programado = costo_diario * dias;
-          this.serviciog.costo_programado = this.serviciog.actividad.costo_real * (this.serviciog.porcentaje_real/100);
-        }
+            // var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
+            this.serviciog.costo_programado = this.serviciog.actividad.costo_real;
+          }
+          else {
+            var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
+            // this.serviciog.costo_programado = costo_diario * dias;
+            this.serviciog.costo_programado = this.serviciog.actividad.costo_real * (this.serviciog.porcentaje_real / 100);
+          }
 
-      }
-      this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
+        }
+        this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
         // alert(this.serviciog.valueDifProgramadoEjecuato);
       }
       this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
     }
 
-  }
-  try {
 
-    this.barChartData = [
-    { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-    { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-    { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
-    ];
-    this.barChartLabels = [
-    '% de obra Programado ',
-    '% Real Ejecutado ',
-    '% Programado VS Ejecutado'
-    ];
-  } catch (e) {
+    try {
+
+      this.barChartData = [
+        { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+        { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+        { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+      ];
+      this.barChartLabels = [
+        '% de obra Programado ',
+        '% Real Ejecutado ',
+        '% Programado VS Ejecutado'
+      ];
+    } catch (e) {
       // alert(e);
     }
   }
@@ -1399,15 +1390,15 @@ asignarUsuario(usuario) {
     //calculo grafica resumen avance
     try {
       this.barChartData = [
-      { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-      { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-      { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+        { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+        { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+        { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
       ];
     } catch (e) { }
     this.barChartLabels = [
-    '% de obra Programado ',
-    '% Real Ejecutado ',
-    '% Programado VS Ejecutado'
+      '% de obra Programado ',
+      '% Real Ejecutado ',
+      '% Programado VS Ejecutado'
     ];
 
 
@@ -1422,29 +1413,28 @@ asignarUsuario(usuario) {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        this.dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          this.dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
-          var formData = new FormData();
-          formData.append("caracteristica", JSON.stringify(this.dat));
-          this.servicios.getObservacionesReport(formData).then(message => {
+    else if (this.serviciog.actividad)
+      this.dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      this.dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(this.dat));
+    this.servicios.getObservacionesReport(formData).then(message => {
       //alert(JSON.stringify(message));
       this.serviGloAct.observaciones = message;
     });
 
     //alert(JSON.stringify(dat));
-
     var frmDat = new FormData();
     frmDat.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getTypes(frmDat).then(message => {
@@ -1537,14 +1527,14 @@ asignarUsuario(usuario) {
     this.barChartLabels = [];
     //calculo grafica resumen avance
     this.barChartData = [
-    { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-    { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-    { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+      { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+      { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+      { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
     ];
     this.barChartLabels = [
-    '% de obra Programado ',
-    '% Real Ejecutado ',
-    '% Programado VS Ejecutado'
+      '% de obra Programado ',
+      '% Real Ejecutado ',
+      '% Programado VS Ejecutado'
     ];
 
 
@@ -1557,29 +1547,28 @@ asignarUsuario(usuario) {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        var dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          var dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
-          /* llamado para tabla de estadisticas */
-          this.valresper = []; this.valres = []; this.mon = [];
-          var formData = new FormData();
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    /* llamado para tabla de estadisticas */
+    this.valresper = []; this.valres = []; this.mon = [];
+    var formData = new FormData();
 
-          formData.append("datos", JSON.stringify(dat));
-          this.servicios.getTotalBeneficiary(formData).then(message => {
+    formData.append("datos", JSON.stringify(dat));
+    this.servicios.getTotalBeneficiary(formData).then(message => {
 
       //alert(JSON.stringify(this.valres));
-
       var res = message[0].gettotalbeneficiary;
       res = res.replace(/\(/g, "").replace(/\)/g, "");
       this.valres = res.split(',');
@@ -1631,10 +1620,9 @@ asignarUsuario(usuario) {
       this.fin_label.push('100 % => ' + this.fin_data[5] + ' %');
 
       //alert(JSON.stringify(this.valresper))
-
     });
-          /* ------------------------------------ */
-        }
+    /* ------------------------------------ */
+  }
 
   //mapa
   c6() {
@@ -1664,28 +1652,28 @@ asignarUsuario(usuario) {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        var dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          var dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
-          var formData = new FormData();
-          formData.append("caracteristica", JSON.stringify(dat));
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
 
-          this.servicios.getRemarks(formData).then(message => {
+    this.servicios.getRemarks(formData).then(message => {
       //alert(JSON.stringify(message));
       this.serviGloAct.remarks = message;
     });
-        }
+  }
 
   //Observaciones
   c10() {
@@ -1700,31 +1688,31 @@ asignarUsuario(usuario) {
         tipo: this.serviciog.proyecto.tipo
       };
 
-      else if (this.serviciog.actividad)
-        var dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          var dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
-          var formData = new FormData();
-          formData.append("caracteristica", JSON.stringify(dat));
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
 
-          this.servicios.getObservaciones(formData).then(message => {
+    this.servicios.getObservaciones(formData).then(message => {
       //alert(JSON.stringify(message));
       this.serviGloAct.observaciones = message;
     });
-        }
+  }
 
-        c11() {
-          this.serviGloAct.actOpt = 11;
+  c11() {
+    this.serviGloAct.actOpt = 11;
     //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
       var dat = {
@@ -1733,56 +1721,54 @@ asignarUsuario(usuario) {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      else if (this.serviciog.actividad)
-        var dat = {
-          keym: this.serviciog.actividad.keym,
-          id_caracteristica: this.serviciog.actividad.id_caracteristica,
-          id_usuario: this.serviciog.actividad.id_usuario,
-          tipo: this.serviciog.actividad.tipo
-        };
-        else
-          var dat = {
-            keym: this.serviciog.proyecto.keym,
-            id_caracteristica: this.serviciog.proyecto.id_caracteristica,
-            id_usuario: this.serviciog.proyecto.id_usuario,
-            tipo: this.serviciog.proyecto.tipo
-          };
-        }
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+  }
 
-        calculateValue(actividades) {
-          var percent = 0;
-          for (let i = 0; i < actividades.length; i++) {
-            percent = percent + Number(actividades[i].porcentaje);
-          }
-          this.porcentajeAsignado = percent;
-          this.miPorcentaje = 100 - this.porcentajeAsignado;
-        }
+  calculateValue(actividades) {
+    var percent = 0;
+    for (let i = 0; i < actividades.length; i++) {
+      percent = percent + Number(actividades[i].porcentaje);
+    }
+    this.porcentajeAsignado = percent;
+    this.miPorcentaje = 100 - this.porcentajeAsignado;
+  }
 
   //Realiza busqueda y filtro de las actividades que estan al lado izquierdo
   btnSearchAct(value: string) {
     //alert(JSON.stringify(this.serviciog.actividades[0].tipo));
-
     if (this.serviciog.actividades[0].tipo !== "Beneficiario")
       this.activityList = this.serviciog.actividades.filter(item => {
         return (
           (item.tipo + item.nom_act)
-          .toLowerCase()
-          .replace(/ /g, "")
-          .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1
-          );
+            .toLowerCase()
+            .replace(/ /g, "")
+            .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1
+        );
       });
     else
       this.activityList = this.serviciog.actividades.filter(item => {
         return (
           (item.cedula + item.nombre)
-          .toLowerCase()
-          .replace(/ /g, "")
-          .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1
-          );
+            .toLowerCase()
+            .replace(/ /g, "")
+            .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1
+        );
       }
       );
     //alert(JSON.stringify(this.activityList));
-
   }
 
   //actualiza el valor del porcentaje cumplido cunado se cambia el valor del slider
@@ -1824,7 +1810,6 @@ asignarUsuario(usuario) {
   //actualiza el valor del porcentaje cumplido cunado se cambia el valor en la caja de texto
   changeEtapa(etapa, tipo) {
     //alert(etapa+'   '+tipo);
-
     if (etapa === 'Entrega de materiales') {
       this.serviciog.proyecto.nombre_cat = 'Ejecucion Normal';
       this.serviciog.proyecto.color_cat = '#5fff00';
@@ -1845,21 +1830,21 @@ asignarUsuario(usuario) {
           /*  this.serviciog.isSubActivity = null;
            this.serviciog.isSelAct = false;
            this.serviGloAct.actOpt = 0; */
-           /* ------------------ */
-           if (message == 'true') {
-             this.serviciog.actividades = [];
-             this.activityList = [];
-             this.servicios
-             .getActividad(keym, id_usuario, id_caracteristica)
-             .then(actividad => {
-               alert("Pro >>>" + JSON.stringify(actividad));
-               this.serviciog.actividades = actividad;
-               this.activityList = actividad;
-               actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
-               this.slideval = actividad.porcentaje_cumplido;
-             });
-           }
-         });
+          /* ------------------ */
+          if (message == 'true') {
+            this.serviciog.actividades = [];
+            this.activityList = [];
+            this.servicios
+              .getActividad(keym, id_usuario, id_caracteristica)
+              .then(actividad => {
+                alert("Pro >>>" + JSON.stringify(actividad));
+                this.serviciog.actividades = actividad;
+                this.activityList = actividad;
+                actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
+                this.slideval = actividad.porcentaje_cumplido;
+              });
+          }
+        });
       }
     }
     else if (tipo == 'A') {
@@ -1876,14 +1861,14 @@ asignarUsuario(usuario) {
            this.serviciog.isSelAct = false;
            this.serviGloAct.actOpt = 0; */
 
-           /* ------------------ */
+          /* ------------------ */
           //alert("a >>>" + message);
           if (message) {
             this.serviciog.actividades = [];
             this.activityList = [];
             this.servicios
-            .getActividad(keym, id_usuario, id_caracteristica)
-            .then(actividad => {
+              .getActividad(keym, id_usuario, id_caracteristica)
+              .then(actividad => {
                 // alert("act >> "+ JSON.stringify(actividad));
                 this.serviciog.actividades = actividad;
                 this.activityList = actividad;
