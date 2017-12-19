@@ -17,7 +17,8 @@
 </button> -->
 
 <button *ngIf="!isMapSelected && !isRepSelected && 
-this.serviciog.actividad.tipo === 'Actividad'" 
+this.serviciog.actividad.tipo === 'Actividad' && this.serviciog.actividad.estado !== 'null' 
+&& this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.usuario.tipo_usuario === 'sup' && this.serviciog.state_act === true" 
 class="btn-add-img btn-primary" 
 (click)="mostrarModal()">
 +
@@ -59,145 +60,145 @@ class="btn-add-img btn-primary"
   </div>
   <!-- boton de filtro -->
   <div class="row" *ngIf="this.serviciog.actividad.tipo != 'Beneficiario' && 
-              this.serviciog.actividad.tipo != 'Proyecto' && 
-              this.serviciog.actividad.tipo != 'Capitulo' &&
-              this.serviciog.actividad.tipo != 'Actividad'
-              ">
-    <button class="btn btn-warning" (click)="showFilter()" >Filtros</button>
+  this.serviciog.actividad.tipo != 'Proyecto' && 
+  this.serviciog.actividad.tipo != 'Capitulo' &&
+  this.serviciog.actividad.tipo != 'Actividad'
+  ">
+  <button class="btn btn-warning" (click)="showFilter()" >Filtros</button>
+</div>
+<!-- muestra los filtros para archivos  -->
+<div class="row" *ngIf="this.vshowFilter">
+  <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Provincia'">
+    Municipio:
+    <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item" (change)="cambio2()">
+      <option *ngFor="let item of this.subActivity" [ngValue]="item">{{item.nom_act}}</option>
+    </select>
   </div>
-  <!-- muestra los filtros para archivos  -->
-  <div class="row" *ngIf="this.vshowFilter">
-    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Provincia'">
-      Municipio:
-      <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item" (change)="cambio2()">
-        <option *ngFor="let item of this.subActivity" [ngValue]="item">{{item.nom_act}}</option>
-      </select>
-    </div>
-    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Municipio' || this.flagResg">
-      Resguardo:
-      <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item2" (change)="cambio3()">
-          <option *ngFor="let item of this.subActivity2" [ngValue]="item">{{item.nom_act}}</option>
-      </select>
-    </div>
-    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Resguardo' || this.flagBene">
-      Beneficiario:
-      <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item3">
-          <option *ngFor="let item of this.subActivity3" [ngValue]="item">{{item.cedula}} {{item.nom_act}}</option>          
-      </select>
-    </div>
-    <br>
-    <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Resguardo' || this.flagBene">
-      <button class="btn btn-success" (click)="getImagen()">Obtener</button>    
-    </div>
+  <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Municipio' || this.flagResg">
+    Resguardo:
+    <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item2" (change)="cambio3()">
+      <option *ngFor="let item of this.subActivity2" [ngValue]="item">{{item.nom_act}}</option>
+    </select>
   </div>
-  <!-- //////////////////////////////////////////////////// -->
-  
-  <!-- Muestra los archivos dependiendo su tipo -->
-  <div style="margin-top: 10px">
+  <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Resguardo' || this.flagBene">
+    Beneficiario:
+    <select class="select-mul form-control" name="subAct" [(ngModel)]="this.item3">
+      <option *ngFor="let item of this.subActivity3" [ngValue]="item">{{item.cedula}} {{item.nom_act}}</option>          
+    </select>
+  </div>
+  <br>
+  <div class="row" *ngIf="this.serviciog.actividad.tipo === 'Resguardo' || this.flagBene">
+    <button class="btn btn-success" (click)="getImagen()">Obtener</button>    
+  </div>
+</div>
+<!-- //////////////////////////////////////////////////// -->
 
-    <!-- Imagenes -->
-    <div class="row" *ngIf="this.serviciog.tipo === 'img'">
-      <h3>Imagenes</h3>
-      <div class="col-xs-6 col-md-3" *ngFor="let imagen of this.serviciog.imagenes">
-        <input type="checkbox" *ngIf="isMapSelected || isRepSelected" 
-          class="chk" [checked]=imagen.ext (change)="checked(imagen)">
-        <a class="thumbnail">
-          <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} 
-                alt={{imagen.subtitulo}}>
-          <div class="caption">
-            <h3>{{imagen.titulo}}</h3>
-            <p>{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
-          </div>
-        </a>
-      </div>
-    </div>
+<!-- Muestra los archivos dependiendo su tipo -->
+<div style="margin-top: 10px">
 
-    <!-- Documentos -->
-    <div class="row" *ngIf="this.serviciog.tipo === 'doc'">
-      <h3>Documentos</h3>
-      <table class="multHover table table-striped" style="width:90%;margin-left:5%">
-        <thead>
-          <tr style="position:relative;width:100%">
-            <th>#</th>
-            <th style="width:20%">Titulo</th>
-            <th style="width:65%">Descripción</th>
-            <th style="width:10%"></th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
-            <th scope="row" style="vertical-align:middle">#</th>
-            <td style="vertical-align:middle">{{imagen.titulo}}</td>
-            <td>{{imagen.subtitulo}}</td>
-            <td>
-              <button (click)="show(imagen)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Audio -->
-    <div class="row" *ngIf="this.serviciog.tipo === 'sou'">
-      <h3>Audio</h3>
-      <table class="multHover table table-striped" style="width:90%;margin-left:5%">
-        <thead>
-          <tr style="position:relative;width:100%">
-            <th>#</th>
-            <th style="width:20%">Nombre</th>
-            <th style="width:75%">Descripción</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
-            <th scope="row" style="vertical-align:middle">#</th>
-            <td style="vertical-align:middle">{{imagen.titulo}}</td>
-            <td>{{imagen.subtitulo}}</td>
-          </tr>
-
-        </tbody>
-      </table>
-    </div>
-
-    <!-- Videos -->
-    <div class="row" *ngIf="this.serviciog.tipo === 'vid'">
-      <h3>Videos</h3>
-      <div class="col-xs-12 col-md-4" *ngFor="let imagen of this.serviciog.imagenes">
-        <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)">
-        <a class="thumbnail">
-          <video controls class="video-js">
-            <source src="{{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}}" type='video/mp4' />
-          </video>
-          <div class="caption">
-            <h4>{{imagen.titulo}}</h4>
-          </div>
-        </a>
-      </div>
-    </div>
-
-    <!-- Otros -->
-    <div class="row" *ngIf="this.serviciog.tipo === 'oth'">
-      <h3>Otros Archivos</h3>
+  <!-- Imagenes -->
+  <div class="row" *ngIf="this.serviciog.tipo === 'img'">
+    <h3>Imagenes</h3>
+    <div class="col-xs-6 col-md-3" *ngFor="let imagen of this.serviciog.imagenes">
+      <input type="checkbox" *ngIf="isMapSelected || isRepSelected" 
+      class="chk" [checked]=imagen.ext (change)="checked(imagen)">
+      <a class="thumbnail">
+        <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} 
+        alt={{imagen.subtitulo}}>
+        <div class="caption">
+          <h3>{{imagen.titulo}}</h3>
+          <p>{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
+        </div>
+      </a>
     </div>
   </div>
 
-  <!-- <registro-multimedia></registro-multimedia> -->
+  <!-- Documentos -->
+  <div class="row" *ngIf="this.serviciog.tipo === 'doc'">
+    <h3>Documentos</h3>
+    <table class="multHover table table-striped" style="width:90%;margin-left:5%">
+      <thead>
+        <tr style="position:relative;width:100%">
+          <th>#</th>
+          <th style="width:20%">Titulo</th>
+          <th style="width:65%">Descripción</th>
+          <th style="width:10%"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
+          <th scope="row" style="vertical-align:middle">#</th>
+          <td style="vertical-align:middle">{{imagen.titulo}}</td>
+          <td>{{imagen.subtitulo}}</td>
+          <td>
+            <button (click)="show(imagen)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <div id="mod-sho-mult" style="margin-top: 50px" class="modal fade" role="dialog">
-    <div class="modal-dialog" style="vertical-align: middle;">
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-body">
-          <div style="margin-top:10px;margin-right:20px">
-            <button type="button" class="close" data-dismiss="modal">×</button>
-          </div>
-          <div>
-            <iframe [attr.src]="this.urlShow"></iframe>
-          </div>
+  <!-- Audio -->
+  <div class="row" *ngIf="this.serviciog.tipo === 'sou'">
+    <h3>Audio</h3>
+    <table class="multHover table table-striped" style="width:90%;margin-left:5%">
+      <thead>
+        <tr style="position:relative;width:100%">
+          <th>#</th>
+          <th style="width:20%">Nombre</th>
+          <th style="width:75%">Descripción</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
+          <th scope="row" style="vertical-align:middle">#</th>
+          <td style="vertical-align:middle">{{imagen.titulo}}</td>
+          <td>{{imagen.subtitulo}}</td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Videos -->
+  <div class="row" *ngIf="this.serviciog.tipo === 'vid'">
+    <h3>Videos</h3>
+    <div class="col-xs-12 col-md-4" *ngFor="let imagen of this.serviciog.imagenes">
+      <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)">
+      <a class="thumbnail">
+        <video controls class="video-js">
+          <source src="{{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}}" type='video/mp4' />
+        </video>
+        <div class="caption">
+          <h4>{{imagen.titulo}}</h4>
+        </div>
+      </a>
+    </div>
+  </div>
+
+  <!-- Otros -->
+  <div class="row" *ngIf="this.serviciog.tipo === 'oth'">
+    <h3>Otros Archivos</h3>
+  </div>
+</div>
+
+<!-- <registro-multimedia></registro-multimedia> -->
+
+<div id="mod-sho-mult" style="margin-top: 50px" class="modal fade" role="dialog">
+  <div class="modal-dialog" style="vertical-align: middle;">
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-body">
+        <div style="margin-top:10px;margin-right:20px">
+          <button type="button" class="close" data-dismiss="modal">×</button>
+        </div>
+        <div>
+          <iframe [attr.src]="this.urlShow"></iframe>
         </div>
       </div>
     </div>
   </div>
+</div>
 
 </div>
 

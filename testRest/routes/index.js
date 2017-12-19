@@ -25,20 +25,20 @@ var Beneficiaries = require("../model/Beneficiarios");
 router.post("/createUser", function (req, res, next) {
   var usr = User.createUser(JSON.parse(req.body.usuario), req.files);
   usr
-    .then(x => {
-      console.log("CreateUser OK");
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send("Se ha registrado correctamente el usuario.");
-    })
-    .catch(x => {
-      console.log("Error user:  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      if (x === "err-mail")
-        res.send(
-          "El correo electronico ya se encuentra registrado, intentelo con otro."
+  .then(x => {
+    console.log("CreateUser OK");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send("Se ha registrado correctamente el usuario.");
+  })
+  .catch(x => {
+    console.log("Error user:  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    if (x === "err-mail")
+      res.send(
+        "El correo electronico ya se encuentra registrado, intentelo con otro."
         );
-      else res.send("No se podido registrar el usuario.");
-    });
+    else res.send("No se podido registrar el usuario.");
+  });
 });
 
 //Service for create a new Activity
@@ -46,47 +46,47 @@ router.post("/createActivity", function (req, res, next) {
   console.log(JSON.stringify(req.body));
   var act = Activity.createActivity(JSON.parse(req.body.actividad));
   act
-    .then(x => {
-      console.log("CreateActivity OK " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("Error:  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("CreateActivity OK " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("Error:  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Serice for create a new Project
 router.post("/createProject", function (req, res, next) {
   var prj = Project.createProject(JSON.parse(req.body.proyecto), req.files);
   prj
-    .then(x => {
-      console.log("CreateProject OK " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("Error:  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("CreateProject OK " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("Error:  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/createProjectFromActivity", function (req, res, next) {
   var prj = Project.createProjectFromActivity(JSON.parse(req.body.json));
   prj
-    .then(x => {
-      console.log("CreateProjectFromActivity OK " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send("Se ha registrado correctamente el PROYECTO.");
-    })
-    .catch(x => {
-      console.log("Error:  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send("No se podido registrar el proyecto.");
-    });
+  .then(x => {
+    console.log("CreateProjectFromActivity OK " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send("Se ha registrado correctamente el PROYECTO.");
+  })
+  .catch(x => {
+    console.log("Error:  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send("No se podido registrar el proyecto.");
+  });
 });
 
 //service for get information user when login into application
@@ -94,22 +94,22 @@ router.post("/getUser", function (req, res, next) {
   var usr = User.sigIn(JSON.parse(req.body.usuario));
 
   usr
-    .then(x => {
-      if (x === false) {
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      } else {
-        var obj = JSON.stringify(x)
-          .replace(/\[/g, "")
-          .replace(/\]/g, "");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(obj);
-      }
-    })
-    .catch(x => {
+  .then(x => {
+    if (x === false) {
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    } else {
+      var obj = JSON.stringify(x)
+      .replace(/\[/g, "")
+      .replace(/\]/g, "");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(obj);
+    }
+  })
+  .catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //service to get user's project list
@@ -117,15 +117,15 @@ router.post("/getUserProjectList", (req, res, next) => {
   var prj = Project.getListProjects(req.body.id_usuario);
 
   prj
-    .then(x => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(x);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //service to get one project 
@@ -134,15 +134,15 @@ router.post("/getOneProject", (req, res, next) => {
   var prj = Project.getOneProject(JSON.parse(req.body.caracteristica));
 
   prj
-    .then(x => {
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(x);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //service to get user's activity with theirs Characteristics
@@ -150,7 +150,7 @@ router.post("/getActivityList", (req, res, next) => {
   console.log("GET ACTIVITY LIST");
   var act = Activity.getActivityList(req.body);
   act
-    .then(x => {
+  .then(x => {
       //console.log(JSON.stringify(x));
       if (x != false) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -160,18 +160,18 @@ router.post("/getActivityList", (req, res, next) => {
         res.json(false);
       }
     })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 //service to get user's activity with theirs Characteristics
 router.post("/getBackActivityList", (req, res, next) => {
   console.log("GET BACK ACTIVITY LIST");
   var act = Activity.getpar(req.body);
   act
-    .then(x => {
+  .then(x => {
       //console.log(JSON.stringify(x));
       if (x != false) {
         res.header("Access-Control-Allow-Origin", "*");
@@ -181,11 +181,11 @@ router.post("/getBackActivityList", (req, res, next) => {
         res.json(false);
       }
     })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Service to register a new category for work with the map
@@ -193,91 +193,91 @@ router.post("/createCategory", (req, res, next) => {
   console.log("----- Create Category  --------  " + JSON.stringify(req.body));
   var cat = Category.regCategories(JSON.parse(req.body.categoria));
   cat
-    .then(x => {
-      if (x != false) {
-        console.log("Se ha creado correctamente la categoria");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha creado la categoria");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x != false) {
+      console.log("Se ha creado correctamente la categoria");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha creado la categoria");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Service to register a new point in the map
 router.post("/regPointMap", (req, res, next) => {
   var map = Map.regPoint(JSON.parse(req.body.marcador));
   map
-    .then(x => {
-      if (x != false) {
-        console.log("Se ha registrado correctamente el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha registrado el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x != false) {
+      console.log("Se ha registrado correctamente el punto");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha registrado el punto");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Service to register a new point in the map
 router.post("/updatePointMap", (req, res, next) => {
   console.log(
     "=====  UPDATE POINT MARKER ======= \n" + JSON.stringify(req.body)
-  );
+    );
   var map = Map.updatePoint(JSON.parse(req.body.marcador));
   map
-    .then(x => {
-      if (x != false) {
-        console.log("Se ha registrado correctamente el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha registrado el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x != false) {
+      console.log("Se ha registrado correctamente el punto");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha registrado el punto");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Service to get the list users
 router.post("/getUserList", (req, res, next) => {
   var usr = User.getUserList(req.body.user);
   usr
-    .then(x => {
-      if (x != false) {
-        console.log("Se ha registrado correctamente el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha registrado el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x != false) {
+      console.log("Se ha registrado correctamente el punto");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha registrado el punto");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //service to create a new file into th data base
@@ -286,16 +286,16 @@ router.post("/createFile", (req, res, next) => {
   var fls = File.create_file(JSON.parse(req.body.archivo), req.files);
 
   fls
-    .then(x => {
-      console.log("Se ha registrado correctamente el punto");
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("Se ha registrado correctamente el punto");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Service to get list of the files
@@ -312,7 +312,7 @@ router.post("/getFileList", (req, res, next) => {
       res.send(x);
 
     })
-      .catch(x => {
+    .catch(x => {
         //console.log("ERROR =>  " + x);
         res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
@@ -336,7 +336,7 @@ router.post("/getFileListChild", (req, res, next) => {
       res.send(x);
 
     })
-      .catch(x => {
+    .catch(x => {
         //console.log("ERROR =>  " + x);
         //res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
@@ -350,32 +350,32 @@ router.post("/getFileListChild", (req, res, next) => {
 router.post("/updateImageFile", (req, res, next) => {
   var fls = File.getImagesList(req.body.caracteristica);
   fls
-    .then(x => {
-      if (x != false) {
-        console.log("Se ha registrado correctamente el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha registrado el punto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x != false) {
+      console.log("Se ha registrado correctamente el punto");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha registrado el punto");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/getCategoryList", (req, res, next) => {
   console.log(
     "get category list   ==== >   " + JSON.stringify(req.body.caracteristica)
-  );
+    );
   var cat = Category.getCategoriesList(JSON.parse(req.body.caracteristica));
   cat
-    .then(x => {
-      if (x != false) {
+  .then(x => {
+    if (x != false) {
         //console.log('Se ha retornado correctamente las categorias');
         res.header("Access-Control-Allow-Origin", "*");
         res.send(x);
@@ -385,186 +385,186 @@ router.post("/getCategoryList", (req, res, next) => {
         res.json(false);
       }
     })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/editProjectInformation", (req, res, next) => {
   console.log(
     " ------- Edit Project Information    ==== >   " +
     JSON.stringify(req.body.caracteristica)
-  );
+    );
   var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
   prj
-    .then(x => {
-      if (x == true) {
-        console.log("Se ha editado correctamente la informacion");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha editado la informacion del proyecto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x == true) {
+      console.log("Se ha editado correctamente la informacion");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha editado la informacion del proyecto");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/editActivityInformation", (req, res, next) => {
   console.log(
     " ------- Edit Project Information    ==== >   " +
     JSON.stringify(req.body.caracteristica)
-  );
+    );
   var prj = Project.getCategoriesList(JSON.parse(req.body.caracteristica));
   prj
-    .then(x => {
-      if (x == true) {
-        console.log("Se ha editado correctamente la informacion");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha editado la informacion del proyecto");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x == true) {
+      console.log("Se ha editado correctamente la informacion");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha editado la informacion del proyecto");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/getPointList", (req, res, next) => {
   //console.log('GET Points list   ==== >   '+JSON.stringify(req.body.caracteristica));
   var maps = Map.getPointList(JSON.parse(req.body.caracteristica));
   maps
-    .then(x => {
-      if (x != false) {
-        console.log("Se ha retornado correctamente la lista de puntos");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.send(x);
-      } else {
-        console.log("No se ha retornado la lista de puntos");
-        res.header("Access-Control-Allow-Origin", "*");
-        res.json(false);
-      }
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
+  .then(x => {
+    if (x != false) {
+      console.log("Se ha retornado correctamente la lista de puntos");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha retornado la lista de puntos");
       res.header("Access-Control-Allow-Origin", "*");
       res.json(false);
-    });
+    }
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/getVisibleProjects", (req, res, next) => {
   console.log(
     " <=====       Get Visible Projects List      ==== >   " +
     JSON.stringify(req.body.caracteristica)
-  );
+    );
   var prj = Project.getVisibleProjects();
   prj
-    .then(x => {
-      console.log("Se ha retornado correctamente los Proyectos");
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("Se ha retornado correctamente los Proyectos");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(x);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/getMarkersListFromCategory", (req, res, next) => {
   console.log(
     " <=====     Get Markers List From Category      ==== >   " +
     JSON.stringify(req.body)
-  );
+    );
 
   if (req.body.id_categoria != undefined)
     var mar = Marker.getMarkersListFromCategory(req.body.id_categoria, true);
   else var mar = Marker.getMarkersListFromCategory("", false);
   mar
-    .then(x => {
-      console.log(
-        "Se ha retornado correctamente los marcadores de la categoria"
+  .then(x => {
+    console.log(
+      "Se ha retornado correctamente los marcadores de la categoria"
       );
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(x);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/getPercentage", (req, res, next) => {
   console.log(
     " <=====    getPercentage      ==== >   " +
     JSON.stringify(req.body.caracteristica.keym)
-  );
+    );
 
   var mar = Characteristic.getPercentage(JSON.parse(req.body.caracteristica));
   mar
-    .then(x => {
-      console.log(
-        "Se ha retornado correctamente el porcentaje cumplido de la actividad"
+  .then(x => {
+    console.log(
+      "Se ha retornado correctamente el porcentaje cumplido de la actividad"
       );
-      res.header("Access-Control-Allow-Origin", "*");
-      res.send(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+    res.header("Access-Control-Allow-Origin", "*");
+    res.send(x);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/updatePercentage", (req, res, next) => {
   console.log(
     " <=====    Update Percentage      ==== >   " + JSON.stringify(req.body)
-  );
+    );
 
   var per = Characteristic.updatePercentage(JSON.parse(req.body.actividades));
   per
-    .then(x => {
-      console.log("Se ha Acctualizado correctamente el porcentaje");
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("ERROR al actualizar el porcentaje  =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("Se ha Acctualizado correctamente el porcentaje");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("ERROR al actualizar el porcentaje  =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/updateCharacteristic", (req, res, next) => {
   console.log(
     " <=====    Update Characteristic      ==== >   " + JSON.stringify(req.body)
-  );
+    );
 
   var car = Characteristic.updateCharacteristic(JSON.parse(req.body.actividad), req.body.isUpdatePercentage, req.body.porcentaje_cumplido);
   car
-    .then(x => {
-      console.log("Se ha Acctualizado correctamente la caracteristica");
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("ERROR al actualizar la caracteristica  =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("Se ha Acctualizado correctamente la caracteristica");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("ERROR al actualizar la caracteristica  =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Assign an activity to new user
@@ -572,22 +572,22 @@ router.post("/assignActivityToUser", (req, res, next) => {
   console.log(
     " <=====    Assign Activity To User      ==== >   " +
     JSON.stringify(req.body)
-  );
+    );
 
   var prj = Project.assignActivityToUser(JSON.parse(JSON.stringify(req.body)));
   prj
-    .then(x => {
-      console.log(
-        "!!!!!!!!!!!!!Se ha creado exitosamente el proyecto de la asignacion de la actividad al usuario !!!!!!!!!!!"
+  .then(x => {
+    console.log(
+      "!!!!!!!!!!!!!Se ha creado exitosamente el proyecto de la asignacion de la actividad al usuario !!!!!!!!!!!"
       );
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("ERROR al asignar actividad a usuario  =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("ERROR al asignar actividad a usuario  =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Assign an activity to new user
@@ -595,66 +595,66 @@ router.post("/insertData", (req, res, next) => {
   console.log(
     " <=====    Assign Activity To User      ==== >   " +
     JSON.stringify(req.body)
-  );
+    );
 
   var ax = AuxModel.insertData();
   ax
-    .then(x => {
-      console.log(
-        "!!!!!!!!!!!!!Se han creado todos los beneficiarios correctamente  !!!!!!!!!!!"
+  .then(x => {
+    console.log(
+      "!!!!!!!!!!!!!Se han creado todos los beneficiarios correctamente  !!!!!!!!!!!"
       );
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("ERROR al insertar beneficiarioss  =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("ERROR al insertar beneficiarioss  =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/insertCapitulos", (req, res, next) => {
   console.log(
     " <=====    Assign Activity To User      ==== >   " +
     JSON.stringify(req.body)
-  );
+    );
 
   var ax = AuxModel.insertCapitulos();
   ax
-    .then(x => {
-      console.log(
-        "!!!!!!!!!!!!!Se han creado todos los beneficiarios correctamente  !!!!!!!!!!!"
+  .then(x => {
+    console.log(
+      "!!!!!!!!!!!!!Se han creado todos los beneficiarios correctamente  !!!!!!!!!!!"
       );
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("ERROR al insertar beneficiarioss  =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("ERROR al insertar beneficiarioss  =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/insertMarker", (req, res, next) => {
   console.log(
     " <=====    Insertar Marcadores      ==== >   " +
     JSON.stringify(req.body)
-  );
+    );
 
   var ax = AuxModel.insertMarker();
   ax
-    .then(x => {
-      console.log(
-        "!!!!!!!!!!!!!Se han creado todos los beneficiarios correctamente  !!!!!!!!!!!"
+  .then(x => {
+    console.log(
+      "!!!!!!!!!!!!!Se han creado todos los beneficiarios correctamente  !!!!!!!!!!!"
       );
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(true);
-    })
-    .catch(x => {
-      console.log("ERROR al insertar beneficiarioss  =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(true);
+  })
+  .catch(x => {
+    console.log("ERROR al insertar beneficiarioss  =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 //Obtiene las observaciones de una caracteristica
@@ -750,7 +750,7 @@ router.post('/updateCompletePercentage', (req, res, next) => {
     JSON.parse(req.body.actividad), JSON.parse(req.body.porcentaje_cumplido),
     JSON.parse(req.body.usuario_superior),
     JSON.parse(req.body.usuario_own)
-  );
+    );
   car.then(x => {
     console.log('!!!!!!!!!!!!!Se ha creado exitosamente el proyecto!!!!!!!!!!!');
     console.log('\n\n\n Percentage completed \n' + JSON.stringify(x));
@@ -912,7 +912,7 @@ router.post("/getFilesNovedades", (req, res, next) => {
   //console.log("\n\n\n\n\n\n\n\n\n\n\nget file list Novedades   ==== >   " + JSON.stringify(req.body));
   var fls = File.getFilesNovedades(req.body);
   fls
-    .then(x => {
+  .then(x => {
       //console.log(JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
       if (x != false) {
         //console.log("Se ha obtenido la lista de archivos");
@@ -924,43 +924,43 @@ router.post("/getFilesNovedades", (req, res, next) => {
         res.json(false);
       }
     })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/approvalPercentage", (req, res, next) => {
   console.log("\n\n\n\n\n\n\n\n\n\n\n approval Percentage OKOKOK   ==== >   " + req.body.novedad);
   var nov = Novedades.approvalPercentage(JSON.parse(req.body.novedad));
   nov
-    .then(x => {
-      console.log("Se ha obtenido la lista de archivos");
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("Se ha obtenido la lista de archivos");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post("/approvalObservation", (req, res, next) => {
   console.log("\n\n\n\n\n\n\n\n\n\n\n approval Percentage OKOKOK   ==== >   " + req.body.novedad);
   var nov = Novedades.approvalObservation(JSON.parse(req.body.novedad));
   nov
-    .then(x => {
-      console.log("Se ha obtenido la lista de archivos");
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(x);
-    })
-    .catch(x => {
-      console.log("ERROR =>  " + x);
-      res.header("Access-Control-Allow-Origin", "*");
-      res.json(false);
-    });
+  .then(x => {
+    console.log("Se ha obtenido la lista de archivos");
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+  })
+  .catch(x => {
+    console.log("ERROR =>  " + x);
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
 });
 
 router.post('/getTotalMessage', (req, res) => {
@@ -1030,7 +1030,7 @@ router.post("/getMultimediaReport", (req, res, next) => {
       res.send(x);
 
     })
-      .catch(x => {
+    .catch(x => {
         //console.log("ERROR =>  " + x);
         //res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
@@ -1126,7 +1126,7 @@ router.post('/restartPassword',(req, res) => {
     if(x === true){
       console.log('entrar si correo good');
       /* enviarmensaje */
-    let transporter = configmail.configmail();
+      let transporter = configmail.configmail();
     // setup email data with unicode symbols
     let mailOptions = {
         from: '"Juan Bastidas" <juanbasdel@udenar.edu.co>', // sender address
@@ -1134,24 +1134,24 @@ router.post('/restartPassword',(req, res) => {
         subject: 'Recuperar contraseña ✔', // Subject line
         text: 'Contraseña: '+ passTemp,
         html: '<h3>Contraseña: </h3> <p>'+ passTemp + 
-                '</p><hr><p style="color: orange">Recuerde cambiar su contraseña por su seguridad</p>'
-    };
+        '</p><hr><p style="color: orange">Recuerde cambiar su contraseña por su seguridad</p>'
+      };
 
     // send mail with defined transport object
     transporter.sendMail(mailOptions, (error, info) => {
-        if (error) {
-            return console.log(error);
-        }
-        console.log('Message %s sent: %s', info.messageId, info.response);
+      if (error) {
+        return console.log(error);
+      }
+      console.log('Message %s sent: %s', info.messageId, info.response);
     });
     
-    }
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(x);
-  }).catch(x => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(false);
-  })
+  }
+  res.header("Access-Control-Allow-Origin", "*");
+  res.json(x);
+}).catch(x => {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.json(false);
+})
 });
 /*-------------------------------------------------*/
 /*funcion para cambiar la contraseña */
@@ -1203,12 +1203,12 @@ function armJSONReport(data) {
       "nombreApr": "Kelvin Cadena",
       "cargoApr": "Supervisor",
       "porcentajeProgramado": data.porcentajeProgramado,
-			"porcentajeEjecutado": data.porcentajeEjecutado,
+      "porcentajeEjecutado": data.porcentajeEjecutado,
       "DiferenciaPorcentaje": data.DiferenciaPorcentaje,
       "valorAsignado": data.valorAsignado,
       "valorProgramado": data.valorProgramado,
-			"valorEjecutado": data.valorEjecutado,
-			"DiferenciaValor": data.DiferenciaValor
+      "valorEjecutado": data.valorEjecutado,
+      "DiferenciaValor": data.DiferenciaValor
     }
     resolve(dat);
   });
@@ -1220,7 +1220,7 @@ function generar()
   var caracteres = "abcdefghijkmnpqrtuvwxyzABCDEFGHIJKLMNPQRTUVWXYZ2346789";
   var contraseña = "";
   for (i=0; i<8; i++) contraseña += caracteres.charAt(Math.floor(Math.random()*caracteres.length));
-  return contraseña;
+    return contraseña;
 }
 /* ---------------------------------- */
 

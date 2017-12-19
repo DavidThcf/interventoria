@@ -613,7 +613,7 @@
 						<!--  -->
 						<div *ngIf="this.serviciog.actividad.tipo == 'Actividad' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.usuario.tipo_usuario =='sup'"
 						style="position: relative;width: 90%;margin: auto;margin-top: 15px">
-						<div *ngIf="this.state_act == true">
+						<div *ngIf="this.serviciog.state_act == true">
 							<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 							<div style="position: relative;margin: auto">
 								<p style="display: inline-block;">0% </p>
@@ -629,7 +629,7 @@
 								(mouseup)="slideValue(this.serviciog.actividad,slide.value)"> % Ejecutado
 							</div>
 						</div>
-						<div *ngIf="this.state_act == false">
+						<div *ngIf="this.serviciog.state_act == false">
 							<label style="position: relative;text-align: center;font-size: 19px;    color: #ff3f00;">Esta actividad aun no puede ejecutarse porque faltan dias para cumplir con la programacion especificada.</label>
 						</div>
 

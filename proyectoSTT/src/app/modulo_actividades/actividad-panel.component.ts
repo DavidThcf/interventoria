@@ -19,9 +19,6 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 
 export class ActividadPanel implements OnInit {
 
-  //variable para permitir modificar o no las actividades
-  public state_act: boolean = false;
-
   //grafica de barras resumen Avance
   public barChartType: string = 'bar';
 
@@ -1184,9 +1181,9 @@ asignarUsuario(usuario) {
     var dif = fact.getTime() - fini.getTime();
     var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
     if (dias > 0)
-      this.state_act = true;
+      this.serviciog.state_act = true;
     else
-      this.state_act = false;
+      this.serviciog.state_act = false;
   }
 
   //calculo pocentaje real
@@ -1224,17 +1221,17 @@ asignarUsuario(usuario) {
               //alert(dias)
               var por = 100 / 21;
               //alert(por);
-              this.serviciog.porcentaje_real = ((dias - 9) * por).toFixed(2);
+              this.serviciog.porcentaje_real = ((dias - 9) * por);
 
             } else if (dias > 30) {
 
               this.serviciog.porcentaje_real = 100;
             }
           } else if (this.serviciog.actividad.tipo == "Proyecto") {
-            this.serviciog.porcentaje_real = (dias * (100 / 300)).toFixed(2);
+            this.serviciog.porcentaje_real = (dias * (100 / 300));
           } else {
             //  alert(dias)
-            this.serviciog.porcentaje_real = (dias * (100 / (diasAc + 1))).toFixed(2);
+            this.serviciog.porcentaje_real = (dias * (100 / (diasAc)));
             // alert('TOT   '+this.serviciog.porcentaje_real);
           }
           if (this.serviciog.porcentaje_real > 100) {
@@ -1351,17 +1348,17 @@ asignarUsuario(usuario) {
       } else {
 
         if (dias > diasAc) {
-          var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
-          this.serviciog.costo_programado = costo_diario * (diasAc + 1);
+          // var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
+          this.serviciog.costo_programado = this.serviciog.actividad.costo_real;
         }
         else {
           var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
-          this.serviciog.costo_programado = costo_diario * dias;
+          // this.serviciog.costo_programado = costo_diario * dias;
+          this.serviciog.costo_programado = this.serviciog.actividad.costo_real * (this.serviciog.porcentaje_real/100);
         }
 
       }
       this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
-      // alert(this.serviciog.valueDifProgramadoEjecuato);
     }
 
     try {

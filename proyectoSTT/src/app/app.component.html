@@ -2,39 +2,39 @@
   <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false"
-        aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" routerLink="" routerLinkActive="active" style="cursor: pointer;">
-        <div style="display: inline-flex;">
-          <img src="{{this.serviciog.servidor}}udenar 1.png" class="img-responsive" style="margin-top:-10px;width:50px;height:40px">
+      aria-controls="navbar">
+      <span class="sr-only">Toggle navigation</span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </button>
+    <a class="navbar-brand" routerLink="" routerLinkActive="active" style="cursor: pointer;">
+      <div style="display: inline-flex;">
+        <img src="{{this.serviciog.servidor}}udenar 1.png" class="img-responsive" style="margin-top:-10px;width:50px;height:40px">
 
-        </div>
-      </a>
+      </div>
+    </a>
 
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav" style="color:#9d9d9d">
-        <li routerLink="" style="cursor: pointer;">
-          <a>Inicio</a>
-        </li>
-        <li *ngIf="this.serviciog.usuario" routerLink="administrador" style="cursor: pointer;">
-          <a>Administrador</a>
-        </li>
-        <li *ngIf="this.serviciog.usuario" routerLink="novedades" style="cursor: pointer;">
-          <a>Novedades</a>
-        </li>
+  </div>
+  <div id="navbar" class="navbar-collapse collapse">
+    <ul class="nav navbar-nav" style="color:#9d9d9d">
+      <li routerLink="" style="cursor: pointer;">
+        <a>Inicio</a>
+      </li>
+      <li *ngIf="this.serviciog.usuario" routerLink="administrador" style="cursor: pointer;">
+        <a>Administrador</a>
+      </li>
+      <li *ngIf="this.serviciog.usuario" routerLink="novedades" style="cursor: pointer;">
+        <a>Novedades</a>
+      </li>
         <!-- <li routerLink="proyecto" style="cursor: pointer;">
           <a>Proyectos</a>
         </li> -->
         <li routerLink="mapa" style="cursor: pointer;">
           <a>Mapas</a>
         </li>
-        <li routerLink="" style="cursor: pointer;">
-          <a>Ayudas</a>
+        <li routerLink="ayuda" style="cursor: pointer;">
+          <a>Ayuda</a>
         </li>
       </ul>
 
@@ -83,60 +83,60 @@
             <li *ngIf="this.serviciog.usuario.tipo_usuario !='sup'" style="border-top: 1px solid #e5e5e5;
             margin-top: 5px;
             padding-top: 9px;" (click)='gotoNovedades("mul")'>
-              <a class="listNovedades">
-                Multimedia
-                <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
-                  class="badge badge-pill badge-warning alrt">
-                  {{this.serviciog.messageList.files}}
-                </span>
-              </a>
-            </li>
+            <a class="listNovedades">
+              Multimedia
+              <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
+                class="badge badge-pill badge-warning alrt">
+                {{this.serviciog.messageList.files}}
+              </span>
+            </a>
+          </li>
 
-            <!-- Observaciones -->
-            <li *ngIf="this.serviciog.usuario.tipo_usuario !='sup'" style="border-top: 1px solid #e5e5e5;
-            margin-top: 5px;
-            padding-top: 9px;" (click)='gotoNovedades("obs")'>
-              <a class="listNovedades">
-                Observaciones
-                <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
-                  class="badge badge-pill badge-warning alrt">
-                  {{this.serviciog.messageList.observations}}
-                </span>
-              </a>
-            </li>
-            <!-- Recomendaciones -->
-            <li style="border-top: 1px solid #e5e5e5;
-            margin-top: 5px;
-            padding-top: 9px;margin-bottom: 9px" (click)='gotoNovedades("rec")'>
-              <a class="listNovedades">
-                Recomendaciones
-                <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
-                  class="badge badge-pill badge-warning alrt">
-                  {{this.serviciog.messageList.remarks}}
-                </span>
-              </a>
-            </li>
-
-          </ul>
-        </li>
-        <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{this.serviciog.usuario.nombre + " " +this.serviciog.usuario.apellido }}
-            <span class="caret"></span>
+          <!-- Observaciones -->
+          <li *ngIf="this.serviciog.usuario.tipo_usuario !='sup'" style="border-top: 1px solid #e5e5e5;
+          margin-top: 5px;
+          padding-top: 9px;" (click)='gotoNovedades("obs")'>
+          <a class="listNovedades">
+            Observaciones
+            <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
+              class="badge badge-pill badge-warning alrt">
+              {{this.serviciog.messageList.observations}}
+            </span>
           </a>
-          <ul class="dropdown-menu">
-            <li routerLink="recuperacion">
-              <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cambiar Contraseña
-            </li>
-            <li (click)="logout()">
-              <div>
-                <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Salir
-              </div>
-            </li>
-          </ul>
         </li>
-      </ul>
-    </div>
-  </div>
+        <!-- Recomendaciones -->
+        <li style="border-top: 1px solid #e5e5e5;
+        margin-top: 5px;
+        padding-top: 9px;margin-bottom: 9px" (click)='gotoNovedades("rec")'>
+        <a class="listNovedades">
+          Recomendaciones
+          <span *ngIf="this.serviciog.totalMessage > 0" style="    margin-left: 11px;margin-top: 0px;padding-bottom: 5px;font-size: 12px;"
+            class="badge badge-pill badge-warning alrt">
+            {{this.serviciog.messageList.remarks}}
+          </span>
+        </a>
+      </li>
+
+    </ul>
+  </li>
+  <li class="dropdown">
+    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{this.serviciog.usuario.nombre + " " +this.serviciog.usuario.apellido }}
+      <span class="caret"></span>
+    </a>
+    <ul class="dropdown-menu">
+      <li routerLink="recuperacion">
+        <span class="glyphicon glyphicon-lock" aria-hidden="true"></span> Cambiar Contraseña
+      </li>
+      <li (click)="logout()">
+        <div>
+          <span class="glyphicon glyphicon-off" aria-hidden="true"></span> Salir
+        </div>
+      </li>
+    </ul>
+  </li>
+</ul>
+</div>
+</div>
 </nav>
 <div>
   <modal-login></modal-login>
@@ -173,7 +173,7 @@
             </div>
             <label for="email" class="lab">Email</label>
             <input type="email" id="email" class="form-control" name="email" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$" required
-              [(ngModel)]="this.email">
+            [(ngModel)]="this.email">
             <div *ngIf="formErrors.email" class="alert alert-danger">
               {{ formErrors.email }}
             </div>

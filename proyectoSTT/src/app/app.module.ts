@@ -21,6 +21,7 @@ import { ActividadModule } from './modulo_actividades/actividad-panel.module';
 import { ProyectoModule } from './modulo_proyectos/proyecto-panel.module';
 import { NewsComponentComponent } from './news-component/news-component.component';
 import { ModuloRecuperacionComponent } from './modulo-recuperacion/modulo-recuperacion.component';
+import { ModuloHelpComponent } from './modulo-help/modulo-help.component';
 
 /* switch boostrap */
 
@@ -51,7 +52,8 @@ import { ModuloRecuperacionComponent } from './modulo-recuperacion/modulo-recupe
     InicioView,
     Mapa,
     NewsComponentComponent,
-    ModuloRecuperacionComponent
+    ModuloRecuperacionComponent,
+    ModuloHelpComponent
   ],
   providers: [
     Servicios,

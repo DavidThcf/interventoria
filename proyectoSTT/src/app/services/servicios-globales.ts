@@ -75,6 +75,9 @@ export class ServiciosGlobales {
 	socket = io.connect(this.servidor);
 	/* ---------------------------- */
 
+	//variable para permitir modificar o no las actividades
+	public state_act: boolean = false;
+
 	tipos_act = ['Proyecto', 'Proyecto', 'Provincia', 'Municipio', 'Resguardo', 'Beneficiario', 'Capitulo', 'Actividad'];
 
 	constructor(private persistenceService: PersistenceService) { }
