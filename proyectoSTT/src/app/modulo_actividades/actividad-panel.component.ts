@@ -737,24 +737,12 @@ export class ActividadPanel implements OnInit {
       this.serviciog.actividad = this.serviciog.isSubActivity;
     else
       this.serviciog.actividad = this.serviciog.proyecto;
-    // alert(JSON.stringify(this.serviciog.proyecto));
-    //alert('UASIG  '+this.serviciog.actividad.usuario_asignado+'   -    UACT   '+this.serviciog.usuario.id_usuario);
     this.serviciog.tree_name.pop();
     var axAct = this.serviciog.actividad;
 
-    // alert('Proyecto '+JSON.stringify(this.serviciog.proyecto));
-    // alert('Actividad '+JSON.stringify(this.serviciog.actividad));
-    // alert('IsSubActivity '+JSON.stringify(this.isSubActivity));
-
-    if (this.isTitleSelected) {
-      // alert('ok');
-
-    }
-    else {
-      // alert('bad');
-    }
 
     if (this.serviciog.actividad.id_caracteristica_padre != 1 && (this.serviciog.usuario.tipo_usuario != 'sup' || this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)) {
+
       this.servicios.getBackActividad(axAct.keym_padre, axAct.id_caracteristica_padre, axAct.id_usuario_padre).
       then(x => {
           //alert('Back  =>   ' + x + '     -    ' + x.id_caracteristica + '  -   ' + x.id_caracteristica_padre);
@@ -769,14 +757,24 @@ export class ActividadPanel implements OnInit {
             this.subActivity = [];
             this.serviciog.actividades = [];
             this.activityList = [];
-            this.serviciog.actividad = lastActividad;
+            //alert(this.serviciog.proyecto.id_caracteristica+'    '+this.serviciog.actividad.id_caracteristica +'      '+this.serviciog.actividad.id_caracteristica_padre);
+            if (this.serviciog.proyecto != null && this.serviciog.actividad.id_caracteristica_padre == this.serviciog.proyecto.id_caracteristica) {
+              this.serviciog.actividad = this.serviciog.proyecto;
+              this.serviGloAct.actOpt = 0;
+            }
+            else {
+              this.serviGloAct.actOpt = 1;
+              this.serviciog.actividad = lastActividad;
+            }
+
+            //this.serviciog.actividad = lastActividad;
             this.serviciog.isSubActivity = lastActividad;
             var keym = lastActividad.keym;
             var id_usuario = lastActividad.id_usuario;
             var id_caracteristica = lastActividad.id_caracteristica;
 
             this.serviciog.titulo = lastActividad.nom_act;
-            this.serviGloAct.actOpt = 1;
+
 
             this.servicios
             .getActividad(keym, id_usuario, id_caracteristica)
@@ -1023,6 +1021,8 @@ else if (this.serviciog.actividad.id_caracteristica_padre == 1 && (this.servicio
       }).catch(x => { });
 }
 
+
+
 }
 
 getUsers() {
@@ -1189,6 +1189,8 @@ asignarUsuario(usuario) {
   //calculo pocentaje real
   public calcPercentReal() {
 
+    if (this.serviciog.actividad.porcentaje == 0)
+      this.serviciog.actividad.porcentaje = 0.00;
     this.serviciog.porcentaje_real = 0;
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
     var fecha_actual = new Date();
@@ -1296,58 +1298,60 @@ asignarUsuario(usuario) {
     this.serviciog.costo_programado = 0;
     this.serviciog.valueDifProgramadoEjecuato = 0;
     var fecha_actual = new Date();
-    // alert(this.serviciog.actividad.fecha_fin)
-    var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
-    var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
-    var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
-    var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
-    var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
-    var dif = fFecha1.getTime() - fFecha2.getTime();
-    var difAc = fFecha3.getTime() - fFecha2.getTime();
-    var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
-    //alert(diasAc);
-    var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 
-    if (dias >= 0 && dias) {
+    if (this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio') {
+      // alert(this.serviciog.actividad.fecha_fin)
+      var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
+      var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
+      var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
+      var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
+      var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
+      var dif = fFecha1.getTime() - fFecha2.getTime();
+      var difAc = fFecha3.getTime() - fFecha2.getTime();
+      var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
+      //alert(diasAc);
+      var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 
-      if (this.serviciog.actividad.tipo == 'Beneficiario') {
-        if (dias > 9) {
-          // alert('DIAS ' + dias);
-          var dinero = {
-            '10': 97304,
-            '11': 471609.333333333,
-            '12': 374305.333333333,
-            '13': 699772.958333333,
-            '14': 325467.625,
-            '15': 325467.625,
-            '16': 325467.625,
-            '17': 325467.625,
-            '18': 325467.625,
-            '19': 1516692.625,
-            '20': 2145737.625,
-            '21': 2107201.44444444,
-            '22': 1478156.44444444,
-            '23': 1790141.44444444,
-            '24': 2003908.84444444,
-            '25': 1141481.67777778,
-            '26': 2384793.87777778,
-            '27': 2384793.87777778,
-            '28': 2384793.87777778,
-            '29': 1859041.47777778,
-            '30': 1572110.03333333
-          };
-          if (dias > 30)
-            dias = 30;
-          this.serviciog.costo_programado = dinero[dias];
-          //alert(this.serviciog.costo_programado);
+      if (dias >= 0 && dias) {
 
-        }
-        else
-          this.serviciog.costo_programado = 0;
+        if (this.serviciog.actividad.tipo == 'Beneficiario') {
+          if (dias > 9) {
+            // alert('DIAS ' + dias);
+            var dinero = {
+              '10': 97304,
+              '11': 471609.333333333,
+              '12': 374305.333333333,
+              '13': 699772.958333333,
+              '14': 325467.625,
+              '15': 325467.625,
+              '16': 325467.625,
+              '17': 325467.625,
+              '18': 325467.625,
+              '19': 1516692.625,
+              '20': 2145737.625,
+              '21': 2107201.44444444,
+              '22': 1478156.44444444,
+              '23': 1790141.44444444,
+              '24': 2003908.84444444,
+              '25': 1141481.67777778,
+              '26': 2384793.87777778,
+              '27': 2384793.87777778,
+              '28': 2384793.87777778,
+              '29': 1859041.47777778,
+              '30': 1572110.03333333
+            };
+            if (dias > 30)
+              dias = 30;
+            this.serviciog.costo_programado = dinero[dias];
+            //alert(this.serviciog.costo_programado);
 
-      } else {
+          }
+          else
+            this.serviciog.costo_programado = 0;
 
-        if (dias > diasAc) {
+        } else {
+
+          if (dias > diasAc) {
           // var costo_diario = this.serviciog.actividad.costo_real / (diasAc + 1);
           this.serviciog.costo_programado = this.serviciog.actividad.costo_real;
         }
@@ -1359,21 +1363,25 @@ asignarUsuario(usuario) {
 
       }
       this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
+        // alert(this.serviciog.valueDifProgramadoEjecuato);
+      }
+      this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado).toFixed(2);
     }
 
-    try {
+  }
+  try {
 
-      this.barChartData = [
-      { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
-      { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
-      { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
-      ];
-      this.barChartLabels = [
-      '% de obra Programado ',
-      '% Real Ejecutado ',
-      '% Programado VS Ejecutado'
-      ];
-    } catch (e) {
+    this.barChartData = [
+    { data: [this.serviciog.porcentaje_real], label: parseFloat(this.serviciog.porcentaje_real).toFixed(2) + '  %' },
+    { data: [this.serviciog.actividad.porcentaje_cumplido], label: parseFloat(this.serviciog.actividad.porcentaje_cumplido).toFixed(2) + '  %' },
+    { data: [Math.abs(this.serviciog.porcentajeDifProgramadoEjecutado)], label: Math.abs(parseFloat((this.serviciog.porcentajeDifProgramadoEjecutado) + '')).toFixed(2) + '  %' }
+    ];
+    this.barChartLabels = [
+    '% de obra Programado ',
+    '% Real Ejecutado ',
+    '% Programado VS Ejecutado'
+    ];
+  } catch (e) {
       // alert(e);
     }
   }
@@ -1691,7 +1699,7 @@ asignarUsuario(usuario) {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
-      
+
       else if (this.serviciog.actividad)
         var dat = {
           keym: this.serviciog.actividad.keym,
