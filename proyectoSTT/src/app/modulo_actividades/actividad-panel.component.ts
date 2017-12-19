@@ -68,8 +68,6 @@ export class ActividadPanel implements OnInit {
   toggleProyect: boolean = false;
   datePause: any;
   /* ----------------------- */
-
-
   /* porcentaje real */
   // porcentaje_real: any;
   /* --------------------- */
@@ -132,8 +130,6 @@ export class ActividadPanel implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    //this.serviciog.ax_actividad = {};
-    //this.serviciog.actividad = null;
     this.serviciog.isSelAct = false;
     this.serviciog.isSubActivity = null;
     this.serviciog.isSelAct = false;
@@ -145,17 +141,12 @@ export class ActividadPanel implements OnInit {
 
     if (this.serviciog.usuario.tipo_usuario === "sup") this.flg = false;
 
-
-    //alert(JSON.stringify(this.serviciog.tree_name));
-    //this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
-
     this.serviciog.actividades = [];
     this.activityList = [];
     if (this.serviciog.ax_actividad) {
 
       this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
       this.serviciog.tree_name.push(this.serviciog.proyecto.nom_pro);
-      //alert(JSON.stringify(this.serviciog.tree_name));
       this.serviciog.titulo = this.serviciog.proyecto.nom_pro;
       var keym = this.serviciog.proyecto.keym;
       var id_usuario = this.serviciog.proyecto.id_usuario;
@@ -173,8 +164,6 @@ export class ActividadPanel implements OnInit {
             var num = this.serviciog.tipos_act.indexOf(actividades[0].tipo);
             this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
             this.serviGloAct.tipo2 = this.serviciog.tipos_act[num];
-            //alert(JSON.stringify(this.serviciog.actividades));
-            //alert('2 '+this.serviGloAct.tipo);
           }
         });
     }
@@ -182,11 +171,8 @@ export class ActividadPanel implements OnInit {
       let link = ["administrador"];
       this.router.navigate(link);
       this.serviciog.tree_name.pop();
-      //alert(JSON.stringify(this.serviciog.tree_name));
     }
 
-
-    //alert(JSON.stringify(this.serviciog.proyecto));
     this.serviciog.actividad = this.serviciog.proyecto;
     this.serviciog.porcentaje_real = 0;
     this.serviciog.porcentajeDifProgramadoEjecutado = 0;
@@ -203,7 +189,6 @@ export class ActividadPanel implements OnInit {
         '% Programado VS Ejecutado'
       ];
     } catch (e) {
-      //alert(e);
     }
 
     if (this.isTitleSelected && this.serviciog.actividad == null)
@@ -228,11 +213,7 @@ export class ActividadPanel implements OnInit {
         tipo: this.serviciog.proyecto.tipo
       };
 
-
-
-
     if (JSON.stringify(this.dat) != JSON.stringify(this.serviciog.dat)) {
-      //alert(JSON.stringify(this.dat)+'        '+JSON.stringify(this.serviciog.dat));
       this.serviciog.labels = [];
       this.serviciog.data = [];
       this.serviciog.colors = [];
@@ -243,7 +224,6 @@ export class ActividadPanel implements OnInit {
 
         //calculo grafica resumen avance
 
-        //alert(JSON.stringify(message));
         this.serviciog.listDatChart = [];
         this.serviciog.listDatChart = message;
         var ax: any[] = [];
@@ -763,9 +743,9 @@ export class ActividadPanel implements OnInit {
     this.serviciog.tree_name.pop();
     var axAct = this.serviciog.actividad;
 
-    
+
     if (this.serviciog.actividad.id_caracteristica_padre != 1 && (this.serviciog.usuario.tipo_usuario != 'sup' || this.serviciog.actividad.usuario_asignado != this.serviciog.usuario.id_usuario)) {
-       
+
       this.servicios.getBackActividad(axAct.keym_padre, axAct.id_caracteristica_padre, axAct.id_usuario_padre).
         then(x => {
           //alert('Back  =>   ' + x + '     -    ' + x.id_caracteristica + '  -   ' + x.id_caracteristica_padre);
@@ -781,17 +761,15 @@ export class ActividadPanel implements OnInit {
             this.serviciog.actividades = [];
             this.activityList = [];
             //alert(this.serviciog.proyecto.id_caracteristica+'    '+this.serviciog.actividad.id_caracteristica +'      '+this.serviciog.actividad.id_caracteristica_padre);
-            if (this.serviciog.proyecto != null && this.serviciog.actividad.id_caracteristica_padre == this.serviciog.proyecto.id_caracteristica)
-            {
+            if (this.serviciog.proyecto != null && this.serviciog.actividad.id_caracteristica_padre == this.serviciog.proyecto.id_caracteristica) {
               this.serviciog.actividad = this.serviciog.proyecto;
               this.serviGloAct.actOpt = 0;
             }
-            else
-            {
+            else {
               this.serviGloAct.actOpt = 1;
               this.serviciog.actividad = lastActividad;
             }
-              
+
             //this.serviciog.actividad = lastActividad;
             this.serviciog.isSubActivity = lastActividad;
             var keym = lastActividad.keym;
@@ -799,7 +777,7 @@ export class ActividadPanel implements OnInit {
             var id_caracteristica = lastActividad.id_caracteristica;
 
             this.serviciog.titulo = lastActividad.nom_act;
-            
+
 
             this.servicios
               .getActividad(keym, id_usuario, id_caracteristica)
@@ -1046,7 +1024,7 @@ export class ActividadPanel implements OnInit {
       }).catch(x => { });
     }
 
-    
+
 
   }
 
@@ -1722,6 +1700,7 @@ export class ActividadPanel implements OnInit {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
+
     else if (this.serviciog.actividad)
       var dat = {
         keym: this.serviciog.actividad.keym,
@@ -1921,8 +1900,6 @@ export class ActividadPanel implements OnInit {
 
   }
 
-
-
   /* stop obra */
   toggleStop() {
     this.toggleProyect = !this.toggleProyect;
@@ -1943,6 +1920,4 @@ export class ActividadPanel implements OnInit {
         alert("Actualizado");
     });
   }
-  /* ----------- */
-
 }

@@ -106,6 +106,6 @@ export class ModuloRecuperacionComponent implements OnInit {
 						this.serviciog.hidden = false;
 					},5000);
 				}
-			}) ;
+			});
 		}
 	}
