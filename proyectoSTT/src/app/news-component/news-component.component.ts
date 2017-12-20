@@ -32,60 +32,60 @@ export class NewsComponentComponent implements OnInit {
 		
 		switch (this.serviciog.opcion) {
 			case 'por':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewChangePercent(formData)
-					.then(novedades => {
-						if (novedades) {
-							console.log(novedades);
-							this.serviciog.novedades = novedades;
-						}
-					});
-				break;
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewChangePercent(formData)
+			.then(novedades => {
+				if (novedades) {
+					console.log(novedades);
+					this.serviciog.novedades = novedades;
+				}
+			});
+			break;
 			/* se realiza en caso de que la opcion sea multimedia */
 			case 'mul':
-				this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
-				var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
-				this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
-					.then(files => {
-						if (files) {
+			this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
+			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
+			this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
+			.then(files => {
+				if (files) {
 							//alert(JSON.stringify(files));
 							//alert(JSON.stringify(files));
-							 console.log(files);
+							console.log(files);
 							this.imagenView = []; //arreglo para imagenes vistas
 							this.serviciog.novedades = files;
 						}
 					});
-				break;
+			break;
 			/* end multimedia */
 			case 'rec':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewRemarks(formData)
-					.then(novedades => {
-						if (novedades) {
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewRemarks(formData)
+			.then(novedades => {
+				if (novedades) {
 							//alert(JSON.stringify(novedades));
 							console.log(novedades);
 							this.serviciog.novedades = novedades;
 						}
 					});
 
-				break;
+			break;
 			case 'obs':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewObservations(formData)
-					.then(novedades => {
-						if (novedades) {
-							console.log(novedades);
-							this.serviciog.novedades = novedades;
-						}
-					});
-				break;
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewObservations(formData)
+			.then(novedades => {
+				if (novedades) {
+					console.log(novedades);
+					this.serviciog.novedades = novedades;
+				}
+			});
+			break;
 		}
 
 	}
@@ -94,60 +94,60 @@ export class NewsComponentComponent implements OnInit {
 		//alert(option);
 		switch (option) {
 			case 'por':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewChangePercent(formData)
-					.then(novedades => {
-						if (novedades) {
-							console.log(novedades);
-							this.serviciog.novedades = novedades;
-						}
-					});
-				break;
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewChangePercent(formData)
+			.then(novedades => {
+				if (novedades) {
+					console.log(novedades);
+					this.serviciog.novedades = novedades;
+				}
+			});
+			break;
 			/* se realiza en caso de que la opcion sea multimedia */
 			case 'mul':
-				this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
-				var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
-				this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
-					.then(files => {
-						if (files) {
+			this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
+			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
+			this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
+			.then(files => {
+				if (files) {
 							//alert(JSON.stringify(files));
 							//alert(JSON.stringify(files));
 							 //console.log(files);
 							 this.imagenView = [];
-							this.serviciog.novedades = files;
-						}
-					});
-				break;
+							 this.serviciog.novedades = files;
+							}
+						});
+			break;
 			/* end multimedia */
 			case 'rec':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewRemarks(formData)
-					.then(novedades => {
-						if (novedades) {
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewRemarks(formData)
+			.then(novedades => {
+				if (novedades) {
 							//alert(JSON.stringify(novedades));
 							console.log(novedades);
 							this.serviciog.novedades = novedades;
 						}
 					});
 
-				break;
+			break;
 			case 'obs':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewObservations(formData)
-					.then(novedades => {
-						if (novedades) {
-							console.log(novedades);
-							this.serviciog.novedades = novedades;
-						}
-					});
-				break;
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewObservations(formData)
+			.then(novedades => {
+				if (novedades) {
+					console.log(novedades);
+					this.serviciog.novedades = novedades;
+				}
+			});
+			break;
 		}
 	}
 
@@ -170,11 +170,11 @@ export class NewsComponentComponent implements OnInit {
 		formData.append('tipo', this.tipo);
 
 		this.servicios.getFilesNovedades(formData)
-			.then(archivos => {
-				if (archivos) {
-					this.archivos = archivos
-				}
-			})
+		.then(archivos => {
+			if (archivos) {
+				this.archivos = archivos
+			}
+		})
 
 	}
 
@@ -189,18 +189,18 @@ export class NewsComponentComponent implements OnInit {
 		formData.append('novedad', JSON.stringify(dat));
 		// alert(JSON.stringify(dat));
 		this.servicios.approvalObservation(formData)
-			.then(message => {
-				if(this.serviciog.messageList['observations'] > 0){
-					this.serviciog.totalMessage --;
-					this.serviciog.messageList['observations']--;
+		.then(message => {
+			if(this.serviciog.messageList['observations'] > 0){
+				this.serviciog.totalMessage --;
+				this.serviciog.messageList['observations']--;
+			}
+
+			for (var i = 0; i < this.serviciog.novedades.length; i++) {
+				if (this.serviciog.novedades[i].id_observacion == this.novedad.id_observacion) {
+					this.serviciog.novedades.splice(i, 1);
+					return this.serviciog.novedades;
 				}
-				
-				for (var i = 0; i < this.serviciog.novedades.length; i++) {
-					if (this.serviciog.novedades[i].id_observacion == this.novedad.id_observacion) {
-						this.serviciog.novedades.splice(i, 1);
-						return this.serviciog.novedades;
-					}
-				}
+			}
 				//this.serviciog.messageList['observations']--;
 			})
 	}
@@ -213,20 +213,20 @@ export class NewsComponentComponent implements OnInit {
 		novedad.stateApproval = state;
 		formData.append('novedad', JSON.stringify(novedad));
 		this.servicios.approvalPercentage(formData)
-			.then(message => {
-				if(this.serviciog.messageList['percentage']){
-					this.serviciog.totalMessage --;
-					this.serviciog.messageList['percentage'] --;
-				}
-				
-				for (var i = 0; i < this.serviciog.novedades.length; i++) {
-					if (this.serviciog.novedades[i].keym == this.novedad.keym &&
-						this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
-						this.serviciog.novedades[i].id_usuario == this.novedad.id_usuario) {
-						this.serviciog.novedades.splice(i, 1);
-						return this.serviciog.novedades;
-					}
-				}
+		.then(message => {
+			if(this.serviciog.messageList['percentage']){
+				this.serviciog.totalMessage --;
+				this.serviciog.messageList['percentage'] --;
+			}
+
+			for (var i = 0; i < this.serviciog.novedades.length; i++) {
+				if (this.serviciog.novedades[i].keym == this.novedad.keym &&
+					this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
+					this.serviciog.novedades[i].id_usuario == this.novedad.id_usuario) {
+					this.serviciog.novedades.splice(i, 1);
+				return this.serviciog.novedades;
+			}
+		}
 				//this.serviciog.messageList['percentage']--;
 			})
 	}
@@ -246,7 +246,7 @@ export class NewsComponentComponent implements OnInit {
 		formData.append("remark", JSON.stringify(dat));
 
 		this.servicios.regRemarks(formData)
-			.then(message => {
+		.then(message => {
 				//alert(JSON.stringify(message));
 				/*for (var i = 0; i < this.serviciog.novedades.length; i++) {
 					if (this.serviciog.novedades[i].keym == this.novedad.keym &&
@@ -262,7 +262,7 @@ export class NewsComponentComponent implements OnInit {
 				this.serviciog.socket.emit('sendSocketNovedad',{
 					'userSend':message,
 					'tipo':'rec'
-				  })
+				})
 				
 				//this.serviGloAct.remarks = message;
 			})
@@ -299,13 +299,12 @@ export class NewsComponentComponent implements OnInit {
 		this.serviGloAct.actOpt = 1;
 
 		this.servicios.getActividad(keym, id_usuario, id_caracteristica)
-			.then(actividad => {
-				if (actividad) {
-					this.serviciog.actividades = actividad;
-					this.serviciog.axActividades = actividad;
-
-				}
-			});
+		.then(actividad => {
+			if (actividad) {
+				this.serviciog.actividades = actividad;
+				this.serviciog.axActividades = actividad;
+			}
+		});
 	}
 
 	/* checke view */
@@ -335,10 +334,14 @@ export class NewsComponentComponent implements OnInit {
 			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
 			formData.append("img_edit", JSON.stringify(this.imagenView));/* se carga formData  */
 			this.servicios.updateImageView(formData) /* llamdo al metodo que se conectara con el server */
-				.then(x => {
-					if (x) {
-						this.serviciog.alert_message = 'Cambios Actualizados';
-						this.serviciog.hidden = true;
+			.then(x => {
+				if (x) {
+					if(this.serviciog.messageList['files'] > 0){
+						this.serviciog.totalMessage = this.serviciog.totalMessage - this.imagenView.length;
+						this.serviciog.messageList['files'] = this.serviciog.messageList['files'] - this.imagenView.length;
+					}
+					this.serviciog.alert_message = 'Cambios Actualizados';
+					this.serviciog.hidden = true;
 						// for (var i = 0; i < this.serviciog.novedades.length; i++) {
 						// 	if (this.serviciog.novedades[i].keym == this.novedad.keym &&
 						// 		this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
@@ -352,15 +355,15 @@ export class NewsComponentComponent implements OnInit {
 						var formData1 = new FormData(); /* variable que contendra todos los datos a enviarse al server */
 						formData1.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
 						this.servicios.getDataNewChangeFile(formData1) /* llamdo al metodo que se conectara con el server */
-							.then(files => {
-								if (files) {
-									this.imagenView = [];
-									this.serviciog.novedades = files;
-								}
-							});
+						.then(files => {
+							if (files) {
+								this.imagenView = [];
+								this.serviciog.novedades = files;
+							}
+						});
 					}
 				});
-			} else {
+		} else {
 			this.serviciog.alert_message = 'No se puede actualizar';
 			this.serviciog.hidden = true;
 		}

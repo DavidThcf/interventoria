@@ -47,10 +47,26 @@ export class Modallogin {
 					this.serviciog.getUserSession(usuario);
 					let link = [''];
 					this.router.navigate(link);
-				}else{
-					this.mAlert = true;
-				}		
-			});
+
+					/*para traer mensajes*/
+					var formData = new FormData();
+					formData.append('id_usuario', this.serviciog.usuario.id_usuario + '');
+			// alert(this.serviciog.usuario.id_usuario);
+					this.servicios.getTotalMessage(formData)
+					.then(messages => {
+						this.serviciog.messageList = messages;
+
+						for (var prop in messages) {
+								// alert(parseInt(messages[prop]));
+								this.serviciog.totalMessage = this.serviciog.totalMessage + parseInt(messages[prop]);
+							}
+						})
+					/*------------*/
+
+		}else{
+			this.mAlert = true;
+		}		
+	});
 	}
 	
 	
