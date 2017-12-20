@@ -19,6 +19,10 @@ import { ServiciosGlobalesActividades } from "./servicios-globales-actividades";
 
 export class ActividadPanel implements OnInit {
 
+
+  //variableque almacena texto para realizar busqueda de actividades
+  txt_search :string ="";
+
   //grafica de barras resumen Avance
   public barChartType: string = 'bar';
 
@@ -663,6 +667,7 @@ export class ActividadPanel implements OnInit {
   }
 
   entrarACtividad(actividad) {
+    this.txt_search = "";
     this.serviGloAct.actOpt = 1;
     this.serviciog.ax_actividad = actividad;
     actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
@@ -727,6 +732,7 @@ export class ActividadPanel implements OnInit {
   }
 
   regresar() {
+    this.txt_search = "";
     if (this.serviciog.isSubActivity)
       this.serviciog.actividad = this.serviciog.isSubActivity;
     else
@@ -1903,5 +1909,10 @@ export class ActividadPanel implements OnInit {
       if (message)
         alert("Actualizado");
     });
+  }
+
+  salir() {
+    let link = ["administrador"];
+    this.router.navigate(link);
   }
 }
