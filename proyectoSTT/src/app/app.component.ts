@@ -65,6 +65,7 @@ export class AppComponent implements OnInit {
 					break;
 				case 'mul':
 					this.serviciog.messageList['files']++;
+					// alert(this.serviciog.messageList['files'])
 					this.serviciog.alert_message = "Nuevo Archivo Cargado";
 					break;
 				case 'obs':

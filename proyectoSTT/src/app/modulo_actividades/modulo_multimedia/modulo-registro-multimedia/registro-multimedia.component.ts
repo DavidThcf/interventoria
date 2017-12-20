@@ -25,7 +25,7 @@ export class RegistroMultimedia{
 		private servicios: Servicios	  
 		){ };
 	
-	
+	ngOnInit(){}
 	onSubmitPro(multimediaForm:NgForm) {	
 		if (this.serviciog.actividad == null) {
 			var keym = this.serviciog.proyecto.keym;
@@ -79,11 +79,11 @@ export class RegistroMultimedia{
 				formData.append('id_usuario', id_usuario);
 				formData.append('tipo', tipo);
 				formData.append('tipoAct', this.serviciog.actividad.tipo);
-		   
-		
+
+
 				this.servicios.getMultimedia(formData)
-					.then(imagenes => {
-						if (imagenes) {
+				.then(imagenes => {
+					if (imagenes) {
 							//alert(JSON.stringify(imagenes))
 							// var cad = JSON.stringify(imagenes);
 							this.serviciog.imagenes = imagenes[0].getarchivos;
@@ -93,6 +93,9 @@ export class RegistroMultimedia{
 						}
 					});
 			}
+			this.imagenName = "Cargar Archivo";
+			this.imagenNameValid = '';	
+			this.archivo.titulo = ''
 			this.serviciog.isModalImg = false;
 		} );
 	}
@@ -179,6 +182,9 @@ export class RegistroMultimedia{
 	};	
 
 	closeModal(){
+		this.imagenName = "Cargar Archivo";
+		this.imagenNameValid = '';	
+		this.archivo.titulo = ''
 		this.serviciog.isModalImg = false;
 	}
 }

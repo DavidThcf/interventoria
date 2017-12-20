@@ -17,8 +17,20 @@
 </button> -->
 
 <button *ngIf="!isMapSelected && !isRepSelected && 
-this.serviciog.actividad.tipo === 'Actividad' && this.serviciog.actividad.estado !== 'null' 
-&& this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.usuario.tipo_usuario === 'sup' && this.serviciog.state_act === true" 
+this.serviciog.actividad.tipo === 'Actividad' 
+&& this.serviciog.actividad.estado !== 'null' 
+&& this.serviciog.actividad.estado !== 'Inicio' 
+&& this.serviciog.usuario.tipo_usuario === 'sup' 
+&& this.serviciog.state_act === true" 
+class="btn-add-img btn-primary" 
+(click)="mostrarModal()">
++
+</button>
+
+<button *ngIf="!isMapSelected && !isRepSelected && 
+this.serviciog.actividad.tipo === 'Beneficiario' 
+&& this.serviciog.actividad.estado === 'Entrega de materiales' 
+&& this.serviciog.usuario.tipo_usuario === 'sup' "
 class="btn-add-img btn-primary" 
 (click)="mostrarModal()">
 +

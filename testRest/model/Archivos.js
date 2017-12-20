@@ -4,7 +4,7 @@ var Sequelize = require('sequelize');
 var sqlCon = require('../config/connectionDb');
 var router = express.Router();
 var fs = require('fs');
-var repository = '../files/';
+var repository = 'files/';
 
 //Service to create files
 module.exports.create_file = function (data, files) {
@@ -269,12 +269,13 @@ module.exports.imageProfileUpload = function (files, path) {
 
 //Service to upload files
 module.exports.fileUpload = function (files, path, nom) {
-
+    // console.log(path)
     var file;
     var name = nom;
     console.log('\n\n\n\n Name    ' + name);
     /* comprueba si path exite y lo crea   */
     if(!fs.existsSync(path)){
+        console.log('entrar falso ')
         fs.mkdirSync(path, 0777, function(err){
             if(err){
                 console.log(err);
@@ -282,6 +283,7 @@ module.exports.fileUpload = function (files, path, nom) {
             }else
              console.log('creado')
         });
+
     }
     /* ----------------------------------------- */
     if (name.length == 0)
