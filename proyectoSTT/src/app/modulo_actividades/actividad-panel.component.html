@@ -84,10 +84,10 @@
 					<li (click)="c1()" *ngIf="this.serviciog.isSelAct" [class.itemSelected]="this.serviGloAct.actOpt===1">
 						<a>Detalles {{this.serviciog.actividad.tipo}}</a>
 					</li>
-					<li *ngIf="this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.usuario.tipo_usuario != 'sup'" (click)="c2()" 
+					<!-- <li *ngIf="this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.usuario.tipo_usuario != 'sup'" (click)="c2()" 
 					 [class.itemSelected]="this.serviGloAct.actOpt===2">
 						<a>Lista {{this.serviGloAct.tipo}}</a>
-					</li>
+					</li> -->
 					<li *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' || this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.tipo !== 'Actividad' && this.serviciog.actividad.tipo !== 'Capitulo'"
 					 (click)="c3()" [class.itemSelected]="this.serviGloAct.actOpt===3">
 						<a>Reporte</a>
