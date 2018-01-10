@@ -429,5 +429,14 @@ export class Servicios {
 			.catch(err => false)
 	}
 	/* ------------------------------------ */
+	/* servicio recuperacion contraseña  */
+	getAllBeneficiaries() {
+		
+		return this.http.post(this.url + "getAllBeneficiaries","")
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	/* ------------------------------------ */
 
 } 

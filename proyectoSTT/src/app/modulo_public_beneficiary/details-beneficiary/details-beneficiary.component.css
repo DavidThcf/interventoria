@@ -1,0 +1,133 @@
+.tg, .tg1, .tg2 {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+.tg td, .tg1 td, .tg2 td {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    padding: 6px 20px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden
+}
+
+.tg th, .tg1 th, .tg2 th {
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    font-weight: normal;
+    padding: 6px 20px;
+    border-style: solid;
+    border-width: 1px;
+    overflow: hidden;
+}
+
+.tg .tg-baqh, .tg1 .tg-baqh, .tg2 .tg-baqh {
+    text-align: center;
+    vertical-align: top
+}
+
+.tg .tg-2nhx, .tg2 .tg-2nhx {
+    background-color: #9b9b9b;
+    text-align: center;
+    vertical-align: top;
+    width:10px;
+}
+
+.tg .tg-yw4l {
+    vertical-align: top
+}
+
+.tg1 .tg-6qw1 {
+    background-color: #c0c0c0;
+    text-align: center;
+    vertical-align: top;
+    width:100%;
+}
+
+.divfot{
+    border:solid 1px ;
+    text-align: center;
+}
+
+#img{
+   text-align: center;
+}
+
+
+
+
+
+
+
+/*SLIDER STYLE*/
+
+
+.tg,
+.tg1,
+.tg2 {
+border-collapse: collapse;
+border-spacing: 0;
+}
+
+.tg td,
+.tg1 td,
+.tg2 td {
+font-family: Arial, sans-serif;
+font-size: 14px;
+padding: 6px 20px;
+border-style: solid;
+border-width: 1px;
+overflow: hidden
+}
+
+.tg th,
+.tg1 th,
+.tg2 th {
+font-family: Arial, sans-serif;
+font-size: 14px;
+font-weight: normal;
+padding: 6px 20px;
+border-style: solid;
+border-width: 1px;
+overflow: hidden;
+}
+
+.tg .tg-baqh,
+.tg1 .tg-baqh,
+.tg2 .tg-baqh {
+text-align: center;
+vertical-align: top
+}
+
+.tg .tg-2nhx,
+.tg2 .tg-2nhx {
+background-color: #9b9b9b;
+text-align: center;
+vertical-align: top;
+width: 10px;
+}
+
+.tg .tg-yw4l {
+vertical-align: top
+}
+
+.tg1 .tg-6qw1 {
+background-color: #c0c0c0;
+text-align: center;
+vertical-align: top;
+width: 100%;
+}
+
+.divfot {
+border: solid 1px;
+text-align: center;
+}
+
+#img {
+text-align: center;
+}
+
+.hidd {
+display: none;
+}
