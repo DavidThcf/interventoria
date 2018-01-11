@@ -6,6 +6,13 @@ import * as io from 'socket.io-client';
 
 @Injectable()
 export class ServiciosGlobales {
+	//variable de la informacion de todos los beneficiarios	
+	ben_arr : any[] = null;
+	//variable de la informacion de un beneficiario
+	ben :any = null;
+
+	//JOSON de las actividades
+	json_act : string[] = ["0108 - LOCALIZACION Y REPLANTEO","0201 - EXCAVACIÓN A MANO","0209 - VIGA DE CIMENTACION EN CONCRETO. Dim 25cm x 25cm","0211 - VIGA DE CIMENTACION EN CONCRETO Dim 12cm x 25cm","0301 - VIGA AEREA EN CONCRETO. Dim 12cm x 17 cm","0303 - DINTELES TENSORES, CINTAS DE AMARRE Y ELEMENTOS DE BORDE(12cm X 12cm)","0305 - COLUMNAS DE CONCRETO (12cm x 17cm)","0311 - HIERRO A - 37","0312 - HIERRO N° A - 60","0315 - MALLA ELECTROSOLDADA 4mm.","0317 - ESTRUCTURA METALICA","0402 - MAMPOSTERÍA BLOQUE ARCILLA E= 12 cm","0412 - MESON PARA COCINA","0501 - PLACA DE CONCRETO (e= 8 cm)","0604 - CANALES Y BAJANTES (material, calibres y longitud)","0605 - OTROS ELEMENTOS DE CUBIERTA","0609 - TEJA FIBROCEMENTO N° 5","0611 - TEJA FIBROCEMENTO N° 8","0702 - RED HIDRAULICA (indicar material y diam)","0705 - LAVADERO EN MAMPOSTERÍA","0708 - DUCHA (Accesorios)","0803 - RED ELÉCTRICA INTERNA y accesorios","0905 - RED SANITARIA DE 4 PULGADAS y accesorios","0906 - RED SANITARIA 2 PULGADAS y accesorios","0913 - SANITARIO (especificaciónes ) y accesorios","0914 - LAVAMANOS  CERAMICA (especificaciones ) y Accesorios","0917 - LAVAPLATOS (especificaciones) y Accesorios","1001 - ENCHAPE DE PISOS EN BALDOSA CERAMICA","1003 - ESMALTADO O AFINADO DE PISOS","1004 - ENCHAPE DE MUROS EN BALDOSA CERAMICA","1007 - PAÑETE, ESTUCADO O ALISADO DE MUROS","1008 - PINTURA VINILO PARA INTERIORES","1009 - PINTURA ACRILICA PARA EXTERIORES","1103 - PUERTA Y MARCO METALICOS. Incluye cerradura","1104 - PUERTA MADERA Y MARCO 0,70m  Incluye cerradura","1105 - PUERTA MADERA Y MARCO 0,80m incluye cerradura","1110 - VENTANA  EN ALUMINIO (1m x 1m)","1111 - VENTANA EN MADERA (otra dimensión) (1 m2)","1204 - ESTUFA ECOLOGICA, (Incluye cuello de camisa)","1301 - SIS. DE TRATAMIENTO DE AGUA RESIDUAL PREFABRICADO","1305 - TRATAMIENTO SECUNDARIO Y EFLUENTE A CAMPO DE INF. O POZO DE ABSORCIÓN RED DE CONECCIÓN Y EFLUENTES RAS 2000"];
 
 	/* porcentaje real */
 	porcentaje_real: any = 0;
