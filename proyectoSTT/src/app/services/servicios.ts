@@ -429,5 +429,14 @@ export class Servicios {
 			.catch(err => false)
 	}
 	/* ------------------------------------ */
+	/*obtener suspension*/
+	getPauseJob(){
+		// alert('servicio')
+		return this.http.post(this.url + "getPauseJob",'')
+				.toPromise()
+				.then(response => response.json())
+				.catch(err => false)
+	}
+	/*-------------------*/
 
 } 

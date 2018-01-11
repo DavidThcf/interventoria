@@ -114,6 +114,7 @@ module.exports.getActivityList = function (data) {
 				c.fecha_inicio,
 				c.fecha_fin,
 				c.publicacion_reporte,
+				c.fecha_inicio_real,
         		b.cedula,
         		b.nombre,
         		b.tipo_identificacion,

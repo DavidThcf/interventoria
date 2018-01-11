@@ -1172,6 +1172,22 @@ router.post('/changePassword',(req, res) => {
   });
 });
 /*------------------------------------*/
+
+/*obtener suspension obra*/
+router.post('/getPauseJob',(req, res) => {
+  console.log('pause job console');
+  var charac = Characteristic.getPauseJob()
+  charac.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+  })
+  .catch( x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  })
+});
+/*------------------------------*/
+
 /* funcion para preparar datos del reporte pdf */
 function armJSONReport(data) {
   return new Promise((resolve, reject) => {

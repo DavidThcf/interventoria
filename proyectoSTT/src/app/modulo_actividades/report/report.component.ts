@@ -47,6 +47,7 @@ export class ReportComponent implements OnInit {
 	@Input() municipio: string = '';
 	@Input() resguardo: string = '';
 	@Input() feciniobr: string = '';
+	@Input() feciniobreal: string = '';
 	@Input() porcejec: string = '';
 	@Input() firmaEla: string = '';
 	@Input() nombreEla: string = '';

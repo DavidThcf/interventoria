@@ -789,4 +789,22 @@ module.exports.getDataChart = function (data) {
     });
 }
 
-
+module.exports.getPauseJob = function(){
+    var query1 = `SELECT * FROM suspensiones s WHERE s.activo = TRUE LIMIT 1;`;
+    return new Promise((resolve, reject) => {
+        // console.log('getDataChart  ==>    ' + JSON.stringify(data));
+        var sequelize = sqlCon.configConnection();
+        // console.log('\n\n' + query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('ok');
+                resolve(x);
+            }).catch(x => {
+                console.log('Error al obtener los datos de los totales por categoria de mapas ' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}

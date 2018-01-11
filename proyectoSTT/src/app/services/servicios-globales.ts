@@ -70,7 +70,12 @@ export class ServiciosGlobales {
 
 
 	/* ------------- */
-
+	/*variables para verificar suspension*/
+	activoSuspension : boolean = false;
+	fecha_inicioSuspension : string;
+	fecha_finSuspension : string;
+	dias_suspension : any;
+	/*------------------------------------*/
 	/* variables del soket */
 	socket = io.connect(this.servidor);
 	/* ---------------------------- */

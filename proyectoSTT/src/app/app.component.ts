@@ -24,6 +24,9 @@ export class AppComponent implements OnInit {
 	/* ---------------------------- */
 
 	ngOnInit() {
+		/*para saber si existe pausa*/
+		this.getPauseJob();
+		/*-------------*/
 		// alert('APP');
 		/* --------------------- */
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
@@ -36,10 +39,10 @@ export class AppComponent implements OnInit {
 			formData.append('id_usuario', this.serviciog.usuario.id_usuario + '');
 			// alert(this.serviciog.usuario.id_usuario);
 			this.servicios.getTotalMessage(formData)
-				.then(messages => {
-					this.serviciog.messageList = messages;
+			.then(messages => {
+				this.serviciog.messageList = messages;
 
-					for (var prop in messages) {
+				for (var prop in messages) {
 						// alert(parseInt(messages[prop]));
 						this.serviciog.totalMessage = this.serviciog.totalMessage + parseInt(messages[prop]);
 					}
@@ -60,27 +63,27 @@ export class AppComponent implements OnInit {
 
 			switch (data) {
 				case 'per':
-					this.serviciog.messageList['percentage']++;
-					this.serviciog.alert_message = "Nuevo Cambio de Porcentaje";
-					break;
+				this.serviciog.messageList['percentage']++;
+				this.serviciog.alert_message = "Nuevo Cambio de Porcentaje";
+				break;
 				case 'mul':
-					this.serviciog.messageList['files']++;
+				this.serviciog.messageList['files']++;
 					// alert(this.serviciog.messageList['files'])
 					this.serviciog.alert_message = "Nuevo Archivo Cargado";
 					break;
-				case 'obs':
+					case 'obs':
 					this.serviciog.messageList['observations']++;
 					this.serviciog.alert_message = "Nueva Observación";
 					break;
-				case 'rec':
+					case 'rec':
 					this.serviciog.messageList['remarks']++;
 					this.serviciog.alert_message = "Nuevo recomendacion";
 					break;
-			}
-			this.serviciog.totalMessage++;
-			setTimeout(() => {
-				this.serviciog.hidden = false;
-			}, 5000);
+				}
+				this.serviciog.totalMessage++;
+				setTimeout(() => {
+					this.serviciog.hidden = false;
+				}, 5000);
 			//alert(JSON.stringify(this.serviciog.messageList));
 		});
 	}
@@ -93,59 +96,59 @@ export class AppComponent implements OnInit {
 		this.router.navigate(link);
 		switch (this.serviciog.opcion) {
 			case 'por':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewChangePercent(formData)
-					.then(novedades => {
-						if (novedades) {
-							console.log(novedades);
-							this.serviciog.novedades = novedades;
-						}
-					});
-				break;
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewChangePercent(formData)
+			.then(novedades => {
+				if (novedades) {
+					console.log(novedades);
+					this.serviciog.novedades = novedades;
+				}
+			});
+			break;
 			/* se realiza en caso de que la opcion sea multimedia */
 			case 'mul':
-				this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
-				var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
-				this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
-					.then(files => {
-						if (files) {
+			this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
+			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");/* se carga formData  */
+			this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
+			.then(files => {
+				if (files) {
 							//alert(JSON.stringify(files));
 							//alert(JSON.stringify(files));
 							console.log(files);
 							this.serviciog.novedades = files;
 						}
 					});
-				break;
+			break;
 			/* end multimedia */
 			case 'rec':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewRemarks(formData)
-					.then(novedades => {
-						if (novedades) {
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewRemarks(formData)
+			.then(novedades => {
+				if (novedades) {
 							//alert(JSON.stringify(novedades));
 							console.log(novedades);
 							this.serviciog.novedades = novedades;
 						}
 					});
 
-				break;
+			break;
 			case 'obs':
-				this.serviciog.novedades = [];
-				var formData = new FormData();
-				formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
-				this.servicios.getDataNewObservations(formData)
-					.then(novedades => {
-						if (novedades) {
-							console.log(novedades);
-							this.serviciog.novedades = novedades;
-						}
-					});
-				break;
+			this.serviciog.novedades = [];
+			var formData = new FormData();
+			formData.append("id_usuario", this.serviciog.usuario.id_usuario + "");
+			this.servicios.getDataNewObservations(formData)
+			.then(novedades => {
+				if (novedades) {
+					console.log(novedades);
+					this.serviciog.novedades = novedades;
+				}
+			});
+			break;
 		}
 	}
 
@@ -162,30 +165,30 @@ export class AppComponent implements OnInit {
 	/* para validar modal restart */
 	loginForm: NgForm;
 	
-		@ViewChild('loginForm') currentForm: NgForm;
+	@ViewChild('loginForm') currentForm: NgForm;
 	
-		ngAfterViewChecked() {
-			this.formChanged();
+	ngAfterViewChecked() {
+		this.formChanged();
+	}
+	
+	formChanged() {
+		if (this.currentForm === this.loginForm) { return; }
+		this.loginForm = this.currentForm;
+		if (this.loginForm) {
+			this.loginForm.valueChanges
+			.subscribe(data => this.onValueChanged(data));
 		}
+	}
 	
-		formChanged() {
-			if (this.currentForm === this.loginForm) { return; }
-			this.loginForm = this.currentForm;
-			if (this.loginForm) {
-				this.loginForm.valueChanges
-				.subscribe(data => this.onValueChanged(data));
-			}
-		}
-	
-		onValueChanged(data?: any) {
-			if (!this.loginForm) { return; }
-			const form = this.loginForm.form;
-	
-			for (const field in this.formErrors) {
+	onValueChanged(data?: any) {
+		if (!this.loginForm) { return; }
+		const form = this.loginForm.form;
+
+		for (const field in this.formErrors) {
 				// clear previous error message (if any)
 				this.formErrors[field] = '';
 				const control = form.get(field);
-	
+
 				if (control && control.dirty && !control.valid) {
 					const messages = this.validationMessages[field];
 					for (const key in control.errors) {
@@ -194,7 +197,7 @@ export class AppComponent implements OnInit {
 				}
 			}
 		}
-	
+
 		formErrors = {
 			'email': '',
 			'password': ''
@@ -209,19 +212,19 @@ export class AppComponent implements OnInit {
 				'required': 'Password Obligatorio'
 			}
 		};	
-	/* -------------------------------- */
-	/* manejo modales login y restart */
-	openModalLogin() {
-		this.serviciog.isModalLogin = !this.serviciog.isModalLogin;
-	}
+		/* -------------------------------- */
+		/* manejo modales login y restart */
+		openModalLogin() {
+			this.serviciog.isModalLogin = !this.serviciog.isModalLogin;
+		}
 
-	closeModalRestart(){
-		this.serviciog.isModalRestart = false;
-		this.serviciog.isModalLogin = true;
-	}
-	/* ------------------------------- */
-	/* enviar email para el usuario a recuperar contraseña */
-	sendEmailRestart(){
+		closeModalRestart(){
+			this.serviciog.isModalRestart = false;
+			this.serviciog.isModalLogin = true;
+		}
+		/* ------------------------------- */
+		/* enviar email para el usuario a recuperar contraseña */
+		sendEmailRestart(){
 		//alert(this.email);
 		this.sendConfirmation = ''
 		var formdata  = new FormData();
@@ -240,5 +243,29 @@ export class AppComponent implements OnInit {
 		
 	}
 	/* -------------------------------- */
+	/*obtener la suspensiin si existe*/
+	getPauseJob(){
+		// alert('hola pause')
+		this.servicios.getPauseJob().then(message =>{
+			// alert(JSON.stringify(message));
+			if(message.length > 0){
 
+				// alert('entra')
+				this.serviciog.activoSuspension = message[0].activo;
+				this.serviciog.fecha_inicioSuspension = message[0].fecha_inicio;
+				this.serviciog.fecha_finSuspension = message[0].fecha_fin;
+				var aFecha2 = new Date(this.serviciog.fecha_inicioSuspension);
+				var aFecha3 = new Date(this.serviciog.fecha_finSuspension);
+				var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
+				var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
+
+				var difAc = fFecha3.getTime() - fFecha2.getTime();
+				var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
+				this.serviciog.dias_suspension = Math.floor(difAc / (1000 * 60 * 60 * 24));
+				
+			}
+			// alert('si suspens: ' + this.serviciog.activoSuspension);
+		});
+	}
+	/*-----------------------------------*/
 }

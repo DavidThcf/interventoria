@@ -1198,8 +1198,6 @@ asignarUsuario(usuario) {
         var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
         var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 
-        //alert(diasAc)
-        //alert(dias)
       } catch (e) {
         //alert(e);
       }
@@ -1291,8 +1289,9 @@ asignarUsuario(usuario) {
 
     if (this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio') {
       // alert(this.serviciog.actividad.fecha_fin)
-      var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio);
-      var aFecha3 = new Date(this.serviciog.actividad.fecha_fin);
+      var aFecha2 = new Date(this.serviciog.actividad.fecha_inicio); //fecha inico actividad
+      var aFecha3 = new Date(this.serviciog.actividad.fecha_fin); //fecha fin actividad 
+      //fecha actual 
       var fFecha1 = new Date(fecha_actual.getFullYear(), fecha_actual.getMonth(), fecha_actual.getDate());
       var fFecha2 = new Date(aFecha2.getFullYear(), aFecha2.getMonth(), aFecha2.getDate());
       var fFecha3 = new Date(aFecha3.getFullYear(), aFecha3.getMonth(), aFecha3.getDate());
@@ -1884,7 +1883,19 @@ asignarUsuario(usuario) {
 
   /* stop obra */
   toggleStop() {
+    this.serviciog.activoSuspension = !this.serviciog.activoSuspension;
     this.toggleProyect = !this.toggleProyect;
+    if(!this.serviciog.activoSuspension){
+      var formData = new FormData();
+      formData.append("keym", this.serviciog.proyecto.keym);
+      formData.append("id_caracteristica", this.serviciog.proyecto.id_caracteristica);
+      formData.append("id_usuario", this.serviciog.proyecto.id_usuario);
+      formData.append("activo", this.serviciog.activoSuspension +'');
+      this.servicios.pauseProyect(formData).then(message => {
+        if (message)
+          console.log("Actualizado");
+      });
+    }
   }
 
   ClickPause(value: any) {
@@ -1897,9 +1908,10 @@ asignarUsuario(usuario) {
     formData.append("id_usuario", this.serviciog.proyecto.id_usuario);
     formData.append("datePauseInicio", fecIni);
     formData.append("datePauseFin", value);
+    formData.append("activo", this.serviciog.activoSuspension +'');
     this.servicios.pauseProyect(formData).then(message => {
       if (message)
-        alert("Actualizado");
+        console.log("Actualizado");
     });
   }
 }

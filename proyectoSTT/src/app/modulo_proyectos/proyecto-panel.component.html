@@ -21,8 +21,6 @@
 				<tr>
 					<th style="width: 50%" *ngIf="this.serviciog.usuario.tipo_usuario == 'sup'">Beneficiarios</th>
 					<th style="width: 50%" *ngIf="this.serviciog.usuario.tipo_usuario != 'sup'">Proyecto</th>
-					<!-- <th style="width: 30%">Lider de Proyecto</th> -->
-					<!-- <th style="width: 25%" style="text-align: center;">Dueño</th> -->
 					<th style="width: 25%"  *ngIf="this.serviciog.usuario.tipo_usuario == 'sup'">Resguardo</th>
 					<th style="width: 25%">Porcentaje Ejecutado</th>
 				</tr>
@@ -36,70 +34,20 @@
 							<p *ngIf="proyect.descripcion.indexOf('C.C') !== -1">{{proyect.descripcion}}</p>
 						</span>
 					</td>
-					<!-- <td><p class="txt">{{proyect.nombre}} {{proyect.apellido}}</p></td> -->
-					<!-- <td><p class="txt">{{proyect.porcentaje_cumplido | number:'.3'}} % </p></td> -->
 					<td *ngIf="this.serviciog.usuario.tipo_usuario == 'sup'"><p>{{proyect.nom_padre}}</p></td>
 					<td><p class="txt">{{proyect.porcentaje_cumplido}} % </p></td>
-					<td>
+					<td *ngIf="!this.serviciog.activoSuspension || this.serviciog.usuario.id_usuario == '6'">
 						<button class="btn btn-primary" (click)="entrar(proyect)" style=" background-color: orange">
 							Entrar
 						</button>
 					</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
-
-	<!-- <button class="btn btn-primary" data-target="#mod-reg-pro" data-toggle="modal" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;">
-		NUEVO PROYECTO
-	</button>
-
-
-
-	<div class="scrollbar row" style="display: none;">
-		<div class=" col-md-6" *ngFor="let proyect of this.serviciog.proyecto">
-			<div class="row projectCard" style="margin: 10px">
-				<div class="col-md-3">
-					<div style="background-color: white; margin-top: 30px">
-						<img src="http://www2.udenar.edu.co/recursos/wp-content/uploads/2016/10/udenar.png" style="height: 100px;">
-					</div>
-				</div>
-				<div class="col-md-9">
-					<h4 style="text-transform: uppercase; height: 30px">{{proyect.nombre}}</h4>
-					<div>
-						<div class="row">
-							<div class="lab1 col-md-3">Lider de Proyecto:</div>
-							<div class="lab2 col-md-8">Lus Alfredo Gomez</div>
-						</div>
-						<div>
-							<div class="lab1">Descripción:</div>
-							<div class="lab2">{{proyect.descripcion}}</div>
-						</div>
-						<div class="row">
-							<div class="lab1 col-md-6">
-								<div>Estado:</div>
-								<div class="lab2">{{proyect.estado}}</div>
-							</div>
-							<div class="lab1 col-md-6">
-								<div>Progreso:</div>
-								<div class="lab2">{{proyect.porcentaje}}%</div>
-							</div>
-						</div>
-					</div>
-
-
-				</div>
-			</div>
-		</div>
-		<button class="btn btn-primary" data-target="#mod-reg-pro" data-toggle="modal" style="display: block; margin-left: auto; margin-right: auto; margin-bottom: 10px;">
-	NUEVO PROYECTO
-</button>
-	</div>
- -->
+					<td *ngIf="this.serviciog.activoSuspension === true && this.serviciog.usuario.id_usuario != '6'" 
+					style='color:red;'>
+					OBRA SUSPENDIDA: 
+					{{this.serviciog.dias_suspension}} Dias
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
-<!-- div para suspension -->
-<div *ngIf="expression">
-	<h1>OBRA SUSPENDIDA</h1>
 </div>
-<!-- ........................... -->
-<!-- <registro-proyecto></registro-proyecto> -->
