@@ -1,0 +1,38 @@
+<div style="color: white;margin-top: 55px">
+
+  <div style="width: 80%;margin: auto">
+    <h1 style="text-align: center; margin-top: 100px">
+      Buscar Beneficiario
+    </h1>
+    <div style="width: 80%; margin: auto;">
+      <div class="input-group">
+        <input #act type="text" class="form-control" placeholder="Buscar...." (keyup)="btnSearchAct(act.value)">
+        <span class="input-group-btn">
+          <button type="button" class="btn btn-primary" aria-label="Left Align" (click)="btnSearchAct(act.value)">
+            <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+          </button>
+        </span>
+      </div>
+    </div>
+
+    <div style="margin-top: 15px">
+      <table class="table  ">
+        <thead>
+          <th style="text-align: center;font-size: 19px">CEDULA</th>
+          <th style="text-align: center;font-size: 19px">BENEFICIARIO</th>
+          <th style="text-align: center;font-size: 19px">REGUARDO</th>
+        </thead>
+        <tbody ng-if="this.serviciog.ben_arr">
+          <tr *ngFor="let item of this.ben_arr" (click)="goBen(item)" style="cursor: pointer" >
+            <td style="text-align: center;font-size: 13px">{{item.cedula}}</td>
+            <td style="text-align: center;font-size: 13px">{{item.nombre}}</td>
+            <td style="text-align: center;font-size: 13px">{{item.resguardo}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+
+</div>
+

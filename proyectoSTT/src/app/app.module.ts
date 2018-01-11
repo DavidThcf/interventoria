@@ -23,6 +23,8 @@ import { NewsComponentComponent } from './news-component/news-component.componen
 import { ModuloRecuperacionComponent } from './modulo-recuperacion/modulo-recuperacion.component';
 import { ModuloHelpComponent } from './modulo-help/modulo-help.component';
 
+import { PublicBeneficiaryModule } from './modulo_public_beneficiary/public-beneficiary.module';
+
 /* switch boostrap */
 
 /* ----------------------- */
@@ -30,6 +32,7 @@ import { ModuloHelpComponent } from './modulo-help/modulo-help.component';
 
 @NgModule({
   imports: [
+    PublicBeneficiaryModule,
     BrowserModule,
     FormsModule,
     HttpModule,

@@ -1,0 +1,311 @@
+<div style="margin-top: 80px;width: 80%;margin-left: 10%;background-color: rgba(223, 244, 253, 0.837);padding: 20px">
+  <div style="margin-top:0%">
+    <h1 style="font-size: 23px">{{this.serviciog.ben.nombre}}</h1>
+    <p style="font-size: 12px">Resguardo: {{this.serviciog.ben.resguardo}}</p>
+  </div>
+
+  <div>
+    <button class="btn btn-success" (click)='this.opc="Reporte"'>Reporte</button>
+    <button class="btn btn-aler" (click)='this.opc="Multimedia"'>Multimedia</button>
+    <button class="btn btn-warning" (click)='this.opc="Mapa"'>Mapa</button>
+  </div>
+  <br>
+  <br>
+  <!-- Reporte -->
+  <div *ngIf="this.opc === 'Reporte'">
+
+    <div>
+      <table class="tg" width="100%">
+        <tr>
+          <th class="tg-baqh" colspan="4">UNIVERSIDAD DE NARIÑO</th>
+        </tr>
+        <tr>
+          <td class="tg-baqh" colspan="4">INFORME GENERAL BENEFICIARIO {{this.serviciog.ben.nombre}} - UDENAR. 006D-2017</td>
+        </tr>
+      </table>
+      <br>
+      <table *ngIf="this.ben.fecha_inicio" class="tg" width="100%">
+        <tr>
+          <td class="tg-2nhx" colspan="4">DATOS BENEFICIARIO {{this.serviciog.ben.nombre | uppercase}}</td>
+        </tr>
+        <tr>
+          <td class="tg-2nhx">FECHA INFORME
+          </td>
+          <td class="tg-yw4l" colspan="3">
+
+            <div>
+              <p> {{this.today | date:'fullDate' | uppercase }}</p>
+            </div>
+
+          </td>
+        </tr>
+        <tr *ngIf="this.tipNum==4" class="ocultablePr ocultableVi ocultableMu ocultableRe ">
+          <td class="tg-2nhx">BENEFICIARIO</td>
+          <td class="tg-yw4l">{{this.serviciog.ben.nombre | uppercase}}</td>
+          <td class="tg-2nhx">No. CEDULA DE
+            <br>CIUDADANIA
+          </td>
+          <td class="tg-yw4l">{{this.serviciog.ben.cedula}}</td>
+        </tr>
+        <!-- <tr class="ocultablePr">
+          <td class="tg-2nhx">PROVINCIA</td>
+          <td class="tg-yw4l" colspan="3">{{this.provincia | uppercase}}</td>
+        </tr>
+        <tr class="ocultablePr ocultableVi ">
+          <td class="tg-2nhx">MUNICIPIO</td>
+          <td class="tg-yw4l" colspan="3">{{this.municipio | uppercase}}</td>
+        </tr> -->
+        <tr class="ocultablePr ocultableVi ocultableMu">
+          <td class="tg-2nhx">RESGUARDO</td>
+          <td class="tg-yw4l" colspan="3">{{this.serviciog.ben.resguardo | uppercase}}</td>
+        </tr>
+        <tr>
+
+        </tr>
+        <tr>
+          <td class="tg-2nhx">FECHA DE INICIO DE OBRA</td>
+          <td class="tg-yw4l" colspan='3'>{{this.serviciog.ben.fecha_inicio | date:'fullDate' | uppercase}}</td>
+        </tr>
+      </table>
+      <table *ngIf="!this.ben.fecha_inicio" class="tg" width="100%">
+        <tr>
+          <td>No se ha establecido fecha de inicio de esta obra.</td>
+        </tr>
+      </table>
+
+      <br>
+      <!--tabla con grafica y porcentaje de cumplimiento-->
+      <div *ngIf="this.ben.fecha_inicio">
+        <table class="tg2" width="100%">
+          <tr>
+            <td class="tg-2nhx">RESUMEN AVANCE
+              <b>BENEFICIARIO</b>
+              <b>{{this.serviciog.ben.nombre | uppercase}}</b>
+            </td>
+          </tr>
+          <!-- Datos de porcentajes -->
+
+          <tr>
+            <td style="margin-top: 2px" for="porcentaje_real" class="lab">Porcentaje Programado BENEFICIARIO {{this.serviciog.ben.nombre}}
+              <label class="form-control" name="porcentaje_real">{{this.serviciog.porcentaje_real}} %</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado BENEFICIARIO {{this.serviciog.ben.nombre}}
+              <label class="form-control" name="porcentaje_cumplido">{{this.serviciog.ben.porcentaje_cumplido}} %</label>
+            </td>
+          </tr>
+
+          <tr>
+            <td style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado
+              <label class="form-control" name="porcentaje_cumplido"> {{ this.serviciog.porcentaje_real - this.serviciog.ben.porcentaje_cumplido }} % </label>
+            </td>
+
+          </tr>
+
+
+        </table>
+        <!-- hola -->
+        <div class="divfot" width="100%" id="grafEjec" style="height: 450px">
+          <!-- <img id="imgr" alt="grafica" width="80%" height="80%" src='-grafica-' /> -->
+          <div>
+            <div style="display: block; height: 450px; width: 800px;margin-top: 15px" class="center-block">
+              <canvas baseChart [colors]='lineChartColors' [datasets]="barChartData" [labels]="barChartLabels" [options]="this.barChartOptions"
+                [legend]="this.barChartLegend" [chartType]="doughnutChartType" (chartHover)="this.servicios.chartHovered($event)"
+                (chartClick)="this.servicios.chartClicked($event)"></canvas>
+            </div>
+          </div>
+        </div>
+        <br>
+        <!-- Informe Financiero -->
+        <table class="tg2" width="100%">
+          <tr>
+            <td class="tg-2nhx">Informe Financiero de
+              <b>BENEFICIARIO</b>
+              <b>{{this.serviciog.ben.nombre | uppercase}}</b>
+            </td>
+          </tr>
+          <tr>
+            <td for="tiempo_inicial" class="lab">
+              Valor Asignado a BENEFICIARIO {{this.serviciog.ben.nombre}}
+              <label class="form-control" name="costo_real">{{(this.serviciog.ben.costo_real | currency:'COP':true).replace('COP','$ ')}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td for="tiempo_inicial" class="lab">
+              Valor Programado del BENEFICIARIO {{this.serviciog.ben.nombre}}
+              <label class="form-control" name="costo_real">{{(this.serviciog.costo_programado | currency:'COP':true).replace('COP','$ ')}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td for="tiempo_inicial" class="lab">
+              Valor Real Ejecutado BENEFICIARIO {{this.serviciog.ben.nombre}}
+              <label class="form-control" name="costo_inicial">{{(this.serviciog.ben.costo_actual | currency:'COP':true).replace('COP','$ ')}}</label>
+            </td>
+          </tr>
+          <tr>
+            <td for="tiempo_inicial" class="lab">
+              Diferencia Valor Programado VS Ejecutado
+              <label class="form-control" name="costo_inicial">{{ ((this.serviciog.valueDifProgramadoEjecuato) | currency : 'COP' : true).replace('COP','$ ') }}</label>
+            </td>
+          </tr>
+        </table>
+
+        <br>
+
+        <!--tabla de registro fotografico-->
+        <!-- <div *ngIf="this.tipNum==4"> -->
+        <table class="tg2 ocultablePr ocultableVi ocultableMu ocultableRe " width="100%">
+          <tr>
+            <td class="tg-2nhx">REGISTRO FOTOGRAFICO</td>
+          </tr>
+        </table>
+        <div *ngIf="this.images" class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
+          <div *ngFor="let item of this.images">
+            <br>
+            <img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}' />
+            <br>
+            <p style="font-size: 20px">
+              {{item.nombre}}
+            </p>
+            <p style="font-weight: normal">
+              {{item.fecha_creacion | date:'fullDate' | uppercase}}
+            </p>
+          </div>
+
+        </div>
+        <!--contine informacion de realizacion-->
+        <p style="margin-top: 10px">Para constancia de lo anterior, se firma el presente documento bajo la responsabilidad expresa de los que intervienen.</p>
+        <table class="tg2" width="100%">
+          <tr>
+            <td class="tg-2nhx" colspan="2">ELABORÓ</td>
+            <td class="tg-2nhx" colspan="2">APROBÓ</td>
+          </tr>
+          <tr>
+            <td class="tg-2nhx">FIRMA</td>
+            <td class="tg-baqh"></td>
+            <td class="tg-2nhx">FIRMA</td>
+            <td class="tg-baqh"></td>
+          </tr>
+          <tr>
+            <td class="tg-2nhx">NOMBRE</td>
+            <td class="tg-baqh"></td>
+            <td class="tg-2nhx">NOMBRE</td>
+            <td class="tg-baqh"></td>
+          </tr>
+          <tr>
+            <td class="tg-2nhx">CARGO</td>
+            <td class="tg-baqh"></td>
+            <td class="tg-2nhx">CARGO</td>
+            <td class="tg-baqh"></td>
+          </tr>
+        </table>
+      </div>
+      <br>
+      <br>
+    </div>
+
+
+  </div>
+
+  <!-- multimedia -->
+  <div *ngIf="this.opc === 'Multimedia'" style="padding: 15px">
+    <!-- <select class="select-mul form-control" name="tipo" [(ngModel)]="this.tipo" (change)="cambio($event)">
+      <option value="img">Imagenes</option>
+      <option value="doc">Documentos</option>
+      <option value="sou">Audios</option>
+      <option value="vid">Videos</option>
+      <option value="oth">Otros</option>
+    </select> -->
+
+    <div class="row" *ngIf="this.tipo === 'img'">
+      <h3>Imagenes</h3>
+      <div class="col-xs-6 col-md-3" *ngFor="let archivo of this.archivos">
+        <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=archivo.isViewMap (change)="checked(archivo)">
+        <a class="thumbnail">
+          <img src={{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}} alt={{archivo.subtitulo}}>
+          <div class="caption">
+            <h3>{{archivo.titulo}}</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <div class="row" *ngIf="this.tipo === 'doc'">
+      <h3>Documentos</h3>
+      <table class="multHover table table-striped" style="width:90%;margin-left:5%">
+        <thead>
+          <tr style="position:relative;width:100%">
+            <th>#</th>
+            <th style="width:20%">Titulo</th>
+            <th style="width:65%">Descripción</th>
+            <th style="width:10%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="cursor:pointer" *ngFor="let archivo of this.archivos">
+            <th scope="row" style="vertical-align:middle">#</th>
+            <td style="vertical-align:middle">{{archivo.titulo}}</td>
+            <td>{{archivo.subtitulo}}</td>
+            <td>
+              <button (click)="show(archivo)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row" *ngIf="this.tipo === 'sou'">
+      <h3>Audio</h3>
+      <table class="multHover table table-striped" style="width:90%;margin-left:5%">
+        <thead>
+          <tr style="position:relative;width:100%">
+            <th>#</th>
+            <th style="width:20%">Nombre</th>
+            <th style="width:75%">Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="cursor:pointer" *ngFor="let archivo of this.archivos">
+            <th scope="row" style="vertical-align:middle">#</th>
+            <td style="vertical-align:middle">{{archivo.titulo}}</td>
+            <td>{{archivo.subtitulo}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row" *ngIf="this.tipo === 'vid'">
+      <h3>Videos</h3>
+      <div class="col-xs-12 col-md-4" *ngFor="let archivo of this.archivos">
+        <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=archivo.isViewMap (change)="checked(archivo)">
+        <a class="thumbnail">
+          <video controls class="video-js">
+            <source src="{{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}}" type='video/mp4' />
+          </video>
+          <div class="caption">
+            <h4>{{archivo.titulo}}</h4>
+          </div>
+        </a>
+      </div>
+    </div>
+    <div class="row" *ngIf="this.tipo === 'oth'">
+      <h3>Otros Archivos</h3>
+    </div>
+
+  </div>
+
+  <!-- Mapa -->
+  <div *ngIf="this.opc === 'Mapa'">
+    <agm-map [latitude]="this.lat" [longitude]="this.lng" [zoom]="zoom" [mapTypeControl]="true" [fullscreenControl]="true" 
+    style="position: relative;width: 100vh;height: 55vh">
+      <agm-marker [latitude]="this.lat" [longitude]="this.lng">
+      </agm-marker>
+    </agm-map>
+  </div>
+</div>
+
+<br>
+<br>
