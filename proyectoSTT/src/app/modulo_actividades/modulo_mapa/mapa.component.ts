@@ -322,6 +322,8 @@ export class Mapa implements OnInit {
 				if (actividad) {
 					this.serviciog.actividades = actividad;
 					this.serviciog.axActividades = actividad;
+					this.serviciog.activityList = actividad;
+					//alert(JSON.stringify(actividad));
 				}
 				this.actPanel.calcPercentReal();
 				this.actPanel.calValueProgra();

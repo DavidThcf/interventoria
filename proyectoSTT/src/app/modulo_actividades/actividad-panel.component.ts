@@ -146,7 +146,7 @@ export class ActividadPanel implements OnInit {
     if (this.serviciog.usuario.tipo_usuario === "sup") this.flg = false;
 
     this.serviciog.actividades = [];
-    this.activityList = [];
+    this.serviciog.activityList = [];
     if (this.serviciog.ax_actividad) {
 
       this.slideval = this.serviciog.proyecto.porcentaje_cumplido;
@@ -163,7 +163,7 @@ export class ActividadPanel implements OnInit {
           if (actividades) {
             this.serviciog.actividades = actividades;
 
-            this.activityList = actividades;
+            this.serviciog.activityList = actividades;
             this.calculateValue(this.serviciog.actividades);
             var num = this.serviciog.tipos_act.indexOf(actividades[0].tipo);
             this.serviGloAct.tipo = this.serviciog.tipos_act[num + 1];
@@ -664,7 +664,7 @@ export class ActividadPanel implements OnInit {
       .getActividad(keym, id_usuario, id_caracteristica)
       .then(actividad => {
         this.serviciog.actividades = actividad;
-        this.activityList = actividad;
+        this.serviciog.activityList = actividad;
         actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
         this.slideval = actividad.porcentaje_cumplido;
       });
@@ -710,7 +710,7 @@ export class ActividadPanel implements OnInit {
 
     this.subActivity = [];
     this.serviciog.actividades = [];
-    this.activityList = [];
+    this.serviciog.activityList = [];
     this.serviciog.actividad = actividad;
     this.serviciog.isSubActivity = actividad;
     var keym = actividad.keym;
@@ -724,7 +724,7 @@ export class ActividadPanel implements OnInit {
       .then(actividad => {
         if (actividad) {
           this.serviciog.actividades = actividad;
-          this.activityList = actividad;
+          this.serviciog.activityList = actividad;
           var num = this.serviciog.tipos_act.indexOf(
             this.serviciog.actividades[0].tipo
           );
@@ -760,7 +760,7 @@ export class ActividadPanel implements OnInit {
             ];
             this.subActivity = [];
             this.serviciog.actividades = [];
-            this.activityList = [];
+            this.serviciog.activityList = [];
             //alert(this.serviciog.proyecto.id_caracteristica+'    '+this.serviciog.actividad.id_caracteristica +'      '+this.serviciog.actividad.id_caracteristica_padre);
             if (this.serviciog.proyecto != null && this.serviciog.actividad.id_caracteristica_padre == this.serviciog.proyecto.id_caracteristica) {
               this.serviciog.actividad = this.serviciog.proyecto;
@@ -786,7 +786,7 @@ export class ActividadPanel implements OnInit {
                 if (actividad) {
 
                   this.serviciog.actividades = actividad;
-                  this.activityList = actividad;
+                  this.serviciog.activityList = actividad;
                   var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
                   this.serviGloAct.tipo = this.serviciog.tipos_act[num];
 
@@ -915,7 +915,7 @@ export class ActividadPanel implements OnInit {
           ];
           this.subActivity = [];
           this.serviciog.actividades = [];
-          this.activityList = [];
+          this.serviciog.activityList = [];
           this.serviciog.actividad = lastActividad;
           this.serviciog.isSubActivity = lastActividad;
           var keym = lastActividad.keym;
@@ -932,7 +932,7 @@ export class ActividadPanel implements OnInit {
               if (actividad) {
 
                 this.serviciog.actividades = actividad;
-                this.activityList = actividad;
+                this.serviciog.activityList = actividad;
                 var num = this.serviciog.tipos_act.indexOf(actividad[0].tipo);
                 this.serviGloAct.tipo = this.serviciog.tipos_act[num];
 
@@ -1892,7 +1892,7 @@ export class ActividadPanel implements OnInit {
   btnSearchAct(value: string) {
     //alert(JSON.stringify(this.serviciog.actividades[0].tipo));
     if (this.serviciog.actividades[0].tipo !== "Beneficiario")
-      this.activityList = this.serviciog.actividades.filter(item => {
+      this.serviciog.activityList = this.serviciog.actividades.filter(item => {
         return (
           (item.tipo + item.nom_act)
             .toLowerCase()
@@ -1901,16 +1901,17 @@ export class ActividadPanel implements OnInit {
         );
       });
     else
-      this.activityList = this.serviciog.actividades.filter(item => {
+      this.serviciog.activityList = this.serviciog.actividades.filter(item => {
         return (
           (item.cedula + item.nombre)
             .toLowerCase()
             .replace(/ /g, "")
-            .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1
-        );
+            .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1);
       }
       );
-    //alert(JSON.stringify(this.activityList));
+    
+    
+    //alert(JSON.stringify(this.serviciog.activityList));
   }
 
   //actualiza el valor del porcentaje cumplido cunado se cambia el valor del slider
@@ -1975,13 +1976,13 @@ export class ActividadPanel implements OnInit {
           /* ------------------ */
           if (message == 'true') {
             this.serviciog.actividades = [];
-            this.activityList = [];
+            this.serviciog.activityList = [];
             this.servicios
               .getActividad(keym, id_usuario, id_caracteristica)
               .then(actividad => {
                 alert("Pro >>>" + JSON.stringify(actividad));
                 this.serviciog.actividades = actividad;
-                this.activityList = actividad;
+                this.serviciog.activityList = actividad;
                 actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
                 this.slideval = actividad.porcentaje_cumplido;
               });
@@ -2007,14 +2008,14 @@ export class ActividadPanel implements OnInit {
           //alert("a >>>" + message);
           if (message) {
             this.serviciog.actividades = [];
-            this.activityList = [];
+            this.serviciog.activityList = [];
             this.servicios
               .getActividad(keym, id_usuario, id_caracteristica)
               .then(actividad => {
                 // alert("act >> "+ JSON.stringify(actividad));
                 this.serviciog.actividades = actividad;
-                this.activityList = actividad;
-                //alert("act >> " + JSON.stringify(this.activityList));
+                this.serviciog.activityList = actividad;
+                //alert("act >> " + JSON.stringify(this.serviciog.activityList));
                 actividad.porcentaje_cumplido = actividad.porcentaje_cumplido * 1;
                 this.slideval = actividad.porcentaje_cumplido;
               });
@@ -2030,12 +2031,12 @@ export class ActividadPanel implements OnInit {
   toggleStop() {
     this.serviciog.activoSuspension = !this.serviciog.activoSuspension;
     this.toggleProyect = !this.toggleProyect;
-    if(!this.serviciog.activoSuspension){
+    if (!this.serviciog.activoSuspension) {
       var formData = new FormData();
       formData.append("keym", this.serviciog.proyecto.keym);
       formData.append("id_caracteristica", this.serviciog.proyecto.id_caracteristica);
       formData.append("id_usuario", this.serviciog.proyecto.id_usuario);
-      formData.append("activo", this.serviciog.activoSuspension +'');
+      formData.append("activo", this.serviciog.activoSuspension + '');
       this.servicios.pauseProyect(formData).then(message => {
         if (message)
           console.log("Actualizado");
@@ -2053,7 +2054,7 @@ export class ActividadPanel implements OnInit {
     formData.append("id_usuario", this.serviciog.proyecto.id_usuario);
     formData.append("datePauseInicio", fecIni);
     formData.append("datePauseFin", value);
-    formData.append("activo", this.serviciog.activoSuspension +'');
+    formData.append("activo", this.serviciog.activoSuspension + '');
     this.servicios.pauseProyect(formData).then(message => {
       if (message)
         console.log("Actualizado");
@@ -2064,6 +2065,5 @@ export class ActividadPanel implements OnInit {
     let link = ["administrador"];
     this.router.navigate(link);
   }
-
 
 }
