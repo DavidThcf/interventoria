@@ -303,6 +303,7 @@ export class NewsComponentComponent implements OnInit {
 			if (actividad) {
 				this.serviciog.actividades = actividad;
 				this.serviciog.axActividades = actividad;
+				this.serviciog.activityList = actividad;
 			}
 		});
 	}
