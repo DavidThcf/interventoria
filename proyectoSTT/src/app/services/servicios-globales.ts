@@ -64,8 +64,8 @@ export class ServiciosGlobales {
 
 	titulo: string;
 	isSelAct: boolean = false;
-	// servidor: string = "http://knower.udenar.edu.co:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
-	servidor: string = "http://localhost:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
+	servidor: string = "http://knower.udenar.edu.co:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
+	// servidor: string = "http://localhost:81/";// URL to web api api/heroes http://10.42.0.1:81  10.0.0.64 http:///knower.udenar.edu.co:81
 	isSubActivity: any;
 	tipo: string = 'img';
 	axActividades: any;
