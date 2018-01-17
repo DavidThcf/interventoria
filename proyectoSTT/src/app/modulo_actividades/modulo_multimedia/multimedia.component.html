@@ -27,9 +27,9 @@ class="btn-add-img btn-primary"
 +
 </button>
 
+<!-- && this.serviciog.actividad.estado === 'Entrega de materiales'  -->
 <button *ngIf="!isMapSelected && !isRepSelected && 
 this.serviciog.actividad.tipo === 'Beneficiario' 
-&& this.serviciog.actividad.estado === 'Entrega de materiales' 
 && this.serviciog.usuario.tipo_usuario === 'sup' "
 class="btn-add-img btn-primary" 
 (click)="mostrarModal()">

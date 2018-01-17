@@ -44,17 +44,14 @@
 					</div>
 				</div>
 
-
 				<div class="listaActividades">
 					<ul *ngIf="this.serviciog.actividades">
-						<li *ngFor="let activity of this.activityList" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)"
+						<li *ngFor="let activity of this.serviciog.activityList" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)"
 						 (dblclick)="entrarACtividad(activity)">
 							<a>{{activity.tipo}} {{activity.nom_act}}</a>
 						</li>
 					</ul>
 				</div>
-
-
 
 			</div>
 			<div class="form-inline">
@@ -565,6 +562,7 @@
 												<div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
 													<label for="etapa" class="lab form-inline  col-md-2">Etapa: </label>
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Desabilitado</label>
+													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label>
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label>
 												</div>
 											</div>
