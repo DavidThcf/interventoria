@@ -45,10 +45,10 @@ testem.log
 *.wma
 
 ### Images ###
-# JPEG
-#*.jpg
-#*.jpeg
-#*.jpe
+### JPEG
+###*.jpg
+###*.jpeg
+###*.jpe
 *.jif
 *.jfif
 *.jfi

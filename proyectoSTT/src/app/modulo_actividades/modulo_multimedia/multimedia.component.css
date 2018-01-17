@@ -1,5 +1,6 @@
 .thumbnail{
 	text-decoration: none;
+	min-height: 330px
 }
 
 .thumbnail img{
@@ -127,3 +128,54 @@
 	display: block;
 	margin: auto;
 }
+
+
+
+
+
+
+
+*, *:before, *:after {
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+  }
+  body {
+	font-family: Tahoma; 
+  }
+  
+  
+  /* --------------------- */
+  /*  ==     Box #1        */
+  /* --------------------- */
+  .box1 {
+	display: inline-block;
+	position: relative;
+  }
+  .box1:before, .box1:after {
+	position: absolute;
+	left: 0;
+	width: 100%;
+	padding: 10px;
+	opacity: 0;
+	/*@include transition(opacity 300ms ease-in-out);*/
+  }
+  .box1:before {
+	content: attr(data-title);
+	top: 0;
+	height: 30%;
+	background-color: #0e3c59;
+	color: #fff;
+	font-size: 20px;
+  }
+  .box1:after {
+	content: attr(data-description);
+	top: 30%;
+	height: 70%;
+	color: #fff;
+	background-color: #4a89b3;
+  }
+  .box1:hover:before, .box1:hover:after {
+	opacity: .8; 
+  }
+  

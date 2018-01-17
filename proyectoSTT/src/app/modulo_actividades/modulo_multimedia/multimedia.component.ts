@@ -346,6 +346,45 @@ export class Multimedia implements OnInit {
 		this.serviciog.isModalImg = true;
 	}
 
+	delImage(image : any){
+		var cad =JSON.stringify(image);
+		var formData = new FormData();
+		formData.append('file', cad);
+		this.servicios.delFile(formData).then(x=>{
+			if(x){
+				this.serviciog.alert_message = 'Archuivo eliminado!!!';
+				this.serviciog.hidden = true;
+				setTimeout(() => {
+					this.serviciog.hidden = false;
+				}, 5000);
+			}
+			
+			if (this.serviciog.actividad == null) {
+				var keym = this.serviciog.proyecto.keym;
+				var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+				var id_usuario = this.serviciog.proyecto.id_usuario;
+			}
+			else if (this.serviciog.actividad) {
+				var keym = this.serviciog.actividad.keym;
+				var id_caracteristica = this.serviciog.actividad.id_caracteristica;
+				var id_usuario = this.serviciog.actividad.id_usuario;
+			}
+			else {
+				var keym = this.serviciog.proyecto.keym;
+				var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+				var id_usuario = this.serviciog.proyecto.id_usuario;
+			};
+			
+
+
+			for(var i = this.serviciog.imagenes.length - 1; i >= 0; i--) {
+				if(this.serviciog.imagenes[i] === image) {
+				   this.serviciog.imagenes.splice(i, 1);
+				}
+			}
+
+		});
+	}
 }
 
 

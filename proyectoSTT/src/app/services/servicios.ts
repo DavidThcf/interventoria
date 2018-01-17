@@ -450,5 +450,12 @@ export class Servicios {
 	}
 	/* ------------------------------------ */
 
+	/* servicio recuperacion contraseña  */
+	delFile(formData: FormData) {
+		return this.http.post(this.url + "delFile", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
 // askkasjd
 } 

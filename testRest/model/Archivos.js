@@ -133,9 +133,9 @@ module.exports.getFileList = function (data) {
                 ORDER BY
                 ar.fecha_creacion DESC  LIMIT 25; 
                 `;
-            } 
-            
-            else if(data.tipoAct == "Beneficiario" || data.tipoAct == "Capitulo" || data.tipoAct == "Actividad") {
+            }
+
+            else if (data.tipoAct == "Beneficiario" || data.tipoAct == "Capitulo" || data.tipoAct == "Actividad") {
                 var query1 = `
                     select getarchivos(
                         `+ keym + `,
@@ -146,8 +146,8 @@ module.exports.getFileList = function (data) {
                   
                 `;
             }
-            
-            else{
+
+            else {
                 var query1 = `
                 select *,
                 CASE WHEN  `+ id_caracteristica + ` = a.` + tipo + `
@@ -274,14 +274,14 @@ module.exports.fileUpload = function (files, path, nom) {
     var name = nom;
     console.log('\n\n\n\n Name    ' + name);
     /* comprueba si path exite y lo crea   */
-    if(!fs.existsSync(path)){
+    if (!fs.existsSync(path)) {
         console.log('entrar falso ')
-        fs.mkdirSync(path, 0777, function(err){
-            if(err){
+        fs.mkdirSync(path, 0777, function (err) {
+            if (err) {
                 console.log(err);
                 // echo the result back
-            }else
-             console.log('creado')
+            } else
+                console.log('creado')
         });
 
     }
@@ -457,7 +457,7 @@ module.exports.updateImageView = function (data) {
                 sequelize.close();
                 console.log("Se ha cerrado sesion de la conexion a la base de datos");
             });
-    }); 
+    });
 }
 /* ----------------------------------------------- */
 
@@ -525,3 +525,36 @@ module.exports.getMultimediaReport = function (data) {
     });
 }
 
+
+
+//Service for delete a file
+module.exports.delFile = function (data) {
+    var sequelize = sqlCon.configConnection();
+    return new Promise((resolve, reject) => {
+        var query1 = `
+            delete from archivos 
+            where keym_arc = `+data.keym_arc+` and id_archivo = `+data.id_archivo+` and id_usuario_arc = `+data.id_usuario_arc+`
+        `;
+        //console.log(query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
+            then(x => {
+                console.log('RESPONDE =======>    ' + JSON.stringify(x));
+                try{
+                    fs.rename(
+                        'user'+data.id_usuario_arc+'/'+data.nombre_archivo, 
+                        'user'+data.id_usuario_arc+'/del_'+data.nombre_archivo, 
+                        function (err) {
+                        if (err) throw err;
+                        console.log('renamed complete');
+                      });
+                }catch(e){}
+                resolve(true);
+            }).catch(x => {
+                console.log('Error delFile =>  '+x)
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });;
+    });
+}

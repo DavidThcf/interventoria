@@ -1174,17 +1174,17 @@ router.post('/changePassword', (req, res) => {
 /*------------------------------------*/
 
 /*obtener suspension obra*/
-router.post('/getPauseJob',(req, res) => {
+router.post('/getPauseJob', (req, res) => {
   console.log('pause job console');
   var charac = Characteristic.getPauseJob()
   charac.then(x => {
     res.header("Access-Control-Allow-Origin", "*");
     res.json(x);
   })
-  .catch( x => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.json(false);
-  })
+    .catch(x => {
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    })
 });
 /*------------------------------*/
 
@@ -1251,4 +1251,21 @@ router.post('/getAllBeneficiaries', (req, res) => {
     res.json(false);
   });
 });
+
+/* Obtiene la informacion de todos los beneficicarios para ser mostrada al publico */
+router.post('/delFile', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'+JSON.stringify(req.body.file));
+  var file = File.delFile(JSON.parse(req.body.file));
+  file.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
+
+
 module.exports = router;
