@@ -363,34 +363,66 @@ function getIdFreeFile(keym, id_usuario, nombre) {
 
 /* ------------updateImageEditView---------- */
 module.exports.updateImageEditView = function (data) {
-    console.log('\n\n\n\n\n\n\n\n\n\n=============================================================\n' + data.img_edit);
+    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n');
+    console.log('\n\n\n\n\n\n\n\n\n\n=============================================================\n' + JSON.stringify(data));
     var sequelize = sqlCon.configConnection();
     var d = JSON.parse(data.img_edit)
     var tipo = 'reporte_' + data.tipo_car.toLowerCase();
-    console.log('\n\n\n\nasasas >>>>> ' + JSON.stringify(d[0]));
+    var publicar = JSON.parse(data.publicar);
+    console.log('\n\n\n\n\n\n\n\nPublicar'+data.publicar+'   -     '+false);
     var q = '';
-    for (var i = 0; i < d.length; i++) {
+    if ( publicar === true) {
+        console.log('\n\n\n\n\n\n\n\nOK =================> Publicar')
+        for (var i = 0; i < d.length; i++) {
 
-        if (d[i].ext === true) {
-            var query1 = `
-                UPDATE archivos SET 
-                `+ tipo + ` =` + data.id_caracteristica + `
-                WHERE keym_arc = `+ d[i].keym_arc +
-                ` AND id_archivo =  ` + d[i].id_archivo +
-                ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
-            `;
-        } else {
-            var query1 = `
-                UPDATE archivos SET 
-                `+ tipo + ` = null
-                WHERE keym_arc = `+ d[i].keym_arc +
-                ` AND id_archivo =  ` + d[i].id_archivo +
-                ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
-            `;
+            if (d[i].visible_map === true) {
+                var query1 = `
+                            UPDATE archivos SET 
+                            visible_map = true
+                            WHERE keym_arc = `+ d[i].keym_arc +
+                    ` AND id_archivo =  ` + d[i].id_archivo +
+                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+                        `;
+            } else {
+                var query1 = `
+                            UPDATE archivos SET 
+                            visible_map = false
+                            WHERE keym_arc = `+ d[i].keym_arc +
+                    ` AND id_archivo =  ` + d[i].id_archivo +
+                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+                        `;
+            }
+
+            q = q + query1;
         }
 
-        q = q + query1;
     }
+    else {
+        console.log('\n\n\n\n\n\n\n\nOK xxxxxxxxxxxxxxxxxxxxxxxxxxx> NO Publicar')
+        for (var i = 0; i < d.length; i++) {
+
+            if (d[i].ext === true) {
+                var query1 = `
+                            UPDATE archivos SET 
+                            `+ tipo + ` =` + data.id_caracteristica + `
+                            WHERE keym_arc = `+ d[i].keym_arc +
+                    ` AND id_archivo =  ` + d[i].id_archivo +
+                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+                        `;
+            } else {
+                var query1 = `
+                            UPDATE archivos SET 
+                            `+ tipo + ` = null
+                            WHERE keym_arc = `+ d[i].keym_arc +
+                    ` AND id_archivo =  ` + d[i].id_archivo +
+                    ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
+                        `;
+            }
+
+            q = q + query1;
+        }
+    }
+    //console.log('\n\n'+JSON.stringify(q));
 
     /*
 for (var i = 0; i < d.length; i++) {
@@ -533,24 +565,24 @@ module.exports.delFile = function (data) {
     return new Promise((resolve, reject) => {
         var query1 = `
             delete from archivos 
-            where keym_arc = `+data.keym_arc+` and id_archivo = `+data.id_archivo+` and id_usuario_arc = `+data.id_usuario_arc+`
+            where keym_arc = `+ data.keym_arc + ` and id_archivo = ` + data.id_archivo + ` and id_usuario_arc = ` + data.id_usuario_arc + `
         `;
         //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
                 console.log('RESPONDE =======>    ' + JSON.stringify(x));
-                try{
+                try {
                     fs.rename(
-                        'user'+data.id_usuario_arc+'/'+data.nombre_archivo, 
-                        'user'+data.id_usuario_arc+'/del_'+data.nombre_archivo, 
+                        'user' + data.id_usuario_arc + '/' + data.nombre_archivo,
+                        'user' + data.id_usuario_arc + '/del_' + data.nombre_archivo,
                         function (err) {
-                        if (err) throw err;
-                        console.log('renamed complete');
-                      });
-                }catch(e){}
+                            if (err) throw err;
+                            console.log('renamed complete');
+                        });
+                } catch (e) { }
                 resolve(true);
             }).catch(x => {
-                console.log('Error delFile =>  '+x)
+                console.log('Error delFile =>  ' + x)
                 reject(false);
             }).done(x => {
                 sequelize.close();

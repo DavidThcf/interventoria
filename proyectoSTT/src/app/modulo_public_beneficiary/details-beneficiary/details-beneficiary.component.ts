@@ -122,6 +122,7 @@ export class DetailsBeneficiaryComponent implements OnInit {
         if (imagenes) {
           var cad = JSON.stringify(imagenes);
           this.archivos = imagenes[0].getarchivos;
+          //alert(JSON.stringify(imagenes[0].getarchivos));
         } else {
           this.archivos = []
         }
