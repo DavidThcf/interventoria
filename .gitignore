@@ -32,6 +32,12 @@ testem.log
 #System Files
 .DS_Store
 
+## Files
+/files
+/files*
+/files/
+/files*/
+
 ### Audio ###
 *.aif
 *.iff
@@ -45,10 +51,11 @@ testem.log
 *.wma
 
 ### Images ###
-# JPEG
-#*.jpg
-#*.jpeg
-#*.jpe
+### JPEG
+*.JPG
+*.jpg
+*.jpeg
+*.jpe
 *.jif
 *.jfif
 *.jfi

@@ -139,6 +139,7 @@ export class Multimedia implements OnInit {
 		// var img = imagen;
 
 		imagen.ext = !imagen.ext;
+		imagen.visible_map = !imagen.visible_map;
 		var sss = this.imagenEditView.findIndex(x => x === imagen);
 		//alert(sss);
 		if (sss >= 0) {
@@ -269,8 +270,6 @@ export class Multimedia implements OnInit {
 	}
 	/*  */
 	envioCambios() {
-		this.isMapSelected = false;
-		this.isRepSelected = false;
 		if (this.serviciog.actividad == null) {
 			var keym = this.serviciog.proyecto.keym;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
@@ -280,7 +279,7 @@ export class Multimedia implements OnInit {
 			var keym = this.serviciog.actividad.keym;
 			var id_caracteristica = this.serviciog.actividad.id_caracteristica;
 			var id_usuario = this.serviciog.actividad.id_usuario;
-		}
+		} 
 		else {
 			var keym = this.serviciog.proyecto.keym;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
@@ -293,6 +292,7 @@ export class Multimedia implements OnInit {
 			formData.append("img_edit", JSON.stringify(this.imagenEditView));/* se carga formData  */
 			formData.append("tipo_car", this.serviciog.actividad.tipo);/* se carga el tipo de la caracteristica/actividad  */
 			//info de la caracteristica / actividad actual
+			formData.append('publicar',this.isMapSelected +'');
 			formData.append('keym', keym);
 			formData.append('id_caracteristica', id_caracteristica);
 			formData.append('id_usuario', id_usuario);
@@ -311,6 +311,8 @@ export class Multimedia implements OnInit {
 		setTimeout(() => {
 			this.serviciog.hidden = false;
 		}, 5000);
+		this.isMapSelected = false;
+		this.isRepSelected = false;
 	}
 
 	btnAddImgMap() {
@@ -346,6 +348,45 @@ export class Multimedia implements OnInit {
 		this.serviciog.isModalImg = true;
 	}
 
+	delImage(image : any){
+		var cad =JSON.stringify(image);
+		var formData = new FormData();
+		formData.append('file', cad);
+		this.servicios.delFile(formData).then(x=>{
+			if(x){
+				this.serviciog.alert_message = 'Archuivo eliminado!!!';
+				this.serviciog.hidden = true;
+				setTimeout(() => {
+					this.serviciog.hidden = false;
+				}, 5000);
+			}
+			
+			if (this.serviciog.actividad == null) {
+				var keym = this.serviciog.proyecto.keym;
+				var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+				var id_usuario = this.serviciog.proyecto.id_usuario;
+			}
+			else if (this.serviciog.actividad) {
+				var keym = this.serviciog.actividad.keym;
+				var id_caracteristica = this.serviciog.actividad.id_caracteristica;
+				var id_usuario = this.serviciog.actividad.id_usuario;
+			}
+			else {
+				var keym = this.serviciog.proyecto.keym;
+				var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
+				var id_usuario = this.serviciog.proyecto.id_usuario;
+			};
+			
+
+
+			for(var i = this.serviciog.imagenes.length - 1; i >= 0; i--) {
+				if(this.serviciog.imagenes[i] === image) {
+				   this.serviciog.imagenes.splice(i, 1);
+				}
+			}
+
+		});
+	}
 }
 
 
