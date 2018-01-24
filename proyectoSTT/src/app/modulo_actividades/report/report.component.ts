@@ -7,6 +7,7 @@ import { ServiciosGlobales } from "../../services/servicios-globales";
 import { ServiciosGlobalesActividades } from "../servicios-globales-actividades";
 import { Servicios } from "../../services/servicios";
 import * as moment from 'moment';
+import { ControlPosition } from "@agm/core/services/google-maps-types";
 
 @Component({
 	selector: 'app-report',
@@ -27,10 +28,10 @@ export class ReportComponent implements OnInit {
 	@Input() doughnutChartData: any[] = [];
 	@Input() doughnutChartLabels: any[] = [];
 	@Input() doughnutChartType: any = '';
-	@Input() barColor : any[] =[];
+	@Input() barColor: any[] = [];
 
 	@Input() isTitleSelected: boolean = false;
- 
+
 	//Falta Juanito
 	@Input() etapa: string = '';
 	@Input() estado: string = '';
@@ -55,47 +56,51 @@ export class ReportComponent implements OnInit {
 	@Input() firmaApr: string = '';
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
+	@Input() ax_parents : any;
+	pro: string = '';
+	mun: string = '';
+	res: string = '';
 
 	public lineChartColors: Array<any> = [
 		{ // grey
-		  backgroundColor: 'rgba(97, 255, 0, 1)',
-		  //borderColor: 'rgba(148,159,177,1)',
-		  //pointBackgroundColor: 'rgba(148,159,177,1)',
-		  //pointBorderColor: '#fff',
-		  //pointHoverBackgroundColor: '#fff',
-		  //pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+			backgroundColor: 'rgba(97, 255, 0, 1)',
+			//borderColor: 'rgba(148,159,177,1)',
+			//pointBackgroundColor: 'rgba(148,159,177,1)',
+			//pointBorderColor: '#fff',
+			//pointHoverBackgroundColor: '#fff',
+			//pointHoverBorderColor: 'rgba(148,159,177,0.8)'
 		},
 		{ // grey
-		  backgroundColor: 'rgba(0, 200, 255, 1)',
+			backgroundColor: 'rgba(0, 200, 255, 1)',
 		},
 		{ // dark grey
-		  backgroundColor: 'rgba(255, 0, 0, 1)',
+			backgroundColor: 'rgba(255, 0, 0, 1)',
 		}
-	  ];
+	];
 
-	public barChartLegend: boolean = true; 
+	public barChartLegend: boolean = true;
 	public barChartOptions: any = {
 		legend: {
 			position: 'top',
 			fullWidth: true
-		  },
-		  scaleShowVerticalLines: false,
-		  responsive: true,
-		  scales: {
+		},
+		scaleShowVerticalLines: false,
+		responsive: true,
+		scales: {
 			xAxes: [{
-			  gridLines: { display: false }
+				gridLines: { display: false }
 			}],
 			yAxes: [{
-			  gridLines: { display: false }
+				gridLines: { display: false }
 			}]
-		  }
-	  };
+		}
+	};
 
-	
-	
-	
-	
-		constructor(
+
+
+
+
+	constructor(
 		private serviciog: ServiciosGlobales,
 		private serviGloAct: ServiciosGlobalesActividades,
 		private router: Router,
@@ -103,41 +108,12 @@ export class ReportComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
+		
 		this.msg = [];
 		this.tipNum = 0;
-		//this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
-		if (this.serviciog.porcentajeDifProgramadoEjecutado >= 0) {
-			this.lineChartColors = [
-			  { // grey
-				backgroundColor: 'rgba(97, 255, 0, 1)',
-			  },
-			  { // grey
-				backgroundColor: 'rgba(0, 200, 255, 1)',
-			  },
-			  { // dark grey
-				backgroundColor: 'rgba(2, 58, 5, 0.993)'
-			  }
-			];
-			// alert("positivo")
-			// this.barColor = [
-			//   { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(2, 58, 5, 0.993)"] }
-			// ];
-		  } else {
-			this.lineChartColors = [
-			  { // grey
-				backgroundColor: 'rgba(97, 255, 0, 1)',
-			  },
-			  { // grey
-				backgroundColor: 'rgba(0, 200, 255, 1)',
-			  },
-			  { // dark grey
-				backgroundColor: 'rgba(255, 0, 0, 1)',
-			  }
-			]
-		  }
 
-
-		switch (this.tipo.toUpperCase()) {
+		//alert(this.tipo);
+		switch (this.tipo) {
 			case 'BENEFICIARIO':
 				this.tipNum = 4;
 				break;
@@ -151,6 +127,42 @@ export class ReportComponent implements OnInit {
 				this.tipNum = 1;
 				break;
 		}
+
+		
+
+		//this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
+		if (this.serviciog.porcentajeDifProgramadoEjecutado >= 0) {
+			this.lineChartColors = [
+				{ // grey
+					backgroundColor: 'rgba(97, 255, 0, 1)',
+				},
+				{ // grey
+					backgroundColor: 'rgba(0, 200, 255, 1)',
+				},
+				{ // dark grey
+					backgroundColor: 'rgba(2, 58, 5, 0.993)'
+				}
+			];
+			// alert("positivo")
+			// this.barColor = [
+			//   { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(2, 58, 5, 0.993)"] }
+			// ];
+		} else {
+			this.lineChartColors = [
+				{ // grey
+					backgroundColor: 'rgba(97, 255, 0, 1)',
+				},
+				{ // grey
+					backgroundColor: 'rgba(0, 200, 255, 1)',
+				},
+				{ // dark grey
+					backgroundColor: 'rgba(255, 0, 0, 1)',
+				}
+			]
+		}
+
+
+		
 		if (this.isTitleSelected && this.serviciog.actividad == null)
 			var dat = {
 				keym: this.serviciog.proyecto.keym,
@@ -179,19 +191,19 @@ export class ReportComponent implements OnInit {
 		formData.append('id_caracteristica', dat.id_caracteristica);
 		formData.append('id_usuario', dat.id_usuario);
 		formData.append('tipo', this.serviciog.tipo);
-		formData.append('tipoAct',dat.tipo);
-		formData.append('reporte', true+'');
-		
+		formData.append('tipoAct', dat.tipo);
+		formData.append('reporte', true + '');
+
 		//alert(JSON.stringify(dat.tipo));
-		
+
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
-				
+
 				if (imagenes) {
 					this.serviciog.imagenes = imagenes;
 					imagenes.forEach(element => {
 						//alert(JSON.stringify(element.titulo));
-						this.images.push({ 'nombre': element.titulo, 'fecha_creacion': element.fecha_creacion , 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
+						this.images.push({ 'nombre': element.titulo, 'fecha_creacion': element.fecha_creacion, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
 						//val_configuracion+srcServ+nombre_archivo
 						//alert(JSON.stringify(this.images));
 					});
@@ -206,18 +218,18 @@ export class ReportComponent implements OnInit {
 		// var anchor = event.target;
 		//anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
 
-		var imgReport : string = document.getElementsByTagName('canvas')[0].toDataURL('image/png');
-		var imgReport2 : string = '';
-		try{
+		var imgReport: string = document.getElementsByTagName('canvas')[0].toDataURL('image/png');
+		var imgReport2: string = '';
+		try {
 			imgReport2 = document.getElementsByTagName('canvas')[1].toDataURL('image/png');
-		}catch(e){}
+		} catch (e) { }
 		this.msg = {
 			"tipo": this.tipo,
 			"beneficiario": this.beneficiario,
 			"cedula": this.cedula,
-			"provincia": this.provincia,
-			"municipio": this.municipio,
-			"resguardo": this.resguardo,
+			"provincia": this.serviciog.pro,
+			"municipio": this.serviciog.mun,
+			"resguardo": this.serviciog.res,
 			"feciniobr": this.feciniobr,
 			"porcejec": this.porcejec,
 			"firmaEla": this.firmaEla,
@@ -243,7 +255,7 @@ export class ReportComponent implements OnInit {
 
 		var url;
 		// var xml = new XMLHttpRequest();
-		url = this.serviciog.servidor+'downloadReport' + '?val1=' + JSON.stringify(this.msg);
+		url = this.serviciog.servidor + 'downloadReport' + '?val1=' + JSON.stringify(this.msg);
 		var re = window.open(url, 'about:blank');
 		re.focus();
 		// window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');

@@ -12,6 +12,12 @@ export class ServiciosGlobales {
 	actividades: any;
 	activityList: any;
 
+	//Json que almacena todos los padres de una caracteristica => para reporte
+	
+	pro : string = '';
+	mun : string = '';
+	res : string = '';
+
 	//variable de la informacion de todos los beneficiarios	
 	ben_arr: any[] = null;
 	//variable de la informacion de un beneficiario

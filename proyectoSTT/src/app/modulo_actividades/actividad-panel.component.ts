@@ -1569,12 +1569,38 @@ export class ActividadPanel implements OnInit {
         id_usuario: this.serviciog.proyecto.id_usuario,
         tipo: this.serviciog.proyecto.tipo
       };
+
+    
+
+    var frmDat2 = new FormData();
+    frmDat2.append("caracteristica", JSON.stringify(this.dat));
+    this.servicios.getRecursiveAllParents(frmDat2).then(message => {
+      
+      
+      message['getrecursiveallparents'].forEach(element => {
+				//alert(JSON.stringify(element.tipo));
+				switch (element.tipo) {
+					case 'Provincia':
+						this.serviciog.pro = element.nombre;
+						break;
+					case 'Municipio':
+						this.serviciog.mun = element.nombre;
+						break;
+					case 'Resguardo':
+						this.serviciog.res = element.nombre;
+						break;
+				}
+				
+			});
+    });
+
     var formData = new FormData();
     formData.append("caracteristica", JSON.stringify(this.dat));
     this.servicios.getObservacionesReport(formData).then(message => {
       //alert(JSON.stringify(message));
       this.serviGloAct.observaciones = message;
     });
+
 
     //alert(JSON.stringify(dat));
     var frmDat = new FormData();
@@ -1909,8 +1935,8 @@ export class ActividadPanel implements OnInit {
             .indexOf(value.replace(/ /g, "").toLowerCase()) !== -1);
       }
       );
-    
-    
+
+
     //alert(JSON.stringify(this.serviciog.activityList));
   }
 

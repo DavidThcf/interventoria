@@ -1268,4 +1268,19 @@ router.post('/delFile', (req, res) => {
 
 
 
+/* Obtiene el tipo y nombre de los padres de una caracteristica */
+router.post('/getRecursiveAllParents', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'+JSON.stringify(req.body.caracteristica));
+  var car = Characteristic.getRecursiveAllParents(JSON.parse(req.body.caracteristica));
+  car.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
+
+
 module.exports = router;

@@ -46,22 +46,22 @@
 		</tr>
 		<tr *ngIf="this.tipNum>1" class="ocultablePr">
 			<td class="tg-2nhx">PROVINCIA</td>
-			<td class="tg-yw4l" colspan="3">{{this.provincia | uppercase}}</td>
+			<td class="tg-yw4l" colspan="3">{{this.serviciog.pro | uppercase}}</td>
 		</tr>
 		<tr *ngIf="this.tipNum>2" class="ocultablePr ocultableVi ">
 			<td class="tg-2nhx">MUNICIPIO</td>
-			<td class="tg-yw4l" colspan="3">{{this.municipio | uppercase}}</td>
+			<td class="tg-yw4l" colspan="3">{{this.serviciog.mun | uppercase}}</td>
 		</tr>
 		<tr *ngIf="this.tipNum>3" class="ocultablePr ocultableVi ocultableMu">
 			<td class="tg-2nhx">RESGUARDO</td>
-			<td class="tg-yw4l" colspan="3">{{this.resguardo | uppercase}}</td>
+			<td class="tg-yw4l" colspan="3">{{this.serviciog.res | uppercase}}</td>
 		</tr>
 		<tr>
 
 		</tr>
 		<tr>
 			<td class="tg-2nhx">FECHA DE INICIO DE OBRA</td>
-			<td class="tg-yw4l" colspan='3'>{{this.feciniobr | uppercase}}</td>
+			<td class="tg-yw4l" colspan='3'>{{this.serviciog.actividad.fecha_inicio | date:'fullDate' | uppercase}}</td>
 		</tr>
 
 		<tr *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && 

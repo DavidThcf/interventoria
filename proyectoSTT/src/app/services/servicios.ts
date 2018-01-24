@@ -457,5 +457,14 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+	/* ------------------------------------ */
+	
+	/* servicio obtener el tipo y nombre de los padres de una caracteristica  */
+	getRecursiveAllParents(formData: FormData) {
+		return this.http.post(this.url + "getRecursiveAllParents", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
 // askkasjd
 } 

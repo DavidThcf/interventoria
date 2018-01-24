@@ -715,7 +715,7 @@ module.exports.updateEtapa = function (data, etapa) {
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();
         var current_date = new Date();
-        var fecha_inicio = current_date.getFullYear()+'-' + (current_date.getMonth()+1) + '-'+current_date.getDate();
+        var fecha_inicio = current_date.getFullYear() + '-' + (current_date.getMonth() + 1) + '-' + current_date.getDate();
         current_date = current_date.setMonth(current_date.getMonth + 10);
         var fecha_fin = current_date.toLocaleString();
         //fecha_inicio = fecha_inicio.replace(/\//g,'-');
@@ -728,21 +728,21 @@ module.exports.updateEtapa = function (data, etapa) {
                     and id_usuario = `+ data.id_usuario + ` ; 
 
                 select updateFieldsCharacteristicbeneficiary(
-                    `+data.keym+`,
-                    `+data.id_caracteristica+`,
-                    `+data.id_usuario+`,
-                    '`+fecha_inicio+`',
-                    '`+etapa+`');
+                    `+ data.keym + `,
+                    `+ data.id_caracteristica + `,
+                    `+ data.id_usuario + `,
+                    '`+ fecha_inicio + `',
+                    '`+ etapa + `');
                     
                 `;
         else
             var query1 = `
                     select updateFieldsCharacteristic(
-                        `+data.keym+`,
-                        `+data.id_caracteristica+`,
-                        `+data.id_usuario+`,
-                        '`+fecha_inicio+`',
-                        '`+etapa+`');
+                        `+ data.keym + `,
+                        `+ data.id_caracteristica + `,
+                        `+ data.id_usuario + `,
+                        '`+ fecha_inicio + `',
+                        '`+ etapa + `');
                 `;
 
 
@@ -789,7 +789,7 @@ module.exports.getDataChart = function (data) {
     });
 }
 
-module.exports.getPauseJob = function(){
+module.exports.getPauseJob = function () {
     var query1 = `SELECT * FROM suspensiones s WHERE s.activo = TRUE LIMIT 1;`;
     return new Promise((resolve, reject) => {
         // console.log('getDataChart  ==>    ' + JSON.stringify(data));
@@ -801,6 +801,30 @@ module.exports.getPauseJob = function(){
                 resolve(x);
             }).catch(x => {
                 console.log('Error al obtener los datos de los totales por categoria de mapas ' + x);
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });
+    });
+}
+
+//Obtiene nombre y tipo de los padres de una caracteristica 
+module.exports.getRecursiveAllParents = function (data) {
+    var query1 = `select getRecursiveAllParents(
+        `+ data.keym + `,
+        `+ data.id_caracteristica + `,
+        `+ data.id_usuario + `,
+        '[]'
+    );`;
+    return new Promise((resolve, reject) => {
+        var sequelize = sqlCon.configConnection();
+        sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\nok ====>    '+JSON.stringify(x[0]));
+                resolve(x[0]);
+            }).catch(x => {
+                console.log('ERROR => OBTERNET PADRES DE UNCA CARACTERISTICA  ====>>>     ' + x);
                 reject(false);
             }).done(x => {
                 sequelize.close();
