@@ -330,7 +330,11 @@
 															Liquidacion
 														</option>
 													</select>
-
+													<br>
+													<div *ngIf="selEtapa.value == 'Entrega de mate'">
+														<label class="form-control" for="fecInicio" class="lab col-md-2" >Fecha de Inicio: </label>
+														<input #fecInicio type="date" required="" class="form-control" value="this.fechaInicio | date:'yyyy-MM-dd" (change)="changeEtapa(selEtapa.value ,'A')">
+													</div>
 												</div>
 												<div *ngIf="this.serviciog.actividad.tipo === 'Beneficiario' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"
 												 style="padding: 1px;margin-bottom: 25px" class="form-inline form">
@@ -338,7 +342,6 @@
 													<div class="form-control" style="width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>
 													<div class="form-control" id="cld" [style.background-color]='this.serviciog.actividad.color_cat' style="height:30px;width:50px"></div>
 												</div>
-
 											</div>
 
 											<!-- Slider cambiar porcentaje de ejecucion -->

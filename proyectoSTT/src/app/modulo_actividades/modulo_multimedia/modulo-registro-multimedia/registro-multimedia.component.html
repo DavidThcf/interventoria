@@ -7,17 +7,20 @@
 				<div style="margin-top:10px;margin-right:20px">
 					<button type="button" class="close" (click)="closeModal()">×</button>
 				</div>
-
+				<div *ngIf="this.isLoader == true" style="text-align: center;">
+					<img src="../../../../assets/img/loader.gif
+					" alt="loader">
+				</div>
 				<form #multimediaForm="ngForm" (ngSubmit)="onSubmitPro(multimediaForm)" style="margin-right: 5%; margin-left: 5%; margin-top:3%;"
-				 enctype="multipart/form-data">
+				enctype="multipart/form-data">
 
-					<div class="form-group">
-						<label for="titulo" class="lab">Titulo</label>
-						<input type="text" id="titulo" class="form-control" name="titulo" required [(ngModel)]="this.archivo.titulo">
-						<div *ngIf="formErrors.titulo" class="alert alert-danger">
-							{{ formErrors.titulo }}
-						</div>
+				<div class="form-group">
+					<label for="titulo" class="lab">Titulo</label>
+					<input type="text" id="titulo" class="form-control" name="titulo" required [(ngModel)]="this.archivo.titulo">
+					<div *ngIf="formErrors.titulo" class="alert alert-danger">
+						{{ formErrors.titulo }}
 					</div>
+				</div>
 					<!-- <div class="form-group">
 						<label for="subtitulo" class="lab">Subtitulo</label>
 						<input type="text" id="subtitulo" class="form-control" name="subtitulo" required [(ngModel)]="this.archivo.subtitulo">
@@ -29,17 +32,17 @@
 					<div class="form-group">
 						<label for="Genero" class="lab">Tipo</label>
 						<select id="genero" class="form-control" name="genero" [(ngModel)]="this.archivo.tipo" (change)="cambio()" required>
-						<option  value="img" >Imagen </option>
-						<option  value="vid" >Video</option>
-						<option  value="sou" >Audio</option>
-						<option  value="doc" >Documento</option>
-						<option  value="oth" >Otro</option>
-					</select>
+							<option  value="img" >Imagen </option>
+							<option  value="vid" >Video</option>
+							<option  value="sou" >Audio</option>
+							<option  value="doc" >Documento</option>
+							<option  value="oth" >Otro</option>
+						</select>
 					</div>
 					<div class="form-group">
 						<label class="uploaderMult" for="uploadMult" [class.inValid]="this.imagenNameValid">
-						{{this.imagenName}}          
-					</label>
+							{{this.imagenName}}          
+						</label>
 
 						<input type="file" id="uploadMult" name="file[]" [attr.accept]="typesAceptted" (change)="imageChangeMult($event)">
 
@@ -52,7 +55,7 @@
 					</div>
 
 					<button type="submit" class="btn btn-success" name="btnLogin" [disabled]="!multimediaForm.form.valid">Guardar
-			</button>
+					</button>
 				</form>
 			</div>
 		</div>

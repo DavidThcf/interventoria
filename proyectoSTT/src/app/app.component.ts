@@ -68,22 +68,21 @@ export class AppComponent implements OnInit {
 				break;
 				case 'mul':
 				this.serviciog.messageList['files']++;
-					// alert(this.serviciog.messageList['files'])
-					this.serviciog.alert_message = "Nuevo Archivo Cargado";
-					break;
-					case 'obs':
-					this.serviciog.messageList['observations']++;
-					this.serviciog.alert_message = "Nueva Observación";
-					break;
-					case 'rec':
-					this.serviciog.messageList['remarks']++;
-					this.serviciog.alert_message = "Nuevo recomendacion";
-					break;
-				}
-				this.serviciog.totalMessage++;
-				setTimeout(() => {
-					this.serviciog.hidden = false;
-				}, 5000);
+				this.serviciog.alert_message = "Nuevo Archivo Cargado";
+				break;
+				case 'obs':
+				this.serviciog.messageList['observations']++;
+				this.serviciog.alert_message = "Nueva Observación";
+				break;
+				case 'rec':
+				this.serviciog.messageList['remarks']++;
+				this.serviciog.alert_message = "Nuevo recomendacion";
+				break;
+			}
+			this.serviciog.totalMessage++;
+			setTimeout(() => {
+				this.serviciog.hidden = false;
+			}, 5000);
 			//alert(JSON.stringify(this.serviciog.messageList));
 		});
 	}
