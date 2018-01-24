@@ -19,6 +19,7 @@ export class RegistroMultimedia{
 	imagenName:string = "Cargar Archivo";
 	imagenNameValid:string;	
 	typesAceptted:string=".jpeg, .jpg, .jpe, .jfif, .jif";
+	isLoader : boolean = false; // Para mostrar el cargador 
 	constructor(
 		private serviciog:ServiciosGlobales,
 		private router:Router,
@@ -27,6 +28,7 @@ export class RegistroMultimedia{
 	
 	ngOnInit(){}
 	onSubmitPro(multimediaForm:NgForm) {	
+		this.isLoader = true;
 		if (this.serviciog.actividad == null) {
 			var keym = this.serviciog.proyecto.keym;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
@@ -65,12 +67,12 @@ export class RegistroMultimedia{
 				'tipo':'mul'
 			})
 			if(message){
-				
+				this.isLoader = false;
 				this.serviciog.alert_message = "Multimedia Guardada !!"
 				this.serviciog.hidden = true;
 				setTimeout(() => {
 					this.serviciog.hidden = false;
-				}, 5000);
+				}, 3000);
 				var formData = new FormData();
 				var tipo = 'img';
 				//alert(JSON.stringify(this.serviciog.actividad));

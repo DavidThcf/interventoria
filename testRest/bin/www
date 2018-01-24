@@ -4,10 +4,10 @@
  * Module dependencies.
  */
 
-var app = require('../app');
-var debug = require('debug')('testrest:server');
-var http = require('http');
-const socketIO = require('socket.io');
+ var app = require('../app');
+ var debug = require('debug')('testrest:server');
+ var http = require('http');
+ const socketIO = require('socket.io');
 
 // variable de usuarios
 sockets = [];
@@ -17,14 +17,14 @@ userList = {};
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '81');
-app.set('port', port);
+ var port = normalizePort(process.env.PORT || '81');
+ app.set('port', port);
 
 /**
  * Create HTTP server.
  */
 
-var server = http.createServer(app);
+ var server = http.createServer(app);
 
 
 
@@ -40,7 +40,7 @@ var server = http.createServer(app);
 
 /*
 sección conexion socket
- */
+*/
 const io = socketIO(server); // inicia el socket en el server
 //para persibir los cambios
 
@@ -55,37 +55,53 @@ io.on('connection', (socket) => {
   socket.on('newUser', (idUser) => {
      // console.log("jkajdfklajsdfkljasdf "+ idUser);
     //if(userList.idUser != undefined)
-      if (idUser in userList){
-        console.log('user ya');
-      }else{
-        socket.nickname = idUser;
-        userList[socket.nickname] = socket.id;
+    if (idUser in userList){
+      console.log('user ya');
+    }else{
+      socket.nickname = idUser;
+      userList[socket.nickname] = socket.id;
+      if ([3,6,9,7].indexOf(idUser)>0){
+        // socket.room = 'room1';
+        socket.join('room1');
       }
-      //guarda usuarios
-      console.log("Lista usuario  >>> >> "+ userList);
-    //else
-      //console.log('user exists !!');
-    // ----------------------------------- /// 
+    }
+    console.log("Lista usuario  >>> >> "+ userList);
   });
   
-  //enviar novedad
-  socket.on('sendSocketNovedad', (data) => {
-    // console.log(JSON.stringify(userList));
-    // console.log(userList);
-    
-    userSend = data.userSend;
+  socket.on('sendSocketNovedad', (data) => {    
+
     tipo = data.tipo;
-    socket1 = userList[userSend];
-    
-    if (socket1){
-      console.log("usuario recepcion:   >>>> " +socket1);
-      io.to(socket1).emit('alert', tipo);
-    }
-  });
+    if(data.tipoAct != undefined){
+
+      // socket1 = userList[6];
+      // console.log("usuario recepcion:   >>>> " +socket1);
+      var arrUsrRoom1 = [3,6,9,7];
+      for (var i = 0; i < arrUsrRoom1.length; i++) {
+        if(arrUsrRoom1[i] != data.userSend){
+          socket1 = userList[arrUsrRoom1[i]];
+          if (socket1){
+            io.to(socket1).emit('alert', tipo);
+          }
+        }
+      }
+      // console.log('entra >>>>> >> >> '+ JSON.stringify(io.sockets)); 
+      //   io.sockets.in('room1').emit('alert', tipo);
+        // io.to(socket1).in('room1').emit('alert', tipo);
+
+      }else{
+        userSend = data.userSend;
+        socket1 = userList[userSend];
+        if (socket1){
+
+          io.to(socket1).emit('alert', tipo);
+        }
+      }
+
+    });
 
   //delete users
   socket.on('delUser', (idUser) => {
-   
+
 
   });
   
@@ -123,15 +139,15 @@ io.on('connection', (socket) => {
  * Listen on provided port, on all network interfaces.
  */
 
-server.listen(port);
-server.on('error', onError);
-server.on('listening', onListening);
+ server.listen(port);
+ server.on('error', onError);
+ server.on('listening', onListening);
 
 /**
  * Normalize a port into a number, string, or false.
  */
 
-function normalizePort(val) {
+ function normalizePort(val) {
   var port = parseInt(val, 10);
 
   if (isNaN(port)) {
@@ -151,27 +167,27 @@ function normalizePort(val) {
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+ function onError(error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
   var bind = typeof port === 'string'
-    ? 'Pipe ' + port
-    : 'Port ' + port;
+  ? 'Pipe ' + port
+  : 'Port ' + port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case 'EACCES':
-      console.error(bind + ' requires elevated privileges');
-      process.exit(1);
-      break;
+    console.error(bind + ' requires elevated privileges');
+    process.exit(1);
+    break;
     case 'EADDRINUSE':
-      console.error(bind + ' is already in use');
-      process.exit(1);
-      break;
+    console.error(bind + ' is already in use');
+    process.exit(1);
+    break;
     default:
-      throw error;
+    throw error;
   }
 }
 
@@ -179,10 +195,10 @@ function onError(error) {
  * Event listener for HTTP server "listening" event.
  */
 
-function onListening() {
+ function onListening() {
   var addr = server.address();
   var bind = typeof addr === 'string'
-    ? 'pipe ' + addr
-    : 'port ' + addr.port;
+  ? 'pipe ' + addr
+  : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
