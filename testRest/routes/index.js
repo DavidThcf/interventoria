@@ -1254,7 +1254,7 @@ router.post('/getAllBeneficiaries', (req, res) => {
 
 /* Obtiene la informacion de todos los beneficicarios para ser mostrada al publico */
 router.post('/delFile', (req, res) => {
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'+JSON.stringify(req.body.file));
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(req.body.file));
   var file = File.delFile(JSON.parse(req.body.file));
   file.then(x => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -1270,7 +1270,7 @@ router.post('/delFile', (req, res) => {
 
 /* Obtiene el tipo y nombre de los padres de una caracteristica */
 router.post('/getRecursiveAllParents', (req, res) => {
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n'+JSON.stringify(req.body.caracteristica));
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(req.body.caracteristica));
   var car = Characteristic.getRecursiveAllParents(JSON.parse(req.body.caracteristica));
   car.then(x => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -1280,6 +1280,35 @@ router.post('/getRecursiveAllParents', (req, res) => {
     res.header("Access-Control-Allow-Origin", "*");
     res.json(false);
   });
+});
+
+
+//Service to get operate with observation
+/*
+update
+delete
+*/
+router.post("/opObservation", (req, res, next) => {
+
+  
+  var news = Novedades.opObservation(JSON.parse(req.body.obs),req.body.opc);
+  
+  news.then(x => {
+    if (x != false) {
+      console.log("Se ha registrado correctamente el punto");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.send(x);
+    } else {
+      console.log("No se ha registrado el punto");
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    }
+  })
+    .catch(x => {
+      console.log("ERROR =>  " + x);
+      res.header("Access-Control-Allow-Origin", "*");
+      res.json(false);
+    });
 });
 
 

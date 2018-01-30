@@ -354,7 +354,7 @@ export class Multimedia implements OnInit {
 		formData.append('file', cad);
 		this.servicios.delFile(formData).then(x=>{
 			if(x){
-				this.serviciog.alert_message = 'Archuivo eliminado!!!';
+				this.serviciog.alert_message = 'Archivo eliminado!!!';
 				this.serviciog.hidden = true;
 				setTimeout(() => {
 					this.serviciog.hidden = false;

@@ -428,17 +428,37 @@ module.exports.getRemarks = function (data, observacion, report) {
         var sequelize = sqlCon.configConnection();
         if (report)
             var query1 = `
-                select u.nombre||' '||u.apellido as usuario,o.observacion,row_number() OVER () numero from caracteristicas c natural join observaciones o join usuarios u
+                select 
+                
+                false edit,o.id_observacion,o.aprobado,
+                u.nombre||' '||u.apellido as usuario,
+                o.observacion,
+                o.visto,
+                o.observacion as ax,
+                row_number() OVER () numero 
+                
+                from caracteristicas c natural join observaciones o join usuarios u
                 on o.usuario_own_observacion = u.id_usuario
                 where c.keym = `+ data.keym + ` and c.id_caracteristica = ` + data.id_caracteristica + ` and c.id_usuario = ` + data.id_usuario + `
-                and reporte =  `+ observacion + ` and aprobado = true;
+                and reporte =  `+ observacion + ` and aprobado = true
+                order by fecha_creacion desc;
             `;
         else
             var query1 = `
-                select u.nombre||' '||u.apellido as usuario,o.observacion,row_number() OVER () numero from caracteristicas c natural join observaciones o join usuarios u
+                select 
+                
+                false edit,o.id_observacion,o.aprobado,
+                u.nombre||' '||u.apellido as usuario,
+                o.observacion,
+                o.visto,
+                o.observacion as ax,
+                row_number() OVER () numero 
+                
+                from caracteristicas c natural join observaciones o join usuarios u
                 on o.usuario_own_observacion = u.id_usuario
                 where c.keym = `+ data.keym + ` and c.id_caracteristica = ` + data.id_caracteristica + ` and c.id_usuario = ` + data.id_usuario + `
-                and reporte =  `+ observacion + `;
+                and reporte =  `+ observacion + `
+                order by fecha_creacion desc;
             `;
 
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
