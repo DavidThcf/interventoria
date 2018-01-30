@@ -78,12 +78,15 @@
 		</tr>
 		<tr style="position: relative">
 			<td class="tg-baqh" style="width: 10%">No</td>
-			<td class="tg-baqh" style="width: 90%">DESCRIPCIÓN</td>
+			<td colspan="2" class="tg-baqh" style="width: 90%">DESCRIPCIÓN</td>
 		</tr>
 
 		<tr style="position: relative" id="observacion" *ngFor="let item of this.observaciones">
 			<td class="tg-baqh" style="width: 10%;text-align: left">{{item.numero}}</td>
 			<td class="tg-baqh" style="width: 90%;text-align: left">{{item.observacion}}</td>
+			<td *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
+				<button style="position: relative;width: 20px;margin: auto;" class="btn btn-danger center-block" (click)="delObservation(item)">X</button>
+			</td>
 		</tr>
 
 		

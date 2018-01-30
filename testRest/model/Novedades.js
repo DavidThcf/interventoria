@@ -59,20 +59,20 @@ module.exports.getDataNewChangePercent = function (data) {
 }
 
 module.exports.approvalPercentage = function (data) {
-    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  DATA ====>    '+data);
+    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  DATA ====>    ' + data);
     var sequelize = sqlCon.configConnection();
     var query1 = `
         select percentageApproval(
-            `+data.keym+`,
-            `+data.id_caracteristica+`,
-            `+data.id_usuario+`,
-            `+data.stateApproval+`,
-            `+data.porcentaje_cambio+`
+            `+ data.keym + `,
+            `+ data.id_caracteristica + `,
+            `+ data.id_usuario + `,
+            `+ data.stateApproval + `,
+            `+ data.porcentaje_cambio + `
         );
     `;
 
 
-    console.log('\n\n\n\n\n  query1 ====>    '+query1+'\n\n\n');
+    console.log('\n\n\n\n\n  query1 ====>    ' + query1 + '\n\n\n');
 
     return new Promise((resolve, reject) => {
         sequelize
@@ -93,16 +93,16 @@ module.exports.approvalPercentage = function (data) {
 }
 
 module.exports.approvalObservation = function (data) {
-    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  DATA ====>    '+JSON.stringify(data));
+    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n  DATA ====>    ' + JSON.stringify(data));
     var sequelize = sqlCon.configConnection();
     var fec = new Date().toLocaleString();
     var query1 = `
-        update observaciones set visto = true, fecha_aprovacion = '`+fec+`', aprobado = `+data.stateApproval+` 
-        where id_observacion = `+data.id_observacion+`
+        update observaciones set visto = true, fecha_aprovacion = '`+ fec + `', aprobado = ` + data.stateApproval + ` 
+        where id_observacion = `+ data.id_observacion + `
     `;
 
 
-    console.log('\n\n\n\n\n  query1 ====>    '+query1+'\n\n\n');
+    console.log('\n\n\n\n\n  query1 ====>    ' + query1 + '\n\n\n');
 
     return new Promise((resolve, reject) => {
         sequelize
@@ -124,12 +124,12 @@ module.exports.approvalObservation = function (data) {
 
 module.exports.getDataNew = function (data) {
     var sequelize = sqlCon.configConnection();
-    console.log('OKOKOKOKOK  ==>  '+data);
+    console.log('OKOKOKOKOK  ==>  ' + data);
     var query1 = `
         select * from
-        (select count(id_novedad) percentage from novedades where estado = 'WAI' and visto = false and usuario_novedad = `+data+` ) t1,
-        (select count(id_observacion) observations from observaciones where reporte = true and visto = false and usu_observacion = `+data+` ) t3,
-        (select count(id_observacion) remarks from observaciones where reporte = false and visto = false and usu_observacion = `+data+` ) t4,
+        (select count(id_novedad) percentage from novedades where estado = 'WAI' and visto = false and usuario_novedad = `+ data + ` ) t1,
+        (select count(id_observacion) observations from observaciones where reporte = true and visto = false and usu_observacion = `+ data + ` ) t3,
+        (select count(id_observacion) remarks from observaciones where reporte = false and visto = false and usu_observacion = `+ data + ` ) t4,
         (
             select count(a.id_archivo) files from archivos a join caracteristicas c
             on c.keym = a.keym_car
@@ -138,7 +138,7 @@ module.exports.getDataNew = function (data) {
 
 
             where a.visto = false 
-            and `+data+` = (
+            and `+ data + ` = (
                 select usuario_superior from usuarios 
                 where id_usuario = (
                     select getdifusuarioasignado(c.keym,c.id_caracteristica,c.id_usuario)
@@ -166,7 +166,7 @@ module.exports.getDataNew = function (data) {
 }
 
 //Trae los datos de las observaciones que hace el subordinado => supervisor para luego ser aceptadas o no
-module.exports.getDataNewObservations = function (data,reporte) {
+module.exports.getDataNewObservations = function (data, reporte) {
     var sequelize = sqlCon.configConnection();
     console.log(data);
     var query1 = `
@@ -257,7 +257,7 @@ module.exports.getDataNewObservations = function (data,reporte) {
         left join categorias_mapa ct
             on 	ct.id_categoria = m.id_categoria
 
-        where o.visto = false  and o.usu_observacion = `+data.id_usuario+` and o.reporte = `+reporte+`
+        where o.visto = false  and o.usu_observacion = `+ data.id_usuario + ` and o.reporte = ` + reporte + `
     ;`;
 
     return new Promise((resolve, reject) => {
@@ -278,9 +278,8 @@ module.exports.getDataNewObservations = function (data,reporte) {
     });
 }
 
-
 //Trae los datos de las observaciones que hace el subordinado => supervisor para luego ser aceptadas o no
-module.exports.getDataNewChangeFile = function (data,reporte) {
+module.exports.getDataNewChangeFile = function (data, reporte) {
     var sequelize = sqlCon.configConnection();
     console.log(data);
     var query1 = `
@@ -340,7 +339,7 @@ module.exports.getDataNewChangeFile = function (data,reporte) {
     
     join usuarios u
     on ar.id_usuario_arc= u.id_usuario
-        where ar.visto = false  and u.usuario_superior = `+data.id_usuario+ ` and ar.reporte = false 
+        where ar.visto = false  and u.usuario_superior = `+ data.id_usuario + ` and ar.reporte = false 
     ;`;
 
     return new Promise((resolve, reject) => {
@@ -360,3 +359,50 @@ module.exports.getDataNewChangeFile = function (data,reporte) {
             });
     });
 }
+
+
+//Operaciones con observacion => borrar, actualizar texto y actualizar el estado (Cambio => eliminar observacion de reporte) 
+module.exports.opObservation = function (data, opc) {
+    var sequelize = sqlCon.configConnection();
+    console.log(data);
+    switch (opc) {
+        case 'UP_TXT':
+            var query1 = `
+            update observaciones set observacion = '`+ data.observacion + `'
+            where id_observacion = `+ data.id_observacion + `;
+            `;
+            break;
+        case 'UP_EST':
+            var query1 = `
+                update observaciones set aprobado = `+data.aprobado+` , visto = true
+                where id_observacion = `+ data.id_observacion + `;
+            `;
+            break;
+        case 'DELETE':
+            var query1 = `
+            delete from observaciones where id_observacion = `+ data.id_observacion + `';
+            `;
+
+            break;
+    }
+
+
+    return new Promise((resolve, reject) => {
+        sequelize
+            .query(query1, { type: sequelize.QueryTypes.SELECT })
+            .then(x => {
+                console.log("\n\n\n\nSe elimino correctamente la observacion\n\n\n" + JSON.stringify(x));
+                resolve(x);
+            })
+            .catch(x => {
+                console.log("NO se puede eliminar esta observacion  " + x);
+                reject(false);
+            })
+            .done(x => {
+                sequelize.close();
+                console.log("Se ha cerrado sesion de la conexion a la base de datos");
+            });
+    });
+}
+
+

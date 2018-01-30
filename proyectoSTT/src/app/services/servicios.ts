@@ -466,5 +466,15 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
+	/* ------------------------------------ */
+	
+	/* Operacion con observaciones  */
+	opObservation(formData: FormData) {
+		return this.http.post(this.url + "opObservation", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
 // askkasjd
 } 
+

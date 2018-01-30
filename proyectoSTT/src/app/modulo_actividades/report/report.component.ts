@@ -56,7 +56,7 @@ export class ReportComponent implements OnInit {
 	@Input() firmaApr: string = '';
 	@Input() nombreApr: string = '';
 	@Input() cargoApr: string = '';
-	@Input() ax_parents : any;
+	@Input() ax_parents: any;
 	pro: string = '';
 	mun: string = '';
 	res: string = '';
@@ -108,7 +108,7 @@ export class ReportComponent implements OnInit {
 	) { }
 
 	ngOnInit() {
-		
+
 		this.msg = [];
 		this.tipNum = 0;
 
@@ -128,7 +128,7 @@ export class ReportComponent implements OnInit {
 				break;
 		}
 
-		
+
 
 		//this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
 		if (this.serviciog.porcentajeDifProgramadoEjecutado >= 0) {
@@ -162,7 +162,7 @@ export class ReportComponent implements OnInit {
 		}
 
 
-		
+
 		if (this.isTitleSelected && this.serviciog.actividad == null)
 			var dat = {
 				keym: this.serviciog.proyecto.keym,
@@ -261,4 +261,26 @@ export class ReportComponent implements OnInit {
 		// window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	}
 
+	delObservation(obs) {
+		//se elimina de la presentacion
+		obs.aprobado = false;
+
+		//Invoca al servicio para que se elimine la observacion del reporte
+		var formData = new FormData();
+		formData.append('obs', JSON.stringify(obs));
+		formData.append('opc', 'UP_EST');
+
+		this.servicios.opObservation(formData).then(x => {
+			for(var i = this.observaciones.length - 1; i >= 0; i--) {
+				if(this.observaciones[i] === obs) {
+				   this.observaciones.splice(i, 1);
+				}
+			}
+			this.serviciog.alert_message = 'Observacion eliminada del reporte!!!';
+			this.serviciog.hidden = true;
+			setTimeout(() => {
+				this.serviciog.hidden = false;
+			}, 2000);
+		});
+	}
 }

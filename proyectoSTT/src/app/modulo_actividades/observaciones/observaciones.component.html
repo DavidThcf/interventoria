@@ -1,15 +1,45 @@
 <div id="pan-observacion" style="width: 70%; " class="center-block">
   <h4 style="font-size: 30px;text-align: center;">OBSERVACIÓN</h4>
-   <div id="observacion" *ngFor="let item of this.observaciones">
-    <h5 style="font-size: 15px">Usuario: 
-      <span style="font-size: 15px">{{item.usuario}}</span></h5>
-    <h5>{{item.observacion}}</h5>
+  <div id="observacion" *ngFor="let item of this.observaciones">
+    <h5 style="font-size: 15px">Usuario:
+      <span style="font-size: 15px">{{item.usuario}}</span>
+    </h5>
+    <div>
+      <textarea *ngIf="item.edit" [(ngModel)]="item.observacion" required="required" style="width:100%; max-width: 100% ;padding: 2px;border: none"></textarea>
+      <p *ngIf="!item.edit" style="width:100%; max-width: 100% ;padding: 2px;border: none">{{item.observacion}}</p>
+    </div>
+    <div style="margin: auto">
+      <div>
+        <div *ngIf="!item.visto">
+          <img src="../../../assets/img/stby.png" width="40px" height="40px" class="img-responsive ximg" />
+        </div>
+        <div *ngIf="item.aprobado && item.visto">
+          <img src="../../../assets/img/ok.png" width="40px" height="40px" class="img-responsive ximg" />
+        </div>
+        <div *ngIf="!item.aprobado && item.visto">
+          <img src="../../../assets/img/bad.png" width="40px" height="40px" class="img-responsive ximg" />
+        </div>
+      </div>
+      
+      <div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
+          <div class="center-block" style="display: inline-block;">
+              <button *ngIf="!item.aprobado && !item.edit" class="btn btn-success  xbtn" (click)="okReporte(item,true)"> Aprobar </button>
+              <button *ngIf="item.aprobado && !item.edit" class="btn btn-danger    xbtn" (click)="okReporte(item,false)"> Desaprobar </button>
+            </div>
+            <div class="center-block" style="display: inline-block;">
+              <button *ngIf="!item.edit" class="btn btn-success  xbtn" (click)="item.edit = !item.edit"> Editar </button>
+              <button *ngIf="item.edit" class="btn btn-danger  xbtn" (click)="saveEdit(item)"> Guardar </button>
+              <button *ngIf="item.edit" class="btn btn-danger  xbtn" (click)="item.edit = !item.edit ; item.observacion = item.ax"> Cancelar </button>
+            </div>
+      </div>
+
+    </div>
   </div>
-  
+
   <div id="form-observacion" style="margin-top: 20px">
     <p>Agregar nueva observacion</p>
     <textarea #txtArea placeholder="Agrega aqui tu observacion..." required="required" style="width:100%; max-width: 100% ; min-height : 100px ; "></textarea>
     <br>
-    <button class="btn btn-success center-block" (click)="regObservacion(txtArea.value)"> Guardar </button>
+    <button class="btn btn-success " (click)="regObservacion(txtArea.value)"> Guardar </button>
   </div>
 </div>
