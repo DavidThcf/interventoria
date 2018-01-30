@@ -1,10 +1,10 @@
 <!-- Modificar para publicar -->
-<button style="font-size: 11px" *ngIf="!isMapSelected && !isRepSelected" class="btn-select-map" (click)="btnAddImgMap()">
+<button style="font-size: 11px" *ngIf="!isMapSelected && !isRepSelected && this.serviciog.usuario.tipo_usuario != 'sup'" class="btn-select-map" (click)="btnAddImgMap()">
   Publicar
 </button>
 
 <!-- Modificar para seleccionar archivos para reporte -->
-<button style="font-size: 11px;" *ngIf="!isMapSelected && !isRepSelected" class="btn-select-rep" (click)="btnAddImgRep()">
+<button style="font-size: 11px;" *ngIf="!isMapSelected && !isRepSelected && this.serviciog.usuario.tipo_usuario != 'sup'" class="btn-select-rep" (click)="btnAddImgRep()">
   Reporte
 </button>
 
@@ -117,104 +117,104 @@ class="btn-add-img btn-primary"
       <input type="checkbox" *ngIf="isMapSelected" 
       class="chk" [checked]=imagen.visible_map (change)="checked(imagen)">
       <!-- <div class="thumbnail box1" [attr.data-title]='imagen.titulo' [attr.data-description]='imagen.descripcion' > -->
-      <div class="thumbnail">
-        <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} 
-        alt={{imagen.subtitulo}} class="img-responsive">
-        <div class="caption">
-          <p style="font-size: 12px">{{imagen.titulo}}</p>
-          <p style="font-size: 9px">{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
-        </div>
-        <button *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" title="Eliminar" class="btn btn-danger center-block" (click)="delImage(imagen)">X</button>    
-      </div>
-    </div>
-  </div>
-
-  <!-- Documentos -->
-  <div class="row" *ngIf="this.serviciog.tipo === 'doc'">
-    <h3>Documentos</h3>
-    <table class="multHover table table-striped" style="width:90%;margin-left:5%">
-      <thead>
-        <tr style="position:relative;width:100%">
-          <th>#</th>
-          <th style="width:20%">Titulo</th>
-          <th style="width:65%">Descripción</th>
-          <th style="width:10%"></th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
-          <th scope="row" style="vertical-align:middle">#</th>
-          <td style="vertical-align:middle">{{imagen.titulo}}</td>
-          <td>{{imagen.subtitulo}}</td>
-          <td>
-            <button (click)="show(imagen)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Audio -->
-  <div class="row" *ngIf="this.serviciog.tipo === 'sou'">
-    <h3>Audio</h3>
-    <table class="multHover table table-striped" style="width:90%;margin-left:5%">
-      <thead>
-        <tr style="position:relative;width:100%">
-          <th>#</th>
-          <th style="width:20%">Nombre</th>
-          <th style="width:75%">Descripción</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
-          <th scope="row" style="vertical-align:middle">#</th>
-          <td style="vertical-align:middle">{{imagen.titulo}}</td>
-          <td>{{imagen.subtitulo}}</td>
-        </tr>
-
-      </tbody>
-    </table>
-  </div>
-
-  <!-- Videos -->
-  <div class="row" *ngIf="this.serviciog.tipo === 'vid'">
-    <h3>Videos</h3>
-    <div class="col-xs-12 col-md-4" *ngFor="let imagen of this.serviciog.imagenes">
-      <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)">
-      <a class="thumbnail">
-        <video controls class="video-js">
-          <source src="{{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}}" type='video/mp4' />
-        </video>
-        <div class="caption">
-          <h4>{{imagen.titulo}}</h4>
-        </div>
-      </a>
-    </div>
-  </div>
-
-  <!-- Otros -->
-  <div class="row" *ngIf="this.serviciog.tipo === 'oth'">
-    <h3>Otros Archivos</h3>
-  </div>
-</div>
-
-<!-- <registro-multimedia></registro-multimedia> -->
-
-<div id="mod-sho-mult" style="margin-top: 50px" class="modal fade" role="dialog">
-  <div class="modal-dialog" style="vertical-align: middle;">
-    <!-- Modal content-->
-    <div class="modal-content">
-      <div class="modal-body">
-        <div style="margin-top:10px;margin-right:20px">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-        </div>
-        <div>
-          <iframe [attr.src]="this.urlShow"></iframe>
+        <div class="thumbnail">
+          <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} 
+          alt={{imagen.subtitulo}} class="img-responsive">
+          <div class="caption">
+            <p style="font-size: 12px">{{imagen.titulo}}</p>
+            <p style="font-size: 9px">{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
+          </div>
+          <button *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" title="Eliminar" class="btn btn-danger center-block" (click)="delImage(imagen)">X</button>    
         </div>
       </div>
     </div>
+
+    <!-- Documentos -->
+    <div class="row" *ngIf="this.serviciog.tipo === 'doc'">
+      <h3>Documentos</h3>
+      <table class="multHover table table-striped" style="width:90%;margin-left:5%">
+        <thead>
+          <tr style="position:relative;width:100%">
+            <th>#</th>
+            <th style="width:20%">Titulo</th>
+            <th style="width:65%">Descripción</th>
+            <th style="width:10%"></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
+            <th scope="row" style="vertical-align:middle">#</th>
+            <td style="vertical-align:middle">{{imagen.titulo}}</td>
+            <td>{{imagen.subtitulo}}</td>
+            <td>
+              <button (click)="show(imagen)" class="btn btn-primary" data-toggle="modal" data-target="#mod-sho-mult">Ver</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Audio -->
+    <div class="row" *ngIf="this.serviciog.tipo === 'sou'">
+      <h3>Audio</h3>
+      <table class="multHover table table-striped" style="width:90%;margin-left:5%">
+        <thead>
+          <tr style="position:relative;width:100%">
+            <th>#</th>
+            <th style="width:20%">Nombre</th>
+            <th style="width:75%">Descripción</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr style="cursor:pointer" *ngFor="let imagen of this.serviciog.imagenes">
+            <th scope="row" style="vertical-align:middle">#</th>
+            <td style="vertical-align:middle">{{imagen.titulo}}</td>
+            <td>{{imagen.subtitulo}}</td>
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Videos -->
+    <div class="row" *ngIf="this.serviciog.tipo === 'vid'">
+      <h3>Videos</h3>
+      <div class="col-xs-12 col-md-4" *ngFor="let imagen of this.serviciog.imagenes">
+        <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.isViewMap (change)="checked(imagen)">
+        <a class="thumbnail">
+          <video controls class="video-js">
+            <source src="{{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}}" type='video/mp4' />
+          </video>
+          <div class="caption">
+            <h4>{{imagen.titulo}}</h4>
+          </div>
+        </a>
+      </div>
+    </div>
+
+    <!-- Otros -->
+    <div class="row" *ngIf="this.serviciog.tipo === 'oth'">
+      <h3>Otros Archivos</h3>
+    </div>
   </div>
-</div>
+
+  <!-- <registro-multimedia></registro-multimedia> -->
+
+  <div id="mod-sho-mult" style="margin-top: 50px" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="vertical-align: middle;">
+      <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-body">
+          <div style="margin-top:10px;margin-right:20px">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+          </div>
+          <div>
+            <iframe [attr.src]="this.urlShow"></iframe>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
 
