@@ -76,7 +76,7 @@ export class AppComponent implements OnInit {
 				break;
 				case 'rec':
 				this.serviciog.messageList['remarks']++;
-				this.serviciog.alert_message = "Nuevo recomendacion";
+				this.serviciog.alert_message = "Nueva recomendacion";
 				break;
 			}
 			this.serviciog.totalMessage++;

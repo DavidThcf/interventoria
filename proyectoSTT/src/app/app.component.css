@@ -23,15 +23,15 @@
 	color: #f07000;
 	background-color: #181f2c;
 	text-align: center;
+	vertical-align: center;
 	border-radius: 20px;
 	padding-top: 2px;
 	padding-left: 20px
-/*#f07000 color*/
-	/*#181f2c back*/
 }
 .alerMesP{
-	font-size: 30pt;
+	font-size: 25pt;
 	text-align: center;
+	vertical-align: center;
 	margin-left: 10px;
 }
 
