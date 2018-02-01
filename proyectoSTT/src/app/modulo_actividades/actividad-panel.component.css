@@ -1,16 +1,5 @@
-.listaActividades li{
-  position: relative;
-  width: 100%
-}
-
-.sel{
-  position: relative;
-  width: 100%
-}
-.selected .sel {
-  position: relative;
+.selected a {
   background-color: rgba(0, 0, 0, 0.2);
-  width: 100%;
 }
 
 .listaActividades {
@@ -45,9 +34,7 @@
   background-color: #000000;
 }
 
-.listaActividades .sel:hover {
-  width: 100%;
-  position: relative;
+.listaActividades a:hover {
   background-color: rgba(0, 0, 0, 0.3);
   cursor: pointer;
 }
@@ -79,15 +66,11 @@
 }
 
 .menuActividades a:hover {
-  position: relative;
-  width: 100%;
   background-color: rgba(0, 0, 0, 0.2);
   cursor: pointer;
 }
 
 .itemSelected {
-  position: relative;
-  width: 100%;
   border-top: 2px solid #01bcf3;
   background-color: rgba(0, 0, 0, 0.2);
 }
@@ -402,4 +385,3 @@ input:checked+.slider:before {
 
 
 /* ------------------------- */
-
