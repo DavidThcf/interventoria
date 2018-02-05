@@ -128,8 +128,8 @@ module.exports.getFileList = function (data) {
                 ELSE false
                 END as ext
                 FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
-                WHERE (now()::date- ar.fecha_creacion::date) <= 15 
-                and tipo = '`+ data.tipo + `' 
+                --WHERE (now()::date- ar.fecha_creacion::date) <= 15 AND
+                WHERE tipo = '`+ data.tipo + `' 
                 ORDER BY ar.fecha_creacion ASC ;
                 
                 `;
