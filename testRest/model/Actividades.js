@@ -126,7 +126,9 @@ module.exports.getActivityList = function (data) {
         		u.cargo as cargo,
 				u.tipo_usuario,
 				ct.nombre nombre_cat,
-				ct.color color_cat
+				ct.color color_cat,
+
+				n.visto,n.estado,n.porcentaje_cambio
 
 				from actividades a join caracteristicas c
  				on 	a.keym_car = c.keym
@@ -156,6 +158,8 @@ module.exports.getActivityList = function (data) {
 				left join categorias_mapa ct
 				on 	ct.id_categoria = m.id_categoria
 
+				left join novedades n on c.id_caracteristica = n.id_caracteristica AND n.visto = false
+
 				where c.keym_padre = ` + keym + `
 				and c.id_caracteristica_padre = ` + id_caracteristica + `
 				and c.id_usuario_padre = ` + id_usuario + `
@@ -181,7 +185,7 @@ module.exports.getActivityList = function (data) {
 			});
 
 	});
-}
+} 
 
 module.exports.getpar = function(data){
 	console.log('\n\n\n\nDATA=>'+JSON.stringify(data));
@@ -247,6 +251,8 @@ module.exports.getpar = function(data){
 		on ben.keym =ap.keym_car
 		and ben.id_caracteristica = ap.id_caracteristica
 		and ben.id_usuario = ap.id_usuario_car
+
+		
 		where res.keym = `+ keym + ` and res.id_caracteristica = ` + id_caracteristica + ` and res.id_usuario = ` + id_usuario + `
 	`;
 

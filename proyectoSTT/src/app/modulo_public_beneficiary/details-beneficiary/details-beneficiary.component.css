@@ -55,6 +55,19 @@
 }
 
 
+.thumbnail{
+	text-decoration: none;
+	min-height: 330px
+}
+
+.thumbnail img{
+	width: 242px;
+	height: 200px;
+}
+.thumbnail video{
+	width: 312px;
+	height: 174px;
+}
 
 
 

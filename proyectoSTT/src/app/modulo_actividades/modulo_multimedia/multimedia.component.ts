@@ -17,6 +17,7 @@ import { SafeResourceUrl, DomSanitizer } from '@angular/platform-browser';
 
 export class Multimedia implements OnInit {
 
+	pic : string = '';
 	isMapSelected: boolean = false;
 	isRepSelected: boolean = false;
 	imagenEditView: any[] = []; // arreglo imagenes a agregar al reporte

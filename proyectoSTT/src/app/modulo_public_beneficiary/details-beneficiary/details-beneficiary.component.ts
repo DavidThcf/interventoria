@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { Servicios } from '../../services/servicios';
 import { ServiciosGlobales } from '../../services/servicios-globales';
 import { Router } from "@angular/router";
 import { AgmCoreModule } from '@agm/core';
+import { Alert } from 'selenium-webdriver';
 
 @Component({
   selector: 'app-details-beneficiary',
@@ -10,17 +11,25 @@ import { AgmCoreModule } from '@agm/core';
   styleUrls: ['./details-beneficiary.component.css']
 })
 export class DetailsBeneficiaryComponent implements OnInit {
+  @ViewChild('mapBen') mapBen : AgmCoreModule;
+
+  // ben contiene la informacion del beneficiario
+  @Input() ben: any = null;
+
+  //Almacena la ruta para mostrar en modal grande
+  pic :string ='';
+
   //mapa
   lat: number = 0.82438333300000000000;
   lng: number = -77.83935000000000000000;
-  zoom: number = 11;
-  today: any  = null;
+  zoom: number = 7;
+  today: any = null;
 
   //var beneficiario
   opc: string = '';
   tipo: string = '';
   archivos: any[] = [];
-  ben: any = null;
+
   images: any[] = [];
   public doughnutChartLabels: string[] = [];
   public doughnutChartData: any[] = [];
@@ -73,60 +82,67 @@ export class DetailsBeneficiaryComponent implements OnInit {
     private servicios: Servicios
   ) { }
 
-  ngOnInit() {
+  public reload(){
     this.today = Date.now();
-
-    this.ben = this.serviciog.ben;
-    this.tipo = 'img';
-    this.opc = 'Reporte';
-
-    // this.lat = this.ben.latitud;
-    // this.lng = this.ben.longitud;
-
-    //Obtiene los archivos que se muestran en reporte
-    var formData = new FormData();
-    formData.append('keym', this.ben.keym);
-    formData.append('id_caracteristica', this.ben.id_caracteristica);
-    formData.append('id_usuario', this.ben.id_usuario);
-    formData.append('tipo', this.tipo);
-    formData.append('tipoAct', 'Beneficiario');
-    formData.append('reporte', true + '');
-    this.servicios.getMultimedia(formData)
-      .then(imagenes => {
-        if (imagenes) {
-          this.serviciog.imagenes = imagenes;
-          imagenes.forEach(element => {
-            //alert(JSON.stringify(element.titulo));
-            this.images.push({ 'nombre': element.titulo, 'fecha_creacion': element.fecha_creacion, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
-            //val_configuracion+srcServ+nombre_archivo
-            //alert(JSON.stringify(this.images));
-          });
+    
+        this.ben = this.serviciog.ben;
+        this.tipo = 'img';
+        this.opc = 'Reporte';
+    
+        this.lat = this.ben.latitud;
+        this.lng = this.ben.longitud;
+    
+        
+        if (this.ben) {
+          //Obtiene los archivos que se muestran en reporte
+          var formData = new FormData();
+          formData.append('keym', this.ben.keym);
+          formData.append('id_caracteristica', this.ben.id_caracteristica);
+          formData.append('id_usuario', this.ben.id_usuario);
+          formData.append('tipo', this.tipo);
+          formData.append('tipoAct', 'Beneficiario');
+          formData.append('reporte', true + '');
+          this.servicios.getMultimedia(formData)
+            .then(imagenes => {
+              if (imagenes) {
+                this.serviciog.imagenes = imagenes;
+                imagenes.forEach(element => {
+                  //alert(JSON.stringify(element.titulo));
+                  this.images.push({ 'nombre': element.titulo, 'fecha_creacion': element.fecha_creacion, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
+                  //val_configuracion+srcServ+nombre_archivo
+                  //alert(JSON.stringify(this.images));
+                });
+              }
+            });
+    
+          //calcula los valores y porcentajes programados 
+          this.calcPercentReal();
+          this.calValueProgra();
+    
+          //obtiene las imagenes que se muestran en ek inicio de multimedia
+          this.archivos = [];
+          var formData = new FormData();
+          formData.append('keym', this.ben.keym);
+          formData.append('id_caracteristica', this.ben.id_caracteristica);
+          formData.append('id_usuario', this.ben.id_usuario);
+          formData.append('tipo', 'img');
+          formData.append('tipoAct', 'Beneficiario');
+    
+          this.servicios.getMultimedia(formData)
+            .then(imagenes => {
+              if (imagenes) {
+                var cad = JSON.stringify(imagenes);
+                this.archivos = imagenes[0].getarchivos;
+                //alert(JSON.stringify(imagenes[0].getarchivos));
+              } else {
+                this.archivos = []
+              }
+            })
         }
-      });
+  }
 
-    //calcula los valores y porcentajes programados 
-    this.calcPercentReal();
-    this.calValueProgra();
-
-    //obtiene las imagenes que se muestran en ek inicio de multimedia
-    this.archivos = [];
-    var formData = new FormData();
-    formData.append('keym', this.ben.keym);
-    formData.append('id_caracteristica', this.ben.id_caracteristica);
-    formData.append('id_usuario', this.ben.id_usuario);
-    formData.append('tipo', 'img');
-    formData.append('tipoAct', 'Beneficiario');
-
-    this.servicios.getMultimedia(formData)
-      .then(imagenes => {
-        if (imagenes) {
-          var cad = JSON.stringify(imagenes);
-          this.archivos = imagenes[0].getarchivos;
-          //alert(JSON.stringify(imagenes[0].getarchivos));
-        } else {
-          this.archivos = []
-        }
-      })
+  ngOnInit() {
+    this.reload();
   }
 
   //calculo pocentaje real
@@ -297,4 +313,13 @@ export class DetailsBeneficiaryComponent implements OnInit {
         }
       })
   }
+
+
+	loadPoint(){
+    this.opc="Mapa";
+    //alert(this.ben.latitud +'    '+this.ben.longitud)
+    this.lat = parseFloat(this.ben.latitud);
+    this.lng = parseFloat(this.ben.longitud);
+	}
+
 }

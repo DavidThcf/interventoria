@@ -20,6 +20,7 @@ import { AgmCoreModule } from '@agm/core';
   	DetailsBeneficiaryComponent
   ],
   providers: [ 
-  ]
+  ],
+  exports: [DetailsBeneficiaryComponent]
 })
 export class PublicBeneficiaryModule {}

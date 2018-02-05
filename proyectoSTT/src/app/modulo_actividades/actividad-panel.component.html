@@ -46,8 +46,8 @@
 
 				<div class="listaActividades">
 					<ul *ngIf="this.serviciog.actividades">
-						<li class="sel" *ngFor="let activity of this.serviciog.activityList" [class.selected]="activity === this.serviciog.actividad" (click)="onSelectActivity(activity)"
-						 (dblclick)="entrarACtividad(activity)">
+						<li class="sel" *ngFor="let activity of this.serviciog.activityList" [class.selected]="activity === this.serviciog.actividad"
+						 (click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)">
 							<tr style="box-sizing:content-box; display: inline-block">
 
 								<td *ngIf="activity.color_cat" style="text-align: center;display: block; margin: auto">
@@ -367,6 +367,10 @@
 													 [(ngModel)]="this.serviciog.proyecto.porcentaje_cumplido" (mouseup)="slideValue(this.serviciog.proyecto,slide.value)"
 													/>
 
+													<input *ngIf="this.serviciog.proyecto.porcentaje_cambiio != null" #slideWai style="width: 450px;display: inline-block;" id="slider2"
+													 type="range" min="0" max="100" step="1" value="{{this.serviciog.proyecto.porcenntaje_cambio}}" [(ngModel)]="this.serviciog.proyecto.porcentaje_cambiio"
+													 (mouseup)="slideValue(this.serviciog.proyecto,slideWai.value)" />
+
 													<p style="display: inline-block;">100% </p>
 
 													<input style="display: inline-block;margin-left: 40px;text-align: center;" type="number" name="slider" value="{{this.serviciog.proyecto.porcentaje_cumplido}}"
@@ -652,8 +656,9 @@
 					<div *ngIf="this.serviciog.actividad.tipo == 'Actividad' && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null' && this.serviciog.usuario.tipo_usuario =='sup'"
 					 style="position: relative;width: 90%;margin: auto;margin-top: 15px">
 						<div *ngIf="this.serviciog.state_act == true">
-							<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
-							<div style="position: relative;margin: auto">
+
+							<div>
+								<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 								<p style="display: inline-block;">0% </p>
 
 								<input #slide style="width: 450px;display: inline-block;" id="slider2" type="range" min="0" max="100" step="1" value="{{this.serviciog.actividad.porcentaje_cumplido}}"
@@ -665,6 +670,22 @@
 								<input style="display: inline-block;margin-left: 40px;text-align: center;" type="number" name="slider" value="{{this.serviciog.actividad.porcentaje_cumplido}}"
 								 [(ngModel)]="this.serviciog.actividad.porcentaje_cumplido" max="100" min="0" (keyup)="slideValue(this.serviciog.actividad,slide.value)"
 								 (mouseup)="slideValue(this.serviciog.actividad,slide.value)"> % Ejecutado
+							</div>
+							<br>
+							<div *ngIf="this.serviciog.actividad.porcentaje_cambio != null" style="    text-align: center;
+							padding: 9px;
+							background-color: #0c0d0eeb;
+							color: #ff3b00;
+							border-radius: 9px;">
+								<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab" style="font-size: 15pt">Porcentaje de cambio que no ha sido aprobado. </label>
+								<br>
+								<p style="display: inline-block;">0% </p>
+								<input #slideWai style="width: 450px;display: inline-block;" readonly id="slider2" type="range" min="0" max="100" step="1" value="{{this.serviciog.actividad.porcentaje_cambio}}"
+								 [(ngModel)]="this.serviciog.actividad.porcentaje_cambio" (mouseup)="slideValue(this.serviciog.actividad,slideWai.value)"
+								/>
+								<p style="display: inline-block;">100% </p>
+								<b style="display: inline-block;margin-left: 40px;text-align: center;font-size: 20pt">{{this.serviciog.actividad.porcentaje_cambio}} %</b>
+
 							</div>
 						</div>
 						<div *ngIf="this.serviciog.state_act == false">

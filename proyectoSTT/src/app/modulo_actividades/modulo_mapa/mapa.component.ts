@@ -25,7 +25,7 @@ export class Mapa implements OnInit {
 	icon_marker = "";
 	lat: number = 0.82438333300000000000;
 	lng: number = -77.83935000000000000000;
-	zoom: number = 11;
+	zoom: number = 7;
 	categorias: any;
 	categoria: any;
 	http: string = this.serviciog.servidor + "Category/";

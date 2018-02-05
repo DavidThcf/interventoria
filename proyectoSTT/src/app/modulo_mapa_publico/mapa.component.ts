@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { ViewChild, Component, OnInit } from '@angular/core';
 import { Servicios } from '../services/servicios';
 import { AgmCoreModule } from '@agm/core';
 import { ServiciosGlobales } from '../services/servicios-globales';
 
-
-
-import {
-	BrowserModule
-} from '@angular/platform-browser';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppComponent } from 'app/app.component';
+import { AppModule } from 'app/app.module';
+import { DetailsBeneficiaryComponent } from 'app/modulo_public_beneficiary/details-beneficiary/details-beneficiary.component';
+import { resolveDefinition } from '@angular/core/src/view/util';
 
 
 
@@ -18,9 +18,13 @@ import {
 })
 
 export class Mapa implements OnInit {
+
+	@ViewChild("det") benPub: DetailsBeneficiaryComponent;
+
+
 	lat: number = 0.90800775860100700000;
 	lng: number = -77.79117062687874000000;
-	zoom: number = 16;
+	zoom: number = 7;
 	proyectos: any = [];
 	proyectoSelect: any;
 	categorias: any = [];
@@ -82,17 +86,16 @@ export class Mapa implements OnInit {
 				item => item.nombre.toLowerCase().trim().indexOf(beneficiario.trim().toLowerCase()) !== -1 ||
 					item.cedula.toLowerCase().trim().indexOf(beneficiario.trim().toLowerCase()) !== -1
 			);
-
+		else
+			this.marcadores = this.ax_marcadores;
 
 		//alert(JSON.stringify(this.marcadores));
 
 	}
 
 	markerClick(marcador) {
-
-		this.marcador = marcador;
-		//alert(JSON.stringify(this.marcador));
-		this.getArchivo();
+		this.serviciog.ben = marcador;
+		this.benPub.reload();
 	}
 
 	cambioProyecto(value) {

@@ -7,7 +7,7 @@ var Caracteristica = require('./Caracteristicas');
 
 module.exports.getMarkersListFromCategory = function(id_categoria,select_cat){
     var sequelize = sqlCon.configConnection();
-    console.log('SLECT  '+id_categoria+'  -  '+select_cat);
+    console.log('\n\n\n\n\n\n\n\n\n\n\n\n\nPRUEBA ======================>   SLECT  '+id_categoria+'  -  '+select_cat);
     if(select_cat)
         query1 = `
         select * from caracteristicas c  join actividades a
@@ -24,15 +24,43 @@ module.exports.getMarkersListFromCategory = function(id_categoria,select_cat){
         `;
     else
         query1 = `
-        select * from caracteristicas c  join actividades a
+        select 
+        
+                c.keym,
+                c.id_caracteristica,
+                c.id_usuario,
+                c.fecha_inicio,
+                c.fecha_fin,
+                c.porcentaje_cumplido,
+                c.costo_real,
+                c.costo_actual,
+                c.porcentaje,
+                c.estado,
+        
+        
+                m.longitud,
+                m.latitud,
+        
+                b.nombre,
+                b.tipo_identificacion,
+                b.cedula
+        
+        
+        from beneficiarios b join caracteristicas c 
+        on b.cedula = c.cedula
+
+        join actividades a
         on c.keym = a.keym_car
         and c.id_caracteristica = a.id_caracteristica
         and c.id_usuario = a.id_usuario_car
 
-        join marcador p
-        on c.keym = p.keym
-        and c.id_caracteristica = p.id_caracteristica
-        and c.id_usuario = p.id_usuario
+
+        join marcador m
+        on c.keym = m.keym
+        and c.id_caracteristica = m.id_caracteristica
+        and c.id_usuario = m.id_usuario
+
+
         `;
 
 
