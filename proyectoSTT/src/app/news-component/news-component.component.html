@@ -24,8 +24,8 @@
 			<tbody>
 				<tr *ngFor="let novedad of this.serviciog.novedades" class="fila">
 					<td style="width: 30%;color:blue" (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map">{{novedad.tipo | uppercase}} {{novedad.nombre | uppercase}}</td>
-					<td style="width: 15%">{{novedad.porcentaje_actual}}</td>
-					<td style="width: 15%">{{novedad.porcentaje_futuro}}</td>
+					<td style="width: 15%">{{novedad.porcentaje_actual | number : '1.2-2'}}</td>
+					<td style="width: 15%">{{novedad.porcentaje_futuro | number : '1.2-2'}}</td>
 					<td style="width: 15%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
 					<td style="width: 15%">{{novedad.usu_nov | uppercase}}</td>
 					<td style="width: 10%">

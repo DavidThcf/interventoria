@@ -47,8 +47,12 @@
 				<div class="listaActividades">
 					<ul *ngIf="this.serviciog.actividades">
 						<li class="sel" *ngFor="let activity of this.serviciog.activityList" [class.selected]="activity === this.serviciog.actividad"
-						 (click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)">
-							<tr style="box-sizing:content-box; display: inline-block">
+						 (click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)"
+						 [style.background-color]='activity.color_cat'
+						>
+							<p *ngIf="activity.color_cat" style="vertical-align: center; padding-top: 5px">{{activity.tipo}} {{activity.nom_act}}</p>
+							<a *ngIf="!activity.color_cat">{{activity.tipo}} {{activity.nom_act}}</a>
+							<!-- <tr style="box-sizing:content-box; display: inline-block">
 
 								<td *ngIf="activity.color_cat" style="text-align: center;display: block; margin: auto">
 									<div [style.background-color]='activity.color_cat' style="width: 10px;height: 10px;display: inline-block;text-align: center;"></div>
@@ -60,7 +64,7 @@
 									</a>
 								</td>
 
-							</tr>
+							</tr> -->
 						</li>
 					</ul>
 				</div>
@@ -584,8 +588,16 @@
 											
 												<div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
 													<label for="etapa" class="lab form-inline  col-md-2">Etapa: </label>
+<<<<<<< HEAD
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Habilitado</label>
+=======
+													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Deshabilitado</label>
+<<<<<<< HEAD
+													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label>
+=======
+>>>>>>> 3421b8e4c2f4c66ee4b0e9723096ff31c86d18c0
 													<!-- <label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label> -->
+>>>>>>> origin/master
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label>
 												</div>
 											</div>
