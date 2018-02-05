@@ -130,11 +130,11 @@ module.exports.getFileList = function (data) {
                 FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
                 WHERE (now()::date- ar.fecha_creacion::date) <= 15 
                 and tipo = '`+ data.tipo + `' 
-                ORDER BY
-                ar.fecha_creacion DESC  LIMIT 25; 
+                ORDER BY ar.fecha_creacion ASC ;
+                
                 `;
             }
-
+//--LIMIT 25; 
             else if (data.tipoAct == "Beneficiario" || data.tipoAct == "Capitulo" || data.tipoAct == "Actividad") {
                 var query1 = `
                     select getarchivos(
