@@ -347,7 +347,7 @@
 														</option>
 													</select>
 													<br>
-													<div *ngIf="selEtapa.value == 'Entrega de mate'">
+													<div *ngIf="selEtapa.value == 'Entrega de materiales'">
 														<label class="form-control" for="fecInicio" class="lab col-md-2">Fecha de Inicio: </label>
 														<input #fecInicio type="date" required="" class="form-control" value="this.fechaInicio | date:'yyyy-MM-dd" (change)="changeEtapa(selEtapa.value ,'A')">
 													</div>
@@ -484,7 +484,7 @@
 									<!-- muestra fecha de inicio si habido suspension -->
 									<div *ngIf="this.serviciog.actividad.fecha_inicio !== null && 
 									this.serviciog.actividad.fecha_inicio_real !== null">
-										<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
+										<label for="tiempo_inicial" class="lab">Fecha de Inicio!!</label>
 										<label id="tiempo_ini" class="form-control">{{this.serviciog.actividad.fecha_inicio_real | date:'fullDate' | uppercase}}</label>
 									</div>
 									<!-- //////////////////////////////////////////// -->
@@ -559,33 +559,41 @@
 										<!-- Etapa y estado -->
 										<div class="form-inline" style="position: relative;margin-left: 0px;margin-top: 10px">
 											<div *ngIf="this.serviciog.actividad.tipo == 'Beneficiario' " class="form-inline ">
-												<label *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" for="etapa" class="lab form-inline col-md-2">Etapa: </label>
-												<select *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 0px;"
-												 (mouseup)='changeEtapa(selEtapa.value,"A")' required>
-													<option *ngIf="this.serviciog.actividad.estado == 'Inicio'" [selected]="this.serviciog.actividad.estado == 'Inicio'" value="Inicio">
-														Habilitado
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'"
-													 [selected]="this.serviciog.actividad.estado == 'Entrega de materiales'" value="Entrega de materiales">
-														Entrega de materiales
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
-													 [selected]="this.serviciog.actividad.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
-														Ejecucion de obra
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
-													 [selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
-														Ejecutado
-													</option>
-													<option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'" [selected]="this.serviciog.proyecto.estado == 'Liquidacion'"
-													 value="Liquidacion">
-														Liquidacion
-													</option>
-												</select>
+												
+												<div *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" >
+													<label for="etapa" class="lab form-inline col-md-2">Etapa: </label>
+													<select *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" #selEtapa id="etapa" class="form-control" name="etapa" style="width: 300px;margin-left: 0px;"
+													 (mouseup)='changeEtapa(selEtapa.value,"A")' required>
+														<option *ngIf="this.serviciog.actividad.estado == 'Inicio'" [selected]="this.serviciog.actividad.estado == 'Inicio'" value="Inicio">
+															Habilitado
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'"
+														 [selected]="this.serviciog.actividad.estado == 'Entrega de materiales'" value="Entrega de materiales">
+															Entrega de materiales
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Inicio' ||this.serviciog.actividad.estado == 'Entrega de materiales'  ||this.serviciog.actividad.estado == 'Ejecucion de obra' "
+														 [selected]="this.serviciog.actividad.estado == 'Ejecucion de obra'" value="Ejecucion de obra">
+															Ejecucion de obra
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Ejecucion de obra' || this.serviciog.actividad.estado == 'Ejecutado'"
+														 [selected]="this.serviciog.proyecto.estado == 'Ejecutado'" value="Ejecutado">
+															Ejecutado
+														</option>
+														<option *ngIf="this.serviciog.actividad.estado == 'Ejecutado' || this.serviciog.actividad.estado == 'Liquidacion'" [selected]="this.serviciog.proyecto.estado == 'Liquidacion'"
+														 value="Liquidacion">
+															Liquidacion
+														</option>
+													</select>
+												</div>
+											
 												<div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
 													<label for="etapa" class="lab form-inline  col-md-2">Etapa: </label>
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Deshabilitado</label>
+<<<<<<< HEAD
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label>
+=======
+													<!-- <label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label> -->
+>>>>>>> origin/master
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label>
 												</div>
 											</div>
