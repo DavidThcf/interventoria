@@ -128,7 +128,7 @@ module.exports.getActivityList = function (data) {
 				ct.nombre nombre_cat,
 				ct.color color_cat,
 
-				n.visto,n.estado,n.porcentaje_cambio
+				n.visto,n.estado as estNov,n.porcentaje_cambio
 
 				from actividades a join caracteristicas c
  				on 	a.keym_car = c.keym

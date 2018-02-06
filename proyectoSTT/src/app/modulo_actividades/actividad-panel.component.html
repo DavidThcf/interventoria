@@ -587,11 +587,13 @@
 												</div>
 											
 												<div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
-													<label for="etapa" class="lab form-inline  col-md-2">Etapa: </label>
+													<label for="etapa" class="lab form-inline  col-md-2">Etapa:</label>
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Deshabilitado</label>
 
-													<!-- <label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label> -->
-													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label>
+													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'Inicio'">Habilitado</label>
+													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label>
+													<!-- <label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label> -->
+
 												</div>
 											</div>
 											<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'">
@@ -603,7 +605,8 @@
 												</div>
 											</div>
 										</div>
-										<div *ngIf="this.serviciog.actividad.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'">
+										<!-- <div *ngIf="this.serviciog.actividad.nombre_cat && this.serviciog.actividad.estado !== 'Inicio' && this.serviciog.actividad.estado !== 'null'"> -->
+												<div *ngIf="this.serviciog.actividad.nombre_cat">
 											<div class="form-inline form">
 												<label class="form-control" class="lab form-inline  col-md-2">Estado: </label>
 												<div class="form-control" style="width: 300px">{{this.serviciog.actividad.nombre_cat}} </div>

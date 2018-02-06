@@ -221,7 +221,7 @@
 
     <div class="row" *ngIf="this.tipo === 'img'">
       <h3>Imagenes</h3>
-      <div class="col-xs-6 col-md-3" *ngFor="let archivo of this.archivos">
+      <div class="col-md-3" *ngFor="let archivo of this.archivos">
 
         <div *ngIf="archivo.visible_map === true" class="thumbnail" (click)='this.pic = ""+ archivo.val_configuracion+archivo.srcServ+archivo.nombre_archivo '
           data-toggle="modal" data-target="#mod-pic-map">
