@@ -97,13 +97,13 @@ module.exports.getFileList = function (data) {
     var tipo = 'reporte_' + data.tipoAct.toLowerCase();
     //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
-
+        //--  WHERE (now()::date- ar.fecha_creacion::date) <= 15 
         if (data.reporte) {
             if (data.tipoAct == "Proyecto")
                 var query1 = `
                     SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
-                    WHERE (now()::date- ar.fecha_creacion::date) <= 15 
-                    and tipo = '`+ data.tipo + `' and ` + tipo + ` =  ` + id_caracteristica + `  ;
+                  
+                    WHERE tipo = '`+ data.tipo + `' and ` + tipo + ` =  ` + id_caracteristica + `  ;
                 `;
 
             else
@@ -118,6 +118,7 @@ module.exports.getFileList = function (data) {
                     and ` + tipo + ` =  ` + id_caracteristica + `  ;
                 `;
         }
+        // --WHERE (now()::date- ar.fecha_creacion::date) <= 15 AND
         else {
             if (data.tipoAct == "Proyecto") {
                 var query1 = `
@@ -128,13 +129,13 @@ module.exports.getFileList = function (data) {
                 ELSE false
                 END as ext
                 FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
-                --WHERE (now()::date- ar.fecha_creacion::date) <= 15 AND
+               
                 WHERE tipo = '`+ data.tipo + `' 
                 ORDER BY ar.fecha_creacion ASC ;
                 
                 `;
             }
-//--LIMIT 25; 
+            //----LIMIT 25; 
             else if (data.tipoAct == "Beneficiario" || data.tipoAct == "Capitulo" || data.tipoAct == "Actividad") {
                 var query1 = `
                     select getarchivos(
@@ -369,9 +370,9 @@ module.exports.updateImageEditView = function (data) {
     var d = JSON.parse(data.img_edit)
     var tipo = 'reporte_' + data.tipo_car.toLowerCase();
     var publicar = JSON.parse(data.publicar);
-    console.log('\n\n\n\n\n\n\n\nPublicar'+data.publicar+'   -     '+false);
+    console.log('\n\n\n\n\n\n\n\nPublicar' + data.publicar + '   -     ' + false);
     var q = '';
-    if ( publicar === true) {
+    if (publicar === true) {
         console.log('\n\n\n\n\n\n\n\nOK =================> Publicar')
         for (var i = 0; i < d.length; i++) {
 
@@ -504,14 +505,15 @@ module.exports.getMultimediaReport = function (data) {
     var id_usuario = data.id_usuario;
     //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
-
+        // --WHERE (now()::date- ar.fecha_creacion::date) <= 15 
         if (data.reporte) {
             if (data.tipo_car == 'Proyecto')
                 var query1 = `
                 SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
-                WHERE (now()::date- ar.fecha_creacion::date) <= 15 and tipo = '`+ data.tipo + `' and reporte =  true  ;
+               
+                WHERE and tipo = '`+ data.tipo + `' and reporte =  true  ;
                 ORDER BY
-                ar.fecha_creacion DESC  LIMIT 25; 
+                ar.fecha_creacion ASC  --LIMIT 25; 
             `;
             else
                 var query1 = `
@@ -522,13 +524,14 @@ module.exports.getMultimediaReport = function (data) {
                 and tipo = '`+ data.tipo + `' and reporte =  true  ;
             `;
         }
+        // -- WHERE (now()::date- ar.fecha_creacion::date) <= 15
         else {
             if (data.tipoAct == "Proyecto") {
                 var query1 = `
                 SELECT * FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
-                WHERE (now()::date- ar.fecha_creacion::date) <= 15
+               
                 ORDER BY
-                ar.fecha_creacion DESC  LIMIT 25; 
+                ar.fecha_creacion ASC  --LIMIT 25; 
                 `;
             } else {
                 var query1 = `
