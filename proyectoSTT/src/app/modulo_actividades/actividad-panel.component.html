@@ -612,9 +612,11 @@
 												<div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
 													<label for="etapa" class="lab form-inline  col-md-2">Etapa:</label>
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'null'">Deshabilitado</label>
+
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado === 'Inicio'">Habilitado</label>
 													<label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null' && this.serviciog.actividad.estado !== 'Inicio'">{{this.serviciog.actividad.estado}}</label>
 													<!-- <label class="form-control" id="costo_inicial" *ngIf="this.serviciog.actividad.estado !== 'null'">{{this.serviciog.actividad.estado}}</label> -->
+
 												</div>
 											</div>
 											<div *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && this.serviciog.actividad.tipo !== 'Capitulo' && this.serviciog.actividad.tipo !== 'Actividad'">
