@@ -130,13 +130,13 @@ this.serviciog.actividad.tipo === 'Beneficiario'
     <!-- Imagenes -->
     <div class="row" *ngIf="this.serviciog.tipo === 'img'">
       <h3>Imagenes</h3>
-      <div class="col-xs-3 col-md-3" *ngFor="let imagen of this.serviciog.imagenes">
+      <div class="col-md-4" *ngFor="let imagen of this.serviciog.imagenes">
         <input type="checkbox" *ngIf="isRepSelected" class="chk" [checked]=imagen.ext (change)="checked(imagen)">
         <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.visible_map (change)="checked(imagen)">
         <!-- <div class="thumbnail box1" [attr.data-title]='imagen.titulo' [attr.data-description]='imagen.descripcion' > -->
-        <div class="thumbnail" (click)='this.pic = ""+imagen.val_configuracion+imagen.srcServ+imagen.nombre_archivo; ' data-toggle="modal"
+        <div class="thumbnail"  (click)='this.pic = ""+imagen.val_configuracion+imagen.srcServ+imagen.nombre_archivo; ' data-toggle="modal"
           data-target="#mod-pic-map">
-          <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}} class="img-responsive">
+          <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}}>
           <div class="caption">
             <p style="font-size: 12px">{{imagen.titulo}}</p>
             <p style="font-size: 9px">{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>

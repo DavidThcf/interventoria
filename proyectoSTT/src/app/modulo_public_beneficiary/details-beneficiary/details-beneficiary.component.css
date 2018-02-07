@@ -54,7 +54,7 @@
    text-align: center;
 }
 
-
+/*
 .thumbnail{
 	text-decoration: none;
 	min-height: 330px
@@ -67,7 +67,7 @@
 .thumbnail video{
 	width: 312px;
 	height: 174px;
-}
+}*/
 
 
 
@@ -143,4 +143,25 @@ text-align: center;
 
 .hidd {
 display: none;
+}
+/*cambias la ccs juan */
+.thumbnail{
+    text-decoration: none;
+    /*min-height: 330px;*/
+    width: 100%;
+    height: 100%;
+    box-sizing: border-box;
+    display: inline-block;
+    margin: 1%;
+}
+
+.thumbnail img{
+    width: 100%;
+    height: 200px;
+}
+.caption{
+    text-align: center;
+    width: 100%;
+    height: 100px;
+    margin: 2px;
 }

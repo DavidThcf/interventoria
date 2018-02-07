@@ -16,7 +16,7 @@
 
 				<div class="form-group">
 					<label for="titulo" class="lab">Titulo</label>
-					<input type="text" id="titulo" class="form-control" name="titulo" required [(ngModel)]="this.archivo.titulo">
+					<input type="text" id="titulo" class="form-control" name="titulo" maxlength="120" required [(ngModel)]="this.archivo.titulo">
 					<div *ngIf="formErrors.titulo" class="alert alert-danger">
 						{{ formErrors.titulo }}
 					</div>
