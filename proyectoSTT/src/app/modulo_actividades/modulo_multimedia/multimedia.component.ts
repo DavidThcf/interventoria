@@ -82,8 +82,13 @@ export class Multimedia implements OnInit {
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
-					//alert(JSON.stringify(imagenes))
-					var cad = JSON.stringify(imagenes);
+
+					// console.log(imagenes);
+					
+					
+
+					// console.log(cad)
+
 					// cad = cad.replace(/=/g,'/');
 					//alert(JSON.stringify(imagenes));
 					if(this.serviciog.actividad.tipo == 'Proyecto' || this.serviciog.actividad.tipo == 'Provincia' || this.serviciog.actividad.tipo == 'Municipio' || this.serviciog.actividad.tipo == 'Resguardo' ){
@@ -91,7 +96,15 @@ export class Multimedia implements OnInit {
 					}
 					
 					else if (this.serviciog.actividad.tipo == 'Beneficiario' || this.serviciog.actividad.tipo == 'Capitulo' || this.serviciog.actividad.tipo == 'Actividad') {
-						this.serviciog.imagenes = imagenes[0].getarchivos;
+						var img = imagenes[0].getarchivos;
+						// this.serviciog.imagenes = imagenes[0].getarchivos;
+
+						img = img.sort((a,b)=>{
+							if(a.fecha_creacion < b.fecha_creacion) return -1;
+							if(a.fecha_creacion > b.fecha_creacion) return 1;
+							return 0;
+						});
+						this.serviciog.imagenes = img;
 					}
 					//alert(JSON.stringify(this.serviciog.imagenes));
 					//this.serviciog.imagenes = imagenes;

@@ -270,14 +270,14 @@
 												</div>
 											</div>
 
-											<div *ngIf="this.serviciog.proyecto.tipo == 'Actividad' && this.serviciog.usuario.tipo_usuario !== 'sup'">
+											<div>
 												<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.proyecto.tipo}} {{this.serviciog.proyecto.nom_pro}} </label>
 												<div>
 													<label class="form-control" name="porcentaje_cumplido">{{this.serviciog.proyecto.porcentaje_cumplido}} %</label>
 												</div>
 											</div>
 
-											<div *ngIf="this.serviciog.proyecto.tipo == 'Actividad'  && this.serviciog.usuario.tipo_usuario !== 'sup'">
+											<div>
 												<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado </label>
 												<label class="form-control" name="porcentaje_cumplido" *ngIf="this.serviciog.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
 													{{ this.serviciog.porcentajeDifProgramadoEjecutado }} %
@@ -524,14 +524,14 @@
 											</div>
 										</div>
 
-										<div *ngIf="this.serviciog.actividad.tipo == 'Actividad'  && this.serviciog.usuario.tipo_usuario !== 'sup'">
+										<div>
 											<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Porcentaje Real Ejecutado {{this.serviciog.actividad.tipo}} {{this.serviciog.actividad.nom_act}} </label>
 											<div>
 												<label class="form-control" name="porcentaje_cumplido">{{this.serviciog.actividad.porcentaje_cumplido}} %</label>
 											</div>
 										</div>
 
-										<div *ngIf="this.serviciog.actividad.tipo == 'Actividad'  && this.serviciog.usuario.tipo_usuario !== 'sup' ">
+										<div>
 											<label style="margin-top: 2px" for="porcentaje_cumplido" class="lab">Diferencia Porcentaje Programado VS Ejecutado </label>
 											<label class="form-control" name="porcentaje_cumplido" *ngIf="this.serviciog.porcentajeDifProgramadoEjecutado >= 0" style="color: rgb(4, 65, 1)">
 												{{ this.serviciog.porcentajeDifProgramadoEjecutado }} %
