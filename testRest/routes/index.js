@@ -1252,7 +1252,7 @@ router.post('/getAllBeneficiaries', (req, res) => {
   });
 });
 
-/* Obtiene la informacion de todos los beneficicarios para ser mostrada al publico */
+/* Borra un archivo */
 router.post('/delFile', (req, res) => {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(req.body.file));
   var file = File.delFile(JSON.parse(req.body.file));
@@ -1266,7 +1266,19 @@ router.post('/delFile', (req, res) => {
   });
 });
 
+/* Edita la informacion de un archivo */
+router.post('/saveEdit', (req, res) => {
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(req.body.file));
+  var file = File.saveEdit(JSON.parse(req.body.file));
+  file.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
 
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+});
 
 /* Obtiene el tipo y nombre de los padres de una caracteristica */
 router.post('/getRecursiveAllParents', (req, res) => {

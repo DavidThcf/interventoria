@@ -128,6 +128,7 @@ interface imagen {
 	reporte_provincia: boolean;
 	reporte_municipio: boolean;
 	reporte_resguardo: boolean;
-	reporte_beneficiario: boolean
+	reporte_beneficiario: boolean;
+	edit : boolean
 }
 

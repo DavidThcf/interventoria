@@ -459,6 +459,15 @@ export class Servicios {
 	}
 	/* ------------------------------------ */
 	
+	/* servicio recuperacion contraseña  */
+	saveEdit(formData: FormData) {
+		return this.http.post(this.url + "saveEdit", formData)
+			.toPromise()
+			.then(response => response.json())
+			.catch(err => false)
+	}
+	/* ------------------------------------ */
+
 	/* servicio obtener el tipo y nombre de los padres de una caracteristica  */
 	getRecursiveAllParents(formData: FormData) {
 		return this.http.post(this.url + "getRecursiveAllParents", formData)

@@ -134,15 +134,36 @@ this.serviciog.actividad.tipo === 'Beneficiario'
         <input type="checkbox" *ngIf="isRepSelected" class="chk" [checked]=imagen.ext (change)="checked(imagen)">
         <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.visible_map (change)="checked(imagen)">
         <!-- <div class="thumbnail box1" [attr.data-title]='imagen.titulo' [attr.data-description]='imagen.descripcion' > -->
-        <div class="thumbnail"  (click)='this.pic = ""+imagen.val_configuracion+imagen.srcServ+imagen.nombre_archivo; ' data-toggle="modal"
-          data-target="#mod-pic-map">
-          <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}}>
-          <div class="caption">
-            <!-- <p>{{imagen.ext}}</p> -->
-            <p style="font-size: 12px">{{imagen.titulo}}</p>
-            <p style="font-size: 9px">{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
+        <div >
+
+          <div class="caption thumbnail">
+
+            <div *ngIf="imagen.edit"  style="text-align: left;margin: 2px;height: 200px">
+              <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} style="position: relative;width: 150px;height: 150px;display: block;margin: auto;margin-top: 3px"
+                alt={{imagen.subtitulo}}/>
+
+              <textarea #txtEdit type="text" wrap="soft" maxlength="120" style="font-size: 12px;position: relative;margin-top: 7px;padding: 6px;border: none;
+                width: 100%;max-width: 100%;resize: none;min-height:110px;background-color: #e0e1e4c2">{{imagen.titulo}}</textarea>
+
+              <div style="display: inline-block;width: 100%;margin: auto;text-align: center" class="center-block">
+                <button class="btn btn-success center-block " (click)="saveEdit(imagen,txtEdit.value)" style="display: inline-block;font-size: 7pt;">Guardar</button>
+                <button class="btn btn-danger center-block  " (click)="imagen.edit = !imagen.edit" style="display: inline-block;font-size: 7pt;">Cancelar</button>
+              </div>
+            </div>
+
+            <div *ngIf="!imagen.edit"  style="height: 520px" >
+              <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}} (click)='this.pic = ""+imagen.val_configuracion+imagen.srcServ+imagen.nombre_archivo; '
+                data-toggle="modal" data-target="#mod-pic-map">
+              <p style="font-size: 12px">{{imagen.titulo}}</p>
+              <p style="font-size: 9px">{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
+              <button *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" title="Eliminar" class="btn btn-danger center-block" (click)="delImage(imagen)">X</button>
+              <div style="display: inline-block;width: 100%;margin: auto;text-align: center" class="center-block">
+                  <button class="btn btn-success center-block btn-sm" (click)="imagen.edit = !imagen.edit" style="display: inline-block;font-size: 7pt;">Editar</button>
+                </div>
+            </div>
+
           </div>
-          <button *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" title="Eliminar" class="btn btn-danger center-block" (click)="delImage(imagen)">X</button>
+
         </div>
       </div>
     </div>

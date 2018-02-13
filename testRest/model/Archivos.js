@@ -123,13 +123,12 @@ module.exports.getFileList = function (data) {
             if (data.tipoAct == "Proyecto") {
                 var query1 = `
                 SELECT *,
-                
                 CASE WHEN  `+ id_caracteristica + ` = ar.` + tipo + `
                 THEN true
                 ELSE false
-                END as ext
+                END as ext,
+                false as edit
                 FROM archivos ar, (select val_configuracion from configuracion_inicial where id = 1) t1
-               
                 WHERE tipo = '`+ data.tipo + `' 
                 ORDER BY ar.fecha_creacion ASC ;
                 
@@ -154,7 +153,8 @@ module.exports.getFileList = function (data) {
                 CASE WHEN  `+ id_caracteristica + ` = a.` + tipo + `
                 THEN true
                 ELSE false
-                END as ext
+                END as ext,
+                false as edit
                 from archivos a, (select val_configuracion from configuracion_inicial where id = 1) t1
                 where tipo = '`+ data.tipo + `'
                 and ` + tipo + ` =  ` + id_caracteristica + `  ;
@@ -583,6 +583,32 @@ module.exports.delFile = function (data) {
                             console.log('renamed complete');
                         });
                 } catch (e) { }
+                resolve(true);
+            }).catch(x => {
+                console.log('Error delFile =>  ' + x)
+                reject(false);
+            }).done(x => {
+                sequelize.close();
+                console.log('Se ha cerrado sesion de la conexion a la base de datos');
+            });;
+    });
+}
+
+
+
+
+//Service for edit a file
+module.exports.saveEdit = function (data) {
+    var sequelize = sqlCon.configConnection();
+    return new Promise((resolve, reject) => {
+        var query1 = `
+            update archivos set titulo = '`+data.titulo+`' 
+            where keym_arc = `+ data.keym_arc + ` and id_archivo = ` + data.id_archivo + ` and id_usuario_arc = ` + data.id_usuario_arc + `
+        `;
+        //console.log(query1);
+        sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE }).
+            then(x => {
+                console.log('RESPONDE EDIT SAVEEDIT =======>    ' + JSON.stringify(x));
                 resolve(true);
             }).catch(x => {
                 console.log('Error delFile =>  ' + x)

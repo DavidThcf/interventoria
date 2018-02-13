@@ -401,6 +401,31 @@ export class Multimedia implements OnInit {
 
 		});
 	}
+
+	saveEdit(image : any,txt : string){
+		image.titulo = txt;
+		var cad =JSON.stringify(image);
+		var formData = new FormData();
+		formData.append('file', cad);
+		this.servicios.saveEdit(formData).then(x=>{
+			if(x){
+				this.serviciog.alert_message = 'Archivo Editado!!!';
+				this.serviciog.hidden = true;
+				setTimeout(() => {
+					this.serviciog.hidden = false;
+				}, 2000);
+			}
+			
+
+			for(var i = this.serviciog.imagenes.length - 1; i >= 0; i--) {
+				if(this.serviciog.imagenes[i] === image) {
+					this.serviciog.imagenes[i].titulo = txt; 
+					this.serviciog.imagenes[i].edit = false;
+				}
+			}
+
+		});
+	}
 }
 
 
