@@ -47,6 +47,7 @@
 				<div class="listaActividades">
 					<ul *ngIf="this.serviciog.actividades">
 						<li class="sel" *ngFor="let activity of this.serviciog.activityList" [class.selected]="activity === this.serviciog.actividad"
+
 						 (click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)" [style.background-color]='activity.color_cat'>
 						 <table *ngIf="activity.tipo === 'Capitulo'">
 								<tr>
@@ -70,9 +71,6 @@
 										</td>
 									</tr>
 								</table>
-
-
-
 
 							<!-- <tr style="box-sizing:content-box; display: inline-block">
 
@@ -505,11 +503,11 @@
 										<input name="" type="text" id="tot_ben" class="form-control" name="tot_ben" [readonly]="true" [(ngModel)]="this.serviciog.total_beneficiary">
 									</div>
 									<!-- muestra fecha de inicio si habido suspension -->
-									<div *ngIf="this.serviciog.actividad.fecha_inicio !== null && 
+									<!-- <div *ngIf="this.serviciog.actividad.fecha_inicio_real && this.serviciog.actividad.fecha_inicio !== null && 
 									this.serviciog.actividad.fecha_inicio_real !== null">
 										<label for="tiempo_inicial" class="lab">Fecha de Inicio!!</label>
 										<label id="tiempo_ini" class="form-control">{{this.serviciog.actividad.fecha_inicio_real | date:'fullDate' | uppercase}}</label>
-									</div>
+									</div> -->
 									<!-- //////////////////////////////////////////// -->
 
 								</div>
