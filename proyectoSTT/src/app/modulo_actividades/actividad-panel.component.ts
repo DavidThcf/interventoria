@@ -1480,7 +1480,7 @@ export class ActividadPanel implements OnInit {
               this.serviciog.porcentaje_real = 100;
             }
           } else if (this.serviciog.actividad.tipo == "Proyecto") {
-            this.serviciog.porcentaje_real = (dias * (100 / 300));
+            this.serviciog.porcentaje_real = (dias * (100 / 365));
           } else {
             //  alert(dias)
             this.serviciog.porcentaje_real = (dias * (100 / (diasAc)));
