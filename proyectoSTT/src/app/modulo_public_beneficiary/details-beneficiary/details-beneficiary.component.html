@@ -221,17 +221,20 @@
 
     <div class="row" *ngIf="this.tipo === 'img'">
       <h3>Imagenes</h3>
-      <div class="col-md-3" *ngFor="let archivo of this.archivos">
+      <div *ngFor="let archivo of this.archivos"  >
 
-        <div *ngIf="archivo.visible_map === true" class="thumbnail" (click)='this.pic = ""+ archivo.val_configuracion+archivo.srcServ+archivo.nombre_archivo '
+        <div *ngIf="archivo.visible_map === true" style="margin-top: 15px;" class="col-md-3" 
+        (click)='this.pic = ""+ archivo.val_configuracion+archivo.srcServ+archivo.nombre_archivo '
           data-toggle="modal" data-target="#mod-pic-map">
-          <img src={{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}} alt={{archivo.subtitulo}} class="img-responsive">
-          <div class="caption">
-            <p style="font-size: 12px">{{archivo.titulo}}</p>
-            <p style="font-size: 9px">{{archivo.fecha_creacion | date:'fullDate' | uppercase}}</p>
+          <div class="thumbnail" >
+            <img src={{archivo.val_configuracion}}{{archivo.srcServ}}{{archivo.nombre_archivo}} alt={{archivo.subtitulo}} class="img-responsive">
+            <div class="caption">
+              <p style="font-size: 12px">{{archivo.titulo}}</p>
+              <p style="font-size: 9px">{{archivo.fecha_creacion | date:'fullDate' | uppercase}}</p>
+            </div>
           </div>
+          
         </div>
-
       </div>
     </div>
 
