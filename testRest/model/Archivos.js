@@ -43,29 +43,47 @@ module.exports.create_file = function (data, files) {
                 var sequelize = sqlCon.configConnection();
 
                 var query1 = `
-                    insert into archivos values 
+                    insert into archivos
+                    (
+                        keym_arc,id_archivo,id_usuario_arc,
+                        keym_car,id_caracteristica,id_usuario_car,
+                        nombre_archivo,titulo,subtitulo,descripcion,contenido,
+                        fecha_creacion,fecha_ultima_modificacion,
+                        publicacion,tipo,localizacion,longitud,"srcGifServ","srcServ",
+                        visible_map,
+                        visto
+                    )
+                    values 
                     (
                         `+ keym + `,
                         `+ id_archivo + `,
                         `+ id_usuario + `,
+
                         `+ keym_car + `,
                         `+ id_caracteristica + `,
                         `+ id_usuario_car + `,
+
                         '`+ nombre_archivo + `',
                         '`+ titulo + `',
                         '`+ subtitulo + `',
                         '`+ descripcion + `',
                         '`+ contenido + `',
+
                         now(),
-                        '`+ fecha_ultima_modificacion + `',
+                        now(),
                         `+ publicacion + `,
                         '`+ tipo + `',
                         `+ localizacion + `,
                         `+ longitud + `,
                         '`+ srcGif + `',
                         'user`+ id_usuario + `/',
-                        false
+
+                        false,
+                        false                        
                     );
+
+                    update archivos set nom_parents = (select getbenres(`+keym_car+`,`+id_caracteristica+`,`+id_usuario_car+`,''))
+                    where  keym_arc = `+ keym + ` and id_archivo =  `+ id_archivo + ` id_usuario_arc = `+ id_usuario + `,;
     
                 `;
                 sequelize.query(query1, { type: sequelize.QueryTypes.INSERT }).

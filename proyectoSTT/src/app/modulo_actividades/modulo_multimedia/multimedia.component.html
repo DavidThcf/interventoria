@@ -130,15 +130,15 @@ this.serviciog.actividad.tipo === 'Beneficiario'
     <!-- Imagenes -->
     <div class="row" *ngIf="this.serviciog.tipo === 'img'">
       <h3>Imagenes</h3>
-      <div class="col-md-4" *ngFor="let imagen of this.serviciog.imagenes">
+      <div class="col-md-4" style="margin-top: 15px" *ngFor="let imagen of this.serviciog.imagenes">
         <input type="checkbox" *ngIf="isRepSelected" class="chk" [checked]=imagen.ext (change)="checked(imagen)">
         <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.visible_map (change)="checked(imagen)">
         <!-- <div class="thumbnail box1" [attr.data-title]='imagen.titulo' [attr.data-description]='imagen.descripcion' > -->
-        <div >
+        <div>
 
           <div class="caption thumbnail">
 
-            <div *ngIf="imagen.edit"  style="text-align: left;margin: 2px;height: 200px">
+            <div *ngIf="imagen.edit" style="text-align: left;margin: 2px;height: 200px">
               <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} style="position: relative;width: 150px;height: 150px;display: block;margin: auto;margin-top: 3px"
                 alt={{imagen.subtitulo}}/>
 
@@ -151,15 +151,23 @@ this.serviciog.actividad.tipo === 'Beneficiario'
               </div>
             </div>
 
-            <div *ngIf="!imagen.edit"  style="height: 520px" >
+            <div *ngIf="!imagen.edit" style="height: 520px">
               <img src={{imagen.val_configuracion}}{{imagen.srcServ}}{{imagen.nombre_archivo}} alt={{imagen.subtitulo}} (click)='this.pic = ""+imagen.val_configuracion+imagen.srcServ+imagen.nombre_archivo; '
                 data-toggle="modal" data-target="#mod-pic-map">
-              <p style="font-size: 12px">{{imagen.titulo}}</p>
-              <p style="font-size: 9px">{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
-              <button *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" title="Eliminar" class="btn btn-danger center-block" (click)="delImage(imagen)">X</button>
+              <div>
+                  <p style="font-size: 10px;margin-top: 7px">{{imagen.nom_parents | uppercase}}</p>
+              </div>
+              <div>
+                  <p style="font-size: 12px">{{imagen.titulo}}</p>
+                  <p style="font-size: 9px">{{imagen.fecha_creacion | date:'fullDate' | uppercase}}</p>
+              </div>
+              
               <div style="display: inline-block;width: 100%;margin: auto;text-align: center" class="center-block">
-                  <button class="btn btn-success center-block btn-sm" (click)="imagen.edit = !imagen.edit" style="display: inline-block;font-size: 7pt;">Editar</button>
-                </div>
+                  <button *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" title="Eliminar" class="btn btn-danger  btn-sm center-block "
+                  style="display: inline-block;font-size: 7pt;" (click)="delImage(imagen)">X</button>
+                <button class="btn btn-success center-block btn-sm" (click)="imagen.edit = !imagen.edit" 
+                  title="Editar"style="display: inline-block;font-size: 7pt;">Editar</button>
+              </div>
             </div>
 
           </div>

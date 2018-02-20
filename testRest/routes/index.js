@@ -814,9 +814,9 @@ router.post('/getDataChart', (req, res, next) => {
   });
 });
 
-var client = require("jsreport-client")("http://indicadoresacademicos.udenar.edu.co:5488", 'admin', 'password');
+var client = require("jsreport-client")("http://10.10.10.106:5488", 'admin', 'password');
 router.get('/downloadReport', function (req, res) {
-  console.log('\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' + JSON.stringify(req.query));
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' );
   try {
     //res.header("Access-Control-Allow-Origin", "*");
     // res.json("goal"); 
@@ -824,7 +824,7 @@ router.get('/downloadReport', function (req, res) {
     var data = JSON.parse(req.query.val1);
 
     armJSONReport(data).then(x => {
-      console.log('\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n\n\n\n\n\n');
+      //console.log('\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n\n\n\n\n\n');
       //console.log('\n\n\nOKI => ' + JSON.stringify(data.grafica));
       //configuracion de template y datos a enviar al pdf 
       client.render({
@@ -836,7 +836,7 @@ router.get('/downloadReport', function (req, res) {
       }, function (err, response) {
 
         if (err) {
-          console.log(err);
+          console.log('\n\n\n\n\n\nERROR DOWNLOAD REPORT'+err);
         }
         response.pipe(res);
       });
