@@ -83,7 +83,7 @@ module.exports.create_file = function (data, files) {
                     );
 
                     update archivos set nom_parents = (select getbenres(`+keym_car+`,`+id_caracteristica+`,`+id_usuario_car+`,''))
-                    where  keym_arc = `+ keym + ` and id_archivo =  `+ id_archivo + ` id_usuario_arc = `+ id_usuario + `,;
+                    where  keym_arc = `+ keym + ` and id_archivo =  `+ id_archivo + ` and id_usuario_arc = `+ id_usuario + `;
     
                 `;
                 sequelize.query(query1, { type: sequelize.QueryTypes.INSERT }).

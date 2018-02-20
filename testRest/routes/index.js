@@ -816,12 +816,13 @@ router.post('/getDataChart', (req, res, next) => {
 
 var client = require("jsreport-client")("http://10.10.10.106:5488", 'admin', 'password');
 router.get('/downloadReport', function (req, res) {
-  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' );
+  console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' );
   try {
     //res.header("Access-Control-Allow-Origin", "*");
     // res.json("goal"); 
-
-    var data = JSON.parse(req.query.val1);
+    var dat = req.query.val1.replace(/knower.udenar.edu.co:81/g,'localhost:81');
+    var data = JSON.parse(dat);
+    console.log(dat);
 
     armJSONReport(data).then(x => {
       //console.log('\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n\n\n\n\n\n');

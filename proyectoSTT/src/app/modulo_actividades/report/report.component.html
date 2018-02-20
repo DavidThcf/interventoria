@@ -66,9 +66,9 @@
 
 		<tr *ngIf="this.serviciog.actividad.tipo !== 'Beneficiario' && 
 		this.serviciog.actividad.tipo !== 'Capitulo' &&
-		this.serviciog.actividad.tipo !== 'Actividad'" >
-			<td class="tg-2nhx" >BENEFICIARIOS {{this.serviciog.actividad.tipo | uppercase}}</td>
-			<td class="tg-yw4l" colspan='3' >{{this.serviciog.total_beneficiary}}</td>
+		this.serviciog.actividad.tipo !== 'Actividad'">
+			<td class="tg-2nhx">BENEFICIARIOS {{this.serviciog.actividad.tipo | uppercase}}</td>
+			<td class="tg-yw4l" colspan='3'>{{this.serviciog.total_beneficiary}}</td>
 		</tr>
 	</table>
 	<!--tabla con observaciones y recomendaciones del proyecto-->
@@ -89,7 +89,7 @@
 			</td>
 		</tr>
 
-		
+
 		<!-- {{#each observaciones}}
             <tr>
                 <td class="tg-baqh">{{numero}}</td>
@@ -172,8 +172,7 @@
 		<tr>
 			<td for="tiempo_inicial" class="lab">
 				Diferencia Valor Programado VS Ejecutado
-				<label class="form-control" name="costo_inicial">{{ ((this.serviciog.valueDifProgramadoEjecuato) | currency : 'COP' : true).replace('COP','$
-					') }}</label>
+				<label class="form-control" name="costo_inicial">{{ ((this.serviciog.valueDifProgramadoEjecuato) | currency : 'COP' : true).replace('COP','$ ') }}</label>
 			</td>
 		</tr>
 	</table>
@@ -191,8 +190,7 @@
 		<div class="divfot" width="100%" id="grafEjec">
 			<div style="padding: 1px" class="form-inline form">
 				<div style="display: block; height: 470px; width: 900px;margin-top: 15px;" class="center-block">
-					<canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" 
-					[chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
+					<canvas baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types" [colors]="this.serviciog.colors"
 					 (chartHover)="this.servicios.chartHovered($event)" (chartClick)="this.servicios.chartClicked($event)">
 					</canvas>
 				</div>
@@ -208,16 +206,22 @@
 		</tr>
 	</table>
 	<div class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
-		<div *ngFor="let item of this.images">
+
+		<!-- ##########################################      FOR      ########################################################## -->
+
+		<div *ngFor="let item of this.images" style="float: left;height: 330px" class="col-md-4">
 			<br>
-			<img id="img" width="80%" height="40%" alt={{item.nombre}} src='{{item.url}}' />
+			<img id="img" width="250px" height="250px" alt={{item.nombre}} src='{{item.url}}' />
 			<br>
-			<p style="font-size: 20px">
-				{{item.nombre}}
-			</p>
-			<p style="font-weight: normal">
-				{{item.fecha_creacion | date:'fullDate' | uppercase}}
-			</p>
+			<div class="caption">
+				<p style="font-size: 12px">
+					{{item.nombre}}
+				</p>
+				<p style="font-weight: normal;font-size: 10px">
+					{{item.fecha_creacion | date:'fullDate' | uppercase}}
+				</p>
+			</div>
+
 		</div>
 
 		<!--  {{#each imagenes}}
@@ -228,9 +232,13 @@
 			{{/each}}  -->
 	</div>
 	<!-- </div> -->
-
+	<br>
 	<!--contine informacion de realizacion-->
-	<p style="margin-top: 10px">Para constancia de lo anterior, se firma el presente documento bajo la responsabilidad expresa de los que intervienen.</p>
+
+</div>
+<br>
+<div style="margin-top: 10px" class="row col-md-12">
+	<p style="margin-top: 10px" class="col-md-12">Para constancia de lo anterior, se firma el presente documento bajo la responsabilidad expresa de los que intervienen.</p>
 	<table class="tg2" width="100%">
 		<tr>
 			<td class="tg-2nhx" colspan="2">ELABORÓ</td>
@@ -255,7 +263,7 @@
 			<td class="tg-baqh">{{this.cargoApr}}</td>
 		</tr>
 	</table>
+	<br>
+	<button *ngIf="this.serviciog.usuario.tipo_usuario != 'sup'" style="position: relative;width: 200px;margin: auto;" class="btn btn-success center-block"
+	 (click)="downloadReport()">DESCARGAR</button>
 </div>
-<br>
-<br>
-<button *ngIf="this.serviciog.usuario.tipo_usuario != 'sup'" style="position: relative;width: 200px;margin: auto;" class="btn btn-success center-block" (click)="downloadReport()">DESCARGAR</button>
