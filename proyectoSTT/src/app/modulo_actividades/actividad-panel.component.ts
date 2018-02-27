@@ -1321,8 +1321,10 @@ export class ActividadPanel implements OnInit {
         break;
       //==================    10     ================//
       case '06 - Cubierta':
-        var act = this.getActivity('13 - Pozo Séptico');
-        if (act.porcentaje_cumplido > 0) {
+        //var act = this.getActivity('13 - Pozo Séptico');
+        var act_1 = this.getActivity('04 - Mamposteria');
+        // if (act.porcentaje_cumplido > 0 && act_1.porcentaje_cumplido > 0) {
+        if (act_1.porcentaje_cumplido > 0) {
           this.serviciog.state_act = true;
           if (ban) activity.lock = false;
         }
