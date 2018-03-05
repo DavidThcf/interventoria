@@ -220,9 +220,19 @@ export class ReportComponent implements OnInit {
 
 		var imgReport: string = document.getElementsByTagName('canvas')[0].toDataURL('image/png');
 		var imgReport2: string = '';
+
+		var idEla  = null;
+
+		if (this.serviciog.actividad.tipo == "Beneficiario") {
+			idEla = this.serviciog.actividad.usuario_asignado;
+		}else{
+			idEla = this.serviciog.usuario.id_usuario;
+		}
+		alert("usuaio"+ idEla);
 		try {
 			imgReport2 = document.getElementsByTagName('canvas')[1].toDataURL('image/png');
 		} catch (e) { }
+		
 		this.msg = {
 			"tipo": this.tipo,
 			"beneficiario": this.beneficiario,
@@ -230,6 +240,7 @@ export class ReportComponent implements OnInit {
 			"provincia": this.serviciog.pro,
 			"municipio": this.serviciog.mun,
 			"resguardo": this.serviciog.res,
+
 			"feciniobr": this.feciniobr,
 			"porcejec": this.porcejec,
 			"observaciones": this.observaciones,
@@ -241,18 +252,14 @@ export class ReportComponent implements OnInit {
 			"valorEjecutado": this.serviciog.actividad.costo_actual,
 			"DiferenciaValor": Math.abs(this.serviciog.actividad.costo_actual - this.serviciog.costo_programado),
 			
-			"firmaEla": this.firmaEla,
-			"nombreEla": this.nombreEla,
-			"cargoEla": this.cargoEla,
-			"firmaApr": this.firmaApr,
-
-			"nombreApr": this.nombreApr,
-			"cargoApr": this.cargoApr,
-			"nombre": this.nombre,
 			
+
 			"grafica": imgReport,
 			"grafica2": imgReport2,
 			"imagenes": this.images,
+
+			"usuelaboro":""+idEla,
+
 		};
 		console.log(this.msg);
 

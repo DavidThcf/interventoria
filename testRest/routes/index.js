@@ -1198,11 +1198,14 @@ function armJSONReport(data) {
     img = img.replace(/ /g, '+');
     img2 = img2.replace(/ /g, '+');
 
+    var tipo = data.tipo+","+data.usuelaboro;
+
     //console.log("\n\n\n\n\n\n\n\nOK   =>   " + img.length + '\n\n\n' + data.grafica.length);
     var dat = {
       "tipo": data.tipo, // PROYECTO, PROVINCIA, MUNICIPIO, RESGUARDO, BENEFICIARIO
       "beneficiario": data.beneficiario,
       "cedula": data.cedula,
+
       "provincia": data.provincia,
       "municipio": data.municipio,
       "resguardo": data.resguardo,
@@ -1213,19 +1216,17 @@ function armJSONReport(data) {
       "grafica": img,
       "grafica2": img2,
       "imagenes": data.imagenes,
-      "firmaEla": "david e",
-      "nombreEla": "David Estrada",
-      "cargoEla": "Interventor",
-      "firmaApr": "kelvin c",
-      "nombreApr": "Kelvin Cadena",
-      "cargoApr": "Supervisor",
+      
       "porcentajeProgramado": data.porcentajeProgramado,
       "porcentajeEjecutado": data.porcentajeEjecutado,
       "DiferenciaPorcentaje": data.DiferenciaPorcentaje,
       "valorAsignado": data.valorAsignado,
       "valorProgramado": data.valorProgramado,
       "valorEjecutado": data.valorEjecutado,
-      "DiferenciaValor": data.DiferenciaValor
+      "DiferenciaValor": data.DiferenciaValor,
+      
+      "usuelaboro":data.usuelaboro,
+
     }
     resolve(dat);
   });
