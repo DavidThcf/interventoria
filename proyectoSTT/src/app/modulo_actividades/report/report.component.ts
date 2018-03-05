@@ -228,7 +228,7 @@ export class ReportComponent implements OnInit {
 		}else{
 			idEla = this.serviciog.usuario.id_usuario;
 		}
-		alert("usuaio"+ idEla);
+		// alert("usuaio"+ idEla);
 		try {
 			imgReport2 = document.getElementsByTagName('canvas')[1].toDataURL('image/png');
 		} catch (e) { }
@@ -258,7 +258,7 @@ export class ReportComponent implements OnInit {
 			"grafica2": imgReport2,
 			"imagenes": this.images,
 
-			"usuelaboro":""+idEla,
+			"usuelaboro": idEla,
 
 		};
 		console.log(this.msg);
