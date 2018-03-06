@@ -186,9 +186,13 @@
 								<!-- <label for="descripción" class="lab">Descripción</label>
 									<input name="" type="text" id="de" class="form-control" name="descripcion" readonly [(ngModel)]="this.serviciog.proyecto.descripcion"> -->
 
+								<label for="tiempo_inicial" class="lab">Fecha de Inicio Proyecto</label>
+								<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly value="31 de Julio de 2017">
 
-								<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
+
+								<label for="tiempo_inicial" class="lab">Fecha de Inicio Obra</label>
 								<input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_inicio">
+								
 								<div *ngIf="this.serviciog.proyecto.fecha_fin != null">
 									<label for="tiempo_fin" class="lab">Fecha Final</label>
 									<input name="" type="text" id="tiempo_fin" class="form-control" name="tiempo_fin" ng-reflect-model="a" readonly [(ngModel)]="this.serviciog.proyecto.fecha_fin">
@@ -241,7 +245,12 @@
 										</div>
 										<!--<label for="porcentaje_asignado" class="lab">Porcentaje Asignado A Otras Actividades</label><input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >-->
 										<div *ngIf="this.serviciog.proyecto.fecha_inicio !== null">
-											<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
+											<label for="tiempo_inicial" class="lab">Fecha de Inicio Proyecto</label>
+											<!-- <input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_inicio"> -->
+											<label id="tiempo_ini" class="form-control">31 de Julio de 2017</label>
+
+
+											<label for="tiempo_inicial" class="lab">Fecha de Inicio Obra</label>
 											<!-- <input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.proyecto.fecha_inicio"> -->
 											<label id="tiempo_ini" class="form-control">{{this.serviciog.proyecto.fecha_inicio | date:'fullDate' | uppercase}}</label>
 										</div>
@@ -487,7 +496,11 @@
 									<!--<label for="porcentaje_asignado" class="lab">Porcentaje Asignado A Otras Actividades</label><input name="" type="text" id="porcentaje_asignado" class="form-control" name="porcentaje_asignado" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.porcentaje_asignado" >-->
 									<div *ngIf="this.serviciog.actividad.fecha_inicio !== null && 
 									this.serviciog.actividad.fecha_inicio_real == null">
-										<label for="tiempo_inicial" class="lab">Fecha de Inicio</label>
+										<label for="tiempo_inicial" class="lab">Fecha de Inicio Proyecto</label>
+										<!-- <input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_inicio"> -->
+										<label id="tiempo_ini" class="form-control">31 de Julio de 2017</label>
+
+										<label for="tiempo_inicial" class="lab">Fecha de Inicio Obra</label>
 										<!-- <input name="" type="text" id="tiempo_ini" class="form-control" name="tiempo_ini" [readonly]="!this.isEditar" [(ngModel)]="this.serviciog.actividad.fecha_inicio"> -->
 										<label id="tiempo_ini" class="form-control">{{this.serviciog.actividad.fecha_inicio | date:'fullDate' | uppercase}}</label>
 									</div>
