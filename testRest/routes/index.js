@@ -307,7 +307,7 @@ router.post("/getFileList", (req, res, next) => {
     var fls = File.getFileList(req.body);
     fls.then(x => {
 
-      console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
+      // console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
       res.header("Access-Control-Allow-Origin", "*");
       res.send(x);
 
@@ -331,7 +331,7 @@ router.post("/getFileListChild", (req, res, next) => {
     var fls = File.getFileListChild(req.body);
     fls.then(x => {
 
-      console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
+      // console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
 
       res.send(x);
 
@@ -815,12 +815,14 @@ router.post('/getDataChart', (req, res, next) => {
 });
 
 var client = require("jsreport-client")("http://10.10.10.106:5488", 'admin', 'password');
+// var client = require("jsreport-client")("http://indicadoresacademicos.udenar.edu.co:5488", 'admin', 'password');
 router.get('/downloadReport', function (req, res) {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' );
   try {
     //res.header("Access-Control-Allow-Origin", "*");
     // res.json("goal"); 
-    var dat = req.query.val1.replace(/knower.udenar.edu.co:81/g,'localhost:81');
+    // var dat = req.query.val1.replace(/knower.udenar.edu.co:81/g,'localhost:81');
+    var dat = req.query.val1;
     var data = JSON.parse(dat);
     console.log(dat);
 
@@ -1026,7 +1028,7 @@ router.post("/getMultimediaReport", (req, res, next) => {
     var fls = File.getMultimediaReport(req.body);
     fls.then(x => {
 
-      console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
+      // console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
 
       res.send(x);
 
@@ -1224,9 +1226,7 @@ function armJSONReport(data) {
       "valorProgramado": data.valorProgramado,|
       "valorEjecutado": data.valorEjecutado,
       "DiferenciaValor": data.DiferenciaValor,
-      
-      "usuelaboro":data.usuelaboro,
-
+      "usuelaboro": data.usuelaboro
     }
     resolve(dat);
   });

@@ -81,6 +81,7 @@ export class RegistroMultimedia{
 				formData.append('id_usuario', id_usuario);
 				formData.append('tipo', tipo);
 				formData.append('tipoAct', this.serviciog.actividad.tipo);
+				formData.append('tipoCar', this.serviciog.actividad.tipo);
 
 
 				this.servicios.getMultimedia(formData)

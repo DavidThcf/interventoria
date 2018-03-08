@@ -126,7 +126,7 @@ module.exports.getFileList = function (data) {
 
             else
                 var query1 = `
-                    select *,
+                    select *, 
                     CASE WHEN  `+ id_caracteristica + ` = a.` + tipo + `
                     THEN true
                     ELSE false
@@ -159,7 +159,8 @@ module.exports.getFileList = function (data) {
                         `+ keym + `,
                         `+ id_caracteristica + ` ,
                         `+ id_usuario + `,
-                        '`+ data.tipo + `'
+                        '`+ data.tipo + `',
+                        '`+ data.tipoCar + `'
                     );
                   
                 `;
@@ -185,7 +186,7 @@ module.exports.getFileList = function (data) {
 
                 var cad = JSON.stringify(x);
                 cad = cad.replace(/\//g, '=');
-                console.log('RESPONDE =======>    ' + JSON.stringify(x))
+                //console.log('RESPONDE =======>    ' + JSON.stringify(x))
                 resolve(x);
             }).catch(x => {
                 reject(false);
@@ -218,7 +219,7 @@ module.exports.getFileListChild = function (data) {
         //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
-                console.log('\n\n\n\n\n\n\n\nRESPONDE =======>    ' + JSON.stringify(x['getarchivos']))
+                //console.log('\n\n\n\n\n\n\n\nRESPONDE =======>    ' + JSON.stringify(x['getarchivos']))
                 resolve(x);
             }).catch(x => {
                 reject(false);

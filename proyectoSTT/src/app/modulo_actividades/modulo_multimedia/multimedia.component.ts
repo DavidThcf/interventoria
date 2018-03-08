@@ -78,6 +78,7 @@ export class Multimedia implements OnInit {
 		formData.append('id_usuario', id_usuario);
 		formData.append('tipo', tipo);
 		formData.append('tipoAct', this.serviciog.actividad.tipo);
+		formData.append('tipoCar', this.serviciog.actividad.tipo);
 
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
@@ -196,6 +197,7 @@ export class Multimedia implements OnInit {
 		formData.append('id_usuario', id_usuario);
 		formData.append('tipo', this.serviciog.tipo);
 		formData.append('tipoAct', this.serviciog.actividad.tipo);
+		formData.append('tipoCar', this.serviciog.actividad.tipo);
 
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
@@ -256,6 +258,7 @@ export class Multimedia implements OnInit {
 		formData.append('tipo', tipo);
 		//this.serviciog.actividad.tipo
 		formData.append('tipoAct', 'Beneficiario');
+		formData.append('tipoCar', this.serviciog.actividad.tipo);
 
 
 		this.servicios.getMultimedia(formData)

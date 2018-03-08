@@ -1,0 +1,78 @@
+<div *ngIf="this.activity != null" style="width: 80%;margin-left: 10%">
+    <div class='row'>
+        <p class='col-md-3'>tipo => {{this.activity.tipo}}</p>
+        <p class='col-md-3'>nombre => {{this.activity.nom_act}}</p>
+        <p class='col-md-3'>beneficiario => {{this.activity.beneficiario}}</p>
+        <p class='col-md-3'>cedula => {{this.activity.cedula}} </p>
+        <!-- <p class='col-md-3'>provincia => {{this.activity.provincia}}</p>
+                <p class='col-md-3'>municipio => {{this.activity.municipio}}</p>
+                <p class='col-md-3'>resguardo => {{this.activity.resguardo}}</p> -->
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class='row'>
+        <p class='col-md-3'>feciniobr => {{this.activity.fecha_inicio}}</p>
+        <p class='col-md-3'>porcejec => {{this.activity.porcejec}}</p>
+        <p class='col-md-3'>observaciones => </p>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class='row'>
+        <p class='col-md-3'>porcentajeProgramado => {{this.activity.porcentajeProgramado}}</p>
+        <p class='col-md-3'>porcentajeEjecutado => {{this.activity.porcentaje_cumplido}}</p>
+        <p class='col-md-3'>DiferenciaPorcentaje => {{this.activity.DiferenciaPorcentaje}}</p>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <div>
+        <p class='col-md-3'>valorAsignado => {{this.activity.costo_real}}</p>
+        <p class='col-md-3'>valorProgramado => {{this.activity.valorProgramado}}</p>
+        <p class='col-md-3'>valorEjecutado => {{this.activity.costo_actual}}</p>
+        <p class='col-md-3'>DiferenciaValor => {{this.activity.DiferenciaValor}}</p>
+
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class='row'>
+
+        <div >
+            <p>grafica => </p>
+
+
+            <div>
+                <div style="height: 300px; width: 1000px" class="center-block">
+                    <canvas baseChart [colors]='lineChartColors' [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+                        [legend]="barChartLegend" [chartType]="barChartType"></canvas>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div style="margin-top: 400px">
+            <!--  *ngIf="!this.serviciog.actividad.nom_cat" -->
+            <div class="form-inline form">
+                <p>grafica2 => </p>
+                <label class="form-control" for="etapa" class="lab form-inline">Grafica detalle {{this.activity.tipo}} {{this.activity.nom_act}} </label>
+                <div style="display: block; height: 500px; width: 700px; margin-top: 5px;margin-left: 70px">
+                    <div class="center-block">
+                        <canvas class="center-block" baseChart [data]="this.serviciog.data" [labels]="this.serviciog.labels" [chartType]="this.serviciog.types"
+                            [colors]="this.serviciog.colors" >
+                        </canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div>
+            <p>imagenes => </p>
+        </div>
+    </div>
+</div>
