@@ -1198,7 +1198,7 @@ function armJSONReport(data) {
     img = img.replace(/ /g, '+');
     img2 = img2.replace(/ /g, '+');
 
-    var tipo = data.tipo+","+data.usuelaboro;
+    // var tipo = data.tipo+","+data.usuelaboro;
 
     //console.log("\n\n\n\n\n\n\n\nOK   =>   " + img.length + '\n\n\n' + data.grafica.length);
     var dat = {
@@ -1221,7 +1221,7 @@ function armJSONReport(data) {
       "porcentajeEjecutado": data.porcentajeEjecutado,
       "DiferenciaPorcentaje": data.DiferenciaPorcentaje,
       "valorAsignado": data.valorAsignado,
-      "valorProgramado": data.valorProgramado,
+      "valorProgramado": data.valorProgramado,|
       "valorEjecutado": data.valorEjecutado,
       "DiferenciaValor": data.DiferenciaValor,
       
