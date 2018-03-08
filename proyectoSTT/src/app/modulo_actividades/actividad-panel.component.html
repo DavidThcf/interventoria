@@ -47,30 +47,29 @@
 				<div class="listaActividades">
 					<ul *ngIf="this.serviciog.actividades">
 						<li class="sel" *ngFor="let activity of this.serviciog.activityList" [class.selected]="activity === this.serviciog.actividad"
-
 						 (click)="onSelectActivity(activity)" (dblclick)="entrarACtividad(activity)" [style.background-color]='activity.color_cat'>
-						 <table *ngIf="activity.tipo === 'Capitulo'">
+							<table *ngIf="activity.tipo === 'Capitulo'">
 								<tr>
 									<td style="width: 96%">
 										<p *ngIf="activity.color_cat" style="vertical-align: center; padding-top: 5px">{{activity.tipo}} {{activity.nom_act}}</p>
 										<a *ngIf="!activity.color_cat">{{activity.tipo}} {{activity.nom_act}}</a>
 
 									</td>
-									<td  style="width: 4%">
+									<td style="width: 4%">
 										<img *ngIf="activity.lock" style="margin-right: 2px" src="../../assets/img/lock.png" width="25" height="25" />
 									</td>
 								</tr>
 							</table>
 
 							<table *ngIf="activity.tipo !== 'Capitulo'">
-									<tr>
-										<td style="width: 100%">
-											<p *ngIf="activity.color_cat" style="vertical-align: center; padding-top: 5px">{{activity.tipo}} {{activity.nom_act}}</p>
-											<a *ngIf="!activity.color_cat">{{activity.tipo}} {{activity.nom_act}}</a>
-	
-										</td>
-									</tr>
-								</table>
+								<tr>
+									<td style="width: 100%">
+										<p *ngIf="activity.color_cat" style="vertical-align: center; padding-top: 5px">{{activity.tipo}} {{activity.nom_act}}</p>
+										<a *ngIf="!activity.color_cat">{{activity.tipo}} {{activity.nom_act}}</a>
+
+									</td>
+								</tr>
+							</table>
 
 							<!-- <tr style="box-sizing:content-box; display: inline-block">
 
@@ -156,6 +155,13 @@
 					 (click)="c10()" [class.itemSelected]="this.serviGloAct.actOpt===10">
 						<a>Observaciones Supervisor</a>
 					</li>
+					
+					<li *ngIf="this.serviciog.usuario.tipo_usuario === 'ing'"
+					 (click)="c12()" [class.itemSelected]="this.serviGloAct.actOpt===12">
+						<a>Auto Reporte</a>
+					</li>
+
+
 
 					<!--	
 							<li (click)="c11()" [class.itemSelected]="this.serviGloAct.actOpt===11">
@@ -726,7 +732,7 @@
 						</div>
 
 					</div>
-					
+
 					<!-- this.serviciog.usuario.tipo_usuario != 'sup' ||  -->
 
 					<br>
@@ -932,6 +938,10 @@
 
 				</div>
 
+					<!--  Mapa -->
+					<div *ngIf="this.serviGloAct.actOpt === 12">
+						<app-auto-report></app-auto-report>
+					</div>
 				<!--  Novedades 
 					<div *ngIf="this.serviGloAct.actOpt === 11">
 						<app-news-component></app-news-component>

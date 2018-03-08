@@ -21,6 +21,7 @@ import { RemarksComponent } from './remarks/remarks.component';
 import { ReportComponent } from './report/report.component';
 import { ObservacionesComponent } from './observaciones/observaciones.component';
 import { ChartComponentComponent } from './chart-component/chart-component.component';
+import { AutoReportComponent } from './auto-report/auto-report.component';
 
 
 
@@ -48,6 +49,7 @@ import { ChartComponentComponent } from './chart-component/chart-component.compo
   ReportComponent,
   ObservacionesComponent,
   ChartComponentComponent,
+  AutoReportComponent,
   ],
   providers: [  { provide: LOCALE_ID, useValue: "es-CO" },ServiciosGlobalesActividades ]
 })

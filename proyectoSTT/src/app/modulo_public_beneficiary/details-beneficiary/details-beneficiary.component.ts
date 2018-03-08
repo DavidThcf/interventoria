@@ -102,6 +102,7 @@ export class DetailsBeneficiaryComponent implements OnInit {
           formData.append('tipo', this.tipo);
           formData.append('tipoAct', 'Beneficiario');
           formData.append('reporte', true + '');
+          formData.append('tipoCar', this.serviciog.actividad.tipo);
           this.servicios.getMultimedia(formData)
             .then(imagenes => {
               if (imagenes) {
@@ -127,7 +128,7 @@ export class DetailsBeneficiaryComponent implements OnInit {
           formData.append('id_usuario', this.ben.id_usuario);
           formData.append('tipo', 'img');
           formData.append('tipoAct', 'Beneficiario');
-    
+          formData.append('tipoCar', this.serviciog.actividad.tipo);
           this.servicios.getMultimedia(formData)
             .then(imagenes => {
               if (imagenes) {
@@ -302,7 +303,7 @@ export class DetailsBeneficiaryComponent implements OnInit {
     formData.append('id_usuario', id_usuario);
     formData.append('tipo', this.tipo);
     formData.append('tipoAct', 'Beneficiario');
-
+    formData.append('tipoCar', this.serviciog.actividad.tipo);
     this.servicios.getMultimedia(formData)
       .then(imagenes => {
         if (imagenes) {

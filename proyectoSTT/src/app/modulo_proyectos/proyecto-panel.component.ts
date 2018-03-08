@@ -38,7 +38,7 @@ export class ProyectoPanel implements OnInit{
 			
 		// });
 		
-		if([3,4,6,7,8,9,10].indexOf(id) !== -1 ){
+		if([3,4,6,7,8,9,10,17].indexOf(id) !== -1 ){
 			
 			this.servicios.getProyecto( [5 , this.serviciog.usuario.id_usuario ] + '')
 			.then(cadena => {

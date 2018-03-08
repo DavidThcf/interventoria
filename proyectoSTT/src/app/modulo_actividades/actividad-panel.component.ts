@@ -1259,16 +1259,16 @@ export class ActividadPanel implements OnInit {
       //==================    01     ================//
       case '01 - Obras Preliminares':
         {
-          
-          if (this.serviciog.ax_actividad.estado === 'Ejecucion de obra'){
+
+          if (this.serviciog.ax_actividad.estado === 'Ejecucion de obra') {
             this.serviciog.state_act = true;
             if (ban) activity.lock = false;
           }
-          else{
+          else {
             this.serviciog.state_act = false;
             if (ban) activity.lock = true;
           }
-            
+
         }
         break;
       //==================    02     ================//
@@ -2002,6 +2002,32 @@ export class ActividadPanel implements OnInit {
 
   c11() {
     this.serviGloAct.actOpt = 11;
+    //alert(JSON.stringify(this.serviciog.actividad));
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+  }
+
+  c12() {
+    this.serviGloAct.actOpt = 12;
     //alert(JSON.stringify(this.serviciog.actividad));
     if (this.isTitleSelected && this.serviciog.actividad == null)
       var dat = {

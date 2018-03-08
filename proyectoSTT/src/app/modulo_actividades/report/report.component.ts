@@ -193,7 +193,7 @@ export class ReportComponent implements OnInit {
 		formData.append('tipo', this.serviciog.tipo);
 		formData.append('tipoAct', dat.tipo);
 		formData.append('reporte', true + '');
-
+		formData.append('tipoCar', this.serviciog.actividad.tipo);
 		//alert(JSON.stringify(dat.tipo));
 
 		this.servicios.getMultimedia(formData)
