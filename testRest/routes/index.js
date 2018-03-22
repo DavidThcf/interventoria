@@ -1223,7 +1223,7 @@ function armJSONReport(data) {
       "porcentajeEjecutado": data.porcentajeEjecutado,
       "DiferenciaPorcentaje": data.DiferenciaPorcentaje,
       "valorAsignado": data.valorAsignado,
-      "valorProgramado": data.valorProgramado,|
+      "valorProgramado": data.valorProgramado,
       "valorEjecutado": data.valorEjecutado,
       "DiferenciaValor": data.DiferenciaValor,
       "usuelaboro": data.usuelaboro
@@ -1324,6 +1324,41 @@ router.post("/opObservation", (req, res, next) => {
       res.json(false);
     });
 });
+
+
+/*
+funciones para asignar y cambiar estado en semana santa  con posman
+*/
+
+// crear proyecto y asignarlo a un supervisor
+router.get("/Xcrearproyectos",(req,res,next) => {
+  var cedulas = req.query.ced
+  var usr  = req.query.usr
+  var car = Beneficiaries.xcrearproyecto(cedulas,usr);
+  car.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+})
+
+// cambiar estado del beneficiario
+router.get("/XhabilitarBeneficiario",(req,res,next) => {
+  var cedulas = req.query.ced
+  var fec  = req.query.fec
+  var car = Beneficiaries.xhabilitarBeneficiario(cedulas,fec);
+  car.then(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(x);
+
+  }).catch(x => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.json(false);
+  });
+})
 
 
 module.exports = router;

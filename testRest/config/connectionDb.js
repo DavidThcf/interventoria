@@ -7,7 +7,7 @@ function configConnection() {
     // const sequelize = new Sequelize('intrventoria', 'postgres', '123', {  //'NJpost2016'  Int2017IP1
         //host: 'knower.udenar.edu.co',
         host: 'localhost',
-        //host: '10.20.50.97',
+        // host: '10.10.10.106',
         dialect: 'postgres'
         
     });

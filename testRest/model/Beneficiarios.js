@@ -112,3 +112,55 @@ module.exports.getAllBeneficiaries = function () {
 	});
 }
 
+
+module.exports.xcrearproyecto = function(ced,usr){
+	//console.log("asasas :  "+ced+"\nusr:: "+usr)
+
+	return new Promise((resolve, reject) => {
+		var sequelize = sqlCon.configConnection();
+		var query1 = `
+		select 
+			fx15_assign_users_cedula( '`+
+			ced + `',`+ usr +
+			`)`;
+		console.log('XXXXXX >>> '+ query1);
+		sequelize.query(query1, {
+			type: sequelize.QueryTypes.SELECT
+		}).then(x => {
+			//console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
+			resolve(x);
+		}).catch(x => {
+			// console.log('Error al registrar actividad ' + x);
+			reject(false);
+		}).done(x => {
+			sequelize.close();
+			// console.log('Se ha cerrado sesion de la conexion a la base de datos');
+		});
+
+	});
+}
+
+module.exports.xhabilitarBeneficiario = function(ced, fec){
+	return new Promise((resolve, reject) => {
+		var sequelize = sqlCon.configConnection();
+		var query1 = `
+		select 
+			f4_update_habilitado_conparametros( '`+
+			ced + `','`+ fec +
+			`')`;
+		console.log('XXXXXX >>> '+ query1);
+		sequelize.query(query1, {
+			type: sequelize.QueryTypes.SELECT
+		}).then(x => {
+			//console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
+			resolve(x);
+		}).catch(x => {
+			// console.log('Error al registrar actividad ' + x);
+			reject(false);
+		}).done(x => {
+			sequelize.close();
+			// console.log('Se ha cerrado sesion de la conexion a la base de datos');
+		});
+
+	});
+}
