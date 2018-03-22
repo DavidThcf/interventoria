@@ -31,8 +31,7 @@ export class Servicios {
 	}
 
 	getUsuario(formdata: FormData): Promise<Usuario> {
-		return this.http
-			.post(this.url + "getUser", formdata)
+		return this.http.post(this.url + "getUser", formdata)
 			.toPromise()
 			.then(response => response.json() as Usuario)
 			.catch(err => false);

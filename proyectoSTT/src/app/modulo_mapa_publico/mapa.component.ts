@@ -121,7 +121,7 @@ export class Mapa implements OnInit {
 		formData.append('id_caracteristica', this.marcador.id_caracteristica);
 		formData.append('id_usuario', this.marcador.id_usuario);
 		formData.append('tipo', this.tipo);
-		formData.append('tipoCar', this.serviciog.actividad.tipo);
+		formData.append('tipoCar', 'Beneficiario');
 		this.servicios.getMultimedia(formData)
 			.then(archivos => {
 				if (archivos) {

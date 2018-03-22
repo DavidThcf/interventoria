@@ -258,7 +258,7 @@ export class Multimedia implements OnInit {
 		formData.append('tipo', tipo);
 		//this.serviciog.actividad.tipo
 		formData.append('tipoAct', 'Beneficiario');
-		formData.append('tipoCar', this.serviciog.actividad.tipo);
+		formData.append('tipoCar', 'Beneficiario');
 
 
 		this.servicios.getMultimedia(formData)
