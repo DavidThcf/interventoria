@@ -21,7 +21,7 @@
         </div>
       </div>
       
-      <div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup'">
+      <div *ngIf="this.serviciog.usuario.tipo_usuario !== 'sup' && this.tipo_usuario != 'fid'">
           <div class="center-block" style="display: inline-block;">
               <button *ngIf="!item.aprobado && !item.edit" class="btn btn-success  xbtn" (click)="okReporte(item,true)"> Aprobar </button>
               <button *ngIf="item.aprobado && !item.edit" class="btn btn-danger    xbtn" (click)="okReporte(item,false)"> Desaprobar </button>
