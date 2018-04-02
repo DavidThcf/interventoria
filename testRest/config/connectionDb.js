@@ -6,8 +6,8 @@ function configConnection() {
     const sequelize = new Sequelize('interventoria', 'postgres', 'Int2017IP1', {
     // const sequelize = new Sequelize('interventoria', 'postgres', '123', {  //'NJpost2016'  Int2017IP1
         //host: 'knower.udenar.edu.co',
-        host: 'localhost',
-        // host: '10.10.10.106',
+        // host: 'localhost',
+        host: '10.10.10.106',
         dialect: 'postgres'
         
     });

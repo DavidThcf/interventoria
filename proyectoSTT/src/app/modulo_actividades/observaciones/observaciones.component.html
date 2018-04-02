@@ -36,7 +36,7 @@
     </div>
   </div>
 
-  <div id="form-observacion" style="margin-top: 20px">
+  <div id="form-observacion" style="margin-top: 20px" *ngIf="this.tipo_usuario != 'fid'">
     <p>Agregar nueva observacion</p>
     <textarea #txtArea placeholder="Agrega aqui tu observacion..." required="required" style="width:100%; max-width: 100% ; min-height : 100px ; "></textarea>
     <br>
