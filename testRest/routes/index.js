@@ -814,7 +814,7 @@ router.post('/getDataChart', (req, res, next) => {
   });
 });
 
-var client = require("jsreport-client")("http://10.10.10.106:5488", 'admin', 'password');
+var client = require("jsreport-client")("localhost:5488", 'admin', 'password');
 // var client = require("jsreport-client")("http://indicadoresacademicos.udenar.edu.co:5488", 'admin', 'password');
 router.get('/downloadReport', function (req, res) {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' );
