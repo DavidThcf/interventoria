@@ -165,7 +165,7 @@ this.serviciog.actividad.tipo === 'Beneficiario'
               <div style="display: inline-block;width: 100%;margin: auto;text-align: center" class="center-block">
                   <button *ngIf="this.serviciog.usuario.tipo_usuario === 'sup'" title="Eliminar" class="btn btn-danger  btn-sm center-block "
                   style="display: inline-block;font-size: 7pt;" (click)="delImage(imagen)">X</button>
-                <button class="btn btn-success center-block btn-sm" (click)="imagen.edit = !imagen.edit" 
+                <button *ngIf="this.serviciog.usuario.tipo_usuario != 'fid'" class="btn btn-success center-block btn-sm" (click)="imagen.edit = !imagen.edit" 
                   title="Editar"style="display: inline-block;font-size: 7pt;">Editar</button>
               </div>
             </div>

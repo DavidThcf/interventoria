@@ -147,7 +147,8 @@ export class ActividadPanel implements OnInit {
     this.serviGloAct.observaciones = [];
 
     
-    if (this.serviciog.usuario.tipo_usuario === "sup") this.flg = false;
+    if (this.serviciog.usuario.tipo_usuario === "sup" || this.serviciog.usuario.tipo_usuario === "fid") 
+      this.flg = false;
 
     this.serviciog.actividades = [];
     this.serviciog.activityList = [];
