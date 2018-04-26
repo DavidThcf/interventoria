@@ -365,6 +365,7 @@ module.exports.getDataNewChangeFile = function (data, reporte) {
 module.exports.opObservation = function (data, opc) {
     var sequelize = sqlCon.configConnection();
     console.log(data);
+    var fec = new Date().toLocaleString();
     switch (opc) {
         case 'UP_TXT':
             var query1 = `
@@ -374,7 +375,7 @@ module.exports.opObservation = function (data, opc) {
             break;
         case 'UP_EST':
             var query1 = `
-                update observaciones set aprobado = `+data.aprobado+` , visto = true
+                update observaciones set aprobado = `+data.aprobado+` , visto = true, fecha_aprovacion = `+fec+`
                 where id_observacion = `+ data.id_observacion + `;
             `;
             break;
