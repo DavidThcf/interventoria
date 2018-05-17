@@ -95,12 +95,7 @@ module.exports.getCategoriesList = function (data) {
     var id_usuario_car = data.id_usuario_car;
     var query1 = `
     select * from categorias_mapa `;
-    /*var query1 = `
-    select * from categorias_mapa
-    where keym_car = `+ keym_car + ` 
-    and id_caracteristica = `+ id_caracteristica + `   
-    and id_usuario_car =   `+ id_usuario_car + `
-    `;*/
+  
     console.log('\n\n\n\nQuery1 ===>  ' + query1);
     return new Promise((resolve, reject) => {
         var sequelize = sqlCon.configConnection();

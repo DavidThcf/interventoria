@@ -13,7 +13,6 @@ module.exports.create_file = function (data, files) {
     var id_caracteristica = data.id_caracteristica;
     var id_usuario_car = data.id_usuario;
     //File Data
-    // data.nombre_archivo == undefined ? nombre_archivo = files.name :  nombre_archivo = '';
     var keym = 0;
     var id_usuario = data.id_usuario_act;
     var id_archivo; //Later initialize
@@ -107,15 +106,12 @@ module.exports.create_file = function (data, files) {
 
 //Service to get files original
 module.exports.getFileList = function (data) {
-    //console.log('OK ');
     var sequelize = sqlCon.configConnection();
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
     var tipo = 'reporte_' + data.tipoAct.toLowerCase();
-    //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
-        //--  WHERE (now()::date- ar.fecha_creacion::date) <= 15 
         if (data.reporte) {
             if (data.tipoAct == "Proyecto")
                 var query1 = `
@@ -136,7 +132,6 @@ module.exports.getFileList = function (data) {
                     and ` + tipo + ` =  ` + id_caracteristica + `  ;
                 `;
         }
-        // --WHERE (now()::date- ar.fecha_creacion::date) <= 15 AND
         else {
             if (data.tipoAct == "Proyecto") {
                 var query1 = `
@@ -152,7 +147,6 @@ module.exports.getFileList = function (data) {
                 
                 `;
             }
-            //----LIMIT 25; 
             else if (data.tipoAct == "Beneficiario" || data.tipoAct == "Capitulo" || data.tipoAct == "Actividad") {
                 var query1 = `
                     select getarchivos(
@@ -180,13 +174,11 @@ module.exports.getFileList = function (data) {
                 `;
             }
         }
-        //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
 
                 var cad = JSON.stringify(x);
                 cad = cad.replace(/\//g, '=');
-                //console.log('RESPONDE =======>    ' + JSON.stringify(x))
                 resolve(x);
             }).catch(x => {
                 reject(false);
@@ -200,13 +192,11 @@ module.exports.getFileList = function (data) {
 
 //get all files from characteristica
 module.exports.getFileListChild = function (data) {
-    //console.log('OK ');
     var sequelize = sqlCon.configConnection();
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
     var tipo = 'reporte_' + data.tipoAct.toLowerCase();
-    //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
 
 
@@ -215,11 +205,9 @@ module.exports.getFileListChild = function (data) {
         
             
         `;
-        // --and tipo = '`+ data.tipo + `' and ` + tipo + ` =  ` + id_caracteristica + `  ;
-        //console.log(query1);
+
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
-                //console.log('\n\n\n\n\n\n\n\nRESPONDE =======>    ' + JSON.stringify(x['getarchivos']))
                 resolve(x);
             }).catch(x => {
                 reject(false);
@@ -232,7 +220,6 @@ module.exports.getFileListChild = function (data) {
 
 //service to get files for show novedades/news
 module.exports.getFilesNovedades = function (data) {
-    //console.log('data  >  '+JSON.stringify(data));
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
@@ -247,10 +234,8 @@ module.exports.getFilesNovedades = function (data) {
             and id_usuario_car = `+ id_usuario + `
             and tipo = '`+ data.tipo + `' and a.visto = false ;
         `;
-        //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
-                //console.log('RESPONDE =======>    ' + JSON.stringify(x))
                 resolve(x);
             }).catch(x => {
                 resolve(false);
@@ -276,7 +261,6 @@ module.exports.imageProfileUpload = function (files, path) {
     else {
         file = files.file;
 
-        //var fina = file.name.replace(/\s/g, "");
         var fina = file.name = 'profile' + getExtension(file.name);
 
         file.mv(path + fina, function (err) {
@@ -289,7 +273,6 @@ module.exports.imageProfileUpload = function (files, path) {
 
 //Service to upload files
 module.exports.fileUpload = function (files, path, nom) {
-    // console.log(path)
     var file;
     var name = nom;
     console.log('\n\n\n\n Name    ' + name);
@@ -299,7 +282,6 @@ module.exports.fileUpload = function (files, path, nom) {
         fs.mkdirSync(path, 0777, function (err) {
             if (err) {
                 console.log(err);
-                // echo the result back
             } else
                 console.log('creado')
         });
@@ -317,7 +299,6 @@ module.exports.fileUpload = function (files, path, nom) {
     }
     else {
         file = files.file;
-        //var fina = file.name.replace(/\s/g, "");
         var fina;
         if (name.length == 0)
             fina = name + getExtension(file.name);
@@ -442,20 +423,7 @@ module.exports.updateImageEditView = function (data) {
             q = q + query1;
         }
     }
-    //console.log('\n\n'+JSON.stringify(q));
 
-    /*
-for (var i = 0; i < d.length; i++) {
-        var query1 = `
-        UPDATE archivos SET 
-        `+tipo+` =` + d[i].reporte + `
-        WHERE keym_arc = `+ d[i].keym_arc +
-            ` AND id_archivo =  ` + d[i].id_archivo +
-            ` AND id_usuario_arc = ` + d[i].id_usuario_arc + `;
-        `;
-        q = q + query1;
-    }
-    */
 
 
     console.log('query >>>>>>>>>>>> ' + q)
@@ -517,14 +485,11 @@ module.exports.updateImageView = function (data) {
 //multimedia reporte
 //Service to get files original
 module.exports.getMultimediaReport = function (data) {
-    //console.log('OK ');
     var sequelize = sqlCon.configConnection();
     var keym = data.keym;
     var id_caracteristica = data.id_caracteristica;
     var id_usuario = data.id_usuario;
-    //console.log('OK ' + keym + '  ' + id_caracteristica + '  ' + id_usuario);
     return new Promise((resolve, reject) => {
-        // --WHERE (now()::date- ar.fecha_creacion::date) <= 15 
         if (data.reporte) {
             if (data.tipo_car == 'Proyecto')
                 var query1 = `
@@ -543,7 +508,6 @@ module.exports.getMultimediaReport = function (data) {
                 and tipo = '`+ data.tipo + `' and reporte =  true  ;
             `;
         }
-        // -- WHERE (now()::date- ar.fecha_creacion::date) <= 15
         else {
             if (data.tipoAct == "Proyecto") {
                 var query1 = `
@@ -562,7 +526,6 @@ module.exports.getMultimediaReport = function (data) {
                 `;
             }
         }
-        //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
 
@@ -589,7 +552,6 @@ module.exports.delFile = function (data) {
             delete from archivos 
             where keym_arc = `+ data.keym_arc + ` and id_archivo = ` + data.id_archivo + ` and id_usuario_arc = ` + data.id_usuario_arc + `
         `;
-        //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT }).
             then(x => {
                 console.log('RESPONDE =======>    ' + JSON.stringify(x));
@@ -624,7 +586,6 @@ module.exports.saveEdit = function (data) {
             update archivos set titulo = '`+data.titulo+`' 
             where keym_arc = `+ data.keym_arc + ` and id_archivo = ` + data.id_archivo + ` and id_usuario_arc = ` + data.id_usuario_arc + `
         `;
-        //console.log(query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.UPDATE }).
             then(x => {
                 console.log('RESPONDE EDIT SAVEEDIT =======>    ' + JSON.stringify(x));

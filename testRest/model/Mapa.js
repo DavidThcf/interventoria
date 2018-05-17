@@ -14,7 +14,6 @@ module.exports.regPoint = function (data) {
   var latitud = data.latitud;
   var longitud = data.longitud;
   var id_categoria = data.id_categoria;
-  //var etiqueta = data.etiqueta;
 
   var query1 =
     `
@@ -109,7 +108,6 @@ module.exports.getPointList = function (data) {
   if (data.keym == null || data.keym == undefined) {
     data.keym = data.keym_car;
     data.id_usuario = data.id_usuario_car;
-    //data.keym = data.key_car;
     console.log('MODIFY   =>   ' + JSON.stringify(data));
   }
   var sequelize = sqlCon.configConnection();
@@ -392,10 +390,7 @@ module.exports.getPointList = function (data) {
     sequelize
       .query(query1, { type: sequelize.QueryTypes.SELECT })
       .then(x => {
-        /*console.log(
-          "Se encontro correctamente la lista de puntos\n\n\n" +
-            JSON.stringify(x)
-        );*/
+
         resolve(x);
       })
       .catch(x => {

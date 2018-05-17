@@ -346,16 +346,13 @@ module.exports.getDataNewChangeFile = function (data, reporte) {
         sequelize
             .query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {
-                // console.log("\n\n\n\nSe encontro correctamente la lista de observaciones\n\n\n" + JSON.stringify(x));
                 resolve(x);
             })
             .catch(x => {
-                // console.log("NO se encontro correctamente la lista de observaciones " + x);
                 reject(false);
             })
             .done(x => {
                 sequelize.close();
-                // console.log("Se ha cerrado sesion de la conexion a la base de datos");
             });
     });
 }

@@ -8,11 +8,7 @@ var fs = require('fs');
 var repository = 'files/';
 
 module.exports.createUser = function (data, files) {
-  //var data = JSON.parse(req.body.json);
-  //console.log('POL  =>  ' + JSON.stringify(data));
 
-  //console.log('data=>   ' + JSON.stringify(data) + ' USU ' + data.nombre);
-  //variables del usuario
   var email = data.e_mail;
   email.replace(/ /g, "");
   var password = data.pass;
@@ -102,13 +98,10 @@ module.exports.sigIn = function (data) {
   return new Promise((resolve, reject) => {
     sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
       .then(x => {
-        //console.log('\n\n\n x==>'+ JSON.stringify(x));
         if (x[0] != null) {
-          //console.log('ok');
           resolve(x);
         }
         else {
-          //console.log('bad');
           reject(false);
         }
       }).catch(x => {
@@ -161,11 +154,9 @@ module.exports.getUserList = function (data) {
     sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
       .then(x => {
         if (x[0] != null) {
-          //console.log('ok');
           resolve(x);
         }
         else {
-          //console.log('bad');
           reject(false);
         }
       }).catch(x => {
@@ -196,11 +187,9 @@ module.exports.restartPassword = function (data, passTemp) {
         else
           resolve(false);
       }).catch(x => {
-        // console.log('Error al consular los usuario Usuario: ' + x);
         reject(false);
       }).done(x => {
         sequelize.close();
-        // console.log('Se ha cerrado sesion de la conexion a la base de datos');
       });
   });
 }
@@ -229,76 +218,3 @@ module.exports.changePassword = function (data) {
   });
 }
 /*-----------------------------*/
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-////////// 			Otros ejemplos de servicios
-
-
-
-
-
-
-
-router.get('/:email/:password', function (req, res, next) {
-	Usuario.findAll({console.lo
-		where: {
-			e_mail: req.params.email,
-			pass: req.params.password
-		}
-	}).then(heroe => {
-		var obj = JSON.stringify(heroe).replace(/\[/g, "").replace(/\]/g, "");
-		res.header("Access-Control-Allow-Origin", "*");
-		res.send(obj);
-	});
-});
-
-
-router.get('/:id_usuario', function (req, res, next) {
-	var cad = "select * from proyectos join caracteristicas on proyectos.keym_car = caracteristicas.keym and proyectos.id_usuario_car = caracteristicas.id_usuario and proyectos.id_caracteristica = caracteristicas.id_caracteristica  where caracteristicas.id_usuario =" + req.params.id_usuario;
-	sequelize.query(cad, {
-		type: sequelize.QueryTypes.SELECT
-	})
-		.then(proyectos => {
-			var obj = JSON.stringify(proyectos).replace(/\[/g, "").replace(/\]/g, "");
-			res.header("Access-Control-Allow-Origin", "*");
-			res.send(proyectos);
-		})
-});
-
-
-
-router.post('/', function (req, res, next) {
-	console.log(req);
-	var email = data.email;
-	var password = data.password;
-	console.log(email + '  ' + password);
-	var usuario = [{
-		"email": email,
-		"password": password,
-		"nombre": 'Luis',
-		"apellido": 'Perez'
-	}];
-
-	res.header("Access-Control-Allow-Origin", "*");
-	res.send(JSON.stringify(usuario));
-});
-
-
-
-
-
-*/

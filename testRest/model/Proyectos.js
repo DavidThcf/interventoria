@@ -82,14 +82,7 @@ module.exports.createProjectFromActivity = function (data) {
 // Service to get the project list
 module.exports.getListProjects = function (id_user) {
   var sequelize = sqlCon.configConnection();
-  /*var query1 = `
-        select * from proyectos
-        join caracteristicas on proyectos.keym_car = caracteristicas.keym
-        and proyectos.id_usuario_car = caracteristicas.id_usuario
-        and proyectos.id_caracteristica = caracteristicas.id_caracteristica
-        where proyectos.id_usuario in (`+id_user+`)
 
-        `;*/
         var query1 = `
         select 	
         ap.nombre nom_padre,
@@ -467,14 +460,7 @@ function getIdFreeProject(id_usuario, keym) {
 // Service to get one project 
 module.exports.getOneProject = function (data) {
   var sequelize = sqlCon.configConnection();
-  /*var query1 = `
-        select * from proyectos
-        join caracteristicas on proyectos.keym_car = caracteristicas.keym
-        and proyectos.id_usuario_car = caracteristicas.id_usuario
-        and proyectos.id_caracteristica = caracteristicas.id_caracteristica
-        where proyectos.id_usuario in (`+id_user+`)
 
-        `;*/
         var query1 = `
         select 	
         b.nombre beneficiario,

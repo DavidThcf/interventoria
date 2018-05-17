@@ -29,28 +29,21 @@ module.exports.insertData = function() {
       .then(x => {
         x.forEach(function(element) {
           //Leemos los archivos relacionados a la lista de resguardos => esta la lista de los beneficiarios
-          //console.log('\nOK  ===>  '+repository+element.nombre+'.csv');
-          //console.log(repository + element.nombre + '.csv');
+          
 
           var path = repository + element.nombre + ".csv";
-          //console.log('-'+path+'-');
 
           fs.readFile(path.toString(), "utf8", (err, data) => {
-            // console.log("err: " + err);
-            // console.log(data);
-            //console.log('\n\n\n\n\n'+JSON.stringify(data)+'\n\n\n\n\n');
+            
             var dat = data.split("\n");
-            //console.log('\n\n'+dt.length);
             var dt = dat.length - 1;
             sum = sum + dat.length - 1;
             console.log("\n\n\nCAR    =>   " + JSON.stringify(element));
             if (dat.length > 0) {
-              //console.log('\n\n\n\n'+data);
 
               dat.forEach(function(beneficiario) {
                 id_car++;
                 id_act++;
-                //console.log("OKI ++++> " + element);
                 var ben = beneficiario.split(",");
                 sum_usu++;
                 var qry_insert =
@@ -157,7 +150,6 @@ module.exports.insertData = function() {
                               0,
                               '2017-08-31'
                               );`;
-                //console.log(qry_insert);
                 sequelize
                   .query(qry_insert, {
                     type: sequelize.QueryTypes.SELECT
@@ -178,7 +170,6 @@ module.exports.insertData = function() {
         reject(false);
       })
       .done(x => {
-        //sequelize.close();
 
         console.log("Se ha cerrado sesion de la conexion a la base de datos");
       });
@@ -261,7 +252,6 @@ module.exports.insertCapitulos = function() {
       })
       .then(x => {
         x.forEach(function(res_qry_car) {
-          //console.log('\n\n\n\n'+JSON.stringify(res_qry_car));
           inf_cap.forEach(function(cap) {
             id_car++;
             id_act++;
@@ -364,7 +354,6 @@ module.exports.insertCapitulos = function() {
                 '2017-08-31'
               );
             `;
-            //var sequelize1 = sqlCon.configConnection();
             sequelize
               .query(qry_ins, {
                 type: sequelize.QueryTypes.SELECT
@@ -393,30 +382,13 @@ module.exports.insertMarker = function() {
   var sum_usu = 0;
 
   
-  //var res = ["Aldea de Maria", "Chiles", "Gran Cumbal","Carlosama","Funes","Gran Tescual","Iles","Ipiales",
-  //"Males Cordoba","Mayasquer","Miraflores","Panan",'Pastas Aldana'];
-  //var res = ["Aldea de Maria"];
-  //var res = ["Chiles"];
-  //var res = ["Gran Cumbal"];
-  //var res = ["Carlosama"];
-  //var res = ["Funes"];
-  //var res = ["Gran Tescual"];
-  //--var res = ["Iles"];
-  //var res = ["Ipiales"];
-  //var res = ["Males Cordoba"];
-  //var res = ["Mayasquer"];
-  //var res = ["Miraflores"];
-  //var res = ["Panan"];
   var res = ["San Juan"];
 
   res.forEach(function(element) {
     var path = repository + element + ".csv";
-    //console.log(path);
     fs.readFile(path, "utf8", (err, data) => {
-      //console.log("\n\n\n"+path+'\n\n\n');
 
       if (!err) {
-        //console.log(data);
         data.split("\n").forEach(function(item) {
           item = item.split(",");
           var cedula = item[1];
@@ -429,7 +401,6 @@ module.exports.insertMarker = function() {
             getIdMarker(cedula,sequelize).then(x => {
 
               var keym = x.keym, id_caracteristica = x.id_caracteristica, id_usuario = x.id_usuario;
-              //console.log(cedula+'\t\t'+keym+' - '+id_caracteristica+' - '+id_usuario)
 
               var query1 = `
                 insert into marcador (
@@ -451,7 +422,6 @@ module.exports.insertMarker = function() {
                   `+alt+`
                 )
               `;
-              //console.log('\n\n\n'+query1);
 
               sequelize
                 .query(query1, { type: sequelize.QueryTypes.INSERT })
@@ -472,7 +442,6 @@ module.exports.insertMarker = function() {
 };
 
 function getIdMarker(cedula,sequelize) {
-//var sequelize = sqlCon.configConnection();
   var query1 =
     `
       select keym,id_caracteristica,id_usuario from caracteristicas where cedula = ` +
@@ -482,12 +451,9 @@ function getIdMarker(cedula,sequelize) {
     sequelize
       .query(query1, { type: sequelize.QueryTypes.SELECT })
       .then(x => {
-        //console.log("\n\n\n x==>" + JSON.stringify(x));
         if (x[0] != null) {
-          //console.log('ok');
           resolve(x[0]);
         } else {
-          //console.log('bad');
           reject(false);
         }
       })

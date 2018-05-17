@@ -505,7 +505,6 @@ module.exports.regRemarks = function (data) {
 
                 console.log('UsuDif ===>   ' + JSON.stringify(dat));
                 var fec = new Date().toLocaleString();
-                //console.log('Fecha actual ==>   ' + fec)
                 var sequelize = sqlCon.configConnection();
                 var query1 = `
                 insert into observaciones (
@@ -633,7 +632,6 @@ function getIdCharacteristic(keym, id_usuario, id_caracteristica, type_char) {
     }
     else {
 
-        //and id_caracteristica_padre = ` + id_caracteristica + `
         query1 = `
         select max(t1.car) car,max(t1.prj) prj
         from
@@ -677,30 +675,7 @@ module.exports.updateCompletePercentage = function (data, porcentaje_cumplido, u
         var f = date;
 
         // Se aplica en otros casos -> interventoria necesita aprobacion antes de actualizar porcentaje_cumplido
-        /* var query1 = `
-         select updatePercent(
-             `+ data.keym + `,
-             ` + data.id_caracteristica + `,
-             ` + data.id_usuario + `,
-             ` + porcentaje_cumplido + `
-         );`;
-         */
-
-        /*var query1 = `
-            insert into novedades 
-            (id_novedad,keym,id_caracteristica,id_usuario,tipo,fecha_creacion,porcentaje_cambio,usuario_novedad,usuario_own)
-            values (
-                '`+ date + `',
-                `+ data.keym + `,
-                `+ data.id_caracteristica + `,
-                `+ data.id_usuario + `,
-                'POR',
-                '`+ date + `',
-                `+ porcentaje_cumplido + `,
-                `+ usuario_superior + `,
-                `+ usuario_own + `
-            )
-        `;*/
+       
 
         var query1 = `
             SELECT regNovedades(
@@ -738,7 +713,6 @@ module.exports.updateEtapa = function (data, etapa) {
         var fecha_inicio = current_date.getFullYear() + '-' + (current_date.getMonth() + 1) + '-' + current_date.getDate();
         current_date = current_date.setMonth(current_date.getMonth + 10);
         var fecha_fin = current_date.toLocaleString();
-        //fecha_inicio = fecha_inicio.replace(/\//g,'-');
         if (etapa === 'Entrega de materiales')
             var query1 = `
                 
@@ -812,9 +786,7 @@ module.exports.getDataChart = function (data) {
 module.exports.getPauseJob = function () {
     var query1 = `SELECT * FROM suspensiones s WHERE s.activo = TRUE LIMIT 1;`;
     return new Promise((resolve, reject) => {
-        // console.log('getDataChart  ==>    ' + JSON.stringify(data));
         var sequelize = sqlCon.configConnection();
-        // console.log('\n\n' + query1);
         sequelize.query(query1, { type: sequelize.QueryTypes.SELECT })
             .then(x => {
                 console.log('ok');

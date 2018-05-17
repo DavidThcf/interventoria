@@ -12,7 +12,6 @@
 // variable de usuarios
 sockets = [];
 userList = {};
-// var userList = {};
 /**
  * Get port from environment and store in Express.
  */
@@ -45,7 +44,6 @@ const io = socketIO(server); // inicia el socket en el server
 //para persibir los cambios
 
 io.on('connection', (socket) => {
-  // sockets.push(socket);
   console.log('usuario conectado =>');
   //envia los cambios
   io.emit('Hello', {
@@ -53,15 +51,12 @@ io.on('connection', (socket) => {
   });
   //nuevo usuario
   socket.on('newUser', (idUser) => {
-     // console.log("jkajdfklajsdfkljasdf "+ idUser);
-    //if(userList.idUser != undefined)
     if (idUser in userList){
       console.log('user ya');
     }else{
       socket.nickname = idUser;
       userList[socket.nickname] = socket.id;
       if ([3,6,9,7].indexOf(idUser)>0){
-        // socket.room = 'room1';
         socket.join('room1');
       }
     }
@@ -73,8 +68,6 @@ io.on('connection', (socket) => {
     tipo = data.tipo;
     if(data.tipoAct != undefined){
 
-      // socket1 = userList[6];
-      // console.log("usuario recepcion:   >>>> " +socket1);
       var arrUsrRoom1 = [3,6,9,7];
       for (var i = 0; i < arrUsrRoom1.length; i++) {
         if(arrUsrRoom1[i] != data.userSend){
@@ -84,9 +77,6 @@ io.on('connection', (socket) => {
           }
         }
       }
-      // console.log('entra >>>>> >> >> '+ JSON.stringify(io.sockets)); 
-      //   io.sockets.in('room1').emit('alert', tipo);
-        // io.to(socket1).in('room1').emit('alert', tipo);
 
       }else{
         userSend = data.userSend;
@@ -109,7 +99,6 @@ io.on('connection', (socket) => {
   socket.on('disconnect', () => {
     console.log('usuario desconectado');
     delete userList[socket.nickname];
-    // userList[idUser] = null; //guarda usuarios
     console.log(userList);
   });
 });

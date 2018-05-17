@@ -5,7 +5,6 @@ var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
 
 module.exports.createActivity = function (data) {
-	//console.log(req);
 	//variables del usuario
 	//==> Informacion de la actividad
 	var keym = 0;
@@ -56,7 +55,6 @@ module.exports.createActivity = function (data) {
 				.then(x => {
 					resolve(true);
 				}).catch(x => {
-					//console.log('Error al registrar actividad ' + x);
 					reject(false);
 				}).done(x => {
 					sequelize.close();
@@ -167,13 +165,11 @@ module.exports.getActivityList = function (data) {
 				order by a.pos, a.nombre ; `;
 
 		var i = 0;
-		//console.log('POLSA');
 		sequelize.query(query1, {
 			type: sequelize.QueryTypes.SELECT
 		})
 			.then(x => {
 
-				//console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
 				resolve(x);
 
 			}).catch(x => {
@@ -360,7 +356,6 @@ module.exports.getBackActivityList = function (data) {
 				order by a.pos, a.nombre ; `;
 
 
-		//console.log('POLSA');
 
 		var dat_json = [];
 

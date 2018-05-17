@@ -20,7 +20,6 @@ module.exports.imageProfileUpload = function (files, path) {
 	else {
 		file = files.file;
 
-		//var fina = file.name.replace(/\s/g, "");
 		var fina = file.name = 'profile' + getExtension(file.name);
 
 		file.mv(path + fina, function (err) {
@@ -42,7 +41,6 @@ module.exports.fileUpload = function (files, path) {
 	}
 	else {
 		file = files.file;
-		//var fina = file.name.replace(/\s/g, "");
 		var fina = 'project-' + file.name + getExtension(file.name);
 		file.mv(path + fina, function (err) {
 			if (err) console.log("error " + err.toString());

@@ -1,4 +1,3 @@
-//import { Promise, resolve, reject } from '../../../../../../../../home/admi/.cache/typescript/2.6/node_modules/@types/bluebird';
 
 var express = require('express');
 var Sequelize = require('sequelize');
@@ -7,7 +6,6 @@ var router = express.Router();
 var Caracteristica = require('./Caracteristicas');
 
 module.exports.getOnlyTotalBeneficiary = function (data) {
-	//console.log('\n\n\n\n\n\n\n'+JSON.stringify(data)+'\n\n\n\n\n\n\n\n');
 	return new Promise((resolve, reject) => {
 
 		var sequelize = sqlCon.configConnection();
@@ -55,22 +53,17 @@ module.exports.getTotalBeneficiary = function (data) {
 		);		
 		`;
 
-		//var i = 0;
-		//console.log('POLSA ==> '+ query1);
 		sequelize.query(query1, {
 			type: sequelize.QueryTypes.SELECT
 		})
 			.then(x => {
 
-				//console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
 				resolve(x);
 
 			}).catch(x => {
-				// console.log('Error al registrar actividad ' + x);
 				reject(false);
 			}).done(x => {
 				sequelize.close();
-				// console.log('Se ha cerrado sesion de la conexion a la base de datos');
 			});
 
 	});
@@ -99,14 +92,11 @@ module.exports.getAllBeneficiaries = function () {
 		sequelize.query(query1, {
 			type: sequelize.QueryTypes.SELECT
 		}).then(x => {
-			//console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
 			resolve(x);
 		}).catch(x => {
-			// console.log('Error al registrar actividad ' + x);
 			reject(false);
 		}).done(x => {
 			sequelize.close();
-			// console.log('Se ha cerrado sesion de la conexion a la base de datos');
 		});
 
 	});
@@ -114,7 +104,6 @@ module.exports.getAllBeneficiaries = function () {
 
 
 module.exports.xcrearproyecto = function(ced,usr){
-	//console.log("asasas :  "+ced+"\nusr:: "+usr)
 
 	return new Promise((resolve, reject) => {
 		var sequelize = sqlCon.configConnection();
@@ -127,14 +116,11 @@ module.exports.xcrearproyecto = function(ced,usr){
 		sequelize.query(query1, {
 			type: sequelize.QueryTypes.SELECT
 		}).then(x => {
-			//console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
 			resolve(x);
 		}).catch(x => {
-			// console.log('Error al registrar actividad ' + x);
 			reject(false);
 		}).done(x => {
 			sequelize.close();
-			// console.log('Se ha cerrado sesion de la conexion a la base de datos');
 		});
 
 	});
@@ -152,14 +138,11 @@ module.exports.xhabilitarBeneficiario = function(ced, fec){
 		sequelize.query(query1, {
 			type: sequelize.QueryTypes.SELECT
 		}).then(x => {
-			//console.log('\n\nDATA ACTIVITY LIST =>  '+JSON.stringify(x)+'\n\n')
 			resolve(x);
 		}).catch(x => {
-			// console.log('Error al registrar actividad ' + x);
 			reject(false);
 		}).done(x => {
 			sequelize.close();
-			// console.log('Se ha cerrado sesion de la conexion a la base de datos');
 		});
 
 	});

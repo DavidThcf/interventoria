@@ -151,7 +151,6 @@ router.post("/getActivityList", (req, res, next) => {
   var act = Activity.getActivityList(req.body);
   act
     .then(x => {
-      //console.log(JSON.stringify(x));
       if (x != false) {
         res.header("Access-Control-Allow-Origin", "*");
         res.send(x);
@@ -172,7 +171,6 @@ router.post("/getBackActivityList", (req, res, next) => {
   var act = Activity.getpar(req.body);
   act
     .then(x => {
-      //console.log(JSON.stringify(x));
       if (x != false) {
         res.header("Access-Control-Allow-Origin", "*");
         res.send(x);
@@ -307,13 +305,11 @@ router.post("/getFileList", (req, res, next) => {
     var fls = File.getFileList(req.body);
     fls.then(x => {
 
-      // console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
       res.header("Access-Control-Allow-Origin", "*");
       res.send(x);
 
     })
       .catch(x => {
-        //console.log("ERROR =>  " + x);
         res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
       });
@@ -331,14 +327,11 @@ router.post("/getFileListChild", (req, res, next) => {
     var fls = File.getFileListChild(req.body);
     fls.then(x => {
 
-      // console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
 
       res.send(x);
 
     })
       .catch(x => {
-        //console.log("ERROR =>  " + x);
-        //res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
       });
   } catch (e) {
@@ -376,7 +369,6 @@ router.post("/getCategoryList", (req, res, next) => {
   cat
     .then(x => {
       if (x != false) {
-        //console.log('Se ha retornado correctamente las categorias');
         res.header("Access-Control-Allow-Origin", "*");
         res.send(x);
       } else {
@@ -443,7 +435,6 @@ router.post("/editActivityInformation", (req, res, next) => {
 });
 
 router.post("/getPointList", (req, res, next) => {
-  //console.log('GET Points list   ==== >   '+JSON.stringify(req.body.caracteristica));
   var maps = Map.getPointList(JSON.parse(req.body.caracteristica));
   maps
     .then(x => {
@@ -815,21 +806,14 @@ router.post('/getDataChart', (req, res, next) => {
 });
 
 var client = require("jsreport-client")("http://localhost:5488", 'admin', 'password');
-// var client = require("jsreport-client")("http://indicadoresacademicos.udenar.edu.co:5488", 'admin', 'password');
 router.get('/downloadReport', function (req, res) {
   console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n =============   Download Report  =============\n\n' );
   try {
-    //res.header("Access-Control-Allow-Origin", "*");
-    // res.json("goal"); 
-    // var dat = req.query.val1.replace(/knower.udenar.edu.co:81/g,'localhost:81');
     var dat = req.query.val1;
     var data = JSON.parse(dat);
     console.log(dat);
 
     armJSONReport(data).then(x => {
-      //console.log('\n\n\n\n\n\n\n\n\n\n' + JSON.stringify(x) + '\n\n\n\n\n\n\n\n\n\n');
-      //console.log('\n\n\nOKI => ' + JSON.stringify(data.grafica));
-      //configuracion de template y datos a enviar al pdf 
       client.render({
         template: {
           "shortid": "HyEDwVhjW"
@@ -912,13 +896,10 @@ router.post('/getDataNewRemarks', (req, res) => {
 });
 
 router.post("/getFilesNovedades", (req, res, next) => {
-  //console.log("\n\n\n\n\n\n\n\n\n\n\nget file list Novedades   ==== >   " + JSON.stringify(req.body));
   var fls = File.getFilesNovedades(req.body);
   fls
     .then(x => {
-      //console.log(JSON.stringify(x)+'\n\n\n\n\n\n\n\n\n\n');
       if (x != false) {
-        //console.log("Se ha obtenido la lista de archivos");
         res.header("Access-Control-Allow-Origin", "*");
         res.send(x);
       } else {
@@ -990,7 +971,6 @@ router.post('/getOnlyTotalBeneficiary', (req, res) => {
   var nov = Beneficiaries.getOnlyTotalBeneficiary(JSON.parse(req.body.caracteristica));
   nov.then(x => {
     console.log('!!!!!!!!!!!!!Se ha retornado exitosamente la cantidad de beneficiarios!!!!!!!!!!!');
-    //console.log('\n\n\n Novedades \n' + JSON.stringify(x));
 
     res.header("Access-Control-Allow-Origin", "*");
     res.json(x);
@@ -1005,9 +985,6 @@ router.post('/getOnlyTotalBeneficiary', (req, res) => {
 /* inicio updateImageEditView*/
 router.post('/updateImageEditView', (req, res, next) => {
   var data = JSON.parse(JSON.stringify(req.body));
-  // console.log('llama'+JSON.stringify(data));
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.json(true);
   var fil = File.updateImageEditView((data));
   fil.then(x => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -1028,14 +1005,11 @@ router.post("/getMultimediaReport", (req, res, next) => {
     var fls = File.getMultimediaReport(req.body);
     fls.then(x => {
 
-      // console.log("\n\n\n\nSe ha obtenido los archivos  ==>   " + JSON.stringify(x));
 
       res.send(x);
 
     })
       .catch(x => {
-        //console.log("ERROR =>  " + x);
-        //res.header("Access-Control-Allow-Origin", "*");
         res.json(false);
       });
   } catch (e) {
@@ -1046,21 +1020,16 @@ router.post("/getMultimediaReport", (req, res, next) => {
 
 /* inicio  getDataNewChangeFile*/
 router.post('/getDataNewChangeFile', (req, res) => {
-  // console.log('\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n\ <=====    get Data Novedades      ==== >   ' + JSON.stringify(req.body));
 
   var nov = Novedades.getDataNewChangeFile(req.body, true);
   nov.then(x => {
-    // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
-    // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
     res.header("Access-Control-Allow-Origin", "*");
     res.json(x);
 
   }).catch(x => {
-    // console.log('ERROR al btener novedades  =>  ' + x)
     res.header("Access-Control-Allow-Origin", "*");
     res.json(false);
   });
-  // console.log("\n\n\n\n\n\n\nesto es de juan:"+JSON.stringify(req.body))
 
 });
 
@@ -1070,13 +1039,10 @@ router.post('/getDataNewChangeFile', (req, res) => {
 router.post('/getTotalBeneficiary', (req, res) => {
   var nov = Beneficiaries.getTotalBeneficiary(JSON.parse(req.body.datos));
   nov.then(x => {
-    // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
-    // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
     res.header("Access-Control-Allow-Origin", "*");
     res.json(x);
 
   }).catch(x => {
-    // console.log('ERROR al btener novedades  =>  ' + x)
     res.header("Access-Control-Allow-Origin", "*");
     res.json(false);
   });
@@ -1085,16 +1051,12 @@ router.post('/getTotalBeneficiary', (req, res) => {
 
 /* -----------------------pause proyect --------------------------- */
 router.post('/pauseProyect', (req, res) => {
-  //console.log(JSON.stringify(req.body));
   var nov = Project.pauseProyect(req.body);
   nov.then(x => {
-    // console.log('!!!!!!!!!!!!!Se ha retornado exitosamente las novedades!!!!!!!!!!!');
-    // console.log('\n\n\n Novedades \n' + JSON.stringify(x));
     res.header("Access-Control-Allow-Origin", "*");
     res.json(x);
 
   }).catch(x => {
-    // console.log('ERROR al btener novedades  =>  ' + x)
     res.header("Access-Control-Allow-Origin", "*");
     res.json(false);
   });
@@ -1104,8 +1066,6 @@ router.post('/pauseProyect', (req, res) => {
 router.post('/updateImageView', (req, res) => {
   var data = JSON.parse(JSON.stringify(req.body));
   console.log('llama' + JSON.stringify(data));
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.json(true);
   var fil = File.updateImageView((data));
   fil.then(x => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -1120,9 +1080,7 @@ router.post('/updateImageView', (req, res) => {
 /*para cambiar contraseña si se olvido */
 router.post('/restartPassword', (req, res) => {
   var data = JSON.parse(JSON.stringify(req.body));
-  // console.log("datos recupracion" + data.email);
   var passTemp = generar();
-  // console.log("datos" +  passTemp);
   var user = User.restartPassword(data.email, passTemp);
   user.then(x => {
     console.log('calor d ex ' + x);
@@ -1159,11 +1117,8 @@ router.post('/restartPassword', (req, res) => {
 /*-------------------------------------------------*/
 /*funcion para cambiar la contraseña */
 router.post('/changePassword', (req, res) => {
-  // console.log(JSON.stringify(req.body))
   var data = JSON.parse(JSON.stringify(req.body));
   console.log('llama' + JSON.stringify(data));
-  // res.header("Access-Control-Allow-Origin", "*");
-  // res.json(true);
   var user = User.changePassword((data));
   user.then(x => {
     res.header("Access-Control-Allow-Origin", "*");
@@ -1200,9 +1155,7 @@ function armJSONReport(data) {
     img = img.replace(/ /g, '+');
     img2 = img2.replace(/ /g, '+');
 
-    // var tipo = data.tipo+","+data.usuelaboro;
 
-    //console.log("\n\n\n\n\n\n\n\nOK   =>   " + img.length + '\n\n\n' + data.grafica.length);
     var dat = {
       "tipo": data.tipo, // PROYECTO, PROVINCIA, MUNICIPIO, RESGUARDO, BENEFICIARIO
       "beneficiario": data.beneficiario,
