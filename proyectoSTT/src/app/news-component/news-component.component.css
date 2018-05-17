@@ -40,7 +40,6 @@ tbody tr {
   width: 100%;
   table-layout: fixed;
   padding: 8px;
-  /*border-top: 1px solid gray;*/
 }
 
 .tableBodyScroll tbody::-webkit-scrollbar-track {

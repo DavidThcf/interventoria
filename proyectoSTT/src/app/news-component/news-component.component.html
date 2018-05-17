@@ -67,7 +67,6 @@
 					<td style="width: 10%">{{novedad.fecha_creacion | date:'fullDate' | uppercase}}</td>
 					<td style="width: 15%">{{novedad.usu_nom | uppercase}} {{novedad.usu_ape | uppercase}}</td>
 					<td style="width: 20%">
-						<!-- <a href={{novedad.link}} target="_blank">{{novedad.nombre_archivo}}</a> -->
 						<img alt='img' class="img-responsive" style="margin-top:0px;width:100px;height:100px" data-toggle="modal" data-target="#mod-pic-map"
 							src={{novedad.link}} (click)='this.pic=novedad.link'>
 					</td>
@@ -88,7 +87,6 @@
 			</thead>
 
 			<tbody>
-					<!-- (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map" -->
 				<tr *ngFor="let novedad of this.serviciog.novedades" class="fila">
 					<td style="width: 25%;color:blue" >
 					{{novedad.nom_rec | uppercase}}</td>
@@ -119,7 +117,6 @@
 			</thead>
 
 			<tbody>
-				<!-- (click)="getMultimediaNovedad(novedad)" data-toggle="modal" data-target="#mod-mul-map" -->
 				<tr *ngFor="let novedad of this.serviciog.novedades" (click)="goActivity(novedad)" class="fila">
 					<td style="width: 25%;color:blue" >	{{novedad.nom_rec | uppercase}}</td>
 					<td style="width: 35%">{{novedad.observacion}}</td>
@@ -275,10 +272,6 @@
 				<!-- Modal content-->
 				<div class="modal-content">
 					<div class="modal-body" style="height:auto">
-	
-						<!-- <div style="margin-top:10px;margin-right:20px">
-							<button type="button" class="close" (click)='closeModal()'>×</button>
-						</div> -->
 	
 						<div style="margin-top:10px">
 	

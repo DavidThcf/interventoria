@@ -1,5 +1,5 @@
 export class Usuario {
-
+// modelo de datos de usuario
   constructor(
     public id_usuario:number,
     public tipo_usuario:string,

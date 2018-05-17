@@ -27,38 +27,28 @@ export class AppComponent implements OnInit {
 		/*para saber si existe pausa*/
 		this.getPauseJob();
 		/*-------------*/
-		// alert('APP');
-		/* --------------------- */
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
 		//get Number Total Messages 
 		if (this.serviciog.usuario) {
-			// this.serviciog.socket = io.connect(this.serviciog.servidor);
 			this.serviciog.socket.emit('newUser',this.serviciog.usuario.id_usuario);
-			//alert('socket' + this.serviciog.socket+ 'id usuatio '+ this.serviciog.usuario.id_usuario);
 			var formData = new FormData();
 			formData.append('id_usuario', this.serviciog.usuario.id_usuario + '');
-			// alert(this.serviciog.usuario.id_usuario);
 			this.servicios.getTotalMessage(formData)
 			.then(messages => {
 				this.serviciog.messageList = messages;
 
 				for (var prop in messages) {
-						// alert(parseInt(messages[prop]));
 						this.serviciog.totalMessage = this.serviciog.totalMessage + parseInt(messages[prop]);
 					}
 				})
 		}
 		/* comumir socket service */
-		// this.serviciog.socket.on('Hello', (data) => {
-		// 	// alert(JSON.stringify(data));
-		// });
+		
 		this.serviciog.socket.on('alert', (data) => {
-			// alert(JSON.stringify(data));
 			var audio = new Audio();
 			audio.src = '../assets/campana.mp3'
 			audio.load();
 			audio.play();
-			//alert(data);
 			this.serviciog.hidden = true;
 
 			switch (data) {
@@ -83,13 +73,11 @@ export class AppComponent implements OnInit {
 			setTimeout(() => {
 				this.serviciog.hidden = false;
 			}, 5000);
-			//alert(JSON.stringify(this.serviciog.messageList));
 		});
 	}
 
 	gotoNovedades(op) {
 
-		//alert(op);
 		let link = ['novedades'];
 		this.serviciog.opcion = op;
 		this.router.navigate(link);
@@ -114,8 +102,6 @@ export class AppComponent implements OnInit {
 			this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
 			.then(files => {
 				if (files) {
-							//alert(JSON.stringify(files));
-							//alert(JSON.stringify(files));
 							console.log(files);
 							this.serviciog.novedades = files;
 						}
@@ -129,7 +115,6 @@ export class AppComponent implements OnInit {
 			this.servicios.getDataNewRemarks(formData)
 			.then(novedades => {
 				if (novedades) {
-							//alert(JSON.stringify(novedades));
 							console.log(novedades);
 							this.serviciog.novedades = novedades;
 						}
@@ -152,8 +137,6 @@ export class AppComponent implements OnInit {
 	}
 
 	logout() {
-		// alert(this.serviciog.usuario.id_usuario/*  */)
-		// this.serviciog.socket.emit('delUser', this.serviciog.usuario.id_usuario);
 		this.serviciog.socket.disconnect();
 		this.persistenceService.remove('user', StorageType.SESSION);
 		this.serviciog.usuario = this.persistenceService.get('user', StorageType.SESSION);
@@ -224,7 +207,6 @@ export class AppComponent implements OnInit {
 		/* ------------------------------- */
 		/* enviar email para el usuario a recuperar contraseña */
 		sendEmailRestart(){
-		//alert(this.email);
 		this.sendConfirmation = ''
 		var formdata  = new FormData();
 		formdata.append('email', this.email);
@@ -244,12 +226,9 @@ export class AppComponent implements OnInit {
 	/* -------------------------------- */
 	/*obtener la suspensiin si existe*/
 	getPauseJob(){
-		// alert('hola pause')
 		this.servicios.getPauseJob().then(message =>{
-			// alert(JSON.stringify(message));
 			if(message.length > 0){
 
-				// alert('entra')
 				this.serviciog.activoSuspension = message[0].activo;
 				this.serviciog.fecha_inicioSuspension = message[0].fecha_inicio;
 				this.serviciog.fecha_finSuspension = message[0].fecha_fin;
@@ -263,7 +242,6 @@ export class AppComponent implements OnInit {
 				this.serviciog.dias_suspension = Math.floor(difAc / (1000 * 60 * 60 * 24));
 				
 			}
-			// alert('si suspens: ' + this.serviciog.activoSuspension);
 		});
 	}
 	/*-----------------------------------*/

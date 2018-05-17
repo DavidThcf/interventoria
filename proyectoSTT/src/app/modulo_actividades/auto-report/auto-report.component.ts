@@ -103,19 +103,6 @@ export class AutoReportComponent implements OnInit {
         }
       }
     }).then(x => {
-
-      // if (x != null || x != undefined ) {
-      //   setTimeout(() => {
-      //     try {
-      //       this.asignData(parseInt(x + ''));
-      //       //console.log(this.nombre);
-      //     } catch (e) {
-      //       console.log('ERROR  => ' + e);
-      //     }
-      //     this.recusriveFunc(parseInt(x + ''));
-      //   }, 1000);
-      // }
-
     });
   }
 
@@ -497,5 +484,3 @@ export class AutoReportComponent implements OnInit {
 
 
 }
-
-// var re = window.open(url, 'Download');

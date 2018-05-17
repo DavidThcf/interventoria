@@ -30,7 +30,6 @@ export class ActivityTableComponent implements OnInit{
 		){ };
 
 	ngOnInit():void {
-		//alert(JSON.stringify(this.serviciog.usuario.tipo_usuario ));
 		this.subActivity = [];
 		var keym = this.serviciog.actividad.keym;
 		var id_usuario = this.serviciog.actividad.id_usuario;
@@ -40,7 +39,6 @@ export class ActivityTableComponent implements OnInit{
 		.then(actividad =>{				
 			if(actividad){
 				this.subActivity = actividad;
-				//alert(JSON.stringify(actividad));
 				this.serviciog.axActividades = actividad;
 				
 			}
@@ -91,17 +89,13 @@ export class ActivityTableComponent implements OnInit{
 	filter(text : string){
 		
 		this.subActivity = [];
-		//alert(JSON.stringify(this.serviciog.axActividades));
 
 		if(text.trim() == ''){
 			this.subActivity = this.serviciog.axActividades; 	
 		}
 		else if(this.serviciog.axActividades[0].tipo != 'Beneficiario'){
-			//alert('Activity');
 			this.subActivity = this.serviciog.axActividades.filter(item => 
 				item.nom_act.toLowerCase().indexOf(text.toLowerCase()) !== -1 
-				//item.usr_nom.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
-				//item.usr_ape.toLowerCase().indexOf(text.toLowerCase()) !== -1  
 				);
 		}
 		else{
@@ -111,9 +105,7 @@ export class ActivityTableComponent implements OnInit{
 				item.usr_ape.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
 				item.nombre.toLowerCase().indexOf(text.toLowerCase()) !== -1 ||
 				item.cedula.indexOf(text) !== -1 
-				//item.tipo_identificacion.toLowerCase().indexOf(text.toLowerCase()) !== -1 
 				);
-			//alert('Beneficiario'+JSON.stringify(this.subActivity));
 		}
 
 		

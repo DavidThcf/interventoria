@@ -6,20 +6,7 @@
 		<br/>
 	</div>
 </ul>
-<!--
-<div class="row search">
-	<div class="form-group col-md-9">
-		<input placeholder="Buscar dirección..." autocorrect="on" autocapitalize="on" spellcheck="on" type="text" class="form-control" #search [formControl]="searchControl">
-	</div>	
-	<button class="btn btn-success col-md-2" (click)="guardarPunto()">Guardar Puntos</button>
-	<button class="col-md-l" style="border-radius: 100px; border-radius: 23px;
-    border: 1px solid gray;
-    margin-top: -10px;
-    margin-left: 20px; " (click)="setCurrentPosition()">
-		<img src="https://image.flaticon.com/icons/png/512/484/484149.png" style="height: 50px; width: 50px; " />		
-	</button>
-</div>
--->
+
 
 <div class="input-group">
 	<input #ben class="form-control" placeholder="Buscar..." type="text" (keyup)="search_ben(ben.value)">
@@ -75,12 +62,3 @@
 	</tbody>
 </table>
 
-
-
-
-<!--
-<agm-marker *ngFor="let m of markers; let i = index"[latitude]="m.lat" [longitude]="m.lng"[label]="m.label" [iconUrl]="m.url"  (markerClick)="clickedMarker(m.label, i)">						
-	</agm-marker>
-
- #search [formControl]="searchControl"
--->

@@ -16,7 +16,6 @@ export class ChartComponentComponent implements OnInit {
     console.log(e);
   }
   public chartHovered(e: any): void {
-    //alert("HOver")
     console.log(e);
   }
 }

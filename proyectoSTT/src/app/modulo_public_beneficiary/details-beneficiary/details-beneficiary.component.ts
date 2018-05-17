@@ -108,10 +108,7 @@ export class DetailsBeneficiaryComponent implements OnInit {
           if (imagenes) {
             this.serviciog.imagenes = imagenes;
             imagenes.forEach(element => {
-              //alert(JSON.stringify(element.titulo));
               this.images.push({ 'nombre': element.titulo, 'fecha_creacion': element.fecha_creacion, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
-              //val_configuracion+srcServ+nombre_archivo
-              //alert(JSON.stringify(this.images));
             });
           }
         });
@@ -134,7 +131,6 @@ export class DetailsBeneficiaryComponent implements OnInit {
           if (imagenes) {
             var cad = JSON.stringify(imagenes);
             this.archivos = imagenes[0].getarchivos;
-            //alert(JSON.stringify(imagenes[0].getarchivos));
           } else {
             this.archivos = []
           }
@@ -232,8 +228,6 @@ export class DetailsBeneficiaryComponent implements OnInit {
       var dif = fFecha1.getTime() - fFecha2.getTime();
       var difAc = fFecha3.getTime() - fFecha2.getTime();
       var diasAc = Math.floor(difAc / (1000 * 60 * 60 * 24));
-      // alert(diasAc);
-      // alert(dias);
       var dias = Math.floor(dif / (1000 * 60 * 60 * 24));
 
       if (dias >= 0 && dias) {
@@ -268,7 +262,6 @@ export class DetailsBeneficiaryComponent implements OnInit {
         }
 
         this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.ben.costo_actual - this.serviciog.costo_programado).toFixed(2);
-        // alert(this.serviciog.valueDifProgramadoEjecuato);
       }
       this.serviciog.valueDifProgramadoEjecuato = Math.abs(this.serviciog.ben.costo_actual - this.serviciog.costo_programado).toFixed(2);
     }
@@ -287,7 +280,6 @@ export class DetailsBeneficiaryComponent implements OnInit {
         '% Programado VS Ejecutado'
       ];
     } catch (e) {
-      // alert(e);
     }
   }
 
@@ -318,7 +310,6 @@ export class DetailsBeneficiaryComponent implements OnInit {
 
   loadPoint() {
     this.opc = "Mapa";
-    //alert(this.ben.latitud +'    '+this.ben.longitud)
     this.lat = parseFloat(this.ben.latitud);
     this.lng = parseFloat(this.ben.longitud);
   }

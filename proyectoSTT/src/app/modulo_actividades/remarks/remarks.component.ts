@@ -29,10 +29,8 @@ export class RemarksComponent implements OnInit {
   ngOnInit() { }
 
   regMark() {
-    // alert("hola" + this.remarks)
     if(!this.remarks)
       this.remarks = [];
-    // alert("hola" + this.remarks)
     var dat = {
       keym: this.serviciog.actividad.keym,
       id_caracteristica: this.serviciog.actividad.id_caracteristica,
@@ -45,7 +43,6 @@ export class RemarksComponent implements OnInit {
 
     this.servicios.regRemarks(formData)
       .then(message => {
-        // alert(JSON.stringify(message));
         var mark = { usuario: this.serviciog.usuario.nombre + ' ' + 
         this.serviciog.usuario.apellido, observacion: this.cad };
         this.remarks.push(mark);
@@ -53,7 +50,6 @@ export class RemarksComponent implements OnInit {
 					'userSend':message,
 					'tipo':'rec'
 				  })
-        //this.serviGloAct.remarks = message;
       })
   }
 

@@ -48,7 +48,6 @@ export class Mapa implements OnInit {
 					this.servicios.getMarkersListFormCategory(null)
 						.then(marcadores => {
 							if (marcadores) {
-								//alert(JSON.stringify(proyectos[0]));
 								this.marcadores = marcadores;
 								this.ax_marcadores = marcadores;
 								console.log(marcadores);
@@ -79,8 +78,6 @@ export class Mapa implements OnInit {
 	}
 
 	search_ben(beneficiario: string) {
-		//alert(beneficiario);
-		//alert(JSON.stringify(this.ax_marcadores[0]));
 		if (beneficiario.trim().length > 0)
 			this.marcadores = this.ax_marcadores.filter(
 				item => item.nombre.toLowerCase().trim().indexOf(beneficiario.trim().toLowerCase()) !== -1 ||
@@ -89,7 +86,6 @@ export class Mapa implements OnInit {
 		else
 			this.marcadores = this.ax_marcadores;
 
-		//alert(JSON.stringify(this.marcadores));
 
 	}
 

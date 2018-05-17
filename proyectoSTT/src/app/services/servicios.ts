@@ -26,7 +26,6 @@ export class Servicios {
 	}
 
 	public chartHovered(e: any): void {
-		//alert("HOver")
 		console.log(e);
 	}
 
@@ -51,7 +50,6 @@ export class Servicios {
 		formData.append('id_usuario', id_usuario + '');
 		formData.append('id_caracteristica', id_caracteristica + '');
 
-		//alert(formData);
 
 		return this.http.post(this.url + "getActivityList", formData)
 			.toPromise()
@@ -66,7 +64,6 @@ export class Servicios {
 		formData.append('id_usuario', id_usuario + '');
 		formData.append('id_caracteristica', id_caracteristica + '');
 
-		//alert(formData);
 
 		return this.http.post(this.url + "getBackActivityList", formData)
 			.toPromise()
@@ -431,7 +428,6 @@ export class Servicios {
 
 	/*obtener suspension*/
 	getPauseJob(){
-		// alert('servicio')
 		return this.http.post(this.url + "getPauseJob",'')
 				.toPromise()
 				.then(response => response.json())
@@ -483,6 +479,6 @@ export class Servicios {
 			.then(response => response.json())
 			.catch(err => false)
 	}
-// askkasjd
+// 
 } 
 

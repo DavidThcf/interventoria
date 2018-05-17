@@ -87,7 +87,6 @@ export class ModuloRecuperacionComponent implements OnInit {
 			formData.append('user' , this.serviciog.usuario.id_usuario +'');
 			formData.append('passNow', this.passNow);
 			formData.append('passNew', this.passNew);
-			// formData.append('passConfNow', this.passConfNew);
 			this.servicios.changePassword(formData)
 			.then(x => {
 				if(x == true){

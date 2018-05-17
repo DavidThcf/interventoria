@@ -29,7 +29,6 @@ export class AssignUserComponent implements OnInit {
 	
 
 	assignUser(usuario : any ){
-		//alert(JSON.stringify(this.actividad));
 		this.actividad.usr_nom = usuario.nombre;
 		this.actividad.usr_ape = usuario.apellido;
 		this.actividad.e_mail = usuario.e_mail;

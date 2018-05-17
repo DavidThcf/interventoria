@@ -10,13 +10,6 @@
   Reporte
 </button>
 
-<!-- Agregar un nuevo archivo -->
-<!-- <button *ngIf="!isMapSelected && !isRepSelected && 
-                this.serviciog.actividad.tipo === 'Actividad'" 
-        class="btn-add-img btn-primary" 
-        data-toggle="modal" data-target="#mod-reg-mult">
-  +
-</button> -->
 
 <button *ngIf="!isMapSelected && !isRepSelected && 
 this.serviciog.actividad.tipo === 'Actividad' 
@@ -27,7 +20,6 @@ this.serviciog.actividad.tipo === 'Actividad'
   +
 </button>
 
-<!-- && this.serviciog.actividad.estado === 'Entrega de materiales'  -->
 <button *ngIf="!isMapSelected && !isRepSelected && 
 this.serviciog.actividad.tipo === 'Beneficiario' 
 && this.serviciog.usuario.tipo_usuario === 'sup'" class="btn-add-img btn-primary" (click)="mostrarModal()">
@@ -50,13 +42,6 @@ this.serviciog.actividad.tipo === 'Beneficiario'
 
 <div style="width: 80%;" class="center-block">
 
-  <!-- <select class="select-mul form-control" name="tipo" [(ngModel)]="this.serviciog.tipo" (change)="cambio($event)">
-    <option value="img">Imagenes</option>
-    <option value="doc">Documentos</option>
-    <option value="sou">Audios</option>
-    <option value="vid">Videos</option>
-    <option value="oth">Otros</option>
-  </select> -->
 
   <!-- //////////////////////////////////////////////////// -->
   <!-- Bontones marcar y desmarcar -->
@@ -133,7 +118,7 @@ this.serviciog.actividad.tipo === 'Beneficiario'
       <div class="col-md-4" style="margin-top: 15px" *ngFor="let imagen of this.serviciog.imagenes">
         <input type="checkbox" *ngIf="isRepSelected" class="chk" [checked]=imagen.ext (change)="checked(imagen)">
         <input type="checkbox" *ngIf="isMapSelected" class="chk" [checked]=imagen.visible_map (change)="checked(imagen)">
-        <!-- <div class="thumbnail box1" [attr.data-title]='imagen.titulo' [attr.data-description]='imagen.descripcion' > -->
+
         <div>
 
           <div class="caption thumbnail">
@@ -264,12 +249,3 @@ this.serviciog.actividad.tipo === 'Beneficiario'
   </div>
 
 </div>
-
-
-
-
-<!--img src={{imagen.url}} alt={{imagen.subtitulo}}
-<iframe src="https://docs.google.com/gview?url=http://knower.udenar.edu.co/mp/user2/proyectos/95-1-2/documentos/objetivos95-1-2.docx&embedded=true"></iframe>
-[attr.src]="this.urlShow"
--->
-<!--<img src="http://knower.udenar.edu.co/imgSTT/95-1-5.jpg" alt={{imagen.subtitulo}}>#167ac6-->

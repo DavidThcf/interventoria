@@ -28,7 +28,6 @@ export class RegistroProyecto{
 	onSubmitPro(projectForm:NgForm) {	
 		var formData = new FormData();
 		this.proyecto.id_usuario = this.serviciog.usuario.id_usuario + '';
-		//formData.append('id_usuario',JSON.stringify (this.serviciog.usuario.id_usuario));
 		formData.append('proyecto',JSON.stringify(this.proyecto));		
 
 		if(this.files){
@@ -37,7 +36,6 @@ export class RegistroProyecto{
 
 		this.servicios.createProject(formData)
 		.then(message => { 
-			//alert("" + message);
 			if(message){
 				this.servicios.getProyecto(this.serviciog.usuario.id_usuario + '')
 				.then(cadena => {

@@ -49,7 +49,6 @@ export class RegistroActividad{
 
 		this.servicios.createActividad(formData)
 		.then(message => { 
-			//alert(message);
 			if(message){
 				if(this.serviGloAct.actOpt == 2){
 					this.serviGloAct.actOpt = 1;

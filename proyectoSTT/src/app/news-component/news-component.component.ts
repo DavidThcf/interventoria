@@ -51,9 +51,6 @@ export class NewsComponentComponent implements OnInit {
 			this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
 			.then(files => {
 				if (files) {
-							//alert(JSON.stringify(files));
-							//alert(JSON.stringify(files));
-							console.log(files);
 							this.imagenView = []; //arreglo para imagenes vistas
 							this.serviciog.novedades = files;
 						}
@@ -67,8 +64,6 @@ export class NewsComponentComponent implements OnInit {
 			this.servicios.getDataNewRemarks(formData)
 			.then(novedades => {
 				if (novedades) {
-							//alert(JSON.stringify(novedades));
-							console.log(novedades);
 							this.serviciog.novedades = novedades;
 						}
 					});
@@ -81,7 +76,6 @@ export class NewsComponentComponent implements OnInit {
 			this.servicios.getDataNewObservations(formData)
 			.then(novedades => {
 				if (novedades) {
-					console.log(novedades);
 					this.serviciog.novedades = novedades;
 				}
 			});
@@ -91,7 +85,6 @@ export class NewsComponentComponent implements OnInit {
 	}
 
 	changeOption(option) {
-		//alert(option);
 		switch (option) {
 			case 'por':
 			this.serviciog.novedades = [];
@@ -113,9 +106,6 @@ export class NewsComponentComponent implements OnInit {
 			this.servicios.getDataNewChangeFile(formData) /* llamdo al metodo que se conectara con el server */
 			.then(files => {
 				if (files) {
-							//alert(JSON.stringify(files));
-							//alert(JSON.stringify(files));
-							 //console.log(files);
 							 this.imagenView = [];
 							 this.serviciog.novedades = files;
 							}
@@ -129,8 +119,6 @@ export class NewsComponentComponent implements OnInit {
 			this.servicios.getDataNewRemarks(formData)
 			.then(novedades => {
 				if (novedades) {
-							//alert(JSON.stringify(novedades));
-							console.log(novedades);
 							this.serviciog.novedades = novedades;
 						}
 					});
@@ -143,7 +131,6 @@ export class NewsComponentComponent implements OnInit {
 			this.servicios.getDataNewObservations(formData)
 			.then(novedades => {
 				if (novedades) {
-					console.log(novedades);
 					this.serviciog.novedades = novedades;
 				}
 			});
@@ -187,7 +174,6 @@ export class NewsComponentComponent implements OnInit {
 		dat.id_observacion = novedad.id_observacion;
 		dat.stateApproval = state;
 		formData.append('novedad', JSON.stringify(dat));
-		// alert(JSON.stringify(dat));
 		this.servicios.approvalObservation(formData)
 		.then(message => {
 			if(this.serviciog.messageList['observations'] > 0){
@@ -201,7 +187,6 @@ export class NewsComponentComponent implements OnInit {
 					return this.serviciog.novedades;
 				}
 			}
-				//this.serviciog.messageList['observations']--;
 			})
 	}
 
@@ -227,13 +212,11 @@ export class NewsComponentComponent implements OnInit {
 				return this.serviciog.novedades;
 			}
 		}
-				//this.serviciog.messageList['percentage']--;
 			})
 	}
 
 	regMarkNovedad() {
 		this.serviciog.isModalRemark = false;
-		//alert(this.serviciog.usuario.id_usuario+'-'+this.cad);
 		var dat = {
 			keym: this.novedad.keym,
 			id_caracteristica: this.novedad.id_caracteristica,
@@ -241,21 +224,12 @@ export class NewsComponentComponent implements OnInit {
 			usu_observacion: this.serviciog.usuario.id_usuario,
 			observacion: this.cad
 		};
-		//alert(JSON.stringify(dat)+'-'+this.serviciog.usuario.id_usuario+'-'+this.cad);
 		var formData = new FormData();
 		formData.append("remark", JSON.stringify(dat));
 
 		this.servicios.regRemarks(formData)
 		.then(message => {
-				//alert(JSON.stringify(message));
-				/*for (var i = 0; i < this.serviciog.novedades.length; i++) {
-					if (this.serviciog.novedades[i].keym == this.novedad.keym &&
-						this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
-						this.serviciog.novedades[i].id_usuario == this.novedad.id_usuario) {
-						this.serviciog.novedades.splice(i, 1);
-						return this.serviciog.novedades;
-					}
-				}*/
+				
 				
 				//Envio de mensaje por socket
 				
@@ -264,20 +238,16 @@ export class NewsComponentComponent implements OnInit {
 					'tipo':'rec'
 				})
 				
-				//this.serviGloAct.remarks = message;
 			})
 	}
 
 	goActivity(subActividad) {
 		
-		//alert(JSON.stringify(subActividad));
 		console.log('ACTIVIDAD GO');
 		console.log(subActividad);
 		this.serviciog.proyecto = subActividad;
 		this.serviciog.actividad = subActividad;
 		this.serviciog.ax_actividad = subActividad;
-		//this.serviciog.recomendacion = subActividad;
-		//alert(JSON.stringify(this.serviciog.recomendacion));
 		let link = ['actividades'];
 		this.router.navigate(link);
 
@@ -310,11 +280,8 @@ export class NewsComponentComponent implements OnInit {
 
 	/* checke view */
 	checked(imagen) {
-		// var img = imagen;
 		imagen.visto = !imagen.visto;
-		// alert(imagen.visto)
 		var sss = this.imagenView.findIndex(x => x === imagen);
-		//alert(sss);
 		if (sss >= 0) {
 			this.imagenView.splice(sss, 1)
 		} else {
@@ -331,7 +298,6 @@ export class NewsComponentComponent implements OnInit {
 
 	sendChangeView(){
 		if (this.imagenView.length > 0) {
-			// alert(JSON.stringify(this.imagenView))
 			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
 			formData.append("img_edit", JSON.stringify(this.imagenView));/* se carga formData  */
 			this.servicios.updateImageView(formData) /* llamdo al metodo que se conectara con el server */
@@ -343,14 +309,7 @@ export class NewsComponentComponent implements OnInit {
 					}
 					this.serviciog.alert_message = 'Cambios Actualizados';
 					this.serviciog.hidden = true;
-						// for (var i = 0; i < this.serviciog.novedades.length; i++) {
-						// 	if (this.serviciog.novedades[i].keym == this.novedad.keym &&
-						// 		this.serviciog.novedades[i].id_caracteristica == this.novedad.id_caracteristica &&
-						// 		this.serviciog.novedades[i].id_usuario == this.novedad.id_usuario) {
-						// 		this.serviciog.novedades.splice(i, 1);
-						// 		return this.serviciog.novedades;
-						// 	}
-						// }
+						
 
 						this.serviciog.novedades = []; /* arreglo que contendra todos los archivos a traer */
 						var formData1 = new FormData(); /* variable que contendra todos los datos a enviarse al server */

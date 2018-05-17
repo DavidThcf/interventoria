@@ -28,15 +28,7 @@ export class ProyectoPanel implements OnInit{
 		var date = new Date();
 		var fecAct = date.getFullYear()+'-'+(date.getMonth()+1)+'-'+date.getDate();
 
-		// var form = new FormData;
-		// form.append('keym', '0' );
-		// form.append('id_caracteristica', '1');
-		// form.append('id_usuario', '5');
-		// form.append('fecAcutal', fecAct);
-		// this.servicios.getSuspension(form)
-		// .then(x => {
-			
-		// });
+
 		
 		if([3,4,6,7,8,9,10,17,22].indexOf(id) !== -1 ){
 			
@@ -56,7 +48,6 @@ export class ProyectoPanel implements OnInit{
 	}	
 
 	entrar(proyect:any){
-		//alert(JSON.stringify(proyect));
 		this.serviciog.proyecto = proyect;
 		this.serviciog.actividad = proyect;
 		this.serviciog.ax_actividad = proyect;	
@@ -65,7 +56,6 @@ export class ProyectoPanel implements OnInit{
 	}
 
 	btnSearchPrj(value : string){
-		//alert(JSON.stringify(this.serviciog.proyecto));
 		this.projectList = this.serviciog.proyecto.filter(item  => {
 				return (item.nom_pro + item.descripcion).toLowerCase().replace(/ /g,'').indexOf(value.replace(/ /g,'').toLowerCase()) !== -1;
 			});

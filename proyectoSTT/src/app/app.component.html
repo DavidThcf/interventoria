@@ -27,9 +27,6 @@
       <li *ngIf="this.serviciog.usuario" routerLink="novedades" style="cursor: pointer;">
         <a>Novedades</a>
       </li>
-        <!-- <li routerLink="proyecto" style="cursor: pointer;">
-          <a>Proyectos</a>
-        </li> -->
         <li routerLink="mapa" style="cursor: pointer;">
           <a>Mapas</a>
         </li>
@@ -46,14 +43,11 @@
       <div *ngIf="!this.serviciog.usuario" class="navbar-right" style="margin-top:9px;margin-bottom:5px">
         <div id="btn_account">
           <button type="button" class="btn btn-success btn-sm btn_log " (click)="openModalLogin()" style="position:relative">Ingresar</button>
-          <!-- <button type="button" class="btn btn-danger btn-sm btn_reg " data-toggle="modal" data-target="#mod-reg" style="position:relative">Registrarse</button> -->
         </div>
       </div>
       <ul *ngIf="this.serviciog.usuario" class="nav navbar-nav navbar-right">
 
-
         <li class="dropdown">
-
 
           <a class="nav-link dropdown-toggle mr-lg-2" id="alertsDropdown" href="#" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
 
@@ -64,13 +58,6 @@
               <i class="fa fa-fw fa-circle"></i>
             </span>
           </a>
-
-          <!--  -->
-          <!-- <audio controls id="miAudio">
-            <source src="../assets/campana.mp3" type="audio/mp3">
-            Your browser does not support the audio element.
-          </audio>  -->
-          <!--  -->
 
           <ul class="dropdown-menu">
             <!-- Cambio porcentaje -->

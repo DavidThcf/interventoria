@@ -19,11 +19,7 @@ export class ReportComponent implements OnInit {
 	public today: number = Date.now();
 	images: any[] = [];
 	msg: any;
-	//public chartLabels: string[] = ["EJECUTADO", "NO EJECUTADO"];
 	tipNum: number = 0;
-	// public barColor: any[] = [
-	// 	{ backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)"] }
-	// ];
 
 	@Input() doughnutChartData: any[] = [];
 	@Input() doughnutChartLabels: any[] = [];
@@ -64,11 +60,6 @@ export class ReportComponent implements OnInit {
 	public lineChartColors: Array<any> = [
 		{ // grey
 			backgroundColor: 'rgba(97, 255, 0, 1)',
-			//borderColor: 'rgba(148,159,177,1)',
-			//pointBackgroundColor: 'rgba(148,159,177,1)',
-			//pointBorderColor: '#fff',
-			//pointHoverBackgroundColor: '#fff',
-			//pointHoverBorderColor: 'rgba(148,159,177,0.8)'
 		},
 		{ // grey
 			backgroundColor: 'rgba(0, 200, 255, 1)',
@@ -112,7 +103,6 @@ export class ReportComponent implements OnInit {
 		this.msg = [];
 		this.tipNum = 0;
 
-		//alert(this.tipo);
 		switch (this.tipo) {
 			case 'BENEFICIARIO':
 				this.tipNum = 4;
@@ -130,7 +120,6 @@ export class ReportComponent implements OnInit {
 
 
 
-		//this.chartLabels = ["EJECUTADO " + this.porcejec + ' %', "NO EJECUTADO " + (100 - parseFloat(this.porcejec)) + ' %'];
 		if (this.serviciog.porcentajeDifProgramadoEjecutado >= 0) {
 			this.lineChartColors = [
 				{ // grey
@@ -143,10 +132,7 @@ export class ReportComponent implements OnInit {
 					backgroundColor: 'rgba(2, 58, 5, 0.993)'
 				}
 			];
-			// alert("positivo")
-			// this.barColor = [
-			//   { backgroundColor: ["rgba(15, 255, 0, 0.8)", "rgba(255, 9, 0, 0.81)", "rgba(2, 58, 5, 0.993)"] }
-			// ];
+
 		} else {
 			this.lineChartColors = [
 				{ // grey
@@ -184,7 +170,6 @@ export class ReportComponent implements OnInit {
 				id_usuario: this.serviciog.proyecto.id_usuario,
 				tipo: this.serviciog.proyecto.tipo
 			};
-		//alert(JSON.stringify(dat));
 		this.serviciog.imagenes = [];
 		var formData = new FormData();
 		formData.append('keym', dat.keym);
@@ -194,7 +179,6 @@ export class ReportComponent implements OnInit {
 		formData.append('tipoAct', dat.tipo);
 		formData.append('reporte', true + '');
 		formData.append('tipoCar', this.serviciog.actividad.tipo);
-		//alert(JSON.stringify(dat.tipo));
 
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
@@ -202,21 +186,15 @@ export class ReportComponent implements OnInit {
 				if (imagenes) {
 					this.serviciog.imagenes = imagenes;
 					imagenes.forEach(element => {
-						//alert(JSON.stringify(element.titulo));
 						this.images.push({ 'nombre': element.titulo, 'fecha_creacion': element.fecha_creacion, 'url': element.val_configuracion + element.srcServ + element.nombre_archivo });
-						//val_configuracion+srcServ+nombre_archivo
-						//alert(JSON.stringify(this.images));
 					});
 				} else {
 					this.serviciog.imagenes = []
 				}
-				//alert(JSON.stringify(this.images));
 			});
 	}
 
 	downloadReport() {
-		// var anchor = event.target;
-		//anchor.href = document.getElementsByTagName('canvas')[0].toDataURL();
 
 		var imgReport: string = document.getElementsByTagName('canvas')[0].toDataURL('image/png');
 		var imgReport2: string = '';
@@ -228,7 +206,6 @@ export class ReportComponent implements OnInit {
 		}else{
 			idEla = this.serviciog.usuario.id_usuario;
 		}
-		// alert("usuaio"+ idEla);
 		try {
 			imgReport2 = document.getElementsByTagName('canvas')[1].toDataURL('image/png');
 		} catch (e) { }
@@ -264,11 +241,9 @@ export class ReportComponent implements OnInit {
 		console.log(this.msg);
 
 		var url;
-		// var xml = new XMLHttpRequest();
 		url = this.serviciog.servidor + 'downloadReport' + '?val1=' + JSON.stringify(this.msg);
 		var re = window.open(url, 'about:blank');
 		re.focus();
-		// window.open(url, '_blank', 'location=yes,height=570,width=520,scrollbars=yes,status=yes');
 	}
 
 	delObservation(obs) {

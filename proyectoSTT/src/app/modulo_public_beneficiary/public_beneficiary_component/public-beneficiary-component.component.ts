@@ -20,18 +20,14 @@ export class PublicBeneficiaryComponent implements OnInit {
 
   ngOnInit() {
     
-   // if (!this.serviciog.ben_arr)
       this.servicios.getAllBeneficiaries()
         .then(beneficiaries => {
           if (beneficiaries) {
             this.serviciog.ben_arr = beneficiaries;
             this.ben_arr = beneficiaries;
-            //alert(JSON.stringify(beneficiaries));
           }
         });
-    // else
-    //   this.ben_arr = this.serviciog.ben_arr;
-    // this.ben = this.serviciog.ben_arr[0];
+    
   }
 
   //Realiza busqueda y filtro de los beneficiarios

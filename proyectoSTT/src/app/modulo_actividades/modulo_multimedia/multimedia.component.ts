@@ -38,10 +38,6 @@ export class Multimedia implements OnInit {
 
 	vshowFilter: boolean = false;
 	/*-------------------  */
-
-	//current_url: SafeResourceUrl;
-	//tipo:string = "img";
-
 	constructor(
 		private serviciog: ServiciosGlobales,
 		private router: Router,
@@ -84,21 +80,13 @@ export class Multimedia implements OnInit {
 			.then(imagenes => {
 				if (imagenes) {
 
-					// console.log(imagenes);
 					
-					
-
-					// console.log(cad)
-
-					// cad = cad.replace(/=/g,'/');
-					//alert(JSON.stringify(imagenes));
 					if(this.serviciog.actividad.tipo == 'Proyecto' || this.serviciog.actividad.tipo == 'Provincia' || this.serviciog.actividad.tipo == 'Municipio' || this.serviciog.actividad.tipo == 'Resguardo' ){
 						this.serviciog.imagenes = imagenes;
 					}
 					
 					else if (this.serviciog.actividad.tipo == 'Beneficiario' || this.serviciog.actividad.tipo == 'Capitulo' || this.serviciog.actividad.tipo == 'Actividad') {
 						var img = imagenes[0].getarchivos;
-						// this.serviciog.imagenes = imagenes[0].getarchivos;
 
 						img = img.sort((a,b)=>{
 							if(a.fecha_creacion < b.fecha_creacion) return -1;
@@ -107,8 +95,6 @@ export class Multimedia implements OnInit {
 						});
 						this.serviciog.imagenes = img;
 					}
-					//alert(JSON.stringify(this.serviciog.imagenes));
-					//this.serviciog.imagenes = imagenes;
 				} else {
 					this.serviciog.imagenes = []
 				}
@@ -122,7 +108,6 @@ export class Multimedia implements OnInit {
 		this.servicios.getActividad(keym, id_usuario, id_caracteristica)
 			.then(actividad => {
 				if (actividad) {
-					//alert(tipo)
 					if (tipo == 'Provincia') {
 						this.item = actividad[0];
 
@@ -143,20 +128,16 @@ export class Multimedia implements OnInit {
 						this.subActivity3 = actividad;
 					}
 
-					//alert(JSON.stringify(this.subActivity))
-					//this.serviciog.axActividades = actividad;
 				}
 			});
 	}
 	/* ------------ */
 
 	checked(imagen) {
-		// var img = imagen;
 
 		imagen.ext = !imagen.ext;
 		imagen.visible_map = !imagen.visible_map;
 		var sss = this.imagenEditView.findIndex(x => x === imagen);
-		//alert(sss);
 		if (sss >= 0) {
 			this.imagenEditView.splice(sss, 1)
 		} else {
@@ -172,9 +153,7 @@ export class Multimedia implements OnInit {
 
 	cambio($event) {
 		this.serviciog.imagenes = [];
-		//alert("cambio " + JSON.stringify(this.tipo));
 		var formData = new FormData();
-		//alert(JSON.stringify(this.serviciog.actividad));
 		if (this.serviciog.actividad == null) {
 			var keym = this.serviciog.proyecto.keym;
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
@@ -202,10 +181,7 @@ export class Multimedia implements OnInit {
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
 				if (imagenes) {
-					//alert(JSON.stringify(imagenes))
 					var cad = JSON.stringify(imagenes);
-					// cad = cad.replace(/=/g,'/');
-					//alert(JSON.stringify(imagenes));
 					if(this.serviciog.actividad.tipo == 'Proyecto' || this.serviciog.actividad.tipo == 'Provincia' || this.serviciog.actividad.tipo == 'Municipio' || this.serviciog.actividad.tipo == 'Resguardo' ){
 						this.serviciog.imagenes = imagenes;
 					}
@@ -213,8 +189,6 @@ export class Multimedia implements OnInit {
 					else if (this.serviciog.actividad.tipo == 'Beneficiario' || this.serviciog.actividad.tipo == 'Capitulo' || this.serviciog.actividad.tipo == 'Actividad') {
 						this.serviciog.imagenes = imagenes[0].getarchivos;
 					}
-					//alert(JSON.stringify(this.serviciog.imagenes));
-					//this.serviciog.imagenes = imagenes;
 				} else {
 					this.serviciog.imagenes = []
 				}
@@ -225,22 +199,18 @@ export class Multimedia implements OnInit {
 	cambio2() {
 		this.flagResg = true;
 		this.searchSubActivity(this.item.keym, this.item.id_usuario, this.item.id_caracteristica, this.item.tipo);
-		//this.item = null; 
 	}
 
 	cambio3() {
 		this.flagBene = true;
 		this.searchSubActivity(this.item2.keym, this.item2.id_usuario, this.item2.id_caracteristica, this.item2.tipo);
-		//this.item = null; 
 	}
 
 	showFilter() {
 		this.vshowFilter = !this.vshowFilter;
-		//alert(this.vshowFilter)
 	}
 
 	getImagen() {
-		//alert(JSON.stringify(this.item3));
 		this.serviciog.imagenes = []
 		var formData = new FormData();
 
@@ -250,34 +220,24 @@ export class Multimedia implements OnInit {
 
 		var tipo = 'img';
 		var id = this.serviciog.usuario;
-		// alert(id);
 
 		formData.append('keym', keym);
 		formData.append('id_caracteristica', id_caracteristica);
 		formData.append('id_usuario', id_usuario);
 		formData.append('tipo', tipo);
-		//this.serviciog.actividad.tipo
 		formData.append('tipoAct', 'Beneficiario');
 		formData.append('tipoCar', 'Beneficiario');
 
 
 		this.servicios.getMultimedia(formData)
 			.then(imagenes => {
-				//alert(JSON.stringify(imagenes));
 				if (imagenes) {
 					
-					//var cad = JSON.stringify(imagenes);
-					// cad = cad.replace(/=/g,'/');
-
 					if(this.serviciog.actividad.tipo == 'Proyecto')
 						this.serviciog.imagenes = imagenes;
 					else{
 						this.serviciog.imagenes = imagenes[0].getarchivos;
-						//alert(JSON.stringify(this.serviciog.imagenes));
 					}
-					//alert(JSON.stringify(imagenes))
-					//var cad = JSON.stringify(imagenes);
-					//this.serviciog.imagenes = imagenes;
 					this.vshowFilter = !this.vshowFilter;
 				} else {
 					this.serviciog.imagenes = []
@@ -302,9 +262,7 @@ export class Multimedia implements OnInit {
 			var id_caracteristica = this.serviciog.proyecto.id_caracteristica;
 			var id_usuario = this.serviciog.proyecto.id_usuario;
 		};
-		// alert('aaaaaaaaaaa >>>>>>'+ this.imagenEditView.length);
 		if (this.imagenEditView.length > 0) {
-			// alert(JSON.stringify(this.imagenEditView))
 			var formData = new FormData(); /* variable que contendra todos los datos a enviarse al server */
 			formData.append("img_edit", JSON.stringify(this.imagenEditView));/* se carga formData  */
 			formData.append("tipo_car", this.serviciog.actividad.tipo);/* se carga el tipo de la caracteristica/actividad  */

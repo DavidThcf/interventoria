@@ -65,7 +65,6 @@
 							
 							<td>
 								<div style="position: relative;width: 100%">
-									<!-- <button  class="btn btn-primary col-md-6" (click)="entrarAct(subActividad)" class="btn btn-warning">	Entrar </button> -->
 
 									<div>
 										<div *ngIf="
@@ -75,7 +74,6 @@
 										class="btn btn-succes" ></div>
 
 										<ng-template #thenBlock1>
-											<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
 											<button (click)="asignarUsuario(subActividad)" 
 											class="btn btn-danger  col-md-6"> Asignar </button>
 										</ng-template >
@@ -87,7 +85,6 @@
 										class="btn btn-succes" ></div>
 
 										<ng-template #thenBlock2 >
-											<!--*ngIf="this.serviciog.usuario.id_usuario != subActividad.usuario_asignado"  -->
 											<button (click)="getUsers()"  data-toggle="modal" [attr.data-target]="'#' + subActividad.keym+'-'+subActividad.id_caracteristica+'-'+subActividad.id_usuario" class="btn btn-success  col-md-6"
 											>  Asignar. </button>
 											<app-assign-user 

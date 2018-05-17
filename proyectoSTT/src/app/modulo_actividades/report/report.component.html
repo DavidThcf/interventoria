@@ -1,14 +1,3 @@
-<!--
-
-<div style="width: 80%;margin: auto;">
-	<label *ngIf="!this.isTitleSelected"
-	for="porcentaje" 
-	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.titulo}}:  {{this.serviciog.actividad.porcentaje}} %</label>
-	<label *ngIf="this.isTitleSelected"
-	for="porcentaje" 
-	class="lab">Porcentaje de {{this.serviciog.actividad.nom_act}} frente a {{this.serviciog.tree_name[this.serviciog.tree_name.length - 2]}}:  {{this.serviciog.actividad.porcentaje}} %</label>
-</div>
- -->
 
 
 
@@ -27,8 +16,7 @@
 			<td class="tg-2nhx">FECHA INFORME
 			</td>
 			<td class="tg-yw4l" colspan="3">
-				<!-- <label id='fecha'></label> 
-				<now format="'dd - MM - yyyy'"></now>  -->
+
 
 				<div>
 					<p> {{today | date:'fullDate' | uppercase }}</p>
@@ -93,14 +81,6 @@
 			</td>
 		</tr>
 
-
-		<!-- {{#each observaciones}}
-            <tr>
-                <td class="tg-baqh">{{numero}}</td>
-                <td class="tg-baqh">{{descripcion}}</td>
-                <td class="tg-baqh">{{recomendacion}}</td>
-            </tr>
-        {{/each}}  -->
 	</table>
 
 
@@ -138,7 +118,6 @@
 	</table>
 	<!-- hola -->
 	<div class="divfot" width="100%" id="grafEjec" style="height: 450px">
-		<!-- <img id="imgr" alt="grafica" width="80%" height="80%" src='-grafica-' /> -->
 		<div>
 			<div style="display: block; height: 450px; width: 800px;margin-top: 15px" class="center-block">
 				<canvas baseChart [colors]='lineChartColors' [datasets]="doughnutChartData" [labels]="doughnutChartLabels" [options]="this.barChartOptions"
@@ -203,7 +182,6 @@
 	</div>
 
 	<!--tabla de registro fotografico-->
-	<!-- <div *ngIf="this.tipNum==4"> -->
 	<table class="tg2 ocultablePr ocultableVi ocultableMu ocultableRe " width="100%">
 		<tr>
 			<td class="tg-2nhx">REGISTRO FOTOGRAFICO</td>
@@ -211,7 +189,6 @@
 	</table>
 	<div class="divfot ocultablePr ocultableVi ocultableMu ocultableRe" width="100%" id="regfot">
 
-		<!-- ##########################################      FOR      ########################################################## -->
 
 		<div *ngFor="let item of this.images" style="float: left;height: 330px" class="col-md-4">
 			<br>
@@ -228,14 +205,7 @@
 
 		</div>
 
-		<!--  {{#each imagenes}}
-				<br>
-				<img id="img" width="80%" height="40%" alt={{nombre}} src='{{url}}'/>
-				<br>
-				<p><b>{{nombre}}</b></p>
-			{{/each}}  -->
 	</div>
-	<!-- </div> -->
 	<br>
 	<!--contine informacion de realizacion-->
 

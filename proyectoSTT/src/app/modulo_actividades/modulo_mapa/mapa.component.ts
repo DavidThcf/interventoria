@@ -76,15 +76,11 @@ export class Mapa implements OnInit {
     
     
 
-
-		//alert('OK'+JSON.stringify(this.serviciog.actividad));
-
 		if (this.serviciog.actividad != null) {
 			var formData = new FormData();
 			formData.append('caracteristica', JSON.stringify(this.caracteristica));
 			this.servicios.getCategoryList(formData)
 				.then(categorias => {
-					//alert(JSON.stringify('Categorias'+categorias));
 					this.categorias = categorias;
 					if (categorias[0]) {
 
@@ -96,18 +92,15 @@ export class Mapa implements OnInit {
 			formData.append('caracteristica', JSON.stringify(this.serviciog.actividad));
 			this.servicios.getPointList(formData)
 				.then(marcador => {
-					//alert(JSON.stringify(marcador));
 					if (marcador) {
 
 						this.id_categoria = marcador[0].id_categoria;
 						this.markers = marcador;
 						this.ax_markers = marcador;
-						//alert(JSON.stringify(marcador[0]));
 					}
 				});
 		}
 		else {
-			//alert(this.tipo);
 			this.ax_caracteristica.tipo = this.tipo;
 			if (this.tipo == undefined)
 				this.ax_caracteristica.tipo = 'Proyecto';
@@ -119,7 +112,6 @@ export class Mapa implements OnInit {
 			formData.append('caracteristica', JSON.stringify(this.caracteristica));
 			this.servicios.getCategoryList(formData)
 				.then(categorias => {
-					//alert(JSON.stringify('Categorias => '+categorias));
 					this.categorias = categorias;
 					if (categorias[0]) {
 						this.categoria = categorias[0];
@@ -130,7 +122,6 @@ export class Mapa implements OnInit {
 			formData.append('caracteristica', JSON.stringify(this.caracteristica));
 			this.servicios.getPointList(formData)
 				.then(marcador => {
-					//alert("Marcador => "+JSON.stringify(marcador));
 					if (marcador) {
 						this.id_categoria = marcador[0].id_categoria;
 						this.markers = marcador;
@@ -152,54 +143,14 @@ export class Mapa implements OnInit {
 			this.markers = this.ax_markers;
 		}
 
-		//alert(JSON.stringify(this.markers));
-
 	}
 
 	mapClicked($event: any) {
-		/*if(!this.mark){
-			var marker:any = {				
-				keym:this.serviciog.actividad.keym,
-				id_caracteristica:this.serviciog.actividad.id_caracteristica,
-				id_usuario:this.serviciog.actividad.id_usuario,
-				latitud: $event.coords.lat,
-				longitud: $event.coords.lng,
-				id_categoria:this.categoria.id_categoria,
-				url:this.http + this.categoria.id_categoria + '.svg'
-			};
-			
-			var formData = new FormData();
-			formData.append('marcador',JSON.stringify(marker));
-			this.servicios.regPointMap(formData).
-			then(message => {
-				if(!message){
-					alert("Error al Registrar");
-				}else{
-					this.markers.push(marker);
-					//alert(JSON.stringify(this.markers))
-				}
-			});
-		}else{
-			var marker:any = {
-				id_marcador:  this.id_categoria,
-				keym:this.serviciog.actividad.keym,
-				id_caracteristica:this.serviciog.actividad.id_caracteristica,
-				id_usuario:this.serviciog.actividad.id_usuario,
-				latitud: $event.coords.lat,
-				longitud: $event.coords.lng,
-				id_categoria:this.categoria.id_categoria
-			};
-			this.markers.push(marker);
-			this.lat= $event.coords.lat;
-			this.lng = $event.coords.lng;
-
-			
-		}*/
+		
 	}
 	
 
 	buscarLugar() {
-		//this.setCurrentPosition();		
 		this.mapsAPILoader.load().then(() => {
 			let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
 
@@ -286,20 +237,10 @@ export class Mapa implements OnInit {
 	}
 
 	guardarPunto(marker) {
-		/*var formData = new FormData();
-		formData.append('marcador',JSON.stringify(marker));
-		this.servicios.updatePointMap(formData).
-		then(message => {
-			if(!message){
-				alert("Error al actualizar");
-			}else{
-				this.markers.push(marker);
-			}
-		});*/
+		
 	}
 
 	entrarAct(subActividad) {
-		// alert(JSON.stringify(subActividad));
 		this.serviciog.tree_name.push(subActividad.nom_act);
 		this.serviGloAct.tipo2 = this.serviciog.tipos_act[this.serviciog.tipos_act.indexOf(subActividad.tipo) + 1];
 
@@ -323,7 +264,6 @@ export class Mapa implements OnInit {
 					this.serviciog.actividades = actividad;
 					this.serviciog.axActividades = actividad;
 					this.serviciog.activityList = actividad;
-					//alert(JSON.stringify(actividad));
 				}
 				this.actPanel.calcPercentReal();
 				this.actPanel.calValueProgra();

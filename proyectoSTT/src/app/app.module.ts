@@ -44,7 +44,6 @@ import { PublicBeneficiaryModule } from './modulo_public_beneficiary/public-bene
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyBOeLL07vQ6T4XPjzxkY1lpbm9Z0nAymN8 ',
       libraries: ["places"]
-      //apiKey: 'AIzaSyBstXoO7yz2v1JKRl2dwht0EvS8r8rBpe0 '      
     }),
     FormsModule,
     ReactiveFormsModule,
