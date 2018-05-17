@@ -66,12 +66,12 @@ export class ObservacionesComponent implements OnInit {
 
     this.servicios.regObservacion(formData)
       .then(message => {
-
+        
         var mark = {
           usuario: this.serviciog.usuario.nombre + ' ' +
             this.serviciog.usuario.apellido, observacion: cad
         };
-        this.observaciones.push(mark);
+        // this.observaciones.push(mark);
         // alert(this.serviciog.actividad.tipo);
         if (['Proyecto', 'Provincia', 'Municipio', 'Resguardo'].indexOf(this.serviciog.actividad.tipo) >= 0 || this.serviciog.usuario.tipo_usuario != 'sup') {
           this.serviciog.socket.emit('sendSocketNovedad', {
@@ -85,10 +85,41 @@ export class ObservacionesComponent implements OnInit {
             'tipo': 'obs'
           });
         }
-
+        this.callUpdateRemarks();
 
       })
   }
+
+  callUpdateRemarks(){
+    if (this.isTitleSelected && this.serviciog.actividad == null)
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    else if (this.serviciog.actividad)
+      var dat = {
+        keym: this.serviciog.actividad.keym,
+        id_caracteristica: this.serviciog.actividad.id_caracteristica,
+        id_usuario: this.serviciog.actividad.id_usuario,
+        tipo: this.serviciog.actividad.tipo
+      };
+    else
+      var dat = {
+        keym: this.serviciog.proyecto.keym,
+        id_caracteristica: this.serviciog.proyecto.id_caracteristica,
+        id_usuario: this.serviciog.proyecto.id_usuario,
+        tipo: this.serviciog.proyecto.tipo
+      };
+    var formData = new FormData();
+    formData.append("caracteristica", JSON.stringify(dat));
+
+    this.servicios.getObservaciones(formData).then(message => {
+      this.serviGloAct.observaciones = message;
+    });
+  }
+
   okReporte(obs, act) {
     obs.aprobado = act;
 

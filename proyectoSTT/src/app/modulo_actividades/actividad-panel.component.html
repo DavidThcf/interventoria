@@ -665,9 +665,9 @@
 
 					<div style="display: block; height: 552px; width: 900px" class="center-block">
 						<canvas baseChart [datasets]="barChartData" [colors]="lineChartColors" [labels]="barChartLabels" [options]="barChartOptions"
-						 [legend]="barChartLegend" [chartType]="barChartType" (chartHover)="chartHovered($event)" (chartClick)="chartClicked($event)"></canvas>
+						 [legend]="barChartLegend" [chartType]="barChartType"></canvas>
 					</div>
-					<!-- aqui -->
+					<!-- aqui --> 
 					<!-- tabla -->
 					<div style="width: 80%;" class="center-block" *ngIf="
 					this.serviciog.actividad.tipo == 'Proyecto' ||

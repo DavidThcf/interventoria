@@ -372,7 +372,7 @@ module.exports.opObservation = function (data, opc) {
             break;
         case 'UP_EST':
             var query1 = `
-                update observaciones set aprobado = `+data.aprobado+` , visto = true, fecha_aprovacion = `+fec+`
+                update observaciones set aprobado = `+data.aprobado+` , visto = true, fecha_aprovacion = '`+fec+`'
                 where id_observacion = `+ data.id_observacion + `;
             `;
             break;
